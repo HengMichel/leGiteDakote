@@ -1,0 +1,261 @@
+.bgAllpage{
+    background-image: url('../imgs/background_gite.webp');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    width: 100%;
+}
+.container5 {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.fa-beat-fade {
+    /* Ajustez la durée d'animation selon vos préférences (1s = 1 seconde) */
+    animation-duration: 3s; 
+}
+.descriptionDescriptif{
+    color: rgb(117, 8, 99);
+    background-color: rgba(219, 218, 218, 0.625);
+}
+.descriptionDescriptif>p{
+    font-weight: bold;
+}
+.p2bis{
+    display: none;
+}
+.form-control{
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+.btn{
+    background-color: rgba(167, 166, 166, 0.625);
+}
+.proprio>h4{
+    margin-top: 30px;
+    color: yellow;
+}
+.photoProfile>img{
+    width: 250px;
+    height: 250px;
+}
+span{
+    font-size: 35px;
+    font-weight: bolder;
+    color: rgb(232 62 197);
+    background-color: rgba(167, 166, 166, 0.625);
+}
+.restaurant>h1{
+    padding-left: 20px;
+    /* 0.5 représente l'opacité (ajustez selon vos préférences) */
+    background-color: rgba(0, 0, 0, 0.3); 
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+.service1{
+    font-size: 15px;
+    font-weight: bolder;
+    color: rgb(207, 35, 179);
+}
+.horaire{
+    padding: 15px;
+}
+.service1>p{
+    background-color: rgba(0, 0, 0, 0.3); 
+    font-weight: bold;
+    margin: auto;
+    font-size: 17px;
+    color: rgb(203 173 26);
+}
+.service1>h2{
+    background-color: rgba(0, 0, 0, 0.3); 
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+}
+.petitDejeuner>h2{
+    margin-bottom: 25px;
+    padding-top: 25px;
+    text-align: center;
+    text-decoration: double;
+    color: plum;
+}
+.petitDejeuner>img {
+    width: 33%;
+}
+.petitDejeuner {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.dejeuner{
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+.dejeuner>h2{
+    color: plum;
+    background-color: rgba(0, 0, 0, 0.5); 
+
+}
+.extreme{
+    background-color: rgba(0, 0, 0, 0.1);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    width: 100%;
+}
+.extreme>h2 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    color: rgb(154 43 235);
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 1px;
+}
+.douceur{
+    background-color: rgba(0, 0, 0, 0.1);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    width: 100%;
+}
+.douceur>h2{
+    padding-top: 15px;
+    margin-bottom: 0px;
+    color: darkseagreen;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+.douceur>h3{
+    color: darkseagreen;
+    font-weight: bolder;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    background-color: rgba(0, 0, 0, 0.4); 
+    margin-bottom: 1px;
+}
+.detente{
+    background-color: rgba(0, 0, 0, 0.1);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    width: 100%;
+}
+.detente>h2{
+    padding-top: 15px;
+    color: orange;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.3); 
+    margin-bottom: 0px;
+}
+.detente>h3{
+    background-color: rgba(0, 0, 0, 0.3); 
+    color: orange;
+    font-weight: bolder;
+    padding-bottom: 30px;
+    margin-bottom: 1px;
+}
+.pied{
+    text-align: center;
+    padding-bottom: 10px;
+}
+.canc{
+    text-decoration: none;
+}
+/*************** MEDIAQUERY ***************/
+@media(max-width: 1023px){
+    .navbar-nav{
+        display :-webkit-box;
+    }
+    .p2bis{
+        display: none;
+    }
+    .nav-link{
+        margin-right: 10px;
+        font-size: medium;
+    }
+    .restaurant>h1{
+        width: 100%;
+    }
+    .service1>h2{
+        font-size: 45px;
+    }
+    .horaire{
+        font-size: 17px;
+        width: 100%;
+    }
+    .petitDejeuner>img{
+        width: 49%;
+    }
+    .petitDejeuner {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .dejeuner{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    .extreme{
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100%;
+    }
+    .douceur{
+        background-color: rgba(0, 0, 0, 0.1); 
+        width: 100%;
+    }
+    .detente{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+}
+@media(max-width: 480px){
+    .navbar-nav{
+        display: contents;
+    }
+    .nav-link{
+        padding-bottom: 0px;
+        margin-right: 10px;
+        font-size: medium;
+    }
+    .p1 {
+        display: none;
+    }
+    .p2bis{
+        display: block;
+        color: rgb(117, 8, 99);
+        background-color: rgba(219, 218, 218, 0.625);
+    }
+    .fa-beat-fade {
+        /* Ajustez la durée d'animation selon vos préférences (1s = 1 seconde) */
+        animation-duration: 6s; 
+    }
+    .service1 {
+        width: 100%;
+        font-size: 15px;
+        font-weight: bolder;
+        color: rgb(207, 35, 179);
+    }
+    .restaurant>h1 {
+        width: 100%;
+    }
+    .horaire {
+        font-size: 15px;
+        width: 100%;
+    }
+    .petitDejeuner {
+        width: 100%;
+    }
+    .petitDejeuner>img {
+        width: 100%;
+    }
+    .dejeuner{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    .extreme{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    .douceur{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    .detente{
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+}
+/*************** END MEDIAQUERY ***************/
