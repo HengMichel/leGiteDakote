@@ -1,7 +1,5 @@
 <?php 
-session_start();
-require_once "model/functions.php";
-include_once "inc/header.php"; 
+
 $userBookList = userBookList($_SESSION["id_user"]);
 $price = 0;
 ?>
@@ -20,17 +18,16 @@ $price = 0;
             </tr>
         </thead>
         <tbody>
-            <?php foreach($userBookList as $book){ 
+            <?php foreach($bookingss as $bookings){ 
                 $price+=$book['booking_price'];?>
                 <tr>
-                    <td class="idbook border-success-subtle border-3 mt-2"><?= $book["id_booking"]; ?></td>
-                    <td class="booking_start_date border-success-subtle border-3 mt-2"><?= $book["booking_start_date"]; ?></td>
-                    <td class="booking_end_date border-success-subtle border-3 mt-2"><?= $book["booking_end_date"]; ?></td>
-                    <td class="booking_state border-success-subtle border-3 mt-2"><?= $book["booking_state"]; ?></td>
-                    <td class="booking_price border-success-subtle border-3 mt-2"><?= $book["booking_price"]; ?></td>
+                    <td class="idbook border-success-subtle border-3 mt-2"><?= $bookings->getId_booking() ?></td>
+                    <td class="booking_start_date border-success-subtle border-3 mt-2"><?= $bookings->getBooking_start_date() ?></td>
+                    <td class="booking_end_date border-success-subtle border-3 mt-2"><?= $bookings->getBooking_end_date() ?></td>
+                    <td class="booking_state border-success-subtle border-3 mt-2"><?= $bookingsge->tBooking_state() ?></td>
+                    <td class="booking_price border-success-subtle border-3 mt-2"><?= $bookingsget->Booking_price() ?></td>
                     <td class="btn bg-success m-0 border-warning border-3 mt-2 m-auto">
-                        <a class="canc link-warning fw-medium" href="http://localhost/projetGite/model/db_booking.php?id_book=
-                        <?=$book['id_booking']; ?>">Cancel</a></td>
+                        <a class="canc link-warning fw-medium" href="<?= addLink("bookings/cancelBookings") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a></td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -43,4 +40,3 @@ $price = 0;
     </table>
 </div>    
 
-<?php include_once "inc/footer.php"; ?>
