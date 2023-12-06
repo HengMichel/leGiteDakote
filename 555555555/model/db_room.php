@@ -1,5 +1,5 @@
 <?php
-require_once "./inc/database.php";
+require_once "../inc/database.php";
 if(isset($_POST["add_room"])){
     // $hotel = htmlspecialchars($_POST["hotel"]);
     $roomNumber = htmlspecialchars($_POST["room_number"]);
@@ -26,6 +26,7 @@ if(isset($_POST["add_room"])){
             // header("Location: http://projetGite.com/admin/room_list.php");
         } catch (PDOException $e) {
             echo $e->getMessage();
-        }
+        } header("Location: http://localhost/projetGite/admin/admin.php");
+        exit;
     }
 }

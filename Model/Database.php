@@ -6,7 +6,7 @@ class Database
 {
     // connetion à la base de données
     private $host = "localhost";
-    private $db_name = "wf3_php_final_michel";
+    private $db_name = "gite_db";
     private $username = "root";
     private $password = "";
     private $connection = null;
