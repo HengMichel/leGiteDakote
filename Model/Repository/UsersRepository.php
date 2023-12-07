@@ -53,26 +53,46 @@ class UsersRepository extends BaseRepository
         }
     }
 
-    // public function updatePlayer(Users $users)
-    // {
-    //     $sql = "UPDATE player 
-    //                      SET email = :email, nickname = :nickname
-    //                      WHERE id_player = :id_player";
-    //     $request = $this->dbConnection->prepare($sql);
-    //     $request->bindValue(":email", $player->getEmail());
-    //     $request->bindValue(":nickname", $player->getNickname());
-    //     $request->bindValue(":id_player", $player->getId());
-    //     $request = $request->execute();
-    //     if ($request) {
-    //         if ($request == 1) {
-    //             Session::addMessage("success",  "La mise à jour de du joueur a bien été éffectuée");
-    //             return true;
-    //         }
-    //         Session::addMessage("danger",  "Erreur : du joueur n'a pas été mise à jour");
-    //         return false;
-    //     }
-    //     Session::addMessage("danger",  "Erreur SQL");
-    //     return null;
-    // }
+    public function logUsers(Users $users)
+{
+    $sql = "SELECT * FROM users WHERE email = :email";
+    $request = $this->dbConnection->prepare($sql);
+    $request->bindValue(":email", $users->getEmail());
+    
+    try {
+        $result = $request->execute();
+
+        if ($result) {
+            $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
+
+            if (empty($userInfo)) {
+                echo "Utilisateur inconnu";
+            } else {
+                if (password_verify($users->getPassword(), $userInfo["password"])) {
+                    $_SESSION["role"] = $userInfo["role"];
+                    $_SESSION["id_user"] = $userInfo["id_user"];
+
+                    // Si l'utilisateur est un admin
+                    if ($userInfo["role"] == "admin") {
+                        header("admin/home");
+                        exit;
+                    } else {
+                        header("users/dashboard_users.php");
+                        exit;
+                    }
+                } else {
+                    echo "Mot de passe incorrect";
+                }
+            }
+        } else {
+            Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
+            return false;
+        }
+    } catch (\PDOException $ex) {
+        Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
+        return false;
+    }
+}
+
     
 }

@@ -4,6 +4,7 @@ namespace Form;
 
 use Model\Entity\Users;
 use Model\Repository\UsersRepository;
+use Service\Session;
 
 class UsersHandleRequest extends BaseHandleRequest
 {
@@ -36,9 +37,7 @@ class UsersHandleRequest extends BaseHandleRequest
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
 
-            // Est-ce que le pseudo existe déjà dans la bdd ?
-
-            // $request = $this->playerRepository->findByPseudo($pseudo);
+            // Est-ce que l'email existe déjà dans la bdd ?
             $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
             if ($request) {
                 $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
@@ -113,18 +112,59 @@ class UsersHandleRequest extends BaseHandleRequest
         }
     }
 
-    // public function handleUpdate($id)
-    // {
-    //     if (isset($_GET['idUser'])) {
-
-    //         $idUser = htmlspecialchars($_GET['idUser']);
-        
-    //         User::UserById($idUser);
-    //     }
-    // }
-    public function handleSecurity()
+    public function handleSecurity(Users $users)
     {
-       
-        
+        if (isset($_POST['submit'])) {
+            $errors = [];
+    
+            // Vérification de la validité du formulaire
+            if (empty($_POST['password'])) {
+                $errors[] = "Le mot de passe ne peut pas être vide";
+            }
+    
+            if (empty($_POST['email'])) {
+                $errors[] = "L'email ne peut pas être vide";
+            }
+    
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+    
+            if (strlen($email) < 2) {
+                $errors[] = "L'email doit avoir au moins 2 caractères";
+            }
+    
+            if (strlen($email) > 20) {
+                $errors[] = "L'email ne peut avoir plus de 20 caractères";
+            }
+    
+            if (strpos($email, " ") !== false) {
+                $errors[] = "Les espaces ne sont pas autorisés pour l'email";
+            }
+    
+            // Est-ce que l'email existe déjà dans la bdd ?
+            $existingUser = $this->usersRepository->findByAttributes($users, ["email" => $email]);
+    
+            if ($existingUser) {
+                // Vérifier le mot de passe
+                if (password_verify($password, $existingUser->getPassword())) {
+                    // L'utilisateur existe et le mot de passe est correct
+                    Session::addMessage("success", "Connexion réussie!");
+                    Session::authentication($existingUser);
+                    // Rediriger vers la page appropriée
+                    if ($existingUser->getRole() == "admin") {
+                        header("admin/home");
+                    } else {
+                        header("users/home");
+                    }
+                    exit();
+                } else {
+                    $errors[] = "Mot de passe incorrect";
+                }
+            } else {
+                $errors[] = "Utilisateur inconnu";
+            }
+    
+        }
     }
+    
 }

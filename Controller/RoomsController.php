@@ -5,7 +5,7 @@ namespace Controller;
 use Model\Entity\Rooms;
 use Form\RoomsHandleRequest;
 use Controller\BaseController;
-use Model\Repository\RoomsRepository;
+use Controller\RoomsCrudController;
 
 class RoomsController extends BaseController
 {
@@ -15,7 +15,7 @@ class RoomsController extends BaseController
 
     public function __construct()
     {
-        $this->roomsRepository = new RoomsRepository;
+        $this->roomsRepository = new RoomsCrudController;
         $this->form = new RoomsHandleRequest;
         $this->rooms = new Rooms;
     }

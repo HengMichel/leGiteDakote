@@ -1,7 +1,3 @@
-<?php
-session_start();
-include_once "inc/header.php";
-?>
 <div class="container">
     <div class="bienvenue link-warning">
         <h1>Bienvenue au gîte DAKOTÉ</h1>
@@ -27,6 +23,3 @@ Au Port de l'Aber Wrac'h, cette belle maison neuve en bois est confortable et lu
     </div>
     <iframe class="map mt-3 border border-4 border-warning" width="100%" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2628.7214751326624!2d2.3966389!3d48.7872074!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6739a5f64b489%3A0x5fa105b2ca801da8!2sCentre%20des%20Finances%20Publiques!5e0!3m2!1sfr!2sfr!4v1698741539012!5m2!1sfr!2sfr" width="1200" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
-<?php
-include_once "inc/footer.php";
-?>

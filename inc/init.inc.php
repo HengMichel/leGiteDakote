@@ -6,5 +6,5 @@ require "autoload.php";
 session_start();
 include __DIR__ . "/functions.inc.php";
 define("ROOT", "/");
-// define("ROLE_USER", 10);
-// define("ROLE_ADMIN", 50);
+define("ROLE_USER", 10);
+define("ROLE_ADMIN", 50);

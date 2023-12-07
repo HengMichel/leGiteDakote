@@ -1,7 +1,3 @@
-<?php
-session_start();
-include_once "inc/header.php";
-?>
 <div class="restaurant link-warning">  
   <h1>Les services</h1>
   <div class="service1">
@@ -252,6 +248,3 @@ include_once "inc/header.php";
     </div>
   </div>
 </div>
-<?php
-include_once "./inc/footer.php";
-?>

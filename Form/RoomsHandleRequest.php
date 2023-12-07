@@ -3,7 +3,7 @@
 namespace Form;
 
 use Model\Entity\Rooms;
-use Model\Repository\RoomsRepository;
+use Controller\RoomsCrudController;
 
 class RoomsHandleRequest extends BaseHandleRequest
 {
@@ -11,7 +11,7 @@ class RoomsHandleRequest extends BaseHandleRequest
 
     public function __construct()
     {
-        $this->roomsRepository  = new RoomsRepository;
+        $this->roomsRepository  = new RoomsCrudController;
     }
 
     public function handleForm(Rooms $rooms)

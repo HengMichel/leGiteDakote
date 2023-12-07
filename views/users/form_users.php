@@ -2,7 +2,6 @@
 $mode = $mode ?? "insertion";
 require "views/errors_form.php";
 ?>
-
 <div class="container5 container">
     <form method="post">
 

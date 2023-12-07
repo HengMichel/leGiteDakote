@@ -4,7 +4,7 @@
         <!-- fa-beat-fade -->
         <div class="card border-warning border-4 mb-5 " style="width: 20rem;">
             <div class="img_room">
-                <img src="assets/imgs/<?= $rooms->getRoom_imgs() ?> " class="card-img-top img-fluid" alt="image">
+                <img src="assets/imgs/chambres/<?= $rooms->getRoom_imgs() ?> " class="card-img-top img-fluid" alt="image">
             </div>
             <div class="card-body bg-success">
                 <p class="card-text fa-2x fw-medium"><?= $rooms->getPrice() ?>€/nuit</p>

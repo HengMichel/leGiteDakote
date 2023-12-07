@@ -1,0 +1,22 @@
+<?php
+$mode = $mode ?? "insertion";
+require "views/errors_form.php";
+?>
+<div class="container5 container">
+    <form method="post">
+        <div class="row">
+            <div class="form-group link-warning fw-medium col-6">
+                <label class="email bg-dark" for="email">Email :</label>
+                <input type="email" class="form-control border-success border-4 mt-3 bg-success-subtle fw-medium" id="email" name="email" value="<?= $users->getEmail() ?>"
+                <?= $mode == "suppression" ? "disabled" : "" ?>>
+            </div>
+            <div class="form-group link-warning fw-medium col-6">
+                <label class="password bg-dark" for="password">Password :</label>
+                <input type="password" class="form-control border-success border-4 mt-3 bg-success-subtle fw-medium" id="password" name="password"value="<?= $users->getPassword() ?>"
+                <?= $mode == "suppression" ? "disabled" : "" ?>>
+            </div>
+        </div>
+        <button type="submit" id="bouton" class="btn mt-5 mb-5 fw-bold bg-success border-warning border-4 link-warning m-auto" name="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+        <a href="<?= addLink("users") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
+    </form>
+</div>
