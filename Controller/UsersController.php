@@ -19,15 +19,6 @@ class UsersController extends BaseController
         $this->users = new Users;
     }
 
-    public function list()
-    {
-        $userss = $this->usersRepository->findAll($this->users);
-
-        $this->render("users/list_users.php", [
-            "userss" => $userss
-        ]);
-    }
-
     public function newUsers()
     {
         $users = $this->users;
@@ -46,19 +37,19 @@ class UsersController extends BaseController
         ]);
     }
 
-    public function deleteUsers($id)
+    public function CoUsers($users)
     {
-        $players = $this->usersRepository->deleteUsersById($this->users);
-        $this->usersRepository->deleteUsersById($id);
-        return redirection(addLink("users"));
+        $userss = $this->usersRepository->logUsers($this->users);
+        $this->usersRepository->logUsers($users);
+        return redirection(addLink("users/dashboard_users.php"));
     }
 
-    // public function modifPlayer($player)
-    // {
-    //     $players = $this->playerRepository->updatePlayer($this->player);
-    //     $this->playerRepository->updatePlayer($player);
-    //     return redirection(addLink("player"));
-    // }
+    public function decoUsers($users)
+    {
+        $userss = $this->usersRepository->logoutUsers($this->users);
+        $this->usersRepository->logoutUsers($users);
+        return redirection(addLink("home"));
+    }
 
 
 }

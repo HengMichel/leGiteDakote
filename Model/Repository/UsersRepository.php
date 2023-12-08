@@ -8,6 +8,7 @@ use Service\Session;
 class UsersRepository extends BaseRepository
 {
     public function addUsers(Users $users)
+
     {
         $sql = "INSERT INTO users (id_user, last_name, first_name, email, password, role, birthday, address, phone_number, gender) VALUES (:id_user, :last_name, :first_name, :email, :password, :role, :birthday, :address, :phone_number, :gender)";
         $request = $this->dbConnection->prepare($sql);
@@ -32,67 +33,83 @@ class UsersRepository extends BaseRepository
         }
         Session::addMessage("danger",  "Erreur SQL");
         return null;
-        }
-    
+    }
+
     public function deleteUsersById($id)
+
     {
+
         $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
         $request->bindParam(':id_user', $id);
     
         if ($request->execute()) {
+
             if ($request->rowCount() == 1) {
+
                 Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
                 return true;
-            } else {
-                Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
-                return false;
-            }
-        } else {
+
+
+                } else {
+                    Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
+                    return false;
+                }
+
+        }else{
+
             Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
             return false;
         }
     }
 
     public function logUsers(Users $users)
-{
-    $sql = "SELECT * FROM users WHERE email = :email";
-    $request = $this->dbConnection->prepare($sql);
-    $request->bindValue(":email", $users->getEmail());
-    
-    try {
-        $result = $request->execute();
+    {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":email", $users->getEmail());
+        try {
+            
+            $result = $request->execute();
+            if ($result) {
 
-        if ($result) {
-            $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
+                $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
 
-            if (empty($userInfo)) {
-                echo "Utilisateur inconnu";
-            } else {
-                if (password_verify($users->getPassword(), $userInfo["password"])) {
-                    $_SESSION["role"] = $userInfo["role"];
-                    $_SESSION["id_user"] = $userInfo["id_user"];
+                if (empty($userInfo)) {
+                    echo "Utilisateur inconnu";
+                }else{
 
-                    // Si l'utilisateur est un admin
-                    if ($userInfo["role"] == "admin") {
-                        header("admin/home");
-                        exit;
-                    } else {
-                        header("users/dashboard_users.php");
-                        exit;
+                    if (password_verify($users->getPassword(), $userInfo["password"])) {
+
+                        $_SESSION["role"] = $userInfo["role"];
+                        $_SESSION["id_user"] = $userInfo["id_user"];
+
+                        // Si l'utilisateur est un admin
+                        if ($userInfo["role"] == "admin") {
+                            header("admin/home");
+                            exit;
+                        }else{
+                            header("users/dashboard_users.php");
+                            exit;
+                        }
+
+                    }else{
+                        echo "Mot de passe incorrect";
                     }
-                } else {
-                    echo "Mot de passe incorrect";
                 }
+            }else{        
+                Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
+                return false;
             }
-        } else {
-            Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
+
+        } catch (\PDOException $ex) {
+            Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
             return false;
         }
-    } catch (\PDOException $ex) {
-        Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
-        return false;
     }
-}
 
+    public function logoutUsers(Users $users)
+    {
+        Session::destroy();
+    } 
     
 }

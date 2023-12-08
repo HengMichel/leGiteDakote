@@ -10,4 +10,8 @@ class HomeController extends BaseController
     {
         $this->render("home.php");
     }
+    public function serviceDuGite()
+    {
+        $this->render("serviceDuGite.php");
+    }
 }

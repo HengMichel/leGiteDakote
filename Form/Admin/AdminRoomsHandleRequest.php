@@ -1,17 +1,18 @@
 <?php
 
-namespace Form;
+namespace Form\Admin;
 
 use Model\Entity\Rooms;
-use Controller\RoomsCrudController;
+use Form\BaseHandleRequest;
+use Model\Repository\Admin\AdminRoomsCrudRepository;
 
-class RoomsHandleRequest extends BaseHandleRequest
+class AdminRoomsHandleRequest extends BaseHandleRequest
 {
     private $roomsRepository;
 
     public function __construct()
     {
-        $this->roomsRepository  = new RoomsCrudController;
+        $this->roomsRepository  = new AdminRoomsCrudRepository;
     }
 
     public function handleForm(Rooms $rooms)

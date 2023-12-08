@@ -1,19 +1,19 @@
 <?php
 
-namespace Controller;
+namespace Model\Repository\Admin;
 
 use Model\Entity\Rooms;
 use Service\Session;
 use Model\Repository\BaseRepository;
 
-class RoomsCrudController extends BaseRepository
+class AdminRoomsCrudRepository extends BaseRepository
 {
     public function addRooms(Rooms $rooms)
-{
+    {
     // Traitement de l'image
     $imgName = $_FILES["room_imgs"]["name"];
     $tmpName = $_FILES["room_imgs"]["tmp_name"];
-    $destination = $_SERVER["DOCUMENT_ROOT"] . "/projetGite/assets/imgs/chambres/" . $imgName;
+    $destination = $_SERVER["DOCUMENT_ROOT"] . "/leGiteDakote/assets/imgs/chambres/" . $imgName;
 
     // Valider et déplacer le fichier téléchargé
     if (move_uploaded_file($tmpName, $destination)) {
@@ -30,35 +30,23 @@ class RoomsCrudController extends BaseRepository
         try {
             $result = $request->execute();
 
-            if ($result) {
+                if ($result) {
                 Session::addMessage("success", "La nouvelle chambre a bien été enregistrée");
                 return true;
-            } else {
+                } else {
                 Session::addMessage("danger", "Erreur : la chambre n'a pas été enregistrée");
                 return false;
-            }
-        } catch (\PDOException $exception) {
+                }
+            } catch (\PDOException $exception) {
             Session::addMessage("danger", "Erreur SQL : " . $exception->getMessage());
             return false;
+            }
+        } else {
+            // Il y a eu un problème avec le téléchargement de l'image
+            Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
+            return false;
         }
-    } else {
-        // Il y a eu un problème avec le téléchargement de l'image
-        Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
-        return false;
     }
-}
-
-
-    public function findAllRooms()
-    {
-        $request = $this->dbConnection->prepare("SELECT * FROM rooms");
-
-        if ($request->execute()) {
-            return $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Rooms");
-            } else {
-                return null;
-        }
-    }   
 
     public function findRoomsById($id)
     {
@@ -85,6 +73,4 @@ class RoomsCrudController extends BaseRepository
         // La suppression a échoué
         }
     }
-
-
 }
