@@ -16,7 +16,7 @@ require "views/errors_form.php";
                 <?= $mode == "suppression" ? "disabled" : "" ?>>
             </div>
         </div>
-        <button type="submit" id="bouton" class="btn mt-5 mb-5 fw-bold bg-success border-warning border-4 link-warning m-auto" name="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
-        <a href="<?= addLink("users") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
+        <button type="submit" id="bouton" class="btn mt-5 mb-5 fw-bold bg-warning link-success m-auto" name="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+        <a href="<?= addLink("users/coUsers") ?>" class="btn bg-light mt-5 mb-5 link-success fw-bolder">Annuler</a>
     </form>
 </div>

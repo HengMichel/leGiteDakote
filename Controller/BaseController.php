@@ -15,25 +15,25 @@ abstract class BaseController
         include "public/footer.php";
     }
 
-    // public function getUser()
-    // {
-    //     $user = Session::isConnected();
+    public function getUsers()
+    {
+        $users = Session::isConnected();
 
-    //     if (!$user) {
-    //         redirection("/error/403.php");
-    //     }
-    //     return $user;
-    // }
+        if (!$users) {
+            redirection("/error/403.php");
+        }
+        return $users;
+    }
 
-    // public function getAdmin()
-    // {
-    //     $user = Session::isAdmin();
+    public function getAdmin()
+    {
+        $users = Session::isAdmin();
 
-    //     if (!$user) {
-    //         redirection("/error/403.php");
-    //     }
-    //     return $user;
-    // }
+        if (!$users) {
+            redirection("/error/403.php");
+        }
+        return $users;
+    }
 
     public function setMessage($type, $message)
     {

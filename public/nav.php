@@ -13,7 +13,7 @@
                     <a class="nav-link link-warning" href="<?= addLink("home","serviceDuGite") ?>">Nos Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-warning" href="<?= addLink("security","login.php") ?>">Se connecter</a>
+                    <a class="nav-link link-warning" href="<?= addLink("users","loginUsers") ?>">Se connecter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-warning" href="<?= addLink("users","newUsers") ?>">S'inscrire</a>

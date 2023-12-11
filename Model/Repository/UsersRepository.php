@@ -35,76 +35,70 @@ class UsersRepository extends BaseRepository
         return null;
     }
 
-    public function deleteUsersById($id)
-
-    {
-
-        $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
-        $request->bindParam(':id_user', $id);
-    
-        if ($request->execute()) {
-
-            if ($request->rowCount() == 1) {
-
-                Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
-                return true;
-
-
-                } else {
-                    Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
-                    return false;
-                }
-
-        }else{
-
-            Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
-            return false;
-        }
-    }
-
     public function logUsers(Users $users)
     {
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM users WHERE email = :email AND password = :password AND id_user = :id_user
+        ";
         $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":email", $users->getEmail());
-        try {
-            
-            $result = $request->execute();
-            if ($result) {
+        $request->bindValue(":email", $users->getEmail()); 
+        $request->bindValue(":password", $users->getPassword());
+        $request->bindValue(":id_user", $users->getId_user());
+ 
+        $result = $request->execute();
+        if ($result) {
+            $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
+            if ($userInfo) {
 
-                $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
-
-                if (empty($userInfo)) {
-                    echo "Utilisateur inconnu";
-                }else{
-
-                    if (password_verify($users->getPassword(), $userInfo["password"])) {
-
-                        $_SESSION["role"] = $userInfo["role"];
-                        $_SESSION["id_user"] = $userInfo["id_user"];
-
-                        // Si l'utilisateur est un admin
-                        if ($userInfo["role"] == "admin") {
-                            header("admin/home");
-                            exit;
-                        }else{
-                            header("users/dashboard_users.php");
-                            exit;
-                        }
-
-                    }else{
-                        echo "Mot de passe incorrect";
-                    }
-                }
-            }else{        
-                Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
-                return false;
+            Session::addMessage("success",  "Vous êtes connecté");
+                return true;
             }
-
-        } catch (\PDOException $ex) {
-            Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
+            Session::addMessage("danger",  "Erreur : Vous n'êtes pas connecté");
             return false;
         }
+        Session::addMessage("danger",  "Erreur SQL");
+        return null;
+
+        // $sql = "SELECT * FROM users WHERE email = :email";
+        // $request = $this->dbConnection->prepare($sql);
+        // $request->bindValue(":email", $users->getEmail());
+        // try {
+            
+        //     $result = $request->execute();
+        //     if ($result) {
+
+        //         $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
+
+        //         if (empty($userInfo)) {
+        //             echo "Utilisateur inconnu";
+        //         }else{
+
+        //             if (password_verify($users->getPassword(), $userInfo["password"])) {
+
+        //                 $_SESSION["role"] = $userInfo["role"];
+        //                 $_SESSION["id_user"] = $userInfo["id_user"];
+
+                        // Si l'utilisateur est un admin
+        //                 if ($userInfo["role"] == "admin") {
+        //                     header("admin/dashboard_admin.php");
+        //                     exit;
+        //                 }else{
+        //                     header("users/dashboard_users.php");
+        //                     exit;
+        //                 }
+
+        //             }else{
+        //                 echo "Mot de passe incorrect";
+        //             }
+        //         }
+        //     }else{        
+        //         Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
+        //         return false;
+        //     }
+
+        // } catch (\PDOException $ex) {
+        //     Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
+        //     return false;
+        // }
     }
 
     public function logoutUsers(Users $users)

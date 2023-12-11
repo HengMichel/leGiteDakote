@@ -26,7 +26,7 @@ class UsersController extends BaseController
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $this->usersRepository->addUsers($users);
-            return redirection(addLink("users/login"));
+            return redirection(addLink("users/loginUsers"));
         }
 
         $errors = $this->form->getEerrorsForm();
@@ -37,12 +37,35 @@ class UsersController extends BaseController
         ]);
     }
 
-    public function CoUsers($users)
+    public function loginUsers()
     {
-        $userss = $this->usersRepository->logUsers($this->users);
-        $this->usersRepository->logUsers($users);
-        return redirection(addLink("users/dashboard_users.php"));
+        $this->render("users/form_login.php", [
+            "h1" => "Se connecter",
+            "users" => $this->users,
+        ]);
     }
+
+    public function coUsers($users)
+    {
+        $users = $this->users;
+        $this->form->handleSecurity($users);
+        
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
+            $this->usersRepository->logUsers($users);
+            return redirection(addLink("users/dashboard_users.php"));
+        } else{
+            return redirection(addLink("admin/dashboard_admin.php"));
+        }
+
+        $errors = $this->form->getEerrorsForm();
+
+        return $this->render("users/form_login.php", [
+            "users" => $users,
+            "errors" => $errors
+        ]);
+    }
+
+
 
     public function decoUsers($users)
     {
