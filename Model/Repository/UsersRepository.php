@@ -49,6 +49,16 @@ class UsersRepository extends BaseRepository
             $userInfo = $request->fetch(\PDO::FETCH_ASSOC);
             if ($userInfo) {
 
+                //**************** */ A tester   ********************
+        //         $requete->setFetchMode(\PDO::FETCH_CLASS, "Model\Entity\User");
+        //         return $requete->fetch();
+        //     } else {
+        //         return false;
+        //     }
+        // } else {
+        //     return null;
+        // }
+
             Session::addMessage("success",  "Vous êtes connecté");
                 return true;
             }
