@@ -6,8 +6,8 @@ use Model\Entity\Users;
 
 abstract class Session
 {
-    const ROLE_ADMIN = "admin";
     const SESSION_KEY_MESSAGES = "messages";
+    const ROLE_ADMIN = "admin";
     const SESSION_KEY_USERS = "users";
 
 

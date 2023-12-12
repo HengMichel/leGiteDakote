@@ -112,80 +112,44 @@ class UsersHandleRequest extends BaseHandleRequest
 
     public function handleSecurity(Users $users)
     {
-        if (isset($_POST['submit'])) {
-
+        // if (isset($_POST['submit'])) {
+            if (!empty($_POST)) {
+           
             extract($_POST);
-            // filter_input pour obtenir des valeurs spécifiques. Cela rendra le code plus sécurisé en évitant l'injection de variables non désirées dans l'espace de noms
-            // $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-
             $errors = [];
-    
-            // Vérification de la validité du formulaire
-            // if (empty($_POST['password'])) {
-            //     $errors[] = "Le mot de passe ne peut pas être vide";
-            // }
-    
-            // if (empty($_POST['email'])) {
-            //     $errors[] = "L'email ne peut pas être vide";
-            // }
-    
-            // $email = $_POST['email'];
-            // $password = $_POST['password'];
 
+            // Vérification de la validité du formulaire
             if (empty( $email)) {
                 $errors[] = "L'email ne peut pas être vide";
             }    
             if (strlen($email) < 2) {
                 $errors[] = "L'email doit avoir au moins 2 caractères";
             }
-    
             if (strlen($email) > 20) {
                 $errors[] = "L'email ne peut avoir plus de 20 caractères";
             }
-    
             if (strpos($email, " ") !== false) {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
-    
             // Est-ce que l'email existe déjà dans la bdd ?
             $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
+            if($request){
+                "Bienvenue" ." ". $request;
+            }
             
             if (empty($password)) {
                 $errors[] = "Le mot de passe ne peut pas être vide";
-            }
-            
-            // $existingUser = $this->usersRepository->findByAttributes($users, ["email" => $email]);
-    
-            // if ($existingUser) {
-
-                // Vérifier le mot de passe
-                // if (password_verify($password, $existingUser->getPassword())) {
-
-                    // L'utilisateur existe et le mot de passe est correct
-                    // Session::addMessage("success", "Connexion réussie!");
-                    // Session::authentication($existingUser);
-                    // Rediriger vers la page appropriée
-            //         if ($existingUser->getRole() == "admin") {
-            //             header("Location: admin/dashboard_admin.php");
-            //         } else {
-            //             header("Location:users/dashboard_users.php");
-            //         }
-            //         exit();
-            //     } else {
+            // }else {
+            //     if (!password_verify($password, $users->getPassword())) {
             //         $errors[] = "Mot de passe incorrect";
             //     }
-            // } else {
-            //     $errors[] = "Utilisateur inconnu";
-            // }
-
+            }      
             if (empty($errors)) {
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $users->setEmail($email);
                 return true;
-
             }
             $this->setEerrorsForm($errors);
-
         }
     }
     

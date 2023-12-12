@@ -26,9 +26,8 @@ class UsersController extends BaseController
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $this->usersRepository->addUsers($users);
-            return redirection(addLink("users/loginUsers"));
+            return redirection(addLink("users","loginUsers"));
         }
-
         $errors = $this->form->getEerrorsForm();
 
         return $this->render("users/form_users.php", [
@@ -45,34 +44,28 @@ class UsersController extends BaseController
         ]);
     }
 
-    public function coUsers($users)
+    public function coUsers()
     {
         $users = $this->users;
         $this->form->handleSecurity($users);
-        
+    
         if ($this->form->isSubmitted() && $this->form->isValid()) {
+            // Si la validation du formulaire est réussie, connectez l'utilisateur
             $this->usersRepository->logUsers($users);
-            return redirection(addLink("users/dashboard_users.php"));
-        } else{
-            return redirection(addLink("admin/dashboard_admin.php"));
         }
-
         $errors = $this->form->getEerrorsForm();
-
+    
         return $this->render("users/form_login.php", [
             "users" => $users,
             "errors" => $errors
         ]);
     }
 
-
-
-    public function decoUsers($users)
-    {
-        $userss = $this->usersRepository->logoutUsers($this->users);
-        $this->usersRepository->logoutUsers($users);
-        return redirection(addLink("home"));
-    }
-
+    // public function decoUsers($users)
+    // {
+    //     $userss = $this->usersRepository->logoutUsers($this->users);
+    //     $this->usersRepository->logoutUsers($users);
+    //     return redirection(addLink("home"));
+    // }
 
 }

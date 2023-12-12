@@ -9,20 +9,20 @@
             </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="border-warning border-3 link-warning bg-black">
-            <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
-            <a href="<?= addLink("rooms/newRooms") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
-            </td>
-            <td class="border-warning border-3 link-warning bg-black">
-            <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
-            <a href="<?= addLink("rooms/list") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
-            </td>
-            <td class="border-warning border-3 link-warning bg-black">
-            <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
-            <a href="<?= addLink("bookings/list") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
-            </td>
-          </tr>
-          </tbody>
+            <tr>
+                <td class="border-warning border-3 link-warning bg-black">
+                <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+                <a href="<?= addLink("rooms/newRooms") ?>" class="btn mt-5 mb-5 link-light fw-medium">Annuler</a>
+                </td>
+                <td class="border-warning border-3 link-warning bg-black">
+                <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+                <a href="<?= addLink("rooms/list") ?>" class="btn mt-5 mb-5 link-light fw-medium">Annuler</a>
+                </td>
+                <td class="border-warning border-3 link-warning bg-black">
+                <?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+                <a href="<?= addLink("bookings/list") ?>" class="btn mt-5 mb-5 link-light fw-medium">Annuler</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

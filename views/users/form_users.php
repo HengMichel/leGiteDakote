@@ -56,7 +56,6 @@ require "views/errors_form.php";
             <label class="birthday link-warning bg-dark fw-medium" >Birthday:<sup>*</sup></label>
             <input type="date" class="form-control border-success border-4 mt-3 fw-medium link-dark bg-success-subtle fw-medium" name="birthday" value="<?= $users->getBirthday() ?>" <?= $mode == "suppression" ? "disabled" : "" ?>>
         </div>
- 
         <button type="submit" id="bouton" class="btn mt-5   mb-5 mt-2 bg-warning link-success fw-bolder m-auto" name="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?>
         </button>
         <a href="<?= addLink("users/newUsers") ?>" class="btn btn-success bg-white mt-5 mb-5 link-success fw-medium">Annuler</a>
