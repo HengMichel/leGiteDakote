@@ -5,6 +5,7 @@ namespace Controller;
 use Model\Entity\Users;
 use Model\Repository\UsersRepository;
 use Form\UsersHandleRequest;
+use Service\Session;
 
 class UsersController extends BaseController
 {
@@ -36,36 +37,67 @@ class UsersController extends BaseController
         ]);
     }
 
-    public function loginUsers()
-    {
-        $this->render("users/form_login.php", [
-            "h1" => "Se connecter",
-            "users" => $this->users,
-        ]);
-    }
+    // public function loginUsers()
+    // {
+    //     $this->render("security/form_login.php", [
+    //         "h1" => "Se connecter",
+    //         "users" => $this->users,
+    //     ]);
+    // }
 
-    public function coUsers()
+    public function login()
     {
         $users = $this->users;
         $this->form->handleSecurity($users);
-    
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
-            // Si la validation du formulaire est réussie, connectez l'utilisateur
-            $this->usersRepository->logUsers($users);
-        }
-        $errors = $this->form->getEerrorsForm();
-    
-        return $this->render("users/form_login.php", [
-            "users" => $users,
-            "errors" => $errors
-        ]);
-    }
 
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
+
+                Session::authentication($users);
+                debug($_SESSION);
+                d_die($users);
+
+          
+                // Si la connexion réussit, redirige l'utilisateur en fonction de son rôle
+                // $dashboardPage = ($_SESSION["role"] == "admin") ? "admin/dashboard_admin.php" : "users/dashboard_users.php";
+
+                $dashboardPage = ($_SESSION["role"] == "admin") ? addLink("admin", "dashboard_admin.php") : addLink("users", "dashboard_users.php");
+
+                header("Location: $dashboardPage");
+                exit;
+
+                // $errors = $this->form->getEerrorsForm();
+
+                // return $this->render($dashboardPage, [
+                //     "users" => $users,
+                //     "errors" => $errors 
+                // ]);
+            
+          
+        }
+            // Si le formulaire n'est pas soumis ou n'est pas valide, affiche le formulaire de connexion
+
+            $errors = $this->form->getEerrorsForm();
+
+            if ($_SESSION["role"] == "admin") {
+                // d_die('ok1');
+                return $this->render("admin/dashboard_admin.php", [
+                    "users" => $users,
+                    "errors" => $errors 
+                ]);
+            } else {
+                // d_die('ok2');
+            return $this->render("security/form_login.php", [
+                "users" => $users,
+                "errors" => $errors
+            ]);
+            }
+        }
     // public function decoUsers($users)
     // {
     //     $userss = $this->usersRepository->logoutUsers($this->users);
     //     $this->usersRepository->logoutUsers($users);
     //     return redirection(addLink("home"));
     // }
+
 
 }

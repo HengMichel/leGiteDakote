@@ -7,6 +7,7 @@ use Service\Session;
 
 abstract class BaseController
 {
+    // Méthode pour rendre une vue avec un fichier spécifié et des paramètres
     public function render(string $fichier, array $parametres = [])
     {
         extract($parametres);
@@ -15,6 +16,7 @@ abstract class BaseController
         include "public/footer.php";
     }
 
+    // Méthode pour obtenir l'utilisateur connecté
     public function getUsers()
     {
         $users = Session::isConnected();
@@ -25,6 +27,7 @@ abstract class BaseController
         return $users;
     }
 
+    // Méthode pour obtenir l'administrateur connecté
     public function getAdmin()
     {
         $users = Session::isAdmin();
@@ -35,6 +38,7 @@ abstract class BaseController
         return $users;
     }
 
+    // Méthode pour définir un message dans la session
     public function setMessage($type, $message)
     {
         Session::addMessage($type, $message);

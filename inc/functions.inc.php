@@ -15,7 +15,6 @@ function addLink($controller, $method = "list", $id = null)
       return $basePath . "$controller/$method" . ($id ? "/$id" : "");
     // ********************************************************************
 
-   
 }
 
 

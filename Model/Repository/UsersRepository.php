@@ -35,7 +35,7 @@ class UsersRepository extends BaseRepository
         return null;
     }
 
-    public function logUsers(Users $users)
+    public function logUsers(Users $users , $password)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
         $request = $this->dbConnection->prepare($sql);
@@ -51,12 +51,14 @@ class UsersRepository extends BaseRepository
                 if (empty($userInfo)) {
                     Session::addMessage("danger", "Utilisateur inconnu");
                 } else {
-                    if (password_verify($users->getPassword(), $userInfo->getPassword())) {
+                    // if (password_verify($users->getPassword(), $userInfo->getPassword())) {
+                        if (password_verify($password, $userInfo->getPassword())) {
+
                         $_SESSION["role"] = $userInfo->getRole();
                         $_SESSION["id_user"] = $userInfo->getId_user();
     
                         // Redirection en fonction du rôle
-                        $redirectLocation = ($userInfo->getRole() == "admin") ? "admin/dashboard_admin.php" : "users/dashboard_users.php";
+                        $redirectLocation = ($userInfo->getRole() == "admin") ? "admin/dashboard_admin.php" : "dashboard_users.php";
                         header("Location: $redirectLocation");
                         exit;
                     } else {

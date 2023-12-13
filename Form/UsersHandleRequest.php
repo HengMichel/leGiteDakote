@@ -36,13 +36,11 @@ class UsersHandleRequest extends BaseHandleRequest
             if (!strpos( $email, " ") === false) {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
-
             // Est-ce que l'email existe déjà dans la bdd ?
             $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
             if ($request) {
                 $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
             }
-
             if (!empty($last_name)) {
                 if (strlen($last_name) < 1) {
                     $errors[] = "Le last_name doit avoir au moins 2 caractères";
@@ -61,11 +59,9 @@ class UsersHandleRequest extends BaseHandleRequest
             }    
             if (empty($password)) {
                 $errors[] = "Le mot de passe ne peut pas être vide";
-            }
-           
+            }         
             if (empty($birthday)) {
-                    $errors[] = "Le birthday ne peut pas être vide";
-                
+                    $errors[] = "Le birthday ne peut pas être vide";          
             }    
             if (!empty($address)) {
                 if (strlen($address) < 6) {
@@ -89,7 +85,6 @@ class UsersHandleRequest extends BaseHandleRequest
             if (empty($gender)) {
                         $errors[] = "Le gender ne peut pas être vide";
             }
-            
             if (empty($errors)) {
                 
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
@@ -132,17 +127,32 @@ class UsersHandleRequest extends BaseHandleRequest
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
             // Est-ce que l'email existe déjà dans la bdd ?
-            $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
-            if($request){
-                "Bienvenue" ." ". $request;
-            }
-            
+            $user = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
+            if(empty($user)){
+                // definir la variable de session role
+                echo "utilisateur inconnu";
+            }else{
+                // verifier si le mdp est correct
+                if(password_verify($password,$user["password"])){
+                    // si l'utilisateur est un admin
+                    if($user->getRole() == "admin"){
+                        
+    
+                    }else{
+                        // definir la variable de session role
+                        $_SESSION["role"] = $userInfo ["role"];
+                        $_SESSION["id_user"] = $userInfo["id_user"];
+                        
+                        // header("Location: https://autumn-drunk.000webhostapp.com/user_home.php");
+                        header("Location: http://localhost/projetHotel/user_home.php");
+    
+                    }
+                }else{
+                    echo "Ahh tu as oublié ton mot de passe ?";
+                }
+            }            
             if (empty($password)) {
                 $errors[] = "Le mot de passe ne peut pas être vide";
-            // }else {
-            //     if (!password_verify($password, $users->getPassword())) {
-            //         $errors[] = "Mot de passe incorrect";
-            //     }
             }      
             if (empty($errors)) {
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
@@ -152,5 +162,4 @@ class UsersHandleRequest extends BaseHandleRequest
             $this->setEerrorsForm($errors);
         }
     }
-    
 }
