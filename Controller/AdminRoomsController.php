@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller\Admin;
+namespace Controller;
 
 use Model\Entity\Rooms;
 use Form\Admin\AdminRoomsHandleRequest;

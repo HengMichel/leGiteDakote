@@ -91,9 +91,6 @@ class UsersHandleRequest extends BaseHandleRequest
                 $users->setLast_name($last_name);
                 $users->setFirst_name($first_name);
                 $users->setEmail($email);
-                // default value Role in bdd 'client' 
-                $defaultRole = 'client';
-                $users->setRole($defaultRole);
                 $users->setBirthday($birthday);
                 $users->setAddress($address);
                 $users->setPhone_number($phone_number);
@@ -107,8 +104,7 @@ class UsersHandleRequest extends BaseHandleRequest
 
     public function handleSecurity(Users $users)
     {
-        // if (isset($_POST['submit'])) {
-            if (!empty($_POST)) {
+        if (!empty($_POST)) {
            
             extract($_POST);
             $errors = [];
@@ -116,50 +112,25 @@ class UsersHandleRequest extends BaseHandleRequest
             // Vérification de la validité du formulaire
             if (empty( $email)) {
                 $errors[] = "L'email ne peut pas être vide";
-            }    
-            if (strlen($email) < 2) {
-                $errors[] = "L'email doit avoir au moins 2 caractères";
-            }
-            if (strlen($email) > 20) {
-                $errors[] = "L'email ne peut avoir plus de 20 caractères";
-            }
-            if (strpos($email, " ") !== false) {
-                $errors[] = "Les espaces ne sont pas autorisés pour l'email";
-            }
+            } 
             // Est-ce que l'email existe déjà dans la bdd ?
-            $user = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
-            if(empty($user)){
+            $userInfo = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
+            if(empty($userInfo)){
                 // definir la variable de session role
-                echo "utilisateur inconnu";
+                $errors[] = "utilisateur inconnu !";
             }else{
                 // verifier si le mdp est correct
-                if(password_verify($password,$user["password"])){
-                    // si l'utilisateur est un admin
-                    if($user->getRole() == "admin"){
-                        
-    
-                    }else{
-                        // definir la variable de session role
-                        $_SESSION["role"] = $userInfo ["role"];
-                        $_SESSION["id_user"] = $userInfo["id_user"];
-                        
-                        // header("Location: https://autumn-drunk.000webhostapp.com/user_home.php");
-                        header("Location: http://localhost/projetHotel/user_home.php");
-    
-                    }
+                if(password_verify($password,$userInfo->getPassword()) && empty($errors)){
+                    return $userInfo;
                 }else{
-                    echo "Ahh tu as oublié ton mot de passe ?";
+                    $errors[] = "Le mot de passe ne peut pas être vide";
                 }
-            }            
-            if (empty($password)) {
-                $errors[] = "Le mot de passe ne peut pas être vide";
-            }      
-            if (empty($errors)) {
-                $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
-                $users->setEmail($email);
-                return true;
             }
-            $this->setEerrorsForm($errors);
+        } else{
+            $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
         }
+        $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
+        $this->setEerrorsForm($errors);
+        return null;
     }
 }

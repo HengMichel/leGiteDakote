@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg mb-5 bg-dark">
     <div class="container-fluid bg-black link-warning">
-        <a class="navbar-brand link-warning" href="<?= addLink("home") ?>">Acceuil</a>
+        <a class="navbar-brand link-warning" href="<?= addLink("home") ?>">Accueil</a>
         <!-- <button class="navbar-toggler link-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button> -->
@@ -13,7 +13,7 @@
                     <a class="nav-link link-warning" href="<?= addLink("home","serviceDuGite") ?>">Nos Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-warning" href="<?= addLink("users","dashboardUsers") ?>">Se connecter</a>
+                    <a class="nav-link link-warning" href="<?= addLink("users","login") ?>">Se connecter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-warning" href="<?= addLink("users","newUsers") ?>">S'inscrire</a>

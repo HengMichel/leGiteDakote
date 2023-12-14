@@ -9,7 +9,7 @@ class Users extends BaseEntity
     private $first_name;
     private $email;
     private $password;
-    private $role;
+    private $role = 'client';
     private $birthday;
     private $address;
     private $phone_number;

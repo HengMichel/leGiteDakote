@@ -7,7 +7,7 @@ use Controller\BaseController;
 use Model\Repository\UsersRepository;
 
 
-class AdminUsersController extends BaseController{
+class UsersController extends BaseController{
 
     private $usersRepository;
     private $form;
@@ -31,9 +31,9 @@ class AdminUsersController extends BaseController{
 
     public function deleteUsers($id)
     {
-        $players = $this->usersRepository->deleteUsersById($this->users);
-        $this->usersRepository->deleteUsersById($id);
-        return redirection(addLink("users"));
+        // $players = $this->usersRepository->deleteUsersById($this->users);
+        // $this->usersRepository->deleteUsersById($id);
+        // return redirection(addLink("users"));
     }
 
   

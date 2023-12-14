@@ -75,7 +75,6 @@ class UsersRepository extends BaseRepository
         }
     }
     
-
     // public function logoutUsers(Users $users)
     // {
     //     Session::destroy();
