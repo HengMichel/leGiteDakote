@@ -25,13 +25,10 @@ class UsersRepository extends BaseRepository
         $request = $request->execute();
         if ($request) {
             if ($request == 1) {
-                Session::addMessage("success",  "Le nouvel utilisateur a bien été enregistré");
                 return true;
             }
-            Session::addMessage("danger",  "Erreur : l'utilisateur n'a pas été enregisté");
             return false;
         }
-        Session::addMessage("danger",  "Erreur SQL");
         return null;
     }
 
@@ -43,16 +40,10 @@ class UsersRepository extends BaseRepository
 
         if($request->execute()) {
             if ($request->rowCount() == 1) {
-                Session::addMessage("success", "bienvenue sur votre profile");
+                $class = "Model\Entity\\" . ucfirst('users');
                 // Assurez-vous d'utiliser le bon mode de récupération selon votre configuration
-                $user = $request->fetch(\PDO::FETCH_ASSOC); 
-                if ($user) {
-                Session::addMessage("danger", "Aucun profil trouvé");
-                return $user;
-                }
-            } else {
-                Session::addMessage("danger", "Erreur lors de la recherche du profile");
-                return false;
+                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
+                return $request->fetch();
             }
         }
     }

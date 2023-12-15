@@ -1,6 +1,6 @@
 <div class="container5 container">
-    <?php if ($users) : ?>
-        <table class="table d-block">
+    <?php if ($user) : ?>
+        <table class="table">
             <thead>
                 <tr>
                     <th class="id_room bg-success link-light border-2 border-warning" >Id user</th>
@@ -18,16 +18,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="idUser border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getId_user() ?></td>
-                    <td class="last_name border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getLast_name() ?></td>
-                    <td class="pricee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getFirst_name() ?></td>
-                    <td class="emailss border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getEmail() ?></td>
-                    <td class="mdpp border-success-subtle border-3 mt-2 bg-success-subtle fa-bitcoin-sign fa-bitcoin-sign link-dark fw-bold"><?= $users->getPassword() ?></td>
-                    <td class="rolee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getRole() ?></td>
-                    <td class="anniv border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getBirthday() ?></td>
-                    <td class="adressee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getAddress() ?></td>
-                    <td class="numm border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getPhone_number() ?></td>
-                    <td class="genree border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $users->getGender() ?></td>
+                    <td class="idUser border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getId_user() ?></td>
+                    <td class="last_name border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getLast_name() ?></td>
+                    <td class="pricee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getFirst_name() ?></td>
+                    <td class="emailss border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getEmail() ?></td>
+                    <td class="mdpp border-success-subtle border-3 mt-2 bg-success-subtle fa-bitcoin-sign fa-bitcoin-sign link-dark fw-bold"><?= $user->getPassword() ?></td>
+                    <td class="rolee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getRole() ?></td>
+                    <td class="anniv border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getBirthday() ?></td>
+                    <td class="adressee border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getAddress() ?></td>
+                    <td class="numm border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getPhone_number() ?></td>
+                    <td class="genree border-success-subtle border-3 mt-2 bg-success-subtle fw-medium"><?= $user->getGender() ?></td>
                     <td class="actionn border-success-subtle border-3 mt-2 bg-success-subtle fw-medium">
                         <a href="<?= addLink("users","dashUsers") ?>" class="btn btn-success bg-warning border-0 mb-5 link-success fw-bolder">dashboard</a></td>
                 </tr>

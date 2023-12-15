@@ -32,7 +32,6 @@ class UsersHandleRequest extends BaseHandleRequest
             if (strlen( $email) > 20) {
                 $errors[] = "L'email ne peut avoir plus de 20 caractères";
             }
-
             if (!strpos( $email, " ") === false) {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
@@ -85,8 +84,7 @@ class UsersHandleRequest extends BaseHandleRequest
             if (empty($gender)) {
                         $errors[] = "Le gender ne peut pas être vide";
             }
-            if (empty($errors)) {
-                
+            if (empty($errors)) {             
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $users->setLast_name($last_name);
                 $users->setFirst_name($first_name);
@@ -97,41 +95,43 @@ class UsersHandleRequest extends BaseHandleRequest
                 $users->setGender($gender);
                 return true;
             }
-
             $this->setEerrorsForm($errors);
         }
     }
 
-    public function handleSecurity(Users $users)
+    public function handleSecurity()
     {
-        if (!empty($_POST)) {
-           
+        if (isset($_POST['submit'])) {
+   
             extract($_POST);
             $errors = [];
 
-            // Vérification de la validité du formulaire
-            if (empty( $email)) {
-                $errors[] = "L'email ne peut pas être vide";
-            } 
-            // Est-ce que l'email existe déjà dans la bdd ?
-            $userInfo = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
-            if(empty($userInfo)){
-                // definir la variable de session role
-                $errors[] = "utilisateur inconnu !";
-            }else{
-                // verifier si le mdp est correct
-                if(password_verify($password,$userInfo->getPassword()) && empty($errors)){
-                    return $userInfo;
-                }else{
-                    $errors[] = "Le mot de passe ne peut pas être vide";
+            if (!empty($_POST)) {
+            
+                // Vérification de la validité du formulaire
+                if (empty($email) || empty($password)) {
+                    $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
+                } else {
+                    // Est-ce que l'email existe déjà dans la bdd ?
+                    $userInfo = $this->usersRepository->findByAttributes("users", ["email" => $email]);
+
+                    if (empty($userInfo)) {
+                        $errors[] = "Utilisateur inconnu !";
+                    } else {
+                        // Vérifier si le mot de passe est correct
+                        if (!password_verify($password, $userInfo->getPassword())) {
+                            $errors[] = "Le mot de passe est incorrect";
+                        }
+                    }
                 }
+            } else {
+                $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
             }
-        } 
-        // else{
-        //     $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
-        // }
-        $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
-        $this->setEerrorsForm($errors);
-        return null;
+            if (!empty($errors)) {
+                $this->setEerrorsForm($errors);
+                return null;
+            }
+            return $userInfo;
+        }
     }
 }

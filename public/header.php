@@ -17,7 +17,7 @@
     </script>
     <link rel="stylesheet" href="/leGiteDakote/public/assets/css/style.css">
 
-    <title class="link-warning">Acceuil</title>
+    <title class="link-warning">Accueil</title>
 </head>
 <body class="bgAllpage">
     
