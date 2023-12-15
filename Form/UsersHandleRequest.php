@@ -126,9 +126,10 @@ class UsersHandleRequest extends BaseHandleRequest
                     $errors[] = "Le mot de passe ne peut pas être vide";
                 }
             }
-        } else{
-            $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
-        }
+        } 
+        // else{
+        //     $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
+        // }
         $errors[] = "L'email et le mot de passe ne peuvent pas être vide";
         $this->setEerrorsForm($errors);
         return null;

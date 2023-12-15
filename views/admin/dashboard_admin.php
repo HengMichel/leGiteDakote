@@ -1,7 +1,6 @@
 <?php
 $mode = $mode ?? "insertion";
 require "views/errors_form.php";
-
 ?>
 <div class="container">
     <h1 class="m-5 link-warning">Dashboard Admin</h1>

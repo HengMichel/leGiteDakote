@@ -44,28 +44,20 @@ class UsersController extends BaseController
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 
-            
             Session::authentication($user);
-            // debug($_SESSION);
-            // d_die($users);
 
             // Si la connexion réussit, redirige l'utilisateur en fonction de son rôle
-            
-
             if ($_SESSION["role"] == "admin") {
-            // debug($_SESSION);
-            // d_die('ok1');
+          
                 return $this->render("admin/dashboard_admin.php", [
                     "users" => $user
                 ]);
             } else if ($_SESSION["role"] == "client") {
-                // debug($_SESSION);
-                // d_die('ok2');
+           
                 return $this->render("users/show.php", [
                 "users" => $user
                 ]); 
             }              
-            //  d_die('ok2');
         }
         $errors = $this->form->getEerrorsForm();
         // Si le formulaire n'est pas soumis ou n'est pas valide, affiche le formulaire de connexion            
@@ -74,7 +66,12 @@ class UsersController extends BaseController
             "errors" => $errors
             ]);
     }
-        
+    
+    public function dashUsers()
+    {
+        $this->render("users/dashboard_users.php");
+    }
+    
     // public function decoUsers($users)
     // {
     //     $userss = $this->usersRepository->logoutUsers($this->users);

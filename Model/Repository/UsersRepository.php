@@ -35,50 +35,29 @@ class UsersRepository extends BaseRepository
         return null;
     }
 
-    public function logUsers(Users $users , $password)
+//********************************/   pas sur que ce soit utile  ********************************************** 
+    public function findUsersById($id)
     {
-        $sql = "SELECT * FROM users WHERE email = :email";
-        $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":email", $users->getEmail());
-        
-        try {
-            $result = $request->execute();
-    
-            if ($result) {
-                $request->setFetchMode(\PDO::FETCH_CLASS, "Model\Entity\Users");
-                $userInfo = $request->fetch();
-    
-                if (empty($userInfo)) {
-                    Session::addMessage("danger", "Utilisateur inconnu");
-                } else {
-                    // if (password_verify($users->getPassword(), $userInfo->getPassword())) {
-                        if (password_verify($password, $userInfo->getPassword())) {
+        $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
+        $request->bindParam(':id_user',$id);
 
-                        $_SESSION["role"] = $userInfo->getRole();
-                        $_SESSION["id_user"] = $userInfo->getId_user();
-    
-                        // Redirection en fonction du rôle
-                        $redirectLocation = ($userInfo->getRole() == "admin") ? "admin/dashboard_admin.php" : "dashboard_users.php";
-                        header("Location: $redirectLocation");
-                        exit;
-                    } else {
-                        Session::addMessage("danger", "Mot de passe incorrect");
-                    }
+        if($request->execute()) {
+            if ($request->rowCount() == 1) {
+                Session::addMessage("success", "bienvenue sur votre profile");
+                // Assurez-vous d'utiliser le bon mode de récupération selon votre configuration
+                $user = $request->fetch(\PDO::FETCH_ASSOC); 
+                if ($user) {
+                Session::addMessage("danger", "Aucun profil trouvé");
+                return $user;
                 }
             } else {
-                Session::addMessage("danger", "Erreur : la connexion n'a pas réussi");
+                Session::addMessage("danger", "Erreur lors de la recherche du profile");
                 return false;
             }
-        } catch (\PDOException $ex) {
-            Session::addMessage("danger", "Erreur SQL : " . $ex->getMessage());
-            return false;
         }
     }
-    
-    // public function logoutUsers(Users $users)
-    // {
-    //     Session::destroy();
-    // } 
+// ************************************************************************************************************
+   
     
     
 }

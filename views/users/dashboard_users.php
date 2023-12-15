@@ -5,7 +5,7 @@ $totalPrice = 0;
     <table class="table bg-success-subtle">
         <thead>
             <tr>
-                <th class="id_hotel bg-success link-warning border-2 border-warning">Id Reservation</th>
+                <th class="id_reservation bg-success link-warning border-2 border-warning">Id Reservation</th>
                 <th class="start_date bg-success link-warning border-2 border-warning">Start Date</th>
                 <th class="end_date bg-success link-warning border-2 border-warning">End Date</th>
                 <th class="state bg-success link-warning border-2 border-warning">State</th>
