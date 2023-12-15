@@ -14,6 +14,8 @@ $totalPrice = 0;
             </tr>
         </thead>
         <tbody>
+        <?php if (isset($bookingss) && is_array($bookingss)) { ?>
+
             <?php foreach($bookingss as $bookings){ 
                 $totalPrice += $bookings->getBooking_price();
             ?>
@@ -25,7 +27,12 @@ $totalPrice = 0;
                     <td class="booking_price border-success-subtle border-3 mt-2"><?= $bookings->getBooking_price() ?></td>
                     <td class="btn bg-success m-0 border-warning border-3 mt-2 m-auto">
                         <a class="canc link-warning fw-medium" href="<?= addLink("bookings/cancelBookings?id=" . $bookings->getId_booking()) ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
-                    </td>
+                    </td> 
+                </tr>
+                <?php } ?>
+            <?php } else { ?>
+                <tr>
+                    <td colspan="6" class="text-center">Aucune réservation disponible.</td>
                 </tr>
             <?php } ?>
         </tbody>

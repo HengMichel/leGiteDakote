@@ -134,4 +134,5 @@ class UsersHandleRequest extends BaseHandleRequest
             return $userInfo;
         }
     }
+
 }

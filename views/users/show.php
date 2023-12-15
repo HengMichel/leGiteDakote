@@ -1,4 +1,4 @@
-<div class="container5 container">
+<div class="container5">
     <?php if ($user) : ?>
         <table class="table">
             <thead>

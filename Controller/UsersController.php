@@ -52,11 +52,13 @@ class UsersController extends BaseController
         $users = $this->users;
         $user = $this->form->handleSecurity();
 
+
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 
             Session::authentication($user);
             $id = $user->getId_user();
             return redirection(addLink("users","show", $id));             
+
         }
         $errors = $this->form->getEerrorsForm();
         // Si le formulaire n'est pas soumis ou n'est pas valide, affiche le formulaire de connexion            
@@ -66,26 +68,20 @@ class UsersController extends BaseController
             ]);
     }
     
-    public function dashUsers()
+    public function dashUsers($id)
     {
-        $user = $this->users;
+        $user = $this->usersRepository->findUsersById($id);
 
-        if ($_SESSION["role"] == "admin") {
-
-            return $this->render("admin/dashboard_admin.php", [
-                "users" => $user
-            ]);
-        } else if ($_SESSION["role"] == "client") {
-       
-            return $this->render("users/dashboard_users.php", [
+        return $this->render("users/dashboard_users.php", [
             "users" => $user
-            ]); 
-        }              
+            ]);            
     }
-    
-    // public function decoUsers($users)
+
+    // public function usersBook($id)
     // {
-    //     $userss = $this->usersRepository->logoutUsers($this->users);
+    //     $user = $this->usersRepository->findUsersById($id);
+    //     $this->user->addBookings();
+    //     if($this)
     //     $this->usersRepository->logoutUsers($users);
     //     return redirection(addLink("home"));
     // }

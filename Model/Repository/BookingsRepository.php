@@ -21,15 +21,11 @@ class BookingsRepository extends BaseRepository
         $request->bindValue(":booking_state", $bookings->getBooking_state());
         $request->execute();
         if ($request) {
-            if ($request == 1) {
-                Session::addMessage("success",  "Réservation réussie!");
+            if ($request == 1) {           
                 return true;
             }
-            Session::addMessage("danger",  "Erreur : la Réservation n'a pas été enregisté");
             return false;
         }
-        Session::addMessage("danger",  "Erreur SQL");
-        return null;
     }
 
     public function cancelBookings(Bookings $bookings){

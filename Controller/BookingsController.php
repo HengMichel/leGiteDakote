@@ -37,12 +37,12 @@ class BookingsController extends BaseController
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $this->bookingsRepository->addBookings($bookings);
-            return redirection(addLink("bookings"));
+            return redirection(addLink("users","dashUsers"));
         }
 
         $errors = $this->form->getEerrorsForm();
 
-        return $this->render("home",  [
+        return $this->render("bookings/form_bookings.php",  [
             "bookings" => $bookings,
             "errors" => $errors
         ]);
