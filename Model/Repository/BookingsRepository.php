@@ -81,4 +81,38 @@ class BookingsRepository extends BaseRepository
     }
 
 
+    public function findTableRooms(Bookings $bookings ){
+
+        $sql= "SELECT 
+        b.`id_booking`,
+        b.`booking_start_date`,
+        b.`booking_end_date`,
+        b.`user_id`,
+        b.`room_id`,
+        b.`booking_price`,
+        b.`booking_state`,
+        r.`id_room`,
+        r.`room_number`,
+        r.`price`,
+        r.`room_imgs`,
+        r.`persons`,
+        r.`category`,
+        r.`room_state`,
+        r.`hotel_id`
+    FROM 
+        `bookings` AS b
+    JOIN 
+        `rooms` AS r ON b.`room_id` = r.`id_room`
+    WHERE 
+    AND r.`room_imgs` IS NOT NULL
+    AND r.`room_imgs` != '' ";
+    $request = $this->dbConnection->prepare($sql);
+    $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);  // Assurez-vous de lier la valeur pour :room_id; 
+    // Maintenant, vous pouvez récupérer les résultats
+    $results = $request->fetchAll(\PDO::FETCH_ASSOC);
+
+    // Vous pouvez traiter les résultats comme nécessaire
+    return $results;
+    }
+
 }

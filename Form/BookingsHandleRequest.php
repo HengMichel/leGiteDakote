@@ -43,37 +43,16 @@ class BookingsHandleRequest extends BaseHandleRequest
             // Vérification de la validité du formulaire
 
            
-            if (empty($room_id)) {
-                if (strlen($room_id)) {
-                    $errors[] = "room_id ne peut pas être vide";
-                }
-            }
-            if (empty($booking_price)) {
-                if (strlen($booking_price)) {
-                    $errors[] = "booking_price ne peut pas être vide";
-                }
-            }
+            
             if (empty($booking_start_date)) {
-                if (strlen($booking_start_date)) {
                     $errors[] = "Le booking_start_date ne peut pas être vide";
                 }
-            }
+            
             if (empty($booking_end_date)) {
-                if (strlen($booking_end_date)) {
                     $errors[] = "Le booking_end_date ne peut pas être vide";
                 }
-            }
-            if (empty($booking_end_date)) {
-                if (strlen($booking_end_date)) {
-                    $errors[] = "Le booking_end_date ne peut pas être vide";
-                }
-            }
-            if (empty($booking_start_date)) {
-                if (strlen($booking_start_date)) {
-                    $errors[] = "Le booking_start_date ne peut pas être vide";
-                }
-            }
-
+        
+           
             if (empty($errors)) {
               
                 $bookings->setRoom_id($room_id);

@@ -11,9 +11,8 @@
                 <p class="card-text link-warning fa-xl"><?= $rooms->getCategory() ?></p>
                 <p class="card-text fw-medium"><?= $rooms->getPersons() ?> Persons</p>
                 <a class="btn bg-warning link-success fw-bolder m-0" 
-                href="<?= addLink("bookings
-                ","newBookings")?>" 
-                <?=$rooms->getId_room() ?>&price=<?= $rooms->getPrice() ?>>Book this Room</a>
+                href="<?= addLink("bookings", "newBookings") ?>?room_id=<?= $rooms->getId_room() ?>&price=<?= $rooms->getPrice() ?>&room_imgs=<?= $rooms->getRoom_imgs() ?>"
+                >Book this Room</a>
             </div>
         </div>
     <?php endforeach; ?>
