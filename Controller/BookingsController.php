@@ -24,7 +24,6 @@ class BookingsController extends BaseController
 
         $bookingss = $this->bookingsRepository->findBookings($this->bookings);
 
-
         $this->render("bookings/list_bookings.php", [
             "bookingss" => $bookingss
         ]);
@@ -47,7 +46,6 @@ class BookingsController extends BaseController
             "errors" => $errors
         ]);
     }
-
     
     public function modifBookings($bookings)
     {
