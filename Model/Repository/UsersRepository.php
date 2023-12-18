@@ -32,7 +32,6 @@ class UsersRepository extends BaseRepository
         return null;
     }
 
-//********************************/   pas sur que ce soit utile  ********************************************** 
     public function findUsersById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
@@ -47,7 +46,6 @@ class UsersRepository extends BaseRepository
             }
         }
     }
-// ************************************************************************************************************
    
     
     

@@ -40,10 +40,9 @@ class UsersController extends BaseController
     public function show($id)
     {
         $user = $this->usersRepository->findUsersById($id);
-// ajouter une condition en cas de la valeur null de $user afin d'ajouter un message d'erreur dans la session
+        // ajout d'une condition en cas de la valeur null de $user afin d'ajouter un message d'erreur dans la session
         return $this->render("users/show.php", [
             "user" => $user,
-            // "errors" => $errors
         ]);
     }
 
@@ -75,6 +74,14 @@ class UsersController extends BaseController
         return $this->render("users/dashboard_users.php", [
             "users" => $user
             ]);            
+    }
+
+    public function deco(){
+
+        Session::logout();
+        // Redirigez l'utilisateur vers la page d'accueil après la déconnexion
+        return redirection(addLink("home"));
+
     }
 
     // public function usersBook($id)

@@ -14,10 +14,12 @@ $totalPrice = 0;
             </tr>
         </thead>
         <tbody>
-        <?php if (isset($bookingss) && is_array($bookingss)) { ?>
+        <?php if (isset($bookings) && is_array($bookings)) { 
+            // d_die($bookings);
+            ?>
 
-            <?php foreach($bookingss as $bookings){ 
-                $totalPrice += $bookings->getBooking_price();
+            <?php foreach($bookings as $booking){ 
+                $totalPrice += $booking->getBooking_price();
             ?>
                 <tr>
                     <td class="idbook border-success-subtle border-3 mt-2"><?= $bookings->getId_booking() ?></td>
@@ -32,7 +34,7 @@ $totalPrice = 0;
                 <?php } ?>
             <?php } else { ?>
                 <tr>
-                    <td colspan="6" class="text-center">Aucune réservation disponible.</td>
+                    <td colspan="6" class="text-center fw-medium">Aucune réservation disponible.</td>
                 </tr>
             <?php } ?>
         </tbody>

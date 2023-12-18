@@ -19,9 +19,13 @@ class BookingsRepository extends BaseRepository
         $request->bindValue(":room_id", $bookings->getRoom_id());
         $request->bindValue(":booking_price", $bookings->getBooking_price());
         $request->bindValue(":booking_state", $bookings->getBooking_state());
+
+        // Exécute la requête
         $request->execute();
         if ($request) {
-            if ($request == 1) {           
+            if ($request == 1) {
+
+                // Retourne true si la requête a réussi
                 return true;
             }
             return false;
