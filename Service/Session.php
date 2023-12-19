@@ -54,10 +54,12 @@ abstract class Session
         // }
         $user = self::isConnected();
 
-        if ($user instanceof Users) {
-            return $user->getRole() == self::ROLE_ADMIN;
-            }    
+        // if ($user instanceof Users) {
+        //     return $user->getRole() == self::ROLE_ADMIN;
+        //     }    
 
-        return false;
+        // return false;
+        return $user instanceof Users && $user->getRole() == self::ROLE_ADMIN;
+
     }
 }

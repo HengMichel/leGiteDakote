@@ -28,24 +28,6 @@ $room_imgs = $_GET['room_imgs'] ?? null;
                 </div>
             </div>
 
-            <?php  
-            // if (isset($_POST['booking_start_date']) && isset($_POST['booking_end_date'])) {
-
-            // echo "Start Date: " . $_POST['booking_start_date'] . "<br>";
-            // echo "End Date: " . $_POST['booking_end_date'] . "<br>";
-
-             // Définir le prix de la chambre directement ici
-            //  $booking_price = $room->getPrice();
-            //     }
-            ?>
-
-            <!-- Champ hidden pour le prix -->
-            <input type="hidden" name="booking_price" value="<?= $booking_price ?? '' ?>">
-
-            <!-- Champ pour booking_state avec la valeur par défaut "in progress" -->
-            <!-- <input type="hidden" name="booking_state" value="in progress"> -->
-
-
             <div class="form-group link-warning fw-medium col-3 mt-3">
                 <button type="submit"  class="btn bg-warning link-success border-warning border-2 fw-medium" name="book"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button><a href="<?= addLink("bookings","newBookings") ?>"></a>
             </div>

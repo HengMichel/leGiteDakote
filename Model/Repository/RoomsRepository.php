@@ -2,9 +2,6 @@
 
 namespace Model\Repository;
 
-use Model\Entity\Rooms;
-use Service\Session;
-
 class RoomsRepository extends BaseRepository
 {
     public function findAllRooms()

@@ -33,51 +33,39 @@ class BookingsController extends BaseController
         ]);
     }
 
-    public function newBookings(){
+    public function newBookings()
+    {
 
         $bookings = $this->bookings;
         $this->form->handleForm($bookings);
 
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
+         // Vérifiez si le formulaire est soumis
+        if ($this->form->isSubmitted()) {
 
-        // Assurez-vous que user_id est défini sur l'objet $bookings
-        $users = Session::isConnected();
-        $bookings->setUser_id($users);
-        // d_die($bookings); 
+            // Vérifiez s'il n'y a pas d'erreurs dans les données soumises
+            if ($this->form->isValid()) {
+                // Assurez-vous que user_id est défini sur l'objet $bookings
+                Session::isConnected();
+      
+                // Ajoutez la réservation à la base de données
+                $success = $this->bookingsRepository->addBookings($bookings);
+                // d_die($success);
+                if ($success) {
 
-        // Assurez-vous que les dates sont correctement définies sur l'objet $bookings
-        // avant d'appeler addBookings
-        $bookings->setBooking_start_date($_POST['booking_start_date']);
-        $bookings->setBooking_end_date($_POST['booking_end_date']);
-        // d_die($bookings);    
+                    // Redirigez vers le tableau de bord ou une autre page            
+                    return redirection(addLink("users","dashUsers"));
 
-         
-        //S'assurez que room_id est défini sur l'objet $bookings
-        $room_id = $_GET['room_id'] ;
-        // pour récupérer l'ID de la chambre
-        $bookings->setRoom_id($room_id);
-            // d_die($bookings);    
-        
-        // Obtenir le prix de la chambre à partir de la méthode de modèle Rooms donc creation de la methode getPrice dans RoomsRepository.php
-        $price = $this->roomsRepository->getPrice($_GET['room_id']);
-        // S'assurer que booking_price est défini sur l'objet $bookings
-        $bookings->setBooking_price($price);
+                } else {
+                    // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
+                    $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
+                }
+            }
 
-
-         // S'assurez que le paiement est effectué avec succès
-        // ... Logique de paiement ...
-
-        // Mettez à jour le statut de la réservation après le paiement
-        $bookings->setBooking_state("in progress");
-        // d_die($bookings);    
-
-
-        // Enregistrez la réservation dans la base de données
-        $this->bookingsRepository->addBookings($bookings);
-        // d_die($bookings);    
-
-            return redirection(addLink("users","dashUsers"));
+        } else {
+        // Si le formulaire n'a pas été soumis, ne faites rien ici.
+        // Vous pouvez ajouter une logique supplémentaire si nécessaire.
         }
+        // Récupérez les erreurs du formulaire
 
         $errors = $this->form->getEerrorsForm();
 
@@ -86,14 +74,27 @@ class BookingsController extends BaseController
             "errors" => $errors
         ]);
     }
-    
-    public function modifBookings($bookings)
-    {
-        $bookingss = $this->bookingsRepository->cancelBookings($this->bookings);
-        $this->bookingsRepository->cancelBookings($bookings);
-        return redirection(addLink("bookings"));
+        
 
+    
+    
+    // public function modifBookings($bookings)
+    // {
+    //     $bookingss = $this->bookingsRepository->cancelBookings($this->bookings);
+    //     $this->bookingsRepository->cancelBookings($bookings);
+    //     return redirection(addLink("bookings"));
+
+    // }
+
+    public function showBooking($id)
+    {
+        $bookings = $this->bookingsRepository->findBookingsById($id);
+        // ajout d'une condition en cas de la valeur null de $user afin d'ajouter un message d'erreur dans la session
+        return $this->render("users/dashboard_users.php", [
+            "bookings" => $bookings,
+        ]);
     }
+    
 
     // public function findContestById($id){
 

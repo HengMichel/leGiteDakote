@@ -5,7 +5,7 @@ $totalPrice = 0;
     <table class="table bg-success-subtle">
         <thead>
             <tr>
-                <th class="id_reservation bg-success link-warning border-2 border-warning">Id Reservation</th>
+                <th class="id_reservation bg-success link-warning border-2 border-warning">Room Id </th>
                 <th class="start_date bg-success link-warning border-2 border-warning">Start Date</th>
                 <th class="end_date bg-success link-warning border-2 border-warning">End Date</th>
                 <th class="state bg-success link-warning border-2 border-warning">State</th>
@@ -14,15 +14,15 @@ $totalPrice = 0;
             </tr>
         </thead>
         <tbody>
-        <?php if (isset($bookings) && is_array($bookings)) { 
+        <?php if (isset($bookingss) && is_array($bookings)) { 
             // d_die($bookings);
             ?>
 
-            <?php foreach($bookings as $booking){ 
+            <?php foreach($bookingss as $bookings){ 
                 $totalPrice += $booking->getBooking_price();
             ?>
                 <tr>
-                    <td class="idbook border-success-subtle border-3 mt-2"><?= $bookings->getId_booking() ?></td>
+                    <td class="idbook border-success-subtle border-3 mt-2"><?= $bookings->getRoom_id() ?></td>
                     <td class="booking_start_date border-success-subtle border-3 mt-2"><?= $bookings->getBooking_start_date() ?></td>
                     <td class="booking_end_date border-success-subtle border-3 mt-2"><?= $bookings->getBooking_end_date() ?></td>
                     <td class="booking_state border-success-subtle border-3 mt-2"><?= $bookings->getBooking_state() ?></td>
@@ -32,10 +32,7 @@ $totalPrice = 0;
                     </td> 
                 </tr>
                 <?php } ?>
-            <?php } else { ?>
-                <tr>
-                    <td colspan="6" class="text-center fw-medium">Aucune réservation disponible.</td>
-                </tr>
+          
             <?php } ?>
         </tbody>
         <tfoot>

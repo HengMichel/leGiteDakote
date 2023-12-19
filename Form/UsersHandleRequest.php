@@ -4,7 +4,6 @@ namespace Form;
 
 use Model\Entity\Users;
 use Model\Repository\UsersRepository;
-use Service\Session;
 
 class UsersHandleRequest extends BaseHandleRequest
 {

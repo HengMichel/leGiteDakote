@@ -72,7 +72,7 @@ class UsersController extends BaseController
         $user = $this->usersRepository->findUsersById($id);
 
         return $this->render("users/dashboard_users.php", [
-            "users" => $user
+            "user" => $user
             ]);            
     }
 
