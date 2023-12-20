@@ -51,7 +51,6 @@ class UsersController extends BaseController
         $users = $this->users;
         $user = $this->form->handleSecurity();
 
-
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 
             Session::authentication($user);

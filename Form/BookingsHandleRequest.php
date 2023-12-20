@@ -10,7 +10,10 @@ class BookingsHandleRequest extends BaseHandleRequest
 {
     private $bookingsRepository;
 
-    private $errors = []; // Initialisez la propriété $errors comme un tableau vide
+    const START_DATE = 'booking_start_date';
+    const END_DATE = 'booking_end_date';
+    const ROOM_ID = 'room_id';
+    const PRICE = 'price';
 
 
 
@@ -21,54 +24,65 @@ class BookingsHandleRequest extends BaseHandleRequest
 
     public function handleForm(Bookings $bookings)
     {
+        d_die($_POST);
         if (isset($_POST['book'])) {
-            // Validation des champs
-            if ($this->validateFields($_POST)) {
+            // extract($_POST);
+            $errors = [];
 
-                // Aucune erreur, on met à jour les propriétés de l'objet $bookings
+            // Vérifiez si les clés nécessaires existent dans $_POST
+            if (!isset($_POST[self::START_DATE], $_POST[self::END_DATE], $_POST[self::PRICE], $_POST[self::ROOM_ID])) {
 
-                // Vérifiez d'abord si la clé existe dans $_POST avant de l'utiliser
-                $bookings->setUser_id(isset($_POST['user_id']) ? $_POST['user_id'] : null);
-                $bookings->setBooking_start_date(isset($_POST['booking_start_date']) ? $_POST['booking_start_date'] : null);
-                $bookings->setBooking_end_date(isset($_POST['booking_end_date']) ? $_POST['booking_end_date'] : null);
-                $bookings->setRoom_id(isset($_POST['room_id']) ? $_POST['room_id'] : null);
-                $bookings->setBooking_price(isset($_POST['booking_price']) ? $_POST['booking_price'] : null);
-                $bookings->setBooking_state("in progress");
-
+            // convertir en date en seconde avec strtotime depuis le 1janvier 1960         
+            $booking_start_date = date("Ymd", strtotime($_POST[self::START_DATE]));
+            $booking_end_date = date("Ymd", strtotime($_POST[self::END_DATE]));
     
-                // Continuez avec l'étape suivante (par exemple, enregistrez dans la base de données)
+            $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
+            $nbDays = $duration / 86400;
+            $totalPrice = $_POST[self::PRICE] * $nbDays;
+
+            // date du jour
+            $today = date("Ymd");
+
+            // Vérification de la validité du formulaire
+             if (empty($booking_start_date)) {
+                $errors[] = "La date de début ne peut pas être vide";
+                }
+
+            if (empty($booking_end_date)) {
+                $errors[] = "La date de fin ne peut pas être vide";
+                }
+
+            // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
+            $request = $this->bookingsRepository->findByAttributes($bookings,
+            [self::START_DATE => $booking_start_date],[self::END_DATE => $booking_end_date]);
+            
+            // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
+            if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) {
     
-                // Retournez true pour indiquer que tout s'est bien passé
+                $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
+                }
+
+            // Si aucune erreur, définir les propriétés de l'entité
+            if (empty($errors)) {             
+                $bookings->setRoom_id($_POST[self::ROOM_ID]);
+                $bookings->setBooking_start_date($booking_start_date);
+                $bookings->setBooking_end_date($booking_end_date);
+                $bookings->setBooking_price($_POST[self::PRICE]);
+                
                 return true;
+                } 
+            } else {
+                // d_die($_POST); 
+                $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
             }
+                // Gérer les erreurs
+                $this->setEerrorsForm($errors);
         }
+        
     
-            // Si le formulaire n'a pas été soumis ou s'il y a des erreurs, stockez les erreurs
-            return $this->errors;
     }
     
-    private function validateFields(array $data)
-    {
-        $errors = [];
     
-        // Vérification de la validité du formulaire
-        if (empty($data['booking_start_date'])) {
-            $errors[] = "La date de début ne peut pas être vide";
-        }
-    
-        if (empty($data['booking_end_date'])) {
-            $errors[] = "La date de fin ne peut pas être vide";
-        }
-    
-        // Stockez les erreurs dans une propriété
-        $this->errors = $errors;
-    
-        // Renvoie true si aucune erreur
-        return empty($errors);
-    }
-
-
-
 
     public function handleSecurity()
     {

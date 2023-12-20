@@ -35,12 +35,31 @@ class BookingsController extends BaseController
 
     public function newBookings()
     {
+        // Récupérer les paramètres GET
+        $room_id = $_GET['room_id'] ?? null;
+        $price = $_GET['price'] ?? null;
+        $room_imgs = $_GET['room_imgs'] ?? null;
 
-        $bookings = $this->bookings;
+        // Instancier l'objet Bookings avec les données appropriées
+        $bookings = new Bookings();
+        $bookings->setRoom_id($room_id);
+        $bookings->setBooking_price($price);
+
+         // Passez les données à la vue
+         $data = [
+            'bookings' => $bookings,
+            'room_id' => $room_id,
+            'price' => $price,
+            'room_imgs' => $room_imgs,
+        ];
+
+        // $bookings = $this->bookings;
         $this->form->handleForm($bookings);
 
-         // Vérifiez si le formulaire est soumis
+        // Vérifiez si le formulaire est soumis
         if ($this->form->isSubmitted()) {
+
+            // d_die($_POST);
 
             // Vérifiez s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
@@ -61,16 +80,11 @@ class BookingsController extends BaseController
                 }
             }
 
-        } else {
-        // Si le formulaire n'a pas été soumis, ne faites rien ici.
-        // Vous pouvez ajouter une logique supplémentaire si nécessaire.
         }
         // Récupérez les erreurs du formulaire
-
         $errors = $this->form->getEerrorsForm();
 
-        return $this->render("bookings/form_bookings.php",  [
-            "bookings" => $bookings,
+        return $this->render("bookings/form_bookings.php",$data + [
             "errors" => $errors
         ]);
     }

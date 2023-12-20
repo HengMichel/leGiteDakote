@@ -2,12 +2,6 @@
 $mode = $mode ?? "insertion";
 require "views/errors_form.php";
 ?>
-<?php
-// Récupérer les paramètres GET
-$room_id = $_GET['room_id'] ?? null;
-$price = $_GET['price'] ?? null;
-$room_imgs = $_GET['room_imgs'] ?? null;
-?>
 <div class="container5 container">
     <form method="post">
 
@@ -17,6 +11,9 @@ $room_imgs = $_GET['room_imgs'] ?? null;
         </div>
 
         <div class="form-group link-warning fw-medium justify-content-md-center mt-5">
+            <input type="hidden" name="room_id" value="<?= $bookings->getRoom_id() ?>">
+            <input type="hidden" name="price" value="<?= $bookings->getBooking_price() ?>">
+
             <div class="row">
                 <div class="form-group link-warning fw-medium col-3">
                     <label class="stD bg-black">Start Date :</label>
@@ -29,7 +26,7 @@ $room_imgs = $_GET['room_imgs'] ?? null;
             </div>
 
             <div class="form-group link-warning fw-medium col-3 mt-3">
-                <button type="submit"  class="btn bg-warning link-success border-warning border-2 fw-medium" name="book"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button><a href="<?= addLink("bookings","newBookings") ?>"></a>
+                <button type="submit"  class="btn bg-warning link-success border-warning border-2 fw-medium" name="book" value="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button><a href="<?= addLink("bookings","newBookings") ?>"></a>
             </div>
         </div>
     </form>
