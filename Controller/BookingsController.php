@@ -3,25 +3,23 @@
 namespace Controller;
 
 use Service\Session;
+use Model\Entity\Users;
 use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
 use Model\Repository\BookingsRepository;
-use Model\Repository\RoomsRepository;
 
 class BookingsController extends BaseController
 {
     private $bookingsRepository;
     private $form;
     private $bookings;
-    private $roomsRepository;
 
     public function __construct()
     {
         $this->bookingsRepository = new BookingsRepository;
         $this->form = new BookingsHandleRequest;
         $this->bookings = new Bookings;
-        $this->roomsRepository = new RoomsRepository;
     }
 
     public function list(){
@@ -39,11 +37,14 @@ class BookingsController extends BaseController
         $room_id = $_GET['room_id'] ?? null;
         $price = $_GET['price'] ?? null;
         $room_imgs = $_GET['room_imgs'] ?? null;
+        $room_state = $_GET['room_state'] ?? null;
 
         // Instancier l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
         $bookings->setRoom_id($room_id);
         $bookings->setBooking_price($price);
+
+        // d_die($room_id, $price, $room_imgs, $room_state, $bookings);
 
          // Passez les données à la vue
          $data = [
@@ -51,30 +52,41 @@ class BookingsController extends BaseController
             'room_id' => $room_id,
             'price' => $price,
             'room_imgs' => $room_imgs,
+            'room_state' => $room_state,
         ];
 
-        // $bookings = $this->bookings;
         $this->form->handleForm($bookings);
 
         // Vérifiez si le formulaire est soumis
         if ($this->form->isSubmitted()) {
-
-            // d_die($_POST);
+            // d_die($bookings);
 
             // Vérifiez s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
+                // d_die($_SESSION);
+
+                // Récupérez l'utilisateur connecté
+                $user = Session::getConnectedUser();
+
                 // Assurez-vous que user_id est défini sur l'objet $bookings
-                Session::isConnected();
-      
+                if ($user instanceof Users) {
+                    // d_die($_SESSION);
+                    $bookings->setUser_id($user->getId_user());
+                }
+                // d_die($bookings);
+
                 // Ajoutez la réservation à la base de données
                 $success = $this->bookingsRepository->addBookings($bookings);
-                // d_die($success);
+                // d_die($success); return bool(true)
                 if ($success) {
+                    // d_die($_SESSION);
+                    // d_die($bookings);
 
-                    // Redirigez vers le tableau de bord ou une autre page            
+                    // Redirigez vers le tableau de bord
                     return redirection(addLink("users","dashUsers"));
 
                 } else {
+             
                     // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                     $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
                 }
@@ -87,33 +99,23 @@ class BookingsController extends BaseController
         return $this->render("bookings/form_bookings.php",$data + [
             "errors" => $errors
         ]);
-    }
-        
+    }      
 
-    
-    
-    // public function modifBookings($bookings)
-    // {
-    //     $bookingss = $this->bookingsRepository->cancelBookings($this->bookings);
-    //     $this->bookingsRepository->cancelBookings($bookings);
-    //     return redirection(addLink("bookings"));
-
-    // }
-
-    public function showBooking($id)
+  
+    public function cancelBooking()
     {
-        $bookings = $this->bookingsRepository->findBookingsById($id);
-        // ajout d'une condition en cas de la valeur null de $user afin d'ajouter un message d'erreur dans la session
-        return $this->render("users/dashboard_users.php", [
-            "bookings" => $bookings,
-        ]);
+        if (isset($_GET['id_book'])) {
+            $success = $this->bookingsRepository->cancelBooking($_GET['id_book']);
+
+            if ($success) {
+                 // Redirigez vers le tableau de bord
+                 return redirection(addLink("users","dashUsers"));
+
+                } else {
+             
+                    // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
+                    $errors = ["Une erreur s'est produite lors de l'annulation de la réservation."];
+                }
+        }
     }
-    
-
-    // public function findContestById($id){
-
-    //     $contest = Contest::findContestById($id);
-
-    //     $this->render("list_contest.php");
-    // }
 }

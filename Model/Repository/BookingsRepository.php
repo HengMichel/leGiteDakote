@@ -45,13 +45,13 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    public function cancelBookings(Bookings $bookings){
+    public function cancelBooking($idbookings){
         try {
             $sql = "UPDATE bookings SET booking_state = :booking_state WHERE id_booking = :id_booking";
     
             $request = $this->dbConnection->prepare($sql);
-            $request->bindValue(":booking_state", $bookings->getBooking_state());
-            $request->bindValue(":id_booking", $bookings->getId_booking());
+            $request->bindValue(":booking_state", "cancel");
+            $request->bindValue(":id_booking", $idbookings);
     
             $success = $request->execute();
     
@@ -112,7 +112,7 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    public function findTableRooms(Bookings $bookings ){
+    public function findTableRooms(Bookings $bookings){
 
         $sql= "SELECT 
         b.`id_booking`,
@@ -154,17 +154,25 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    public function findUserBookings($user)
+    public function findUserBookings($userId)
     {
     $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
-    $request->bindParam(":user_id", $user->getId_user(), \PDO::PARAM_INT);
+    $request->bindParam(":user_id", $userId, \PDO::PARAM_INT);
+    // Affiche le requête SQL pour le débogage
+    // var_dump($request->queryString);
 
     if ($request->execute()) {
-        return $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
+        $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
+        // Affiche les résultats pour le débogage
+        //   var_dump($results);
+
+          return $results;
+
     } else {
         return null;
         }
     }
+
 
     public function findBookingsById($id)
     {

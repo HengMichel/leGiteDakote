@@ -42,6 +42,11 @@ abstract class Session
         return isset($_SESSION[self::SESSION_KEY_USERS]);
     }
 
+    public static function getConnectedUser()
+    {
+        return $_SESSION[self::SESSION_KEY_USERS] ?? null;
+    }
+
     public static function logout()
     {
         self::destroy();

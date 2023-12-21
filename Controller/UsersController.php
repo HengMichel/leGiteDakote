@@ -2,20 +2,24 @@
 
 namespace Controller;
 
-use Model\Entity\Users;
-use Model\Repository\UsersRepository;
-use Form\UsersHandleRequest;
 use Service\Session;
+use Model\Entity\Users;
+use Model\Entity\Bookings;
+use Form\UsersHandleRequest;
+use Model\Repository\UsersRepository;
+use Model\Repository\BookingsRepository;
 
 class UsersController extends BaseController
 {
     private $usersRepository;
+    private $bookingsRepository;
     private $form;
     private $users;
 
     public function __construct()
     {
         $this->usersRepository = new UsersRepository;
+        $this->bookingsRepository = new BookingsRepository;
         $this->form = new UsersHandleRequest;
         $this->users = new Users;
     }
@@ -66,12 +70,20 @@ class UsersController extends BaseController
             ]);
     }
     
-    public function dashUsers($id)
+    public function dashUsers()
     {
-        $user = $this->usersRepository->findUsersById($id);
+         // Obtenez l'ID de l'utilisateur connecté
+        $userId = Session::getConnectedUser()->getId_user();
+        // d_die($userId);
+
+        // Créez une instance de la classe Bookings pour l'utiliser comme argument
+        // $bookings = new Bookings();
+
+        // Utilisez l'ID de l'utilisateur pour récupérer les réservations
+        $findUserBookings = $this->bookingsRepository->findUserBookings($userId);
 
         return $this->render("users/dashboard_users.php", [
-            "user" => $user
+            "findUserBookings" => $findUserBookings
             ]);            
     }
 

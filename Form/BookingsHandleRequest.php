@@ -24,18 +24,20 @@ class BookingsHandleRequest extends BaseHandleRequest
 
     public function handleForm(Bookings $bookings)
     {
-        d_die($_POST);
+        // d_die($_POST);
         if (isset($_POST['book'])) {
-            // extract($_POST);
+
+            extract($_POST);
             $errors = [];
 
             // Vérifiez si les clés nécessaires existent dans $_POST
-            if (!isset($_POST[self::START_DATE], $_POST[self::END_DATE], $_POST[self::PRICE], $_POST[self::ROOM_ID])) {
+            // if (!isset($_POST[self::START_DATE], $_POST[self::END_DATE], $_POST[self::PRICE], $_POST[self::ROOM_ID])) {
 
             // convertir en date en seconde avec strtotime depuis le 1janvier 1960         
-            $booking_start_date = date("Ymd", strtotime($_POST[self::START_DATE]));
-            $booking_end_date = date("Ymd", strtotime($_POST[self::END_DATE]));
-    
+            $booking_start_date = date("d-m-Y", strtotime($_POST[self::START_DATE]));
+            $booking_end_date = date("d-m-Y", strtotime($_POST[self::END_DATE]));
+            // d_die($booking_start_date);
+
             $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
             $nbDays = $duration / 86400;
             $totalPrice = $_POST[self::PRICE] * $nbDays;
@@ -69,15 +71,21 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setBooking_end_date($booking_end_date);
                 $bookings->setBooking_price($_POST[self::PRICE]);
                 
+                // d_die($_POST); 
                 return true;
-                } 
-            } else {
+                }
+
+                $this->setEerrorsForm($errors);
+ 
+            // } else {
                 // d_die($_POST); 
                 $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
             }
+            // d_die($_POST); 
+
                 // Gérer les erreurs
-                $this->setEerrorsForm($errors);
-        }
+                // $this->setEerrorsForm($errors);
+        // }
         
     
     }

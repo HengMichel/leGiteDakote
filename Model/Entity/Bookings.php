@@ -12,7 +12,7 @@ class Bookings extends BaseEntity
     private $user_id;
     private $room_id;
     private $booking_price;
-    private $booking_state;
+    private $booking_state = 'in progress';
 
 
     // Référence à la classe Rooms
