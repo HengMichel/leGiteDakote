@@ -62,6 +62,11 @@ class BookingsHandleRequest extends BaseHandleRequest
             if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) {
     
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
+                } else{ 
+                if($bookings->getUser_id() == null){
+
+                    $errors[] = "Merci de vous connectez avant toute réservation";
+                    }
                 }
 
             // Si aucune erreur, définir les propriétés de l'entité
@@ -74,19 +79,13 @@ class BookingsHandleRequest extends BaseHandleRequest
                 // d_die($_POST); 
                 return true;
                 }
-
+                // Gérer les erreurs
                 $this->setEerrorsForm($errors);
  
-            // } else {
+            } else {
                 // d_die($_POST); 
                 $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
-            }
-            // d_die($_POST); 
-
-                // Gérer les erreurs
-                // $this->setEerrorsForm($errors);
-        // }
-        
+            }      
     
     }
     

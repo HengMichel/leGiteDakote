@@ -21,27 +21,23 @@
                 // d_die($bookings);
             ?>
                 <tr>
-                    <td class="idbook border-success-subtle border-3 mt-2 fw-medium"><?= $bookings->getRoom_id() ?></td>
-                    <td class="booking_start_date border-success-subtle border-3 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_start_date())) ?></td>
-                    <td class="booking_end_date border-success-subtle border-3 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_end_date())) ?></td>
-                    <td class="booking_state border-success-subtle border-3 mt-2 fw-medium"><?= $bookings->getBooking_state() ?></td>
-                    <td class="booking_price border-success-subtle border-3 mt-2 fw-medium"><?= $bookings->getBooking_price() ?></td>
-                    <td class="btn bg-success m-0 border-warning border-3 mt-2 m-auto">
-                        <a class="canc link-warning fw-medium" href="<?= addLink("bookings/cancelBooking". $bookings->getId_booking()
-                        ) 
-                        ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
+                    <td class="idbook border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getRoom_id() ?></td>
+                    <td class="booking_start_date border-success-subtle border-2 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_start_date())) ?></td>
+                    <td class="booking_end_date border-success-subtle border-2 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_end_date())) ?></td>
+                    <td class="booking_state border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getBooking_state() ?></td>
+                    <td class="booking_price border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getBooking_price() ?></td>
+                    <td class="btn bg-success m-0 border-warning border-2 mt-2 container">
+                        <a class="canc link-warning fw-medium border-2 border-warning" href="<?= addLink("bookings/cancelBooking", $bookings->getId_booking()) 
+                        ?>">Annuler</a>
                     </td> 
                 </tr>
-                <?php } ?>
-          
-            <?php 
-        } 
-        ?>
+                <?php }  
+              } ?> 
         </tbody>
         <tfoot>
             <tr class="table-active">
-                <td class="total_reservation border-warning border-4 mt-2 border-top alert-link bg-success-subtle" colspan="4">Total de vos réservations:</td>
-                <td class="price border-2 border-warning border-4 mt-2 border-top alert-link bg-success-subtle"><?= $totalPrice; ?></td>
+                <td class="total_reservation border-warning border-2 mt-2 border-top alert-link bg-success-subtle" colspan="4">Total de vos réservations:</td>
+                <td class="price border-primary border-4 mt-2 alert-link bg-success-subtle"><?= $totalPrice; ?></td>
             </tr>
         </tfoot>
     </table>

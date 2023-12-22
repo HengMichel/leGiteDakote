@@ -102,20 +102,20 @@ class BookingsController extends BaseController
     }      
 
   
-    public function cancelBooking()
+    public function cancelBooking($id)
     {
-        if (isset($_GET['id_book'])) {
-            $success = $this->bookingsRepository->cancelBooking($_GET['id_book']);
+        if ($bookings = $this->bookingsRepository->deleteBookingsById($this->bookings)){
+        
+        $this->bookingsRepository->deleteBookingsById($id);
 
-            if ($success) {
-                 // Redirigez vers le tableau de bord
-                 return redirection(addLink("users","dashUsers"));
+        // Redirigez vers le tableau de bord
+        return redirection(addLink("users","dashUsers"));
 
-                } else {
-             
-                    // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
-                    $errors = ["Une erreur s'est produite lors de l'annulation de la réservation."];
-                }
+        } else {
+ 
+            // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
+            $errors = ["Une erreur s'est produite lors de l'annulation de la réservation."];
+        
         }
     }
 }

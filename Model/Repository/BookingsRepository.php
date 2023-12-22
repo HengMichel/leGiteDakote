@@ -174,18 +174,19 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    public function findBookingsById($id)
+    public function deleteBookingsById($id)
     {
-        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE id_booking = :id_booking");
+        $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
         $request->bindParam(':id_booking',$id);
 
         if($request->execute()) {
-            if ($request->rowCount() == 1) {
-                $class = "Model\Entity\\" . ucfirst('bookings');
-                // utiliser le bon mode de récupération selon votre configuration
-                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
-                return $request->fetch();
-            }
+
+            return true; 
+            // La suppression a réussi
+            } else {
+            return false; 
+            // La suppression a échoué
+
         }
     }
 

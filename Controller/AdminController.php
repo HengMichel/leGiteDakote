@@ -1,5 +1,6 @@
 <?php
-namespace Controller\Admin;
+// namespace Controller\Admin;
+namespace Controller;
 
 use Model\Entity\Users;
 use Form\UsersHandleRequest;
@@ -7,7 +8,7 @@ use Controller\BaseController;
 use Model\Repository\UsersRepository;
 
 
-class UsersController extends BaseController{
+class AdminController extends BaseController{
 
     private $usersRepository;
     private $form;
@@ -20,11 +21,11 @@ class UsersController extends BaseController{
         $this->users = new Users;
     }
 
-    public function list()
+    public function home()
     {
         $userss = $this->usersRepository->findAll($this->users);
 
-        $this->render("users/list_users.php", [
+        $this->render("admin/dashboard_admin.php", [
             "userss" => $userss
         ]);
     }

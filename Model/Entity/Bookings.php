@@ -14,41 +14,6 @@ class Bookings extends BaseEntity
     private $booking_price;
     private $booking_state = 'in progress';
 
-
-    // Référence à la classe Rooms
-    // private $room;
-
-    /**
-     * Get the value of booking_price
-     */
-    // public function getBooking_price()
-    // {
-        // Vérifiez si une chambre est définie
-        // if ($this->room instanceof Rooms) {
-            // Supposons que la classe Rooms ait une méthode getPrice
-        //     return $this->room->getPrice();
-        // }
-
-        // Retournez une valeur par défaut ou gérez le cas où la chambre n'est pas définie
-    //     return null;
-    // }
-
-    /**
-     * Définir la valeur de la chambre (en supposant que vous avez une référence à la classe Rooms)
-     *
-     * @return  self
-     */
-    // public function setRoom(Rooms $room)
-    // {
-    //     $this->room = $room;
-
-    //     return $this;
-    // }
-
-
-
-
-
     /**
      * Get the value of id_booking
      */

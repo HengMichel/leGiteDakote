@@ -73,18 +73,40 @@ class UsersController extends BaseController
     public function dashUsers()
     {
          // Obtenez l'ID de l'utilisateur connecté
-        $userId = Session::getConnectedUser()->getId_user();
+        // $userId = Session::getConnectedUser()->getId_user();
+        $userId = Session::getConnectedUser();
         // d_die($userId);
 
-        // Créez une instance de la classe Bookings pour l'utiliser comme argument
-        // $bookings = new Bookings();
 
-        // Utilisez l'ID de l'utilisateur pour récupérer les réservations
-        $findUserBookings = $this->bookingsRepository->findUserBookings($userId);
+         // si l'utilisateur est connecté
+        if ($userId instanceof Users) {
+            // Utilisez l'objet utilisateur pour récupérer le rôle
+            $userRole = $userId->getRole();
 
-        return $this->render("users/dashboard_users.php", [
-            "findUserBookings" => $findUserBookings
-            ]);            
+
+
+
+            // si l'utilisateur est un client
+            if($userRole == 'client'){
+
+                // Utilisez l'ID de l'utilisateur pour récupérer les réservations
+                $findUserBookings = $this->bookingsRepository->findUserBookings($userId->getId_user());
+    
+                return $this->render("users/dashboard_users.php", [
+                "findUserBookings" => $findUserBookings
+                ]);  
+                // alors si il n'est pas client il est admin donc  
+            } elseif ($userRole == 'admin'){
+                
+                return redirection(addLink("admin","home"));
+
+                    // session::isAdmin($userId);
+                }
+                // d_die($userId);
+                // return $this->render("admin/dashboard_admin.php");
+            // }
+
+        }
     }
 
     public function deco(){

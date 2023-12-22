@@ -41,6 +41,12 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link link-warning" href="<?= addLink("users","newUsers") ?>">S'inscrire</a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link link-warning" href="<?= addLink("admin/admin","home") ?>">admin home</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link link-warning" href="<?= addLink("admin","home") ?>">admin home</a>
+                </li>
                
             </ul>
         </div>
