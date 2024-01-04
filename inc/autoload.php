@@ -7,12 +7,15 @@ L'argument sera le nom de la class requise.
  */
 function chargeClass($className)
 {
-    // On remplace les \ qui sont dans le nom de la class à charger par des / qui est le séparateur de dossier
+   
     // utilisé dans la plupart des systèmes d'exploitation
     // ⚠ RAPPEL : dans les namespaces, on ne peut utiliser que les \
 
+    // On remplace les \ qui sont dans le nom de la class à charger par des / qui est le séparateur de dossier
     $filePath = str_replace("\\", "/", $className);
+
     $root = __DIR__ . "/../" . $filePath . ".php";
+
     if (file_exists($root)) {
         require $root;
     } else {
