@@ -4,7 +4,7 @@ namespace Form\Admin;
 
 use Model\Entity\Rooms;
 use Form\BaseHandleRequest;
-use Model\Repository\Admin\AdminRoomsCrudRepository;
+use Model\Repository\Admin\AdminRepository;
 
 class AdminRoomsHandleRequest extends BaseHandleRequest
 {
@@ -12,7 +12,7 @@ class AdminRoomsHandleRequest extends BaseHandleRequest
 
     public function __construct()
     {
-        $this->roomsRepository  = new AdminRoomsCrudRepository;
+        $this->roomsRepository  = new AdminRepository;
     }
 
     public function handleForm(Rooms $rooms)

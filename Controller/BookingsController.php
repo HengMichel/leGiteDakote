@@ -46,6 +46,15 @@ class BookingsController extends BaseController
 
         // d_die($room_id, $price, $room_imgs, $room_state, $bookings);
 
+         // Récupérez l'utilisateur connecté
+         $user = Session::getConnectedUser();
+
+         // Assurez-vous que user_id est défini sur l'objet $bookings
+         if ($user instanceof Users) {
+             // d_die($_SESSION);
+             $bookings->setUser_id($user->getId_user());
+         }
+
          // Passez les données à la vue
          $data = [
             'bookings' => $bookings,
@@ -64,15 +73,6 @@ class BookingsController extends BaseController
             // Vérifiez s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
                 // d_die($_SESSION);
-
-                // Récupérez l'utilisateur connecté
-                $user = Session::getConnectedUser();
-
-                // Assurez-vous que user_id est défini sur l'objet $bookings
-                if ($user instanceof Users) {
-                    // d_die($_SESSION);
-                    $bookings->setUser_id($user->getId_user());
-                }
                 // d_die($bookings);
 
                 // Ajoutez la réservation à la base de données
@@ -86,7 +86,6 @@ class BookingsController extends BaseController
                     return redirection(addLink("users","dashUsers"));
 
                 } else {
-             
                     // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                     $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
                 }
@@ -104,17 +103,20 @@ class BookingsController extends BaseController
   
     public function cancelBooking($id)
     {
-        if ($bookings = $this->bookingsRepository->deleteBookingsById($this->bookings)){
+        if ($bookings = $this->bookingsRepository->cancelBooking($this->bookings)){
         
-        $this->bookingsRepository->deleteBookingsById($id);
+        $this->bookingsRepository->cancelBooking($id);
+        // d_die($bookings);
 
         // Redirigez vers le tableau de bord
         return redirection(addLink("users","dashUsers"));
 
         } else {
- 
-            // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
-            $errors = ["Une erreur s'est produite lors de l'annulation de la réservation."];
+            // Récupérez les erreurs du formulaire
+            $errors = $this->form->getEerrorsForm();
+            return $this->render("bookings/form_bookings.php", [
+                "errors" => $errors
+            ]);
         
         }
     }

@@ -5,7 +5,6 @@ namespace Form;
 use Model\Entity\Bookings;
 use Model\Repository\BookingsRepository;
 
-
 class BookingsHandleRequest extends BaseHandleRequest
 {
     private $bookingsRepository;
@@ -14,8 +13,6 @@ class BookingsHandleRequest extends BaseHandleRequest
     const END_DATE = 'booking_end_date';
     const ROOM_ID = 'room_id';
     const PRICE = 'price';
-
-
 
     public function __construct()
     {
@@ -29,9 +26,6 @@ class BookingsHandleRequest extends BaseHandleRequest
 
             extract($_POST);
             $errors = [];
-
-            // Vérifiez si les clés nécessaires existent dans $_POST
-            // if (!isset($_POST[self::START_DATE], $_POST[self::END_DATE], $_POST[self::PRICE], $_POST[self::ROOM_ID])) {
 
             // convertir en date en seconde avec strtotime depuis le 1janvier 1960         
             $booking_start_date = date("d-m-Y", strtotime($_POST[self::START_DATE]));
@@ -63,6 +57,8 @@ class BookingsHandleRequest extends BaseHandleRequest
     
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
                 } else{ 
+
+                    // d_die($_SESSION);
                 if($bookings->getUser_id() == null){
 
                     $errors[] = "Merci de vous connectez avant toute réservation";

@@ -18,7 +18,7 @@ RewriteRule ^(\w+)/(\w+)/(\d+)$             index.php?controller=$1&method=$2&id
 RewriteRule ^(\w+)/(\w+)/(\d+)/(.*)$        index.php?controller=$1&method=$2&id=$3 [L,QSA]
 
 # À ajouter cette règle pour le répertoire admin
-RewriteRule ^admin/(\w+)/?$                  index.php?controller=Admin\$1 [L,QSA]
-RewriteRule ^admin/(\w+)/(\w+)$              index.php?controller=Admin\$1&method=$2 [L,QSA]
-RewriteRule ^admin/(\w+)/(\w+)/(\d+)$        index.php?controller=Admin\$1&method=$2&id=$3 [L,QSA]
-RewriteRule ^admin/(\w+)/(\w+)/(\d+)/(.*)$   index.php?controller=Admin\$1&method=$2&id=$3 [L,QSA]
+RewriteRule ^admin/(\w+)/?$                  index.php?controller=Admin\\$1 [L,QSA]
+RewriteRule ^admin/(\w+)/(\w+)$              index.php?controller=Admin\\$1&method=$2 [L,QSA]
+RewriteRule ^admin/(\w+)/(\w+)/(\d+)$        index.php?controller=Admin\\$1&method=$2&id=$3 [L,QSA]
+RewriteRule ^admin/(\w+)/(\w+)/(\d+)/(.*)$   index.php?controller=Admin\\$1&method=$2&id=$3 [L,QSA]

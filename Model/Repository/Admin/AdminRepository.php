@@ -6,7 +6,7 @@ use Model\Entity\Rooms;
 use Service\Session;
 use Model\Repository\BaseRepository;
 
-class AdminRoomsCrudRepository extends BaseRepository
+class AdminRepository extends BaseRepository
 {
     public function addRooms(Rooms $rooms)
     {

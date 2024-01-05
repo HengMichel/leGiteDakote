@@ -72,19 +72,15 @@ class UsersController extends BaseController
     
     public function dashUsers()
     {
-         // Obtenez l'ID de l'utilisateur connecté
+        // Obtenez l'ID de l'utilisateur connecté
         // $userId = Session::getConnectedUser()->getId_user();
         $userId = Session::getConnectedUser();
         // d_die($userId);
 
-
-         // si l'utilisateur est connecté
+        // si l'utilisateur est connecté
         if ($userId instanceof Users) {
             // Utilisez l'objet utilisateur pour récupérer le rôle
             $userRole = $userId->getRole();
-
-
-
 
             // si l'utilisateur est un client
             if($userRole == 'client'){

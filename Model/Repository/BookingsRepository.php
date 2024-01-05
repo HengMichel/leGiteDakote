@@ -45,29 +45,75 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    public function cancelBooking($idbookings){
+    public function cancelBooking($id){
+        
         try {
-            $sql = "UPDATE bookings SET booking_state = :booking_state WHERE id_booking = :id_booking";
+            // Récupérer la réservation par son ID
+            $booking = $this->findBookingById($id);
+
+            // Vérifier si la réservation existe
+            if ($booking) {
+                // Mettre à jour l'état de la réservation
+                $sql = "UPDATE bookings SET booking_state = :booking_state WHERE id_booking = :id_booking";
+                $request = $this->dbConnection->prepare($sql);
+                $request->bindValue(":booking_state", "cancel");
+                $request->bindValue(":id_booking", $id);
+                $success = $request->execute();
     
-            $request = $this->dbConnection->prepare($sql);
-            $request->bindValue(":booking_state", "cancel");
-            $request->bindValue(":id_booking", $idbookings);
-    
-            $success = $request->execute();
-    
-            if ($success) {
-                Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
-                return true;
+                if ($success) {
+                    // Si l'annulation est réussie, vous pouvez ajuster le prix total ici
+                    // Déduisez le montant annulé du prix total
+                    
+                    Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
+                    return true;
+                } else {
+                    Session::addMessage("danger",  "Erreur : la réservation n'a pas été mise à jour");
+                    return false;
+                }
             } else {
-                Session::addMessage("danger",  "Erreur : la réservation n'a pas été mise à jour");
+                // La réservation n'a pas été trouvée
+                Session::addMessage("danger",  "Erreur : réservation introuvable");
                 return false;
-            }
+            }    
         } catch (PDOException $e) {
             // Vous pouvez également logger l'erreur ici
             throw new Exception("Erreur lors de l'annulation de la réservation : " . $e->getMessage());
         }
     }
 
+    // Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur  
+    public function deleteBookingsById($id){
+
+        $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
+        $request->bindParam(':id_booking',$id);
+
+        if($request->execute()) {
+
+            return true; 
+            // La suppression a réussi
+            } else {
+            return false; 
+            // La suppression a échoué
+            }
+      }  
+
+    public function findBookingById($id){
+
+        try {
+              $sql = "SELECT * FROM bookings WHERE id_booking = :id";
+              $request = $this->dbConnection->prepare($sql);
+              $request->bindValue(":id", $id);
+              $request->execute();
+      
+              return $request->fetch(\PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            // Gérer l'erreur
+            throw new Exception("Erreur lors de la recherche de la réservation par ID : " . $e->getMessage());
+        } 
+    }
+        
+    
     public function findBookingsRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE room_id = :room_id");
@@ -173,21 +219,5 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-
-    public function deleteBookingsById($id)
-    {
-        $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
-        $request->bindParam(':id_booking',$id);
-
-        if($request->execute()) {
-
-            return true; 
-            // La suppression a réussi
-            } else {
-            return false; 
-            // La suppression a échoué
-
-        }
-    }
-
+  
 }
