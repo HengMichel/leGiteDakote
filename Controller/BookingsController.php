@@ -103,9 +103,10 @@ class BookingsController extends BaseController
   
     public function cancelBooking($id)
     {
-        if ($bookings = $this->bookingsRepository->cancelBooking($this->bookings)){
-        
-        $this->bookingsRepository->cancelBooking($id);
+        // Annuler la réservation
+        $success = $this->bookingsRepository->cancelBooking($id);
+
+        if ($success) {
         // d_die($bookings);
 
         // Redirigez vers le tableau de bord

@@ -47,6 +47,26 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link link-warning" href="<?= addLink("admin","home") ?>">admin home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link-warning" href="<?= addLink("admin","home") ?>" onclick="updateIcon(true)"><i class="fa-solid fa-cart-shopping link-primary" id="cart-shopping"></i></a>
+                </li>
+                <script>
+
+                    function updateIcon(increment) {
+                        // Assuming you have a variable to store the cart count
+                        var cartCount = 0; // You may initialize it differently based on your logic
+                    
+                        // Update the cart count based on the form submission or cancellation
+                        if (increment) {
+                            cartCount++;
+                        } else {
+                            cartCount--;
+                        }
+                    
+                        // Update the cart icon display (replace 'cart-icon' with your actual cart icon ID)
+                        document.getElementById('cart-shopping').innerText = <i class="fa-solid fa-cart-shopping" style="color: #ecedef;" id="cart-shopping"></i> + cartCount;
+                    }
+                </script>
                
             </ul>
         </div>

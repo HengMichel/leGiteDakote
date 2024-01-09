@@ -28,8 +28,8 @@ class BookingsHandleRequest extends BaseHandleRequest
             $errors = [];
 
             // convertir en date en seconde avec strtotime depuis le 1janvier 1960         
-            $booking_start_date = date("d-m-Y", strtotime($_POST[self::START_DATE]));
-            $booking_end_date = date("d-m-Y", strtotime($_POST[self::END_DATE]));
+            $booking_start_date = date("Y-m-d", strtotime($_POST[self::START_DATE]));
+            $booking_end_date = date("Y-m-d", strtotime($_POST[self::END_DATE]));
             // d_die($booking_start_date);
 
             $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
@@ -37,7 +37,9 @@ class BookingsHandleRequest extends BaseHandleRequest
             $totalPrice = $_POST[self::PRICE] * $nbDays;
 
             // date du jour
-            $today = date("Ymd");
+            // $today = date("Ymd");
+            $today = time();
+
 
             // Vérification de la validité du formulaire
              if (empty($booking_start_date)) {
@@ -50,7 +52,11 @@ class BookingsHandleRequest extends BaseHandleRequest
 
             // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
             $request = $this->bookingsRepository->findByAttributes($bookings,
-            [self::START_DATE => $booking_start_date],[self::END_DATE => $booking_end_date]);
+            [self::START_DATE => $booking_start_date,self::END_DATE => $booking_end_date,self::ROOM_ID => $_POST[self::ROOM_ID]
+            ]);
+            if ($request) {
+                $errors[] = "La chambre n'est pas disponible pour cette période";
+            }
             
             // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
             if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) {
@@ -72,6 +78,11 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setBooking_end_date($booking_end_date);
                 $bookings->setBooking_price($_POST[self::PRICE]);
                 
+                // Include JavaScript code for updating the icon
+                // Assuming you have a function to update the icon
+                // echo "<script> updateIcon(true); </script>";
+
+    
                 // d_die($_POST); 
                 return true;
                 }

@@ -48,8 +48,15 @@ class BookingsRepository extends BaseRepository
     public function cancelBooking($id){
         
         try {
+            // Avant la recherche de la réservation
+// echo "ID de réservation à annuler : " . $id;
+
             // Récupérer la réservation par son ID
             $booking = $this->findBookingById($id);
+
+            // echo "Avant la mise à jour : ";
+            // print_r($booking);
+
 
             // Vérifier si la réservation existe
             if ($booking) {
@@ -58,12 +65,15 @@ class BookingsRepository extends BaseRepository
                 $request = $this->dbConnection->prepare($sql);
                 $request->bindValue(":booking_state", "cancel");
                 $request->bindValue(":id_booking", $id);
+
                 $success = $request->execute();
     
                 if ($success) {
+                    // echo "Après la mise à jour : " . $id;
+                    
                     // Si l'annulation est réussie, vous pouvez ajuster le prix total ici
                     // Déduisez le montant annulé du prix total
-                    
+
                     Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
                     return true;
                 } else {
@@ -81,21 +91,21 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-    // Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur  
-    public function deleteBookingsById($id){
+    // #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
+    // public function deleteBookingsById($id){
 
-        $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
-        $request->bindParam(':id_booking',$id);
+    //     $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
+    //     $request->bindParam(':id_booking',$id);
 
-        if($request->execute()) {
+    //     if($request->execute()) {
 
-            return true; 
-            // La suppression a réussi
-            } else {
-            return false; 
-            // La suppression a échoué
-            }
-      }  
+    //         return true; 
+    //         // La suppression a réussi
+    //         } else {
+    //         return false; 
+    //         // La suppression a échoué
+    //         }
+    //   }  
 
     public function findBookingById($id){
 
