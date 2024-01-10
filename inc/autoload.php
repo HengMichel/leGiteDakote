@@ -14,6 +14,9 @@ function chargeClass($className)
     // On remplace les \ qui sont dans le nom de la class à charger par des / qui est le séparateur de dossier
     $filePath = str_replace("\\", "/", $className);
 
+    // ajoute recement
+    $newClassName = str_replace("Controller/", "", $filePath);
+    
     $root = __DIR__ . "/../" . $filePath . ".php";
 
     if (file_exists($root)) {

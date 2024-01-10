@@ -1,30 +1,36 @@
 <?php
-
+/**
+ * Summary of namespace Controller
+ */
 namespace Controller;
 
-use Model\Entity\Rooms;
-use Controller\BaseController;
 use Model\Repository\RoomsRepository;
 
+/**
+ * Summary of RoomsController
+ */
 class RoomsController extends BaseController
 {
-    private $roomsRepository;
-    private $rooms;
-
-    public function __construct()
+    public function list()
     {
-        $this->roomsRepository = new RoomsRepository;
-        $this->rooms = new Rooms;
-    }
-    public function list(){
-
-        $roomss = $this->roomsRepository->findAll($this->rooms);
-
-        $this->render("rooms/list_rooms.php", [
-            "roomss" => $roomss
-        ]);
+        error("404.php");
     }
     
+    public function show($id)
+    {
+        if (!empty($id) && is_numeric($id)) {            
+            $pr = new RoomsRepository;
+            $rooms = $pr->findById('rooms', $id);
+                if (empty($rooms)) {
+                $this->setMessage("danger",  "Le produit NO $id n'existe pas");
+                redirection(addLink("home"));
+            }
+            $this->render("rooms/show.html.php", [
+            "rooms" => $rooms,
+            "h1" => "Fiche rooms"
+            ]);
+        } else {
+            error("404.php");
+        }
+    }
 }
-
-    

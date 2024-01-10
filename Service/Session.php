@@ -1,5 +1,4 @@
 <?php
-
 namespace Service;
 
 use Model\Entity\Users;
@@ -54,17 +53,13 @@ abstract class Session
 
     public static function isAdmin(): bool
     {
-        // if ($users = self::isConnected()) {
-        //     return $users->getRole() == self::ROLE_ADMIN;
-        // }
         $user = self::isConnected();
 
-        // if ($user instanceof Users) {
-        //     return $user->getRole() == self::ROLE_ADMIN;
-        //     }    
-
-        // return false;
         return $user instanceof Users && $user->getRole() == self::ROLE_ADMIN;
 
+    }
+    public static function delete($content)
+    {
+        unset($_SESSION[$content]);
     }
 }

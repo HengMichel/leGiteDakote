@@ -4,6 +4,7 @@ namespace Model\Repository;
 
 use Model\Database;
 use Model\Entity\BaseEntity;
+use Service\Session;
 
 class BaseRepository
 {
@@ -24,6 +25,32 @@ class BaseRepository
             return $request->fetchAll(\PDO::FETCH_CLASS, $class);
         }
         return null;
+    }
+
+    public function findById($tableName, $id)
+    {
+        // Construction de la requête SELECT
+        $query = "SELECT * FROM $tableName WHERE id = :id";
+        
+        $request = $this->dbConnection->prepare($query);
+        $request->bindValue(':id', $id);
+
+        try {
+            $request->execute();
+            $class = "Model\Entity\\" . ucfirst($tableName);
+
+            if ($request->rowCount() == 1) {
+                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
+                
+                return $request->fetch();
+            } else if ($request->rowCount() > 1) {
+                // ucfirst : majuscule au début de la chaine de caractères
+                $result = $request->fetchAll(\PDO::FETCH_CLASS, $class);
+                return $result;
+            }
+        } catch (\PDOException $exception) {
+            echo "Erreur de connetion : " . $exception->getMessage();
+        }
     }
 
     public function findByAttributes($tableName, $attributes = [])
@@ -67,15 +94,42 @@ class BaseRepository
         }
     }
 
-    // public function insert()
-    // {
-    // }
+    public function setIsDeletedTrueById(BaseEntity $tableName)
+    {
+        $tableName->setIsDeleted(true);
+        $sql = "UPDATE $tableName 
+                SET type = :type, is_deleted = :isDeleted WHERE id = :id";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":id", $tableName->getId());
+        $request->bindValue(":isDeleted", $tableName->getIsDeleted());
+        $request = $request->execute();
+        if ($request) {
+            if ($request == 1) {
+                Session::addMessage("success",  "La mise à jour de l'utilisateur a bien été éffectuée");
+                return true;
+            }
+            Session::addMessage("danger",  "Erreur : l'utilisateur n'a pas été mise à jour");
+            return false;
+        }
+        Session::addMessage("danger",  "Erreur SQL");
+        return null;
 
-    // public function update($id)
-    // {
-    // }
-
-    // public function delete($id)
-    // {
-    // }
+    }
+    public function remove(BaseEntity $tableName)
+    {
+        $sql = "DELETE FROM $tableName WHERE id = :id";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":id", $tableName->getId());
+        $request = $request->execute();
+        if ($request) {
+            if ($request == 1) {
+                Session::addMessage("success",  "La mise à jour de l'utilisateur a bien été éffectuée");
+                return true;
+            }
+            Session::addMessage("danger",  "Erreur : l'utilisateur n'a pas été mise à jour");
+            return false;
+        }
+        Session::addMessage("danger",  "Erreur SQL");
+        return null;
+    }
 }

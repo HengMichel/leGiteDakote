@@ -3,18 +3,25 @@ function addLink($controller, $method = "list", $id = null)
 {
      // return ROOT . "?controller=$controller&method=$method" . ($id ? "&id=$id" : "");
     //  return ROOT . "$controller/$method" . ($id ? "/$id" : "");
-     
+
+    // ######## a tester si bug ########
+    //  return ROOT . "$controller/$method" . ($id ? "/$id" : "");
+
     // ***************  modif ***********************
       // Récupère le protocole (http ou https)
-      $protocol = empty($_SERVER['HTTPS']) ? 'http' : 'https';
+
+    //   $protocol = empty($_SERVER['HTTPS']) ? 'http' : 'https';
 
       // Récupère le nom du serveur et le chemin de base de l'URL
-      $basePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . "/leGiteDakote/";
+
+    //   $basePath = $protocol . '://' . $_SERVER['HTTP_HOST'] . "/leGiteDakote/";
 
       // Retourne le lien complet en utilisant le chemin de base
-      return $basePath . "$controller/$method" . ($id ? "/$id" : "");
-    // ********************************************************************
 
+    //   return $basePath . "$controller/$method" . ($id ? "/$id" : "");
+
+    // ********************************************************************
+    return ROOT . "$controller/$method" . ($id ? "/$id" : "");
 }
 
 
@@ -42,6 +49,8 @@ function redirection($url)
 // ⚠ test
 function error($num = 404)
 {
-    include "error/$num.php";
+    // include "error/$num.php";
+    include "error/$num";
+
     exit;
 }

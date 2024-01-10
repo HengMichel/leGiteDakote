@@ -11,6 +11,7 @@ abstract class BaseController
     public function render(string $fichier, array $parametres = [])
     {
         extract($parametres);
+
         include "public/header.php";
         include "views/$fichier";
         include "public/footer.php";
@@ -39,8 +40,34 @@ abstract class BaseController
     }
 
     // Méthode pour définir un message dans la session
+
+    /**
+     * Summary of setMessage
+     *
+     * @param  mixed $type
+     * @param  mixed $message
+     * @return void
+     */
     public function setMessage($type, $message)
     {
         Session::addMessage($type, $message);
+    }
+
+    // peut etre utile plustard
+    public function disconnection()
+    {
+        Session::logout();
+    }
+    
+    public function remove($value)
+    {
+        Session::delete($value);
+    }
+
+    public function redirectToRoute(array $linkInfo){
+        $controller = $linkInfo[0];
+        $method = $linkInfo[1]?? null;
+        $id = $linkInfo[2]?? null;
+        redirection(addLink($controller, $method, $id));
     }
 }
