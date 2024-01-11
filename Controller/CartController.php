@@ -4,9 +4,6 @@
  */
 namespace Controller;
 
-use Model\Entity\Product;
-use Form\ProductHandleRequest;
-use Model\Repository\ProductRepository;
 use Service\CartManager;
 
 /**
@@ -34,7 +31,7 @@ class CartController extends BaseController
     public function show()
     {        
         
-            $this->render("cart/show.html.php", [            
+            $this->render("cart/show.php", [            
             "h1" => "Fiche cart"
             ]);
         

@@ -37,7 +37,6 @@ abstract class Session
 
     public static function isConnected()
     {
-        // return $_SESSION[self::SESSION_KEY_USERS] ?? false;
         return isset($_SESSION[self::SESSION_KEY_USERS]);
     }
 

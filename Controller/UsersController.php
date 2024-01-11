@@ -4,7 +4,6 @@ namespace Controller;
 
 use Service\Session;
 use Model\Entity\Users;
-use Model\Entity\Bookings;
 use Form\UsersHandleRequest;
 use Model\Repository\UsersRepository;
 use Model\Repository\BookingsRepository;
@@ -113,14 +112,6 @@ class UsersController extends BaseController
 
     }
 
-    // public function usersBook($id)
-    // {
-    //     $user = $this->usersRepository->findUsersById($id);
-    //     $this->user->addBookings();
-    //     if($this)
-    //     $this->usersRepository->logoutUsers($users);
-    //     return redirection(addLink("home"));
-    // }
-
+   
 
 }

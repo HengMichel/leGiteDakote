@@ -1,35 +1,22 @@
-<div class="row">
-    <?php foreach ($roomss as $rooms) : ?>
-    <div class="col-4 mt-3">
-        <div class="card  position-relative pb-3">
-            <div>
-                <img src="<?= UPLOAD_CHAMBRES_IMG . $rooms->getRoom_imgs(); ?>" class="card-img-top"
-                    alt="<?= substr($rooms->getTitle(), 0, 10); ?>" style=" box-shadow: 0 0 10px 5px rgba(255,
-                    255, 255, 0.04), 0 0 10px 5px rgba(255, 255, 255, 0.04); text-align: center;" />
+<div class="d-flex flex-wrap justify-content-around">
+<!-- ######### version Original ########## -->
+    <?php foreach($roomss as $rooms) : ?>
+        <!-- fa-beat-fade -->
+        <div class="card border-warning border-2 mb-5 " style="width: 20rem;">
+            <div class="img_room">
+            <img src="/leGiteDakote/public/assets/imgs/chambres/<?= $rooms->getRoom_imgs() ?>" 
+                class="card-img-top img-fluid" alt="image">
+            </div>
+            <div class="card-body bg-success">
+                <p class="card-text fa-2x fw-medium"><?= $rooms->getPrice() ?>€/nuit</p>
+                <p class="card-text link-warning fa-xl"><?= $rooms->getCategory() ?></p>
+                <p class="card-text fw-medium"><?= $rooms->getPersons() ?> Persons</p>
+                <a class="btn bg-warning link-success fw-bolder m-0" 
+                href="<?= addLink("bookings", "newBookings") ?>?room_id=<?= $rooms->getId_room() ?>&price=<?= $rooms->getPrice() ?>&room_imgs=<?= $rooms->getRoom_imgs() ?>"
+                >Book this Room</a>
             </div>
 
-            <div class="card-body">
-                <h6 class="card-title"><?= substr($rooms->getTitle(), 0, 50) . " ..."; ?></h6>
-                <p class="card-text"><?= $rooms->getPrice(); ?></p>
-
-            </div>
-            <div class="">
-                <a href="<?= addLink('rooms', 'show', $rooms->getId_room()); ?>" class="btn btn-secondary">En savoir
-                    plus
-                </a>
-                <div id="<?= $rooms->getId_room(); ?>" class="add_cart btn btn-primary">Ajouter
-                    au
-                    Panier</div>
-            </div>
         </div>
-    </div>
     <?php endforeach; ?>
 </div>
 
-
-<script>
-$(document).ready(function() {
-
-    addToCartAjax();
-});
-</script>
