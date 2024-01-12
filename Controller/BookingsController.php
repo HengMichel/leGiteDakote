@@ -4,6 +4,7 @@ namespace Controller;
 
 use Service\Session;
 use Model\Entity\Users;
+use Service\ImageHandler;
 use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
@@ -56,13 +57,13 @@ class BookingsController extends BaseController
          }
 
          // Passez les données à la vue
-         $data = [
-            'bookings' => $bookings,
-            'room_id' => $room_id,
-            'price' => $price,
-            'room_imgs' => $room_imgs,
-            'room_state' => $room_state,
-        ];
+        //  $data = [
+        //     'bookings' => $bookings,
+        //     'room_id' => $room_id,
+        //     'price' => $price,
+        //     'room_imgs' => $room_imgs,
+        //     'room_state' => $room_state,
+        // ];
 
         $this->form->handleForm($bookings);
 
@@ -74,6 +75,9 @@ class BookingsController extends BaseController
             if ($this->form->isValid()) {
                 // d_die($_SESSION);
                 // d_die($bookings);
+
+                // ajout code ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
+                ImageHandler::handelPhoto($room_imgs);
 
                 // Ajoutez la réservation à la base de données
                 $success = $this->bookingsRepository->addBookings($bookings);
@@ -95,7 +99,9 @@ class BookingsController extends BaseController
         // Récupérez les erreurs du formulaire
         $errors = $this->form->getEerrorsForm();
 
-        return $this->render("bookings/form_bookings.php",$data + [
+        // return $this->render("bookings/form_bookings.php",$data + [
+        //     "errors" => $errors
+        return $this->render("bookings/form_bookings.php", [
             "errors" => $errors
         ]);
     }      

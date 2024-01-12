@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Model\Entity\Rooms;
-use Form\RoomsHandleRequest;
 use Model\Repository\RoomsRepository;
 use Controller\BaseController;
 
@@ -16,9 +15,13 @@ class HomeController extends BaseController
     public function __construct()
     {
         $this->roomsRepository = new RoomsRepository;
-        // $this->form = new RoomsHandleRequest;
         $this->rooms = new Rooms;
     }
+    public function serviceDuGite()
+    {
+        $this->render("serviceDuGite.php");
+    }
+
     public function list()
     {
         $roomss = $this->roomsRepository->findAll($this->rooms);
@@ -27,4 +30,5 @@ class HomeController extends BaseController
             "roomss" => $roomss
         ]);
     }
+
 }

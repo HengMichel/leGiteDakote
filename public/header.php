@@ -26,9 +26,10 @@
 
     <body class="bgAllpage">
         <div class="container-fluid">
-            <!-- <div class="container"> -->
                 <div class="row text-white">
                     <?php include __DIR__ . "/nav.php"; ?>
 
                     <?php include __DIR__ . "/../views/messages.php";?>
+
+                    <h1 class="titre link-warning mt-2 "><?= $h1 ?? "Bienvenue au projet" ?></h1>
 

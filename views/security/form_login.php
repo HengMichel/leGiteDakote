@@ -4,7 +4,7 @@ require "views/errors_form.php";
 ?>
 <div class="container5 container">
     <form method="post">
-        <div class="row">
+        <div class="row mt-5">
             <div class="form-group link-warning fw-medium col-6">
                 <label class="email bg-dark" for="email">Email :<sup>*</sup></label>
                 <input type="email" class="form-control border-success border-4 mt-3 bg-success-subtle fw-medium" id="email" name="email" value="<?= $users->getEmail() ?>" <?= $mode == "suppression" ? "disabled" : "" ?>>

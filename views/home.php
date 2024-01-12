@@ -15,7 +15,7 @@
             <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Persons</p>
            
             <div class="">
-                <a href="<?= addLink("bookings", "newBookings", $rooms->getId_room()); ?>" class="btn bg-warning fw-bolder border-black border-2">En savoir
+                <a href="<?= addLink("rooms", "show", $rooms->getId_room()); ?>" class="btn bg-warning fw-bolder border-black border-2">En savoir
                     plus
                 </a>
                 <div id="<?= $rooms->getId_room(); ?>" class="add_cart btn bg-success fw-medium link-light border-black border-2">Ajouter au Panier</div>

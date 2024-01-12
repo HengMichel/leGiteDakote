@@ -1,18 +1,17 @@
 <?php
 
-namespace Form\Admin;
+namespace Form;
 
 use Model\Entity\Rooms;
-use Form\BaseHandleRequest;
-use Model\Repository\Admin\AdminRepository;
+use Model\Repository\RoomsRepository;
 
-class AdminRoomsHandleRequest extends BaseHandleRequest
+class RoomsHandleRequest extends BaseHandleRequest
 {
     private $roomsRepository;
 
     public function __construct()
     {
-        $this->roomsRepository  = new AdminRepository;
+        $this->roomsRepository  = new RoomsRepository;
     }
 
     public function handleForm(Rooms $rooms)
@@ -30,10 +29,13 @@ class AdminRoomsHandleRequest extends BaseHandleRequest
                 $errors[] = "Le titre doit avoir au moins 1 caractères";
             }
 
-            if (!empty($room_imgs)) {
-                if (strlen($room_imgs)) {
-                    $errors[] = "La room_imgs ne peut pas être vide";
-                }
+            // if (!empty($room_imgs)) {
+            //     if (strlen($room_imgs)) {
+            //         $errors[] = "La room_imgs ne peut pas être vide";
+            //     }
+            // }
+            if (!(isset($_FILES["room_imgs"]) && $_FILES["room_imgs"]["error"] == UPLOAD_ERR_OK)) {
+                $errors[] = "Veuillez sélectionner une image à télécharger pour continuer.";
             }
             // Est-ce que L'image existe déjà dans la bdd ?
             $requete = $this->roomsRepository->findByAttributes($rooms, ["room_imgs" => $room_imgs]);
@@ -65,10 +67,13 @@ class AdminRoomsHandleRequest extends BaseHandleRequest
                 $rooms->setPrice($Price);
                 $rooms->setPersons($persons);
                 $rooms->setCategory($category);
-                return true;
+                // return true;
+                return $this;
             }
 
             $this->setEerrorsForm($errors);
+            return $this;
+
         }
     }
 

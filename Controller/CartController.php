@@ -23,7 +23,6 @@ class CartController extends BaseController
         echo $nb;        
     }
 
-
     /**
      * Summary of show
      * @return void

@@ -82,20 +82,32 @@ class RoomsRepository extends BaseRepository
 
     public function findRoomsById($id)
     {
-        $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id = :id");
-        $request->bindParam(':id', $id);
+        $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
+        $request->bindParam(':id_room', $id);
     
         if ($request->execute()) {
-            return $request->fetch(\PDO::FETCH_CLASS, "Model\Entity\Rooms");
+
+        //     return $request->fetch(\PDO::FETCH_CLASS, "Model\Entity\Rooms");
+        // } else {
+        //     return null;
+        // }
+        if ($request->rowCount() == 1) {
+                    
+            $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
+            return $request->fetch();
+
         } else {
-            return null;
+            return false;
         }
+    } else {
+        return null;
+    }
     }
 
     public function deleteRoomsById($id)
     {
-    $request = $this->dbConnection->prepare("DELETE FROM rooms WHERE id_rooms = :id_rooms");
-    $request->bindParam(':id_rooms', $id);
+    $request = $this->dbConnection->prepare("DELETE FROM rooms WHERE id_room = :id_room");
+    $request->bindParam(':id_room', $id);
 
     if ($request->execute()) {
         return true; 
@@ -105,6 +117,48 @@ class RoomsRepository extends BaseRepository
         // La suppression a échoué
         }
     }
+
+
+    public function updateRooms(Rooms $rooms)
+    {
+        $sql = "UPDATE rooms 
+                SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category, = :room_state
+                WHERE id_room = :id_room";
+        $request = $this->dbConnection->prepare($sql);
+
+        $request->bindValue(":room_number", $rooms->getRoom_number());
+        $request->bindValue(":price", $rooms->getPrice());
+        $request->bindValue(":room_imgs", $rooms->getRoom_imgs());
+        $request->bindValue(":persons", $rooms->getPersons());
+        $request->bindValue(":category", $rooms->getCategory());
+        $request->bindValue(":room_state", $rooms->getRoom_state());
+        $request->bindValue(":id_room", $rooms->getId_room());
+        
+        $request = $request->execute();
+        if ($request) {
+            if ($request == 1) {
+                Session::addMessage("success",  "La mise à jour du produit a bien été éffectuée");
+                return true;
+            }
+            Session::addMessage("danger",  "Erreur : Le produit n'a pas été mise à jour");
+            return false;
+        }
+        Session::addMessage("danger",  "Erreur SQL");
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function deleteUsersById($id)
     {
