@@ -28,12 +28,10 @@ class CartController extends BaseController
      * @return void
      */
     public function show()
-    {        
-        
-            $this->render("cart/show.php", [            
+    {              
+        $this->render("cart/show.php", [            
             "h1" => "Fiche cart"
             ]);
-        
     }
     /**
      * Summary of edit

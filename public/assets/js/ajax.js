@@ -18,14 +18,14 @@ function addToCartAjax() {
   });
 }
 
-function addProductToCartAjax(productId) {
+function addProductToCartAjax(idRoom) {
   
-  $("#form" + productId).on("click", (evtSubmit) => {
+  $("#form" + idRoom).on("click", (evtSubmit) => {
     evtSubmit.preventDefault();
-    var url_cart = "cart/addToCart/" + productId;
+    var url_cart = "cart/addToCart/" + idRoom;
     $.ajax({
       url: url_cart,
-      data: "qte=" + $("#field" + productId).val(),
+      data: "qte=" + $("#field" + idRoom).val(),
       dataType: "json",
       success: (data) => {
         $("#nombre").html(data);

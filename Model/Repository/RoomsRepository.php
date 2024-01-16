@@ -118,7 +118,6 @@ class RoomsRepository extends BaseRepository
         }
     }
 
-
     public function updateRooms(Rooms $rooms)
     {
         $sql = "UPDATE rooms 

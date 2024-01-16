@@ -1,5 +1,4 @@
 <div class="d-flex flex-wrap justify-content-around">
-
     <?php foreach($roomss as $rooms) : ?>
     <!-- ancienne version -->
     <!-- <div class="card border-warning border-2 mb-5 fa-beat-fade" style="width: 20rem;"> -->

@@ -89,7 +89,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
             </ul>
             
-
             <form class="d-flex col-3" role="search" id="formSearch" action="<?= addLink("search", "searchTag");  ?>">
                 <input class="form-control me-3 border-3 border-success bg-light" id="search" type="search" placeholder="Rechercher" aria-label="Search">
                 <button class="btn bg-success link-warning fw-bolder border-2 border-light col-4" type="submit">Recherche</button>
