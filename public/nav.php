@@ -6,6 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
     // Si elle n'est pas active, démarrer la session
     session_start();
 }
+
 ?>
 <div class="container-fluid bg-dark">
 
@@ -82,7 +83,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <div class="ensemble d-flex">
                         <i class="fa fa-shopping-cart"></i>
 
-                        <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?></div>
+                        <div class="num container fa" id="nombre"><?= $_SESSION["nombre"]; ?></div>
 
                     </div>
                     </a>

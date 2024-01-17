@@ -11,6 +11,13 @@ use Service\CartManager;
  */
 class CartController extends BaseController
 {
+    private $cartManager;
+
+    public function __construct(CartManager $cartManager)
+    {
+        $this->cartManager = $cartManager;
+    }
+
     /**
      * Summary of add
      * @param mixed $id
@@ -18,9 +25,24 @@ class CartController extends BaseController
      */
     public function addToCart($id)
     {   
-        $cm = new CartManager();
-        $nb = $cm->addCart($id);
-        echo $nb;        
+       
+        try {
+
+            $nb = $this->cartManager->addCart($id);
+        
+            // Retourner les données au format JSON
+            header('Content-Type: application/json');
+            echo json_encode(["count" => $nb]);
+        } catch (\Exception $e) {
+
+            // En cas d'erreur, retourner une réponse JSON avec le message d'erreur
+            header('Content-Type: application/json');
+
+            // Code d'erreur interne du serveur
+            http_response_code(500);
+
+            echo json_encode(["error" => $e->getMessage()]);
+        }
     }
 
     /**

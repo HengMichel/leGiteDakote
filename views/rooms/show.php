@@ -24,11 +24,10 @@
             </a>
         </div>
     </div>
+    <script>
+    window.addEventListener("load", () => {
+        var idRoom = "<?= $rooms->getId_room() ?>";
+        addRoomsToCartAjax(idRoom)
+    });
+    </script>
 </div>
-
-<script>
-window.addEventListener("load", () => {
-    var idRoom = "<?= $rooms->getId_room() ?>";
-    addProductToCartAjax(idRoom)
-});
-</script>

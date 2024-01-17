@@ -85,24 +85,33 @@ class RoomsRepository extends BaseRepository
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
         $request->bindParam(':id_room', $id);
     
+        try {
+
         if ($request->execute()) {
 
-        //     return $request->fetch(\PDO::FETCH_CLASS, "Model\Entity\Rooms");
-        // } else {
-        //     return null;
-        // }
-        if ($request->rowCount() == 1) {
-                    
-            $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
-            return $request->fetch();
+            if ($request->rowCount() == 1) {
 
+                $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
+                return $request->fetch();
+
+            } else {
+                return false;
+            }
         } else {
-            return false;
+             // Lancer une exception en cas d'échec de l'exécution de la requête
+             throw new \PDOException("Error executing the query.");
         }
-    } else {
+    } catch (\PDOException $e) {
+        // Gérer l'exception (loguer l'erreur, afficher un message, etc.)
+        // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
+        error_log("Database error: " . $e->getMessage());
+
+        header('Content-Type: application/json');
+        echo json_encode(['error' => true, 'message' => 'Database error']);
+
         return null;
     }
-    }
+}
 
     public function deleteRoomsById($id)
     {
