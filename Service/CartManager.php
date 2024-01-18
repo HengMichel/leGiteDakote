@@ -4,22 +4,15 @@ namespace Service;
 
 use Model\Repository\RoomsRepository;
 
-/**
- * Summary of RoomsController
- */
+
 class CartManager
 {
     private RoomsRepository $roomsRepository;
 
-    // public function __construct()
-
     // Injection de Dépendances 
     public function __construct(RoomsRepository $roomsRepository)
-
     {
-        // $this->roomsRepository = new RoomsRepository;
         $this->roomsRepository = $roomsRepository;
-
     }
 
     public function addCart($id){
@@ -33,8 +26,7 @@ class CartManager
         error_log("ID de la chambre reçu : " . $id);
 
         $quantity = $_GET["qte"] ?? 1;
-        $pr = $this->roomsRepository;
-        $rooms = $pr->findRoomsById('rooms', $id);
+        $rooms = $this->roomsRepository->findRoomsById('rooms', $id);
 
         // Log pour débogage
         // error_log("Fin de la méthode addCart pour l'ID : " . $id);
@@ -43,7 +35,7 @@ class CartManager
 
             $cart = $_SESSION["cart"] ?? [];
 
-            $this->updateCart($cart, $rooms, $quantity);
+            // $this->updateCart($cart, $rooms, $quantity);
 
             $_SESSION["cart"] = $cart;
 
@@ -54,15 +46,15 @@ class CartManager
             error_log("Rooms : " . print_r($rooms, true));
 
  // Ajoutez ces lignes pour déboguer
- error_log("Réponse JSON envoyée : " . json_encode(['error' => false, 'message' => '', 'count' => $nb]));
+//  error_log("Réponse JSON envoyée : " . json_encode(['error' => false, 'message' => '', 'count' => $nb]));
 
             // Retournez la réponse JSON avec un seul objet contenant à la fois un message d'erreur et la clé "count"
-            header('Content-Type: application/json');
             http_response_code(200);
+            header('Content-Type: application/json');
             echo json_encode(['error' => false, 'message' => '', 'count' => $nb]);
         } else {
 
-              // Ajoutez ces lignes pour déboguer
+            // Ajoutez ces lignes pour déboguer
     error_log("Réponse JSON envoyée : " . json_encode(['error' => true, 'message' => 'Room not found', 'count' => null]));
 
 
@@ -79,22 +71,22 @@ error_log("Fin du script PHP");
         exit();
         }
 
-        private function updateCart(array &$cart, $rooms, $quantity)
-        {
-        $roomsDejaDanscart = false;
+        // private function updateCart(array &$cart, $rooms, $quantity)
+        // {
+        // $roomsDejaDanscart = false;
         
-        foreach ($cart as $indice => $value) {
-            if ($rooms->getId_room() == $value["rooms"]->getId_room()) {
-                $cart[$indice]["quantity"] += $quantity;
-                $roomsDejaDanscart = true;
-                break;
-            }
-        }
+        // foreach ($cart as $indice => $value) {
+        //     if ($rooms->getId_room() == $value["rooms"]->getId_room()) {
+        //         $cart[$indice]["quantity"] += $quantity;
+        //         $roomsDejaDanscart = true;
+        //         break;
+        //     }
+        // }
 
-        if (!$roomsDejaDanscart) {
-            $cart[] = ["quantity" => $quantity, "rooms" => $rooms];
-        }
-        }
+        // if (!$roomsDejaDanscart) {
+        //     $cart[] = ["quantity" => $quantity, "rooms" => $rooms];
+        // }
+        // }
 
         private function calculateTotalQuantity(array $cart): int
         {

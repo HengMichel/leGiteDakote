@@ -28,6 +28,7 @@ class CartController extends BaseController
        
         try {
 
+            // Utilise la propriété $cartManager déjà initialisée dans le constructeur
             $nb = $this->cartManager->addCart($id);
         
             // Retourner les données au format JSON
@@ -35,11 +36,11 @@ class CartController extends BaseController
             echo json_encode(["count" => $nb]);
         } catch (\Exception $e) {
 
-            // En cas d'erreur, retourner une réponse JSON avec le message d'erreur
-            header('Content-Type: application/json');
-
             // Code d'erreur interne du serveur
             http_response_code(500);
+
+            // En cas d'erreur, retourner une réponse JSON avec le message d'erreur
+            header('Content-Type: application/json');
 
             echo json_encode(["error" => $e->getMessage()]);
         }

@@ -11,9 +11,10 @@ function addToCartAjax() {
       data: "qte=1",
       dataType: "json",
       success: (data) => {
-
-        // console.log("Contenu de la réponse :", data);
-        // console.log("Données reçues du serveur :", data);
+        console.log("inputId:", inputId);
+        console.log("idRoom:", idRoom);
+        console.log("URL:", url_cart);
+        
 
         // Récupérer le nombre actuel du panier
         let currentCount = parseInt($("#nombre").html()) || 0;
@@ -56,7 +57,10 @@ function addRoomsToCartAjax(idRoom) {
         if (data.error) {
           // Afficher un message d'erreur lorsque la chambre n'est pas trouvée
           console.log("Erreur :", data.message);
-        } else if (data.count !== undefined && data.count !== null) {
+
+        // } else if (data.count !== undefined && data.count !== null) {
+        } else if (data.count !== null && typeof data.count !== 'undefined') {
+            
           // La propriété count est définie, l'afficher
           $("#nombre").html(data.count);
           console.log("nb produits dans mon deuxième panier =", data.count);
