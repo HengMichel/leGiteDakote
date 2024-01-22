@@ -106,8 +106,8 @@ class RoomsRepository extends BaseRepository
         // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
         error_log("Database error: " . $e->getMessage());
 
-        header('Content-Type: application/json');
-        echo json_encode(['error' => true, 'message' => 'Database error']);
+        // header('Content-Type: application/json');
+        // echo json_encode(['error' => true, 'message' => 'Database error']);
 
         return null;
     }

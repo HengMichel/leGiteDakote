@@ -11,12 +11,12 @@ use Service\CartManager;
  */
 class CartController extends BaseController
 {
-    private $cartManager;
+    // private $cartManager;
 
-    public function __construct(CartManager $cartManager)
-    {
-        $this->cartManager = $cartManager;
-    }
+    // public function __construct(CartManager $cartManager)
+    // {
+    //     $this->cartManager = $cartManager;
+    // }
 
     /**
      * Summary of add
@@ -25,25 +25,27 @@ class CartController extends BaseController
      */
     public function addToCart($id)
     {   
-       
-        try {
+        $cm = new CartManager();
+        $nb = $cm->addCart($id);
+        echo $nb;  
+        // try {
 
-            // Utilise la propriété $cartManager déjà initialisée dans le constructeur
-            $nb = $this->cartManager->addCart($id);
+        //     // Utilise la propriété $cartManager déjà initialisée dans le constructeur
+        //     $nb = $this->cartManager->addCart($id);
         
-            // Retourner les données au format JSON
-            header('Content-Type: application/json');
-            echo json_encode(["count" => $nb]);
-        } catch (\Exception $e) {
+        //     // Retourner les données au format JSON
+        //     header('Content-Type: application/json');
+        //     echo json_encode(["count" => $nb]);
+        // } catch (\Exception $e) {
 
-            // Code d'erreur interne du serveur
-            http_response_code(500);
+        //     // Code d'erreur interne du serveur
+        //     http_response_code(500);
 
-            // En cas d'erreur, retourner une réponse JSON avec le message d'erreur
-            header('Content-Type: application/json');
+        //     // En cas d'erreur, retourner une réponse JSON avec le message d'erreur
+        //     header('Content-Type: application/json');
 
-            echo json_encode(["error" => $e->getMessage()]);
-        }
+        //     echo json_encode(["error" => $e->getMessage()]);
+        // }
     }
 
     /**
