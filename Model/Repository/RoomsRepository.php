@@ -84,24 +84,37 @@ class RoomsRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
         $request->bindParam(':id_room', $id);
-    
+
+// modif ici     
+error_log("SQL Query: " . $request->queryString);
+//#################
+
         try {
 
-        if ($request->execute()) {
+            if ($request->execute()) {
 
-            if ($request->rowCount() == 1) {
+                if ($request->rowCount() === 1) {
 
-                $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
-                return $request->fetch();
+                    $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
+                    return $request->fetch();
 
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                
+// modif ici
+ // Log des erreurs
+ error_log("SQL Error: " . print_r($request->errorInfo(), true));
+
+ // Retournez false ou déclenchez une exception, en fonction de votre logique
+ return false;
+//  ###############
+
+                 // Lancer une exception en cas d'échec de l'exécution de la requête
+                 throw new \PDOException("Error executing the query.");
             }
-        } else {
-             // Lancer une exception en cas d'échec de l'exécution de la requête
-             throw new \PDOException("Error executing the query.");
-        }
-    } catch (\PDOException $e) {
+        } catch (\PDOException $e) {
         // Gérer l'exception (loguer l'erreur, afficher un message, etc.)
         // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
         error_log("Database error: " . $e->getMessage());

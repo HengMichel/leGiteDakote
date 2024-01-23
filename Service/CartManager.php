@@ -52,6 +52,10 @@ class CartManager
             echo json_encode(['error' => false, 'message' => '', 'count' => $nb]);
 
         } else {
+// modif ici
+// Ajoutez des logs pour déboguer
+error_log("Room not found for ID: " . $id);
+// ###################
           
             // Retournez la réponse JSON avec le message d'erreur
             echo json_encode(['error' => true, 'message' => 'Room not found', 'count' => null]);

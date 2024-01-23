@@ -37,10 +37,22 @@ function addToCartAjax() {
 }
 
 function addRoomsToCartAjax(idRoom) {
+
+//modif ici  
+// Ajoutez ces lignes de débogage avant l'appel AJAX dans la fonction addRoomsToCartAjax
+console.log("idRoom before AJAX:", idRoom);
+// #############################
   
   $("#form" + idRoom).on("click", (evtSubmit) => {
     evtSubmit.preventDefault();
     var url_cart = "cart/addToCart/" + idRoom;
+
+  
+
+//modif ici  
+console.log("AJAX URL:", url_cart);
+// #############################
+
     $.ajax({
       url: url_cart,
       data: "qte=" + $("#field" + idRoom).val(),
@@ -58,6 +70,8 @@ function addRoomsToCartAjax(idRoom) {
     },
       error: (jqXHR, status, error) => {
         console.log("ERREUR AJAX", status, error);
+        console.log("Message d'erreur:", jqXHR.responseText);
+
       },
     });
   });
