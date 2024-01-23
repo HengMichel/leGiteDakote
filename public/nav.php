@@ -33,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
                 <li class="nav-item active mt-1">
                     <a class="nav-link" href="<?= addLink("users", "deco") ?>">
-                        <i class="fa fa-sign-out me-md-3 m-lg-2"></i>
+                        <i class="fa fa-sign-out me-md-3 m-lg-2 fa-2xl"></i>
                     </a>
                 </li>
                 
@@ -73,7 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php else: ?>
                 <li class="nav-item active">
                     <a class="nav-link mt-1" href="<?= addLink("users", "login") ?>">
-                        <i class="fa fa-sign-in me-md-3 m-lg-2"></i>
+                        <i class="fa fa-sign-in me-md-3 m-lg-2 fa-2xl"></i>
                     </a>
                 </li>
                 <?php endif ?>
@@ -88,6 +88,10 @@ if (session_status() == PHP_SESSION_NONE) {
                     </div>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link-warning fw-bolder ms-md-4 me-md-3 fs-4" href="<?= addLink("home","serviceDuGite") ?>">Nos Services</a>
+                </li>
+
             </ul>
             
             <form class="d-flex col-3" role="search" id="formSearch" action="<?= addLink("search", "searchTag");  ?>">
