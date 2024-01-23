@@ -27,6 +27,7 @@ class CartManager
             $cart = $_SESSION["cart"];
             $roomsDejaDanscart = false;
 
+
             foreach ($cart as $indice => $value) {
                 if ($rooms->getId_room() == $value["rooms"]->getId_room()) {
                     $cart[$indice]["quantity"] += $quantity;
@@ -49,12 +50,13 @@ class CartManager
 
             // Retournez la réponse JSON avec un seul objet contenant à la fois un message d'erreur et la clé "count"
             echo json_encode(['error' => false, 'message' => '', 'count' => $nb]);
+
         } else {
+          
             // Retournez la réponse JSON avec le message d'erreur
             echo json_encode(['error' => true, 'message' => 'Room not found', 'count' => null]);
+            
         }
-
-        // Assurez-vous qu'il n'y a pas de sortie HTML ou d'autres sorties indésirables après cette instruction
         exit();
     }
 }

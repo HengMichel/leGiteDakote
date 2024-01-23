@@ -15,6 +15,8 @@
         <button class="btn btn-warning bg-warning m-lg-3" id="form<?= $rooms->getId_room() ?>">
             <i class="fa fa-cart-arrow-down"></i>
         </button>
+
+        
         <div class="d-flex bg-dark">
             <a href="<?= ROOT ?>" class="btn bg-warning fw-bolder m-lg-3">
             <i class="fa fa-home"></i> Retour à l'accueil

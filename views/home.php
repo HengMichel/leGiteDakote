@@ -17,10 +17,12 @@
                 <a href="<?= addLink("rooms", "show", $rooms->getId_room()); ?>" class="btn bg-warning fw-bolder border-black border-2">En savoir
                     plus
                 </a>
-                <div id="<?= $rooms->getId_room(); ?>" class="add_cart btn bg-success fw-medium link-light border-black border-2">Ajouter au Panier</div>
+                <div id="<?= $rooms->getId_room(); ?>" class="add_cart btn bg-success fw-medium link-light border-black border-2">Ajouter au Panier
+                </div>
             </div>
         </div>
     </div>
+
     <?php endforeach; ?>
 </div>
 

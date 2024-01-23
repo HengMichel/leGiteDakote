@@ -130,7 +130,7 @@ class RoomsRepository extends BaseRepository
     public function updateRooms(Rooms $rooms)
     {
         $sql = "UPDATE rooms 
-                SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category, = :room_state
+                SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
                 WHERE id_room = :id_room";
         $request = $this->dbConnection->prepare($sql);
 
@@ -148,7 +148,8 @@ class RoomsRepository extends BaseRepository
                 Session::addMessage("success",  "La mise à jour du produit a bien été éffectuée");
                 return true;
             }
-            Session::addMessage("danger",  "Erreur : Le produit n'a pas été mise à jour");
+            // Il y a eu un problème avec le téléchargement de l'image
+            Session::addMessage("danger", "Erreur : Le produit n'a pas été mise à jour");
             return false;
         }
         Session::addMessage("danger",  "Erreur SQL");

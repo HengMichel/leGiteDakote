@@ -15,6 +15,18 @@ function addToCartAjax() {
        let newCount = currentCount + 1;
        $("#nombre").html(newCount);
        console.log("nb produits dans mon panier = " + newCount);
+
+
+      if (data.error) {
+          console.log("Erreur :", data.message);
+      } else if (data.count !== null && typeof data.count !== 'undefined') {           
+          $("#nombre").html(data.count);
+          console.log("nb produits dans mon deuxième panier =", data.count);
+      } else {
+          console.log("Cas non géré dans la réponse du serveur");
+      }
+
+
       },
       error: (jqXHR, status, error) => {
         console.log("ERREUR AJAX", status, error);

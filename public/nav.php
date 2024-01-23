@@ -82,9 +82,8 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" href="<?= addLink("cart", "show") ?>">
                     <div class="ensemble d-flex">
                         <i class="fa fa-shopping-cart"></i>
-
-                        <div class="num container fa" id="nombre"><?= $_SESSION["nombre"]; ?></div>
-
+                        <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
+                        </div>
                     </div>
                     </a>
                 </li>
@@ -94,7 +93,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link link-warning fw-bolder ms-md-4 me-md-3 fs-4" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
                 </li>
-
             </ul>
             
             <form class="d-flex col-3" role="search" id="formSearch" action="<?= addLink("search", "searchTag");  ?>">
