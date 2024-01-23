@@ -91,6 +91,9 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link link-warning fw-bolder ms-md-4 me-md-3 fs-4" href="<?= addLink("home","serviceDuGite") ?>">Nos Services</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link-warning fw-bolder ms-md-4 me-md-3 fs-4" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
+                </li>
 
             </ul>
             

@@ -17,9 +17,15 @@ class HomeController extends BaseController
         $this->roomsRepository = new RoomsRepository;
         $this->rooms = new Rooms;
     }
+
     public function serviceDuGite()
     {
         $this->render("serviceDuGite.php");
+    }
+
+    public function aboutUs()
+    {
+        $this->render("aboutUs.php");
     }
 
     public function list()

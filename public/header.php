@@ -31,5 +31,5 @@
 
                     <?php include __DIR__ . "/../views/messages.php";?>
 
-                    <h1 class="titre link-warning mt-2 "><?= $h1 ?? "Bienvenue au projet" ?></h1>
+                    <h1 class="titre link-warning mt-2 "><?= $h1 ?? " " ?></h1>
 
