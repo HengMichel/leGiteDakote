@@ -83,6 +83,11 @@ class RoomsRepository extends BaseRepository
     public function findRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
+
+// modif ici     
+$id = intval($id); // Convertir en entier
+//#################
+
         $request->bindParam(':id_room', $id);
 
 // modif ici     

@@ -29,6 +29,9 @@
     <script>
     window.addEventListener("load", () => {
         var idRoom = "<?= $rooms->getId_room() ?>";
+
+        console.log("idRoom in client-side script:", idRoom);
+
         addRoomsToCartAjax(idRoom)
     });
     </script>
