@@ -8,14 +8,13 @@ function addToCartAjax() {
       data: "qte=1",
       dataType: "json",
       success: (data) => {
-       // Récupérer le nombre actuel du panier
+      // Récupérer le nombre actuel du panier
        let currentCount = parseInt($("#nombre").html()) || 0;
 
-       // Mettre à jour le nombre dans la barre de navigation
-       let newCount = currentCount + 1;
-       $("#nombre").html(newCount);
-       console.log("nb produits dans mon panier = " + newCount);
-
+      // Mettre à jour le nombre dans la barre de navigation
+      let newCount = currentCount + 1;
+      $("#nombre").html(newCount);
+      console.log("nb produits dans mon panier = " + newCount);
 
       if (data.error) {
           console.log("Erreur :", data.message);
@@ -25,7 +24,6 @@ function addToCartAjax() {
       } else {
           console.log("Cas non géré dans la réponse du serveur");
       }
-
 
       },
       error: (jqXHR, status, error) => {
@@ -37,18 +35,11 @@ function addToCartAjax() {
 }
 
 function addRoomsToCartAjax(idRoom) {
-
-//modif ici  
-// Ajoutez ces lignes de débogage avant l'appel AJAX dans la fonction addRoomsToCartAjax
-// console.log("idRoom before AJAX:", idRoom);
-console.log(idRoom);
-// #############################
   
   $("#form" + idRoom).on("click", (evtSubmit) => {
     evtSubmit.preventDefault();
     var url_cart = "cart/addToCart/" + idRoom;
 
-  
 
 //modif ici  
 console.log("AJAX URL:", url_cart);

@@ -15,7 +15,6 @@ if(!empty($admin)){
 }else{
     $classController = "Controller\\" . ucfirst($controller) . "Controller";
 }
-
 try {
     $controller = new $classController;
     // $playerController->update($id);

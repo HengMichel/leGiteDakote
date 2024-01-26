@@ -21,7 +21,6 @@ class CartController extends BaseController
         $cm = new CartManager();
         $nb = $cm->addCart($id);
         echo $nb;  
-      
     }
 
     /**

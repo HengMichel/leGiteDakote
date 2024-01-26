@@ -19,13 +19,14 @@ class RoomsRepository extends BaseRepository
 
     // Valider et déplacer le fichier téléchargé
     if (move_uploaded_file($tmpName, $destination)) {
-        // L'image a été téléchargée avec succès, procédez à l'insertion dans la base de données
 
+        // L'image a été téléchargée avec succès, procédez à l'insertion dans la base de données
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
         $request = $this->dbConnection->prepare($sql);
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
-        $request->bindValue(":room_imgs", $imgName); // Enregistrez le nom du fichier, pas le chemin complet
+        $request->bindValue(":room_imgs", $imgName); 
+        // Enregistrez le nom du fichier, pas le chemin complet
         $request->bindValue(":persons", $rooms->getPersons());
         $request->bindValue(":category", $rooms->getCategory());
 
@@ -49,14 +50,15 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     }
-    // ######  methode Mitra permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode je dois passer par le chemein racine afin d afficher les images (no recommanded) 
+    // ######  methode Mitra permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode je dois passer par le chemin racine afin d afficher les images (no recommanded) 
     public function insertRooms(Rooms $rooms)
     {
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category, NOW())";
         $request = $this->dbConnection->prepare($sql);
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
-        $request->bindValue(":room_imgs", $rooms->getRoom_imgs()); // Enregistrez le nom du fichier, pas le chemin complet
+        $request->bindValue(":room_imgs", $rooms->getRoom_imgs()); 
+        // Enregistrez le nom du fichier, pas le chemin complet
         $request->bindValue(":persons", $rooms->getPersons());
         $request->bindValue(":category", $rooms->getCategory());
 
@@ -207,7 +209,6 @@ error_log("SQL Query: " . $request->queryString);
 
                 Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
                 return true;
-
 
                 } else {
                     Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
