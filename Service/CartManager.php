@@ -15,9 +15,14 @@ class CartManager
 
     public function addCart($id)
     {
+        // mofif ici 
+         // Ajoutez ce log pour vérifier que l'ID est correct
+    error_log("Received ID in addCart: " . $id);
+        // #####################
+
         $quantity = $_GET["qte"] ?? 1;
         $pr = $this->roomsRepository;
-        $rooms = $pr->findRoomsById('rooms', $id);
+        $rooms = $pr->findRoomsById($id);
 
         if ($rooms) {
             if (!isset($_SESSION["cart"])) {

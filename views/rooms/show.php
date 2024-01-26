@@ -26,6 +26,7 @@
             </a>
         </div>
     </div>
+    
     <script>
     window.addEventListener("load", () => {
         var idRoom = "<?= $rooms->getId_room() ?>";

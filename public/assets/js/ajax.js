@@ -40,7 +40,8 @@ function addRoomsToCartAjax(idRoom) {
 
 //modif ici  
 // Ajoutez ces lignes de débogage avant l'appel AJAX dans la fonction addRoomsToCartAjax
-console.log("idRoom before AJAX:", idRoom);
+// console.log("idRoom before AJAX:", idRoom);
+console.log(idRoom);
 // #############################
   
   $("#form" + idRoom).on("click", (evtSubmit) => {

@@ -7,7 +7,7 @@ namespace Controller;
 use Service\CartManager;
 
 /**
- * Summary of ProductController
+ * Summary of >RoomsController
  */
 class CartController extends BaseController
 {

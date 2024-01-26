@@ -85,7 +85,16 @@ class RoomsRepository extends BaseRepository
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
 
 // modif ici     
-$id = intval($id); // Convertir en entier
+// Convertir en entier
+// $id = intval($id); 
+
+$id = filter_var($id, FILTER_VALIDATE_INT);
+if ($id === false) {
+    // Gérer l'erreur d'ID invalide
+    error_log("Invalid room ID: " . $id);
+    return false;
+}
+
 //#################
 
         $request->bindParam(':id_room', $id);
@@ -128,8 +137,8 @@ error_log("SQL Query: " . $request->queryString);
         // echo json_encode(['error' => true, 'message' => 'Database error']);
 
         return null;
+        }
     }
-}
 
     public function deleteRoomsById($id)
     {
