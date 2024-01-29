@@ -85,25 +85,19 @@ class RoomsRepository extends BaseRepository
     public function findRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
+        // Convertir en entier
+        // $id = intval($id); 
 
-// modif ici     
-// Convertir en entier
-// $id = intval($id); 
-
-$id = filter_var($id, FILTER_VALIDATE_INT);
-if ($id === false) {
-    // Gérer l'erreur d'ID invalide
-    error_log("Invalid room ID: " . $id);
-    return false;
-}
-
-//#################
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if ($id === false) {
+            // Gérer l'erreur d'ID invalide
+            error_log("Invalid room ID: " . $id);
+            return false;
+        }
 
         $request->bindParam(':id_room', $id);
 
-// modif ici     
-error_log("SQL Query: " . $request->queryString);
-//#################
+        error_log("SQL Query: " . $request->queryString);
 
         try {
 
@@ -118,14 +112,11 @@ error_log("SQL Query: " . $request->queryString);
                     return false;
                 }
             } else {
-                
-// modif ici
- // Log des erreurs
- error_log("SQL Error: " . print_r($request->errorInfo(), true));
+                // Log des erreurs
+                error_log("SQL Error: " . print_r($request->errorInfo(), true));
 
- // Retournez false ou déclenchez une exception, en fonction de votre logique
- return false;
-//  ###############
+                // Retournez false ou déclenchez une exception, en fonction de la logique
+                return false;
 
                  // Lancer une exception en cas d'échec de l'exécution de la requête
                  throw new \PDOException("Error executing the query.");
@@ -134,9 +125,6 @@ error_log("SQL Query: " . $request->queryString);
         // Gérer l'exception (loguer l'erreur, afficher un message, etc.)
         // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
         error_log("Database error: " . $e->getMessage());
-
-        // header('Content-Type: application/json');
-        // echo json_encode(['error' => true, 'message' => 'Database error']);
 
         return null;
         }

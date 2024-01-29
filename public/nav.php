@@ -84,6 +84,13 @@ if (session_status() == PHP_SESSION_NONE) {
                         <i class="fa fa-shopping-cart"></i>
                         <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
                         </div>
+
+<!-- bouton ou un autre élément pour décrémenter -->
+<div class="delect_cart btn btn-warning bg-warning m-lg-3">
+  <i class="fa fa-minus"></i> Décrémenter
+</div>
+
+                        
                     </div>
                     </a>
                 </li>
@@ -103,3 +110,9 @@ if (session_status() == PHP_SESSION_NONE) {
     </nav>
 </div>
     
+<script>
+    // un élément ayant une classe "decrement-icon"
+    $(document).ready(function() {
+        decrementCart();
+    });
+</script>

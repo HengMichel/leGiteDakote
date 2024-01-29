@@ -28,12 +28,12 @@
     </div>
     
     <script>
-    window.addEventListener("load", () => {
-        var idRoom = "<?= $rooms->getId_room() ?>";
-
-        console.log("idRoom in client-side script:", idRoom);
-
-        addRoomsToCartAjax(idRoom)
-    });
+        $(document).ready(function () {
+            addToCartAjax();
+        });
+        window.addEventListener("load", () => {
+       
+        addToCartAjax()
+        });
     </script>
 </div>
