@@ -18,6 +18,8 @@
                     plus
                 </a>
                 <div id="<?= $rooms->getId_room(); ?>" class="add_cart btn bg-success fw-medium link-light border-black border-2">Ajouter au Panier</div>
+
+                <div id="<?= $rooms->getId_room(); ?>" class="delect_cart btn bg-danger fw-medium link-light border-black border-2">Retirer du Panier</div>
             </div>
         </div>
     </div>

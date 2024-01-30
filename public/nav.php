@@ -33,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
                 <li class="nav-item active mt-1">
                     <a class="nav-link" href="<?= addLink("users", "deco") ?>">
-                        <i class="fa fa-sign-out me-md-3 m-lg-2 fa-2xl"></i>
+                        <i class="fa fa-sign-out me-md-3  fa-2xl"></i>
                     </a>
                 </li>
                 
@@ -73,7 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php else: ?>
                 <li class="nav-item active">
                     <a class="nav-link mt-1" href="<?= addLink("users", "login") ?>">
-                        <i class="fa fa-sign-in me-md-3 m-lg-2 fa-2xl"></i>
+                        <i class="fa fa-sign-in me-md-3  fa-2xl"></i>
                     </a>
                 </li>
                 <?php endif ?>
@@ -82,13 +82,17 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" href="<?= addLink("cart", "show") ?>">
                     <div class="ensemble d-flex">
                         <i class="fa fa-shopping-cart"></i>
+                        
+                        <!-- <i class="fa-solid fa-plus" title="ajouter au panier"></i> -->
+                        
                         <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
                         </div>
-
+                        <!-- <i class="fa fa-minus" title="retirer du panier"></i> -->
+                    
 <!-- bouton ou un autre élément pour décrémenter -->
-<div class="delect_cart btn btn-warning bg-warning m-lg-3">
+<!-- <div class="delect_cart btn btn-warning bg-warning m-lg-3">
   <i class="fa fa-minus"></i> Décrémenter
-</div>
+</div> -->
 
                         
                     </div>
@@ -113,6 +117,6 @@ if (session_status() == PHP_SESSION_NONE) {
 <script>
     // un élément ayant une classe "decrement-icon"
     $(document).ready(function() {
-        decrementCart();
+        delectToCartAjax();
     });
 </script>
