@@ -50,7 +50,7 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     }
-    // ######  methode Mitra permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode je dois passer par le chemin racine afin d afficher les images (no recommanded) 
+    // ######  methode Mitra permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
     public function insertRooms(Rooms $rooms)
     {
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category, NOW())";

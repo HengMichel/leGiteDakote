@@ -1,5 +1,4 @@
 <div class="container5 container">
-
     <div class="img_room border border-3 border-warning">
  
         <img src="<?= UPLOAD_CHAMBRES_IMG . $rooms->getRoom_imgs(); ?>" class="card-img-top" alt="image">
@@ -12,28 +11,36 @@
     </div>
     <div class="bou bg-dark">
         <input name="qte" type="number" class="m-lg-3 form-control-lg" value="1" id="field<?= $rooms->getId_room() ?>">
+
         <button class="btn btn-warning bg-warning m-lg-3" id="form<?= $rooms->getId_room() ?>">
             <i class="fa fa-cart-arrow-down"></i>
         </button>
 
-        
         <div class="d-flex bg-dark">
             <a href="<?= ROOT ?>" class="btn bg-warning fw-bolder m-lg-3">
             <i class="fa fa-home"></i> Retour à l'accueil
             </a>
-            <a href="<?= addLink('cart','buy', $rooms->getId_room()); ?>" class="btn bg-success link-light fw-bolder m-3">
+            <a href="<?= addLink('bookings','newBookings'); ?>" class="btn bg-success link-light fw-bolder m-3">
             <i class="fa fa-shopping-cart"></i> Passer la commande
             </a>
         </div>
     </div>
-    
-    <script>
-        $(document).ready(function () {
-            addToCartAjax();
-        });
-        window.addEventListener("load", () => {
-       
-        addToCartAjax()
-        });
-    </script>
 </div>
+<?php
+// Récupére la quantité actuelle dans le panier côté serveur
+$quantiteActuelle = $_SESSION["nombre"] ?? 0;
+
+// Stocke cette quantité dans le sessionStorage
+echo "<script>sessionStorage.setItem('cartCount', $quantiteActuelle);</script>";
+?>
+<script>
+
+    window.addEventListener("load", () => {
+
+        // Récupére l'ID de la chambre directement du PHP
+        var idRoom = "<?= $rooms->getId_room() ?>";
+
+        // Appelez la fonction qui gère l'ajout au panier
+        addRoomToCartAjax(idRoom)
+    });
+</script>

@@ -1,3 +1,11 @@
+<form method="POST" action="ajax.js" id="form">
+    <label for="room">Choisir une catégorie</label>
+    <select name="choix" id="room">
+        <option value="classic">Classic</option>
+        <option value="piscine">Piscine</option>
+    </select>
+</form>
+
 <div class="d-flex flex-wrap justify-content-around">
     <?php foreach($roomss as $rooms) : ?>
     <!-- ancienne version -->
@@ -29,5 +37,9 @@
 <script>
 $(document).ready(function() {
     addToCartAjax();
+// });
+
+// $(document).ready(function() {
+    delectToCartAjax();
 });
 </script>

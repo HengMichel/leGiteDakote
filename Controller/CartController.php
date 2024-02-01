@@ -23,6 +23,13 @@ class CartController extends BaseController
         echo $nb;  
     }
 
+    public function delectToCart($id)
+    {   
+        $cm = new CartManager();
+        $nb = $cm->delectCart($id);
+        echo $nb;  
+    }
+
     /**
      * Summary of show
      * @return void

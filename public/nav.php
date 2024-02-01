@@ -81,19 +81,9 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li class="nav-item active mt-2 lead lh-1">
                     <a class="nav-link" href="<?= addLink("cart", "show") ?>">
                     <div class="ensemble d-flex">
-                        <i class="fa fa-shopping-cart"></i>
-                        
-                        <!-- <i class="fa-solid fa-plus" title="ajouter au panier"></i> -->
-                        
+                        <i class="fa fa-shopping-cart"></i>                  
                         <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
                         </div>
-                        <!-- <i class="fa fa-minus" title="retirer du panier"></i> -->
-                    
-<!-- bouton ou un autre élément pour décrémenter -->
-<!-- <div class="delect_cart btn btn-warning bg-warning m-lg-3">
-  <i class="fa fa-minus"></i> Décrémenter
-</div> -->
-
                         
                     </div>
                     </a>
@@ -105,18 +95,6 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link link-warning fw-bolder ms-md-4 me-md-3 fs-4" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
                 </li>
             </ul>
-            
-            <form class="d-flex col-3" role="search" id="formSearch" action="<?= addLink("search", "searchTag");  ?>">
-                <input class="form-control me-3 border-3 border-success bg-light" id="search" type="search" placeholder="Rechercher" aria-label="Search">
-                <button class="btn bg-success link-warning fw-bolder border-2 border-light col-4" type="submit">Recherche</button>
-            </form>
         </div>
     </nav>
 </div>
-    
-<script>
-    // un élément ayant une classe "decrement-icon"
-    $(document).ready(function() {
-        delectToCartAjax();
-    });
-</script>
