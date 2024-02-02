@@ -122,7 +122,7 @@ class RoomsRepository extends BaseRepository
                  throw new \PDOException("Error executing the query.");
             }
         } catch (\PDOException $e) {
-        // Gérer l'exception (loguer l'erreur, afficher un message, etc.)
+        // Gère l'exception (loguer l'erreur, afficher un message, etc.)
         // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
         error_log("Database error: " . $e->getMessage());
 

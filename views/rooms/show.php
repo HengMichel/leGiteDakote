@@ -28,19 +28,19 @@
 </div>
 <?php
 // Récupére la quantité actuelle dans le panier côté serveur
-$quantiteActuelle = $_SESSION["nombre"] ?? 0;
+// $quantiteActuelle = $_SESSION["nombre"] ?? 0;
 
 // Stocke cette quantité dans le sessionStorage
-echo "<script>sessionStorage.setItem('cartCount', $quantiteActuelle);</script>";
+// echo "<script>sessionStorage.setItem('cartCount', $quantiteActuelle);</script>";
 ?>
 <script>
 
-    window.addEventListener("load", () => {
+    // window.addEventListener("load", () => {
 
         // Récupére l'ID de la chambre directement du PHP
-        var idRoom = "<?= $rooms->getId_room() ?>";
+        // var idRoom = "<?= $rooms->getId_room() ?>";
 
         // Appelez la fonction qui gère l'ajout au panier
-        addRoomToCartAjax(idRoom)
-    });
+        // addRoomToCartAjax(idRoom)
+    // });
 </script>

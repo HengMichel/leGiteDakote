@@ -29,7 +29,7 @@ class ImageHandler
                 // Déplacer le fichier téléversé vers le répertoire cible
                 move_uploaded_file($_FILES["room_imgs"]["tmp_name"], $target_file);
                 $entity->setPhoto($uniqueFileName);
-                Sess::addMessage("succes", "L'image a été téléversée avec succès.");
+                Sess::addMessage("succes", "L'image a été téléchargée avec succès.");
             }
         }
     }

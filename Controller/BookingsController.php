@@ -35,16 +35,17 @@ class BookingsController extends BaseController
     public function newBookings()
     {
         // Récupérer les paramètres GET
-        $room_id = $_GET['room_id'] ?? null;
-        $price = $_GET['price'] ?? null;
-        $room_imgs = $_GET['room_imgs'] ?? null;
-        $room_state = $_GET['room_state'] ?? null;
+        $room_id = $_POST['room_id'] ?? null;
+        $price = $_POST['price'] ?? null;
+        $room_imgs = $_POST['room_imgs'] ?? null;
+        $room_state = $_POST['room_state'] ?? null;
 
         // Instancier l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
         $bookings->setRoom_id($room_id);
         $bookings->setBooking_price($price);
 
+        // d_die($bookings);
         // d_die($room_id, $price, $room_imgs, $room_state, $bookings);
 
          // Récupérez l'utilisateur connecté
@@ -52,19 +53,20 @@ class BookingsController extends BaseController
 
          // Assurez-vous que user_id est défini sur l'objet $bookings
          if ($user instanceof Users) {
-             // d_die($_SESSION);
+            //  d_die($_SESSION);
              $bookings->setUser_id($user->getId_user());
          }
 
          // Passez les données à la vue
-        //  $data = [
-        //     'bookings' => $bookings,
-        //     'room_id' => $room_id,
-        //     'price' => $price,
-        //     'room_imgs' => $room_imgs,
-        //     'room_state' => $room_state,
-        // ];
+         $data = [
+            'bookings' => $bookings,
+            'room_id' => $room_id,
+            'price' => $price,
+            'room_imgs' => $room_imgs,
+            'room_state' => $room_state,
+        ];
 
+        // d_die($rooms);
         $this->form->handleForm($bookings);
 
         // Vérifiez si le formulaire est soumis
@@ -77,7 +79,7 @@ class BookingsController extends BaseController
                 // d_die($bookings);
 
                 // ajout code ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
-                ImageHandler::handelPhoto($room_imgs);
+                // ImageHandler::handelPhoto($room_imgs);
 
                 // Ajoutez la réservation à la base de données
                 $success = $this->bookingsRepository->addBookings($bookings);
@@ -99,9 +101,7 @@ class BookingsController extends BaseController
         // Récupérez les erreurs du formulaire
         $errors = $this->form->getEerrorsForm();
 
-        // return $this->render("bookings/form_bookings.php",$data + [
-        //     "errors" => $errors
-        return $this->render("bookings/form_bookings.php", [
+        return $this->render("bookings/form_bookings.php",$data + [
             "errors" => $errors
         ]);
     }      

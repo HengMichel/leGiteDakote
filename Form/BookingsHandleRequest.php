@@ -60,7 +60,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             
             // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
             if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) {
-    
+
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
                 } else{ 
 
@@ -77,11 +77,6 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setBooking_start_date($booking_start_date);
                 $bookings->setBooking_end_date($booking_end_date);
                 $bookings->setBooking_price($_POST[self::PRICE]);
-                
-                // Include JavaScript code for updating the icon
-                // Assuming you have a function to update the icon
-                // echo "<script> updateIcon(true); </script>";
-
     
                 // d_die($_POST); 
                 return true;
@@ -96,8 +91,6 @@ class BookingsHandleRequest extends BaseHandleRequest
     
     }
     
-    
-
     public function handleSecurity()
     {
        
