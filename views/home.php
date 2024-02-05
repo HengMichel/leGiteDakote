@@ -1,10 +1,21 @@
-<form method="POST" action="ajax.js" id="form">
-    <label for="room">Choisir une catégorie</label>
-    <select name="choix" id="room">
-        <option value="classic">Classic</option>
-        <option value="piscine">Piscine</option>
-    </select>
-</form>
+
+    <form method="POST" action="<?= addLink("home", "list") ?>" id="form">
+        <label for="category">Choisir une catégorie</label>
+        <select name="choix" id="category">
+            <option>...</option>
+            <option value="classic">Classic</option>
+            <option value="piscine">Piscine</option>
+            <?php
+            foreach ($json as $category) {
+                echo "<option>{$category['category']}</option>";
+            }
+            ?>
+        </select>
+    </form>
+<hr>
+<div id="resultat"></div>
+
+
 
 <div class="d-flex flex-wrap justify-content-around">
     <?php foreach($roomss as $rooms) : ?>

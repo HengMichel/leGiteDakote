@@ -11,16 +11,16 @@
     <!-- modif ici ################## -->
 
          <!-- Initialiser le panier au chargement de la page -->
-         <script>
+         <!-- <script>
                 console.log("Script d'initialisation du panier chargé.");
 
             $(document).ready(function () {
                 let cartCount = sessionStorage.getItem("cartCount");
 
-                console.log("Nombre récupéré depuis sessionStorage :", cartCount); 
+                console.log("Nombre récupéré depuis sessionStorage :", cartCount);  -->
 
-                 // Vérifier si l'élément #nombre est trouvé dans le DOM
-        if ($("#nombre").length > 0) {
+                 <!-- // Vérifier si l'élément #nombre est trouvé dans le DOM -->
+        <!-- if ($("#nombre").length > 0) {
             console.log("#nombre trouvé dans le DOM.");
         } else {
             console.log("#nombre n'est pas trouvé dans le DOM.");
@@ -33,7 +33,7 @@
 
                 }
             });
-        </script>
+        </script> -->
 
 
         <!-- ######################### -->

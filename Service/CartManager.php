@@ -120,57 +120,57 @@ class CartManager
     //     exit();
     // }
 
-    private function updateCart($id, $quantity)
-    {
-        $rooms = $this->roomsRepository->findRoomsById($id);
+//     private function updateCart($id, $quantity)
+//     {
+//         $rooms = $this->roomsRepository->findRoomsById($id);
 
-        if (!$rooms) {
-            // Retourne la réponse JSON avec le message d'erreur
-            echo json_encode(['error' => true, 'message' => 'Room not found', 'count' => null]);
-            exit();
-        }
+//         if (!$rooms) {
+//             // Retourne la réponse JSON avec le message d'erreur
+//             echo json_encode(['error' => true, 'message' => 'Room not found', 'count' => null]);
+//             exit();
+//         }
 
-        $cart = $_SESSION["cart"] ?? [];
-        $roomFoundInCart = false;
+//         $cart = $_SESSION["cart"] ?? [];
+//         $roomFoundInCart = false;
 
-        foreach ($cart as $indice => $value) {
-            if ($rooms->getId_room() == $value["rooms"]->getId_room()) {
-                $cart[$indice]["quantity"] += $quantity;
-                $roomFoundInCart = true;
-                break;
-            }
-        }
+//         foreach ($cart as $indice => $value) {
+//             if ($rooms->getId_room() == $value["rooms"]->getId_room()) {
+//                 $cart[$indice]["quantity"] += $quantity;
+//                 $roomFoundInCart = true;
+//                 break;
+//             }
+//         }
 
-        if (!$roomFoundInCart) {
-            $cart[] = ["quantity" => $quantity, "rooms" => $rooms];
-        }
+//         if (!$roomFoundInCart) {
+//             $cart[] = ["quantity" => $quantity, "rooms" => $rooms];
+//         }
 
-        $_SESSION["cart"] = $cart;
+//         $_SESSION["cart"] = $cart;
 
-        $nb = 0;
+//         $nb = 0;
 
-        foreach ($cart as $value) {
-            $nb += $value["quantity"];
-        }
+//         foreach ($cart as $value) {
+//             $nb += $value["quantity"];
+//         }
 
-        $_SESSION["nombre"] = $nb;
+//         $_SESSION["nombre"] = $nb;
 
-        // Retourne la réponse JSON avec un seul objet contenant à la fois un message d'erreur et la clé "count"
-        echo json_encode(['error' => false, 'message' => '', 'count' => $nb]);
-        exit();
-    }
+//         // Retourne la réponse JSON avec un seul objet contenant à la fois un message d'erreur et la clé "count"
+//         echo json_encode(['error' => false, 'message' => '', 'count' => $nb]);
+//         exit();
+//     }
 
-    public function addCart($id)
-    {
-        $quantity = $_GET["qte"] ?? 1;
-        $this->updateCart($id, $quantity);
-    }
+//     public function addCart($id)
+//     {
+//         $quantity = $_GET["qte"] ?? 1;
+//         $this->updateCart($id, $quantity);
+//     }
 
-    public function delectCart($id)
-    {
-        $quantity = $_GET["qte"] ?? 1;
-        $this->updateCart($id, -$quantity);
-    }
+//     public function delectCart($id)
+//     {
+//         $quantity = $_GET["qte"] ?? 1;
+//         $this->updateCart($id, -$quantity);
+//     }
 
 }
 

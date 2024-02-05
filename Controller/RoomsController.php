@@ -6,6 +6,15 @@ use Model\Repository\RoomsRepository;
 
 class RoomsController extends BaseController
 {
+
+    private $roomsRepository;
+
+    public function __construct()
+    {
+        $this->roomsRepository = new RoomsRepository;
+        
+    }
+
     public function list()
     {
         error("404.php");
@@ -43,4 +52,5 @@ class RoomsController extends BaseController
         }
 
     }
+
 }

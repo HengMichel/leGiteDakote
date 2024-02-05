@@ -1,15 +1,15 @@
 <?php
 
-// ######## mix de AdminRepository.php + Rooms1Repository.php  2 en 1 .
-
-
 namespace Model\Repository;
 
 use Service\Session;
 use Model\Entity\Rooms;
+use InvalidArgumentException;
 
 class RoomsRepository extends BaseRepository
 {
+
+// a ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) 
     public function addRooms(Rooms $rooms)
     {
     // Traitement de l'image
@@ -26,7 +26,7 @@ class RoomsRepository extends BaseRepository
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
         $request->bindValue(":room_imgs", $imgName); 
-        // Enregistrez le nom du fichier, pas le chemin complet
+        // Enregistre le nom du fichier, pas le chemin complet
         $request->bindValue(":persons", $rooms->getPersons());
         $request->bindValue(":category", $rooms->getCategory());
 
@@ -50,7 +50,9 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     }
-    // ######  methode Mitra permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
+##################################################################    
+
+// Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
     public function insertRooms(Rooms $rooms)
     {
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category, NOW())";
@@ -58,7 +60,7 @@ class RoomsRepository extends BaseRepository
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
         $request->bindValue(":room_imgs", $rooms->getRoom_imgs()); 
-        // Enregistrez le nom du fichier, pas le chemin complet
+        // Enregistre le nom du fichier, pas le chemin complet
         $request->bindValue(":persons", $rooms->getPersons());
         $request->bindValue(":category", $rooms->getCategory());
 
@@ -90,7 +92,7 @@ class RoomsRepository extends BaseRepository
 
         $id = filter_var($id, FILTER_VALIDATE_INT);
         if ($id === false) {
-            // Gérer l'erreur d'ID invalide
+            // Gère l'erreur d'ID invalide
             error_log("Invalid room ID: " . $id);
             return false;
         }
@@ -115,10 +117,10 @@ class RoomsRepository extends BaseRepository
                 // Log des erreurs
                 error_log("SQL Error: " . print_r($request->errorInfo(), true));
 
-                // Retournez false ou déclenchez une exception, en fonction de la logique
+                // Retourne false ou déclenchez une exception, en fonction de la logique
                 return false;
 
-                 // Lancer une exception en cas d'échec de l'exécution de la requête
+                 // Lance une exception en cas d'échec de l'exécution de la requête
                  throw new \PDOException("Error executing the query.");
             }
         } catch (\PDOException $e) {
@@ -173,8 +175,53 @@ class RoomsRepository extends BaseRepository
         return null;
     }
 
+    public function findRoomsByCategory($category)
+    {
+        // Valide la valeur de la catégorie par rapport aux valeurs ENUM possibles
+        $validCategories = ["classic","piscine"];
 
+        // Vérifiez la valeur de la catégorie
+        if (!in_array($category, $validCategories)) {
 
+        // Gérer une catégorie invalide
+            throw new InvalidArgumentException("Catégorie invalide");
+        }
+
+        $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE category = :category");
+
+        // Liaison du paramètre nommé à la valeur
+        $request->bindParam(':category', $category, \PDO::PARAM_STR);
+
+        // Exécution de la requête
+        $request->execute();
+
+        // Récupération des résultats
+        $result = $request->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Fermeture de la requête
+        $request->closeCursor();
+
+        // Retourne les résultats 
+        return $result;
+
+    }
+
+    public function findRoomsByCategoryJson($category)
+    {
+        $rooms = $this->findRoomsByCategory($category);
+
+        // Convertir le résultat en JSON
+        $jsonResult = json_encode($rooms);
+        
+        // Vérifier s'il y a une erreur de codage JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+
+            // Gère l'erreur de codage JSON ici
+            return json_encode(['error' => 'Erreur de codage JSON']);
+        }
+        return $jsonResult;
+       
+    }
 
 
 

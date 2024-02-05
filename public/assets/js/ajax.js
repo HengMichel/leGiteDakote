@@ -135,48 +135,72 @@
 
 
 // Ajoute l'événement de changement de catégorie ici
-$('#room').change(function() {
-  var selectedCategory = $(this).val();
+$(document).ready(function() {
 
-  $.ajax({
-      url: 'ajax.js', // Remplacez par votre script de traitement AJAX
-      type: 'POST',
-      data: { category: selectedCategory },
-      dataType: 'html',
-      success: function(response) {
-          // Mettez à jour la liste des chambres avec la réponse du serveur
-          $('.d-flex.flex-wrap.justify-content-around').html(response);
-      },
-      error: function(error) {
-          console.log('Erreur AJAX', error);
-      }
-  });
-});
+    $('#category').on('change',function(){
 
-// <?php
-// // ajax.php
+        //Récupère le contenu des attributs 'action' et 'method' du formulaire
+        var action = $('#form').attr('action');
+        var method = $('#form').attr('method');
+        
+        //Sérialise le contenu des champs du formulaire
+        var formData = $('#form').serialize();
 
-// // Incluez vos fichiers nécessaires ici
-// require_once 'chemin/vers/votre/fichier/RoomsRepository.php'; // Assurez-vous d'ajuster le chemin
-// require_once 'chemin/vers/votre/fichier/RoomController.php'; // Assurez-vous d'ajuster le chemin
+        //  pour déboguer
+        // console.log(formData);
 
-// // Obtenez la catégorie sélectionnée depuis la requête POST
-// $category = $_POST['category'] ?? null;
+         //Utilisation de la méthode ajax de jQuery pour l'affichage de la réponse
+         $.ajax({
+             // Le fichier cible, celui qui fera le traitement
+            url: action,
 
-// // Initialisez votre RoomsRepository et RoomController (ajustez le chemin si nécessaire)
-// $roomsRepository = new RoomsRepository();
-// $roomController = new RoomController();
+            // La méthode utilisée (POST, GET, etc.)
+            type: method,
 
-// // Récupérez la liste des chambres en fonction de la catégorie
-// $roomList = $roomController->getRoomsByCategory($roomsRepository, $category);
+            // Les paramètres à fournir (champs sérialisés du formulaire)
+            data: formData,
 
-// // Affichez la liste des chambres (ajustez le format de sortie si nécessaire)
-// foreach ($roomList as $room) {
-//     echo '<div class="card border-light border-2 mt-5" style="width: 22rem;">';
-//     // ... Affichez le contenu de chaque chambre ...
-//     echo '</div>';
-// }
-// ?>
+            // Le format des données attendues
+            dataType: 'json', 
+            success: function(response) {
+        
+                console.log("Response:", response);
 
+    // Vérifiez si la réponse est un tableau
+                if (Array.isArray(response)) { 
+
+     // La fonction qui doit s'exécuter lors de la réussite de la communication Ajax
+                    $('#resultat').html('');
+
+    // Parcours chaque chambre dans le tableau
+                    response.forEach(function(room) {
+
+            // Créez un élément pour chaque chambre
+                        var roomElement = $(
+                            '<div class="card border-light border-3 mt-5" style="width: 22rem;">' +
+                            '<div class="img_room">' +
+                            '<img src="' + UPLOAD_CHAMBRES_IMG + room.room_imgs + '" class="card-img-top" alt="image">' +
+                            '</div>' +
+                            '<div class="card-body bg-dark">' +
+                            '<p class="card-text fa-2x fw-medium link-light">' + room.price + '€/nuit</p>' +
+                            '<p class="card-text link-warning fa-xl fw-medium">' + room.category + '</p>' +
+                            '<p class="card-text fw-medium link-light">' + room.persons + ' Persons</p>' +
+                            '<button type="submit" class="btn bg-warning fw-bolder border-black border-2">En savoir plus</button>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                        
+                        // Ajoutez l'élément de chambre au résultat
+                        $('#resultat').append(roomElement);
+                    });
+
+                } else {
+
+                    console.error('Réponse inattendue du serveur:', response);
+                }
+            },
+        });
+    });
+})
 
 
