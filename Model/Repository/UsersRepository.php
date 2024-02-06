@@ -39,7 +39,7 @@ class UsersRepository extends BaseRepository
         if($request->execute()) {
             if ($request->rowCount() == 1) {
                 $class = "Model\Entity\\" . ucfirst('users');
-                // utiliser le bon mode de récupération selon votre configuration
+                // utilise le bon mode de récupération selon la configuration
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
                 return $request->fetch();
             }

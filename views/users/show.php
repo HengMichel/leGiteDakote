@@ -7,45 +7,45 @@
       </thead>
       <tbody>
         <tr class="table-active">
-          <th scope="row"  class="id_room bg-success link-light border-2 border-warning">Id user</th>
-          <td class="idUser border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getId_user() ?></td>
-         
+          <th scope="row"  class="id_room bg-success link-light border-2 border-warning">Identifiant</th>
+          <td class="idUser border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getId_user() 
+          ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="lastname bg-success link-light border-2 border-warning">Lastname:<sup>*</sup></th>
-          <td class="last_name border-2 border-warning bg-success-subtle fw-bolder link-dark"><?= $user->getLast_name() ?></td>
+          <th scope="row" class="lastname bg-success link-light border-2 border-warning">Nom:<sup>*</sup></th>
+          <td class="last_name border-2 border-warning bg-success-subtle fw-bolder link-dark"><?= $users->getLast_name() ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="firstname bg-success link-light border-2 border-warning">Firstname:<sup>*</sup></th>
-          <td class="firstname2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getFirst_name() ?></td>
+          <th scope="row" class="firstname bg-success link-light border-2 border-warning">Prénom:<sup>*</sup></th>
+          <td class="firstname2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getFirst_name() ?></td>
         </tr>
         <tr class="table-primary">
           <th scope="row"  class="email bg-success link-light border-2 border-warning">Email:<sup>*</sup></th>
-          <td class="email2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getEmail() ?></td>
+          <td class="email2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getEmail() ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="password bg-success link-light border-2 border-warning">Password:<sup>*</sup></th>
-          <td class="password2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getPassword() ?></td>
+          <th scope="row" class="password bg-success link-light border-2 border-warning">Mot de passe:<sup>*</sup></th>
+          <td class="password2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getPassword() ?></td>
         </tr>
         <tr class="table-primary">
           <th scope="row" class="role bg-success link-light border-2 border-warning">Role:<sup>*</sup></th>
-          <td class="role2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getRole() ?></td>
+          <td class="role2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getRole() ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="birthday bg-success link-light border-2 border-warning">Birthday:<sup>*</sup></th>
-          <td class="birthday2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= date("d-m-Y", strtotime($user->getBirthday())) ?></td>
+          <th scope="row" class="birthday bg-success link-light border-2 border-warning">Anniversaire:<sup>*</sup></th>
+          <td class="birthday2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= date("d-m-Y", strtotime($users->getBirthday())) ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="adress bg-success link-light border-2 border-warning">Address:<sup>*</sup></th>
-          <td class="adress2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getAddress() ?></td>
+          <th scope="row" class="adress bg-success link-light border-2 border-warning">Adresse:<sup>*</sup></th>
+          <td class="adress2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getAddress() ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="phone_number bg-success link-light border-2 border-warning">Phone number:<sup>*</sup></th>
-          <td class="phone_number2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getPhone_number() ?></td>
+          <th scope="row" class="phone_number bg-success link-light border-2 border-warning">Numéro de tel:<sup>*</sup></th>
+          <td class="phone_number2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getPhone_number() ?></td>
         </tr>
         <tr class="table-primary">
-          <th scope="row" class="gender bg-success link-light border-2 border-warning">Gender:<sup>*</sup></th>
-          <td class="gender2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $user->getGender() ?></td>
+          <th scope="row" class="gender bg-success link-light border-2 border-warning">Civilité:<sup>*</sup></th>
+          <td class="gender2 border-warning border-2 bg-success-subtle fw-bolder link-dark"><?= $users->getGender() ?></td>
         </tr>
         <tr class="table-primary">
           <th scope="row" class="dashboard bg-success link-light border-2 border-warning">dashboard:<sup>*</sup></th>

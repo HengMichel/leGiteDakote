@@ -1,44 +1,32 @@
 <?php
+
+use Model\Repository\RoomsRepository;
 //Crée une variable $tab de type tableau
 $tab = array();
-
-//Ajoute un indice 'contenu' pour ce tableau. La valeur doit être une chaîne de caractères vide
-$tab['contenu'] = '';
-
+// Avant la conversion en JSON
+var_dump($tab);
 
 //Applique la condition pour vérifier si "empty($_POST['choix'])" n'est pas vide
 if (!empty($_POST['choix'])){
 
-//Récupère la méthode findRoomsByCategory() en mettant dans une variable '$methode'
-    $methode->findRoomsByCategory();
-    var_dump($methode);
+    $roomsRepository = new RoomsRepository();
 
-
-    // Convertir le fichier JSON en tableau PHP en stockant dans la variable '$json'
-    $json = json_decode($methode, true);
-
-    // Récupérer le nom sélectionné
-    $choix = $_POST['choix'];
-
-// Affichez la liste des chambres
-    foreach ($roomss as $rooms) {
-
-        if($rooms['classic'] === $choix) {
-
-            $tab['contenu'] .= 
-             '<div class="card border-light border-2 mt-5" style="width: 22rem;">';
-            // ... Affichez le contenu de chaque chambre ...
-        }
-        else if ($rooms['piscine'] === $choix) {
-
-            $tab['contenu'] .= 
-             '<div class="card border-light border-2 mt-5" style="width: 22rem;">';
-
+    // Récupère la valeur de la catégorie depuis la requête POST
+    $category = $_POST['choix'];
+ 
+    // Appelle la méthode findRoomsByCategory avec la catégorie pour récupérer les chambres filtrées
+    $rooms = $roomsRepository->findRoomsByCategory($category);
+ 
+    // Si des chambres ont été trouvées, renvoie l'URL de redirection vers show.php pour la première chambre
+    if (!empty($rooms)) {
+         $firstRoomId = $rooms[0]['id']; // Supposons que 'id' est le champ identifiant de la chambre
+         $tab['redirectUrl'] = "rooms/show.php?id=" . $firstRoomId;
         }
     }
-     //Converti le tableau '$tab' en JSON
-     echo json_encode($tab);
-}
+    //Converti le tableau '$tab' en JSON
+    echo json_encode($tab);
+    echo $jsonResponse;
+
 ?>
 
 

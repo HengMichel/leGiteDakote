@@ -147,10 +147,12 @@ $(document).ready(function() {
         var formData = $('#form').serialize();
 
         //  pour déboguer
-        // console.log(formData);
+        console.log("Action:", action);
+        console.log("Method:", method);
+        console.log("FormData:", formData);
 
-         //Utilisation de la méthode ajax de jQuery pour l'affichage de la réponse
-         $.ajax({
+        //Utilisation de la méthode ajax de jQuery pour l'affichage de la réponse
+        $.ajax({
              // Le fichier cible, celui qui fera le traitement
             url: action,
 
@@ -163,8 +165,7 @@ $(document).ready(function() {
             // Le format des données attendues
             dataType: 'json', 
             success: function(response) {
-        
-                console.log("Response:", response);
+            // console.log("Response:", response);
 
     // Vérifiez si la réponse est un tableau
                 if (Array.isArray(response)) { 
@@ -185,7 +186,7 @@ $(document).ready(function() {
                             '<p class="card-text fa-2x fw-medium link-light">' + room.price + '€/nuit</p>' +
                             '<p class="card-text link-warning fa-xl fw-medium">' + room.category + '</p>' +
                             '<p class="card-text fw-medium link-light">' + room.persons + ' Persons</p>' +
-                            '<button type="submit" class="btn bg-warning fw-bolder border-black border-2">En savoir plus</button>' +
+                            '<button type="submit" class="btn bg-warning fw-bolder border-black border-2 en-savoir-plus">En savoir plus</button>' +
                             '</div>' +
                             '</div>'
                         );
@@ -195,10 +196,50 @@ $(document).ready(function() {
                     });
 
                 } else {
-
                     console.error('Réponse inattendue du serveur:', response);
                 }
             },
+        });
+    });
+
+
+
+
+
+    // Déléguer l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
+    $(document).on('click', '.en-savoir-plus', function(e) {
+        // Empêche le formulaire de se soumettre
+        e.preventDefault();
+                        
+        console.log("Bouton 'En savoir plus' cliqué.");
+                        
+        var form = $(this).closest('form');
+        var action = form.attr('action');
+        var method = form.attr('method');
+        var formData = form.serialize();
+
+        $.ajax({
+            url: action,
+            type: method,
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                // Afficher la réponse JSON reçue
+        console.log("Réponse JSON reçue :", response);
+
+            // Vérifiez si la réponse contient une URL de redirection
+                if (response && response.redirectUrl) {
+                    console.log("Réponse du serveur:", response);
+                    // Rediriger vers la page show.php
+                    window.location.href = response.redirectUrl;
+                } else {
+                    console.error("La réponse du serveur ne contient pas d'URL de redirection.");
+                }
+            },
+            error: function(xhr, status, error) {
+            //     // Gérer les erreurs si nécessaire
+                console.error("Erreur de requête AJAX:", error);
+            }
         });
     });
 })

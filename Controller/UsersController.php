@@ -43,9 +43,10 @@ class UsersController extends BaseController
     public function show($id)
     {
         $user = $this->usersRepository->findUsersById($id);
-        // ajout d'une condition en cas de la valeur null de $user afin d'ajouter un message d'erreur dans la session
+
+        // d_die($user);
         return $this->render("users/show.php", [
-            "user" => $user,
+            "users" => $user,
         ]);
     }
 
