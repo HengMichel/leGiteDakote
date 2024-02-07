@@ -27,7 +27,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             extract($_POST);
             $errors = [];
 
-            // convertir en date en seconde avec strtotime depuis le 1janvier 1960         
+            // converti en date en seconde avec strtotime depuis le 1janvier 1960         
             $booking_start_date = date("Y-m-d", strtotime($_POST[self::START_DATE]));
             $booking_end_date = date("Y-m-d", strtotime($_POST[self::END_DATE]));
             // d_die($booking_start_date);
@@ -81,7 +81,7 @@ class BookingsHandleRequest extends BaseHandleRequest
                 // d_die($_POST); 
                 return true;
                 }
-                // Gérer les erreurs
+                // Gère les erreurs
                 $this->setEerrorsForm($errors);
  
             } else {

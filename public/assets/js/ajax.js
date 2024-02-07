@@ -167,7 +167,7 @@ $(document).ready(function() {
             success: function(response) {
             // console.log("Response:", response);
 
-    // Vérifiez si la réponse est un tableau
+    // Vérifie si la réponse est un tableau
                 if (Array.isArray(response)) { 
 
      // La fonction qui doit s'exécuter lors de la réussite de la communication Ajax
@@ -191,7 +191,7 @@ $(document).ready(function() {
                             '</div>'
                         );
                         
-                        // Ajoutez l'élément de chambre au résultat
+                        // Ajoute l'élément de chambre au résultat
                         $('#resultat').append(roomElement);
                     });
 
@@ -202,16 +202,12 @@ $(document).ready(function() {
         });
     });
 
-
-
-
-
-    // Déléguer l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
+    // Délégue l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
     $(document).on('click', '.en-savoir-plus', function(e) {
         // Empêche le formulaire de se soumettre
         e.preventDefault();
                         
-        console.log("Bouton 'En savoir plus' cliqué.");
+        // console.log("Bouton 'En savoir plus' cliqué.");
                         
         var form = $(this).closest('form');
         var action = form.attr('action');
@@ -224,20 +220,20 @@ $(document).ready(function() {
             data: formData,
             dataType: 'json',
             success: function(response) {
-                // Afficher la réponse JSON reçue
+                // Affiche la réponse JSON reçue
         console.log("Réponse JSON reçue :", response);
 
             // Vérifiez si la réponse contient une URL de redirection
                 if (response && response.redirectUrl) {
                     console.log("Réponse du serveur:", response);
-                    // Rediriger vers la page show.php
+                    // Redirige vers la page show.php
                     window.location.href = response.redirectUrl;
                 } else {
                     console.error("La réponse du serveur ne contient pas d'URL de redirection.");
                 }
             },
             error: function(xhr, status, error) {
-            //     // Gérer les erreurs si nécessaire
+            //     // Gère les erreurs si nécessaire
                 console.error("Erreur de requête AJAX:", error);
             }
         });

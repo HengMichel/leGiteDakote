@@ -2,6 +2,7 @@
 
 namespace Model\Repository;
 
+use Service\Session;
 use Model\Entity\Users;
 
 class UsersRepository extends BaseRepository
@@ -90,20 +91,44 @@ class UsersRepository extends BaseRepository
 
     $request = $this->dbConnection->prepare($sql);
        
-    // Assurez-vous de lier la valeur pour :id_user; 
+    // Lie la valeur pour :id_user; 
     $request->bindValue(":id_user", $users->getId_user(), \PDO::PARAM_INT); 
     // Assurez-vous de lier la valeur pour :room_id; 
     // $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);   
 
-    // Exécutez la requête avant de récupérer les résultats
+    // Exécute la requête avant de récupérer les résultats
     $request->execute();  
 
-    // Maintenant, vous pouvez récupérer les résultats
+    // Récupère les résultats
     $results = $request->fetchAll(\PDO::FETCH_ASSOC);
  
-    // Vous pouvez traiter les résultats comme nécessaire
+    // Traite les résultats comme nécessaire
     return $results;
      
     }
     
+    public function deleteUsersById($id)
+    {
+        $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
+        $request->bindParam(':id_user', $id);
+    
+        if ($request->execute()) {
+
+            if ($request->rowCount() == 1) {
+
+                Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
+                return true;
+
+                } else {
+                    Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
+                    return false;
+                }
+
+        }else{
+
+            Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
+            return false;
+        }
+    }
+
 }

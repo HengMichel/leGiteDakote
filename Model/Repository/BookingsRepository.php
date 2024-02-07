@@ -57,10 +57,9 @@ class BookingsRepository extends BaseRepository
             // echo "Avant la mise à jour : ";
             // print_r($booking);
 
-
-            // Vérifier si la réservation existe
+            // Vérifie si la réservation existe
             if ($booking) {
-                // Mettre à jour l'état de la réservation
+                // Mets à jour l'état de la réservation
                 $sql = "UPDATE bookings SET booking_state = :booking_state WHERE id_booking = :id_booking";
                 $request = $this->dbConnection->prepare($sql);
                 $request->bindValue(":booking_state", "cancel");
@@ -69,11 +68,8 @@ class BookingsRepository extends BaseRepository
                 $success = $request->execute();
     
                 if ($success) {
-                    // echo "Après la mise à jour : " . $id;
+                // echo "Après la mise à jour : " . $id;
                     
-                    // Si l'annulation est réussie, vous pouvez ajuster le prix total ici
-                    // Déduisez le montant annulé du prix total
-
                     Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
                     return true;
                 } else {
@@ -86,7 +82,7 @@ class BookingsRepository extends BaseRepository
                 return false;
             }    
         } catch (PDOException $e) {
-            // Vous pouvez également logger l'erreur ici
+            // log l'erreur ici
             throw new Exception("Erreur lors de l'annulation de la réservation : " . $e->getMessage());
         }
     }
@@ -132,14 +128,14 @@ class BookingsRepository extends BaseRepository
         if($request->execute()) {
             if ($request->rowCount() == 1) {
                 $class = "Model\Entity\\" . ucfirst('bookings');
-                // utiliser le bon mode de récupération selon votre configuration
+                // utilise le bon mode de récupération selon votre configuration
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
                 return $request->fetch();
             }
         }
     }
 
-   // préparer la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
+   // prépare la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
     {
 
@@ -196,16 +192,16 @@ class BookingsRepository extends BaseRepository
 
     $request = $this->dbConnection->prepare($sql);
 
-    // Assurez-vous de lier la valeur pour :room_id; 
+    // S'assurer de lier la valeur pour :room_id; 
     $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);  
 
-    // Maintenant, vous pouvez récupérer les résultats
+    // Récupère les résultats
     $results = $request->fetchAll(\PDO::FETCH_ASSOC);
 
-    // Exécutez la requête avant de récupérer les résultats
+    // Exécute la requête avant de récupérer les résultats
     $request->execute();  
 
-    // Vous pouvez traiter les résultats comme nécessaire
+    // Traite les résultats comme nécessaire
     return $results;
     }
 

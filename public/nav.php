@@ -1,7 +1,7 @@
 <?php
 use Service\Session; 
 
-// Vérifier si la session est déjà active
+// Vérifie si la session est déjà active
 if (session_status() == PHP_SESSION_NONE) {
     // Si elle n'est pas active, démarrer la session
     session_start();

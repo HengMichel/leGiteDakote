@@ -223,42 +223,6 @@ class RoomsRepository extends BaseRepository
        
     }
 
-
-
-
-
-
-
-
-
-
-
-    public function deleteUsersById($id)
-    {
-        $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
-        $request->bindParam(':id_user', $id);
-    
-        if ($request->execute()) {
-
-            if ($request->rowCount() == 1) {
-
-                Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
-                return true;
-
-                } else {
-                    Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
-                    return false;
-                }
-
-        }else{
-
-            Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
-            return false;
-        }
-    }
-
-
-
     public function findAllRooms()
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms");

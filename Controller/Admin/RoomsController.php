@@ -7,7 +7,6 @@ use Service\ImageHandler;
 use Controller\BaseController;
 use Form\RoomsHandleRequest;
 use Model\Repository\RoomsRepository;
-// use Model\Repository\Admin\AdminRepository;
 
 class RoomsController extends BaseController
 {
@@ -40,7 +39,7 @@ class RoomsController extends BaseController
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 
-            // ajout code ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
+            // ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
             ImageHandler::handelPhoto($rooms);
   
             // new methode pour ajouter les rooms
@@ -59,8 +58,6 @@ class RoomsController extends BaseController
         ]);
     }
 
-
-// ############## code Mitra + modif  ##############
     /**
      * Summary of edit
      * @param mixed $id
@@ -91,14 +88,6 @@ class RoomsController extends BaseController
         }
         return redirection("/errors/404.php");
     }
-    // public function deleteRooms($id)
-    // {
-    //     $roomss = $this->roomsRepository->deleteRoomsById($this->rooms);
-    //     $this->roomsRepository->deleteRoomsById($id);
-
-    //     return redirection(addLink("admin/dashboard_admin.php"));
-
-    // }
 
     public function deleteRooms($id)
     {
@@ -141,5 +130,4 @@ class RoomsController extends BaseController
         ]);
     }
 
-    // ############## code Mitra + modif  ##############
 }

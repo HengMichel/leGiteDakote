@@ -34,7 +34,7 @@ class HomeController extends BaseController
 
         if (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false) {
 
-            // Si c'est une requête AJAX, renvoyer les données JSON
+            // Si c'est une requête AJAX, renvoye les données JSON
             $category = $_POST['choix'];
             $jsonResult = $this->roomsRepository->findRoomsByCategoryJson($category);
             

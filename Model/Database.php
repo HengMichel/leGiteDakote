@@ -4,14 +4,13 @@ namespace Model;
 
 class Database
 {
-    // connetion à la base de données
+    // connexion à la base de données
     private $host = "localhost";
     private $db_name = "gite_db";
     private $username = "root";
     private $password = "";
     private $connection = null;
 
-    // getter pour la connetion
     public function dbConnect()
     {
         try {

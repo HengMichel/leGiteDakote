@@ -117,7 +117,7 @@ class UsersHandleRequest extends BaseHandleRequest
                     if (empty($userInfo)) {
                         $errors[] = "Utilisateur inconnu !";
                     } else {
-                        // Vérifier si le mot de passe est correct
+                        // Vérifie si le mot de passe est correct
                         if (!password_verify($password, $userInfo->getPassword())) {
                             $errors[] = "Le mot de passe est incorrect";
                         }

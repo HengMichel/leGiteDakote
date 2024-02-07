@@ -4,7 +4,6 @@ namespace Controller;
 
 use Service\Session;
 use Model\Entity\Users;
-use Service\ImageHandler;
 use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
@@ -34,13 +33,13 @@ class BookingsController extends BaseController
 
     public function newBookings()
     {
-        // Récupérer les paramètres GET
+        // Récupère les paramètres GET
         $room_id = $_POST['room_id'] ?? null;
         $price = $_POST['price'] ?? null;
         $room_imgs = $_POST['room_imgs'] ?? null;
         $room_state = $_POST['room_state'] ?? null;
 
-        // Instancier l'objet Bookings avec les données appropriées
+        // Instancie l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
         $bookings->setRoom_id($room_id);
         $bookings->setBooking_price($price);
@@ -48,16 +47,16 @@ class BookingsController extends BaseController
         // d_die($bookings);
         // d_die($room_id, $price, $room_imgs, $room_state, $bookings);
 
-         // Récupérez l'utilisateur connecté
+         // Récupère l'utilisateur connecté
          $user = Session::getConnectedUser();
 
-         // Assurez-vous que user_id est défini sur l'objet $bookings
+         // S'assurer que user_id est défini sur l'objet $bookings
          if ($user instanceof Users) {
             //  d_die($_SESSION);
              $bookings->setUser_id($user->getId_user());
          }
 
-         // Passez les données à la vue
+         // Passe les données à la vue
          $data = [
             'bookings' => $bookings,
             'room_id' => $room_id,
@@ -66,29 +65,26 @@ class BookingsController extends BaseController
             'room_state' => $room_state,
         ];
 
-        // d_die($rooms);
+        // d_die($rooms)
         $this->form->handleForm($bookings);
 
-        // Vérifiez si le formulaire est soumis
+        // Vérifie si le formulaire est soumis
         if ($this->form->isSubmitted()) {
             // d_die($bookings);
 
-            // Vérifiez s'il n'y a pas d'erreurs dans les données soumises
+            // Vérifie s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
                 // d_die($_SESSION);
                 // d_die($bookings);
 
-                // ajout code ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
-                // ImageHandler::handelPhoto($room_imgs);
-
-                // Ajoutez la réservation à la base de données
+                // Ajoute la réservation à la base de données
                 $success = $this->bookingsRepository->addBookings($bookings);
                 // d_die($success); return bool(true)
                 if ($success) {
                     // d_die($_SESSION);
                     // d_die($bookings);
 
-                    // Redirigez vers le tableau de bord
+                    // Redirige vers le tableau de bord
                     return redirection(addLink("users","dashUsers"));
 
                 } else {
@@ -98,7 +94,7 @@ class BookingsController extends BaseController
             }
 
         }
-        // Récupérez les erreurs du formulaire
+        // Récupère les erreurs du formulaire
         $errors = $this->form->getEerrorsForm();
 
         return $this->render("bookings/form_bookings.php",$data + [
@@ -109,17 +105,17 @@ class BookingsController extends BaseController
   
     public function cancelBooking($id)
     {
-        // Annuler la réservation
+        // Annule la réservation
         $success = $this->bookingsRepository->cancelBooking($id);
 
         if ($success) {
         // d_die($bookings);
 
-        // Redirigez vers le tableau de bord
+        // Redirige vers le tableau de bord
         return redirection(addLink("users","dashUsers"));
 
         } else {
-            // Récupérez les erreurs du formulaire
+            // Récupére les erreurs du formulaire
             $errors = $this->form->getEerrorsForm();
             return $this->render("bookings/form_bookings.php", [
                 "errors" => $errors

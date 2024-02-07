@@ -28,12 +28,14 @@ class RoomsHandleRequest extends BaseHandleRequest
             if (strlen($room_number) < 1) {
                 $errors[] = "Le titre doit avoir au moins 1 caractères";
             }
-
+// ancienne version 
             // if (!empty($room_imgs)) {
             //     if (strlen($room_imgs)) {
             //         $errors[] = "La room_imgs ne peut pas être vide";
             //     }
             // }
+// #################
+
             if (!(isset($_FILES["room_imgs"]) && $_FILES["room_imgs"]["error"] == UPLOAD_ERR_OK)) {
                 $errors[] = "Veuillez sélectionner une image à télécharger pour continuer.";
             }
@@ -67,7 +69,6 @@ class RoomsHandleRequest extends BaseHandleRequest
                 $rooms->setPrice($Price);
                 $rooms->setPersons($persons);
                 $rooms->setCategory($category);
-                // return true;
                 return $this;
             }
 
