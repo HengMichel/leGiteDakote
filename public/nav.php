@@ -8,15 +8,14 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 <div class="container-fluid bg-dark">
-
     <nav class="navbar-expand-lg "> 
-        <a class="navbar-brand" href="<?= addLink("home") ?>"></a>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
+        <a class="navbar-brand" href="<?= addLink("home") ?>">
+        </a>     
+        <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">         
                 <li class="nav-item">
-                    <a class="nav-link active link-warning fw-bolder ms-md-4 me-md-3 fa-baht-sign fs-4" aria-current="page" href="<?= addLink("home") ?>">Accueil</a>
+                    <a class="nav-link active link-warning fw-bolder ms-md-4 me-md-3 fa-baht-sign fs-4" aria-current="page" href="<?= addLink("home") ?>">Accueil
+                    </a>
                 </li>
 <!-- connexion avec le message Bienvenue suivi du nom -->
                 <?php
@@ -30,41 +29,41 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
 
 <!-- déconnexion -->
-                <li class="nav-item active mt-1">
+                <li class="nav-item active mt-2">
                     <a class="nav-link" href="<?= addLink("users", "deco") ?>">
                         <i class="fa fa-sign-out me-md-3  fa-2xl"></i>
                     </a>
                 </li>
                 
 <!-- connexion de l'admin et acces de tous ses avantages -->
-                <?php if( $user = Session::isAdmin() ): ?>
+                <?php if( Service\Session::isAdmin() ): ?>
                 <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Chambres
+                    <a class="nav-link dropdown-toggle fw-bolder fs-4" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" >
+                    Chambres
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= addLink('admin/admin', 'list') ?>">Liste</a></li>
+                        <li><a class="dropdown-item" href="<?= addLink('admin/rooms', 'list') ?>">Liste</a></li>
                         <li><a class="dropdown-item" href="<?= addLink('admin/rooms', 'newRooms') ?>">Ajouter</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle fw-bolder ms-md-2 fs-4" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Utilisateurs
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= addLink('admin/user', 'list') ?>">Liste</a></li>
+                        <li><a class="dropdown-item" href="<?= addLink('admin/users', 'list') ?>">Liste</a></li>
                         <li><a class="dropdown-item" href="<?= addLink('admin/user', 'newUsers') ?>">Ajouter</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle fw-bolder ms-md-2 fs-4" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        categories
+                        Réservations
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= addLink('admin/category', 'list') ?>">Liste</a></li>
+                        <li><a class="dropdown-item" href="<?= addLink('admin/bookings', 'list') ?>">Liste</a></li>
                         <li><a class="dropdown-item" href="<?= addLink('admin/category', 'new') ?>">Ajouter</a></li>
                     </ul>
                 </li>

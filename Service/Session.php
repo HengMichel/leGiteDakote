@@ -52,7 +52,7 @@ abstract class Session
 
     public static function isAdmin(): bool
     {
-        $user = self::isConnected();
+        $user = self::getConnectedUser();
 
         return $user instanceof Users && $user->getRole() == self::ROLE_ADMIN;
 

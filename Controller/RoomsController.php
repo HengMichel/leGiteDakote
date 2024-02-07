@@ -29,25 +29,25 @@ class RoomsController extends BaseController
             $id = intval($id); 
             // d_die($id);  
 
-            // Instancier la classe RoomsRepository pour interagir avec la base de données
+            // Instancie la classe RoomsRepository pour interagir avec la base de données
             $r = new RoomsRepository;
 
-            // Appeler la méthode findRoomsById pour récupérer les informations de la chambre par son ID
+            // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $rooms = $r->findRoomsById($id);
 
             // d_die($room);
-                // Vérifier si la chambre existe
+                // Vérifie si la chambre existe
                 if (empty($rooms)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
-            // Afficher la vue de détails de la chambre avec les informations récupérées
+            // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("rooms/show.php", [
             "rooms" => $rooms,
             "h1" => "Fiche de la chambre"
             ]);
         } else {
-            // Rediriger vers une page d'erreur si l'ID n'est pas valide
+            // Redirige vers une page d'erreur si l'ID n'est pas valide
             error("404.php");
         }
 

@@ -1,49 +1,35 @@
 <?php
 namespace Controller\Admin;
-// namespace Controller;
 
-// ##########  code provenant de AdminController.php
 
 use Model\Entity\Rooms;
 use Service\ImageHandler;
 use Controller\BaseController;
 use Form\RoomsHandleRequest;
 use Model\Repository\RoomsRepository;
-use Model\Repository\UsersRepository;
 // use Model\Repository\Admin\AdminRepository;
 
 class RoomsController extends BaseController
 {
     private $roomsRepository;
-    private $usersRepository;
     private $form;
     private $rooms;
-    private $users;
 
 
     public function __construct()
     {
-        // $this->roomsRepository = new AdminRepository;
         $this->roomsRepository = new RoomsRepository;
-        $this->usersRepository = new UsersRepository;
         $this->form = new RoomsHandleRequest;
         $this->rooms = new Rooms;
     }
 
-    public function home()
+    public function list()
     {
-        // $userss = $this->usersRepository->findAll($this->users);
+        $rooms = $this->roomsRepository->findAll($this->rooms);
 
-        // $this->render("admin/dashboard_admin.php", [
-        //     "userss" => $userss
-        // ]);
-
-        // ##### ou retour a la liste des chambres home.php ######
-        $roomss = $this->roomsRepository->findAll($this->users);
-
-        $this->render("home", [
+        $this->render("admin/list_rooms.php", [
             "h1" => "Liste des chambres",
-            "roomss" => $roomss
+            "rooms" => $rooms
         ]);
     }
     

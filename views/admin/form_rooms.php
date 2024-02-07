@@ -38,7 +38,7 @@ bg-success-subtle" value="<?= $rooms->getCategory() ?>">
 bg-success-subtle" name="image"value="<?= $rooms->getRoom_imgs() ?>">
             </div>
         </div>      
-        <button type="submit" id="bouton" class="btn bg-success mt-5 mb-5 link-warning border-warning border-4 fw-medium" name="add_room" value="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
-        <a href="<?= addLink("users") ?>" class="btn btn-success mt-5 mb-5 link-light fw-medium">Annuler</a>
+        <button type="submit" id="bouton" class="btn bg-warning mt-5 mb-5 link-success border-primary border-2 fw-bolder" name="add_room" value="submit"><?= $mode == "suppression" ? "Confirmer" : "Enregistrer" ?></button>
+        <a href="<?= addLink("users") ?>" class="btn bg-success mt-5 mb-5 link-light border-warning border-2 fw-bolder">Annuler</a>
     </form>   
 </div>

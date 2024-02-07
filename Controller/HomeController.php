@@ -38,7 +38,9 @@ class HomeController extends BaseController
             $category = $_POST['choix'];
             $jsonResult = $this->roomsRepository->findRoomsByCategoryJson($category);
             
+            $jsonResult = json_encode($this->roomsRepository->findRoomsByCategoryJson($category));
             echo $jsonResult;
+
             exit();
         }
 
