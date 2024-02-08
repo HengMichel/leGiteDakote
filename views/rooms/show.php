@@ -26,6 +26,9 @@
         </div>
     </div>
 </div>
+
+
+<!-- panier avec ajax pour un site e-commerce -->
 <?php
 // Récupére la quantité actuelle dans le panier côté serveur
 // $quantiteActuelle = $_SESSION["nombre"] ?? 0;

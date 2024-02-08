@@ -31,6 +31,7 @@ class Rooms extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of room_number
      */
@@ -90,6 +91,7 @@ class Rooms extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of persons
      */
@@ -109,6 +111,7 @@ class Rooms extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of category
      */
@@ -128,6 +131,7 @@ class Rooms extends BaseEntity
 
         return $this;
     }
+    
     /**
      * Get the value of room_state
      */

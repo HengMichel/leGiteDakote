@@ -17,9 +17,8 @@ if(!empty($admin)){
 }
 try {
     $controller = new $classController;
-    // $playerController->update($id);
-
     $controller->$method($id);
-} catch (Exception $e) {
+} 
+catch (Exception $e) {
     echo "Erreur : " . $e->getMessage();
 }

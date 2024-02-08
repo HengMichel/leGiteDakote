@@ -93,7 +93,7 @@ class UsersRepository extends BaseRepository
        
     // Lie la valeur pour :id_user; 
     $request->bindValue(":id_user", $users->getId_user(), \PDO::PARAM_INT); 
-    // Assurez-vous de lier la valeur pour :room_id; 
+    // S'assurer de lier la valeur pour :room_id; 
     // $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);   
 
     // Exécute la requête avant de récupérer les résultats

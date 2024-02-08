@@ -50,8 +50,6 @@
         <tr class="table-primary">
           <th scope="row" class="dashboard bg-success link-light border-3 border-warning">dashboard:<sup>*</sup></th>
           <td class="dashboard2 border-warning border-3 bg-success-subtle fw-medium link-dark"><a href="<?= addLink("users","dashUsers") ?>" class="btn btn-success bg-warning link-success fw-bolder">dashboard</td>
-          <!-- <td>Column content</td>
-          <td>Column content</td> -->
         </tr>
       </tbody>
     </table>

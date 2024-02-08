@@ -16,19 +16,19 @@ class CartController extends BaseController
      * @param mixed $id
      * @return void
      */
-    public function addToCart($id)
-    {   
-        $cm = new CartManager();
-        $nb = $cm->addCart($id);
-        echo $nb;  
-    }
+    // public function addToCart($id)
+    // {   
+    //     $cm = new CartManager();
+    //     $nb = $cm->addCart($id);
+    //     echo $nb;  
+    // }
 
-    public function delectToCart($id)
-    {   
-        $cm = new CartManager();
-        $nb = $cm->delectCart($id);
-        echo $nb;  
-    }
+    // public function delectToCart($id)
+    // {   
+    //     $cm = new CartManager();
+    //     $nb = $cm->delectCart($id);
+    //     echo $nb;  
+    // }
 
     /**
      * Summary of show

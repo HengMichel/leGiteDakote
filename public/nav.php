@@ -77,17 +77,6 @@ if (session_status() == PHP_SESSION_NONE) {
                     </a>
                 </li>
                 <?php endif ?>
-                
-                <!-- <li class="nav-item active mt-2 lead lh-1">
-                    <a class="nav-link" href="<?= addLink("cart", "show") ?>">
-                    <div class="ensemble d-flex">
-                        <i class="fa fa-shopping-cart"></i>                  
-                        <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
-                        </div>
-                        
-                    </div>
-                    </a>
-                </li> -->
 
 <!-- access aux services  -->
                 <li class="nav-item">
@@ -107,3 +96,15 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </nav>
 </div>
+
+<!-- panier pour site e-commerce -->
+<!-- <li class="nav-item active mt-2 lead lh-1">
+        <a class="nav-link" href="<?= addLink("cart", "show") ?>">
+        <div class="ensemble d-flex">
+            <i class="fa fa-shopping-cart"></i>                  
+            <div class="num container fa" id="nombre"><?= $_SESSION["nombre"] ?? ''; ?>
+            </div>
+            
+        </div>
+        </a>
+    </li> -->

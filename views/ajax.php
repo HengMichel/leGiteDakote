@@ -1,7 +1,8 @@
 <?php
 
 use Model\Repository\RoomsRepository;
-//Crée une variable $tab de type tableau
+
+//Création d' une variable $tab de type tableau
 $tab = array();
 // Avant la conversion en JSON
 var_dump($tab);

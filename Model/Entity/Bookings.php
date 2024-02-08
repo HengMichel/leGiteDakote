@@ -33,6 +33,7 @@ class Bookings extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of booking_start_date
      */
@@ -92,6 +93,7 @@ class Bookings extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of room_id
      */
@@ -111,6 +113,7 @@ class Bookings extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of booking_price
      */
@@ -118,6 +121,7 @@ class Bookings extends BaseEntity
     {
         return $this->booking_price;
     }
+
     /**
      * Set the value of booking_price
      *
@@ -129,6 +133,7 @@ class Bookings extends BaseEntity
 
         return $this;
     }
+    
     /**
      * Get the value of booking_state
      */

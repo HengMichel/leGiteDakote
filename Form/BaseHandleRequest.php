@@ -2,7 +2,6 @@
 
 namespace Form;
 
-
 class BaseHandleRequest
 {
     private $errors;
@@ -16,11 +15,13 @@ class BaseHandleRequest
     {
         return $this->errors;
     }
+
     public function isValid()
     {
         $result = !empty($this->errors) ? false : true;
         return $result;
     }
+    
     public function isSubmitted()
     {
         $result = empty($_POST) ? false : true;

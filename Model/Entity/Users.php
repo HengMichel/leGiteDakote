@@ -22,6 +22,7 @@ class Users extends BaseEntity
     {
         return $this->id_user;
     }
+
     /**
      * Set the value of id_user
      *
@@ -33,6 +34,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of last_name
      */
@@ -40,6 +42,7 @@ class Users extends BaseEntity
     {
         return $this->last_name;
     }
+
     /**
      * Set the value of last_name
      *
@@ -51,6 +54,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of first_name
      */
@@ -58,6 +62,7 @@ class Users extends BaseEntity
     {
         return $this->first_name;
     }
+
     /**
      * Set the value of first_name
      *
@@ -69,6 +74,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of email
      */
@@ -76,6 +82,7 @@ class Users extends BaseEntity
     {
         return $this->email;
     }
+
     /**
      * Set the value of email
      *
@@ -87,6 +94,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of password
      */
@@ -94,6 +102,7 @@ class Users extends BaseEntity
     {
         return $this->password;
     }
+
     /**
      * Set the value of password
      *
@@ -105,6 +114,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of role
      */
@@ -112,6 +122,7 @@ class Users extends BaseEntity
     {
         return $this->role;
     }
+
     /**
      * Set the value of role
      *
@@ -123,6 +134,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of birthday
      */
@@ -142,6 +154,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of address
      */
@@ -149,6 +162,7 @@ class Users extends BaseEntity
     {
         return $this->address;
     }
+
     /**
      * Set the value of address
      *
@@ -160,6 +174,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+
     /**
      * Get the value of phone_number
      */
@@ -179,6 +194,7 @@ class Users extends BaseEntity
 
         return $this;
     }
+    
     /**
      * Get the value of gender
      */

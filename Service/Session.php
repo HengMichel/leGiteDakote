@@ -55,7 +55,6 @@ abstract class Session
         $user = self::getConnectedUser();
 
         return $user instanceof Users && $user->getRole() == self::ROLE_ADMIN;
-
     }
     public static function delete($content)
     {
