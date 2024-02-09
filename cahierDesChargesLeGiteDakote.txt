@@ -1,5 +1,6 @@
 	Cahier des charges le gîte Dakoté
 
+
 - site en responsive
 
 - création de compte utilisateur
@@ -20,6 +21,4 @@
  https://www.gloomaps.com/sE7m4Ckqys
 
 
-	maquette with figma 
-
-https://www.figma.com/file/mg0fVDxmnP8tJJBDhEm88g/Untitled?type=design&node-id=0-1&mode=design&t=QIDuE4R0dj1BmFWO-0
+	
