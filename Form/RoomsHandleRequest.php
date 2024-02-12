@@ -78,15 +78,7 @@ class RoomsHandleRequest extends BaseHandleRequest
         }
     }
 
-    // public function handleUpdate($id)
-    // {
-    //     if (isset($_GET['idUser'])) {
-
-    //         $idUser = htmlspecialchars($_GET['idUser']);
-        
-    //         User::UserById($idUser);
-    //     }
-    // }
+  
     public function handleSecurity()
     {
        

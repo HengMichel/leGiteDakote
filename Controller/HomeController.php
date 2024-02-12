@@ -9,7 +9,6 @@ use Controller\BaseController;
 class HomeController extends BaseController
 {
     private RoomsRepository $roomsRepository;
-    // private RoomsHandleRequest $form;
     private Rooms $rooms;
 
     public function __construct()

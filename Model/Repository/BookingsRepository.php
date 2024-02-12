@@ -48,7 +48,7 @@ class BookingsRepository extends BaseRepository
     public function cancelBooking($id){
         
         try {
-            // Avant la recherche de la réservation
+// Avant la recherche de la réservation
 // echo "ID de réservation à annuler : " . $id;
 
             // Récupérer la réservation par son ID
@@ -87,7 +87,8 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-    // #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
+// #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
+
     // public function deleteBookingsById($id){
 
     //     $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
@@ -102,6 +103,8 @@ class BookingsRepository extends BaseRepository
     //         // La suppression a échoué
     //         }
     //   }  
+
+//  ###################################################################################################################
 
     public function findBookingById($id){
 
@@ -128,14 +131,13 @@ class BookingsRepository extends BaseRepository
         if($request->execute()) {
             if ($request->rowCount() == 1) {
                 $class = "Model\Entity\\" . ucfirst('bookings');
-                // utilise le bon mode de récupération selon votre configuration
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
                 return $request->fetch();
             }
         }
     }
 
-   // prépare la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
+   // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
     {
 

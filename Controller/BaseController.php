@@ -53,7 +53,7 @@ abstract class BaseController
         Session::addMessage($type, $message);
     }
 
-    // peut etre utile plustard
+    // peut etre utile plus tard
     public function disconnection()
     {
         Session::logout();

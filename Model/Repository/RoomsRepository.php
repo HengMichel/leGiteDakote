@@ -9,7 +9,8 @@ use InvalidArgumentException;
 class RoomsRepository extends BaseRepository
 {
 
-// a ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) 
+// a ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
+
     public function addRooms(Rooms $rooms)
     {
     // Traitement de l'image
@@ -50,7 +51,8 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     }
-##################################################################    
+
+###################################################################################################################    
 
 // Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
     public function insertRooms(Rooms $rooms)
@@ -117,7 +119,7 @@ class RoomsRepository extends BaseRepository
                 // Log des erreurs
                 error_log("SQL Error: " . print_r($request->errorInfo(), true));
 
-                // Retourne false ou déclenchez une exception, en fonction de la logique
+                // Retourne false ou déclenche une exception, en fonction de la logique
                 return false;
 
                  // Lance une exception en cas d'échec de l'exécution de la requête
