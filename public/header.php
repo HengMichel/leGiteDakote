@@ -26,7 +26,7 @@
         </script>
         <!-- ################################################################### -->
         <script src="public/assets/js/ajax.js"></script>
-        <title><?= $h1 ?? "Projet" ?></title>
+        <title><?= $h1 ?? "Le gîte DAKOTE" ?></title>
     </head>
 
     <body class="bgAllpage">

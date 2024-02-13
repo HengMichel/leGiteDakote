@@ -91,22 +91,33 @@ class RoomsController extends BaseController
 
     public function deleteRooms($id)
     {
-        if (!empty($id) && $id > 0) {
-            if (is_numeric($id)) {
+        
+        // if (!empty($id) && $id > 0) {
+        //     if (is_numeric($id)) {
 
-                $rooms = $this->rooms;
-            } else {
-                $this->setMessage("danger",  "ERREUR 404 : la page demandé n'existe pas");
-            }
+        //         $rooms = $this->rooms;
+        //     } else {
+        //         $this->setMessage("danger",  "ERREUR 404 : la page demandé n'existe pas");
+        //     }
+        // } else {
+        //     $this->setMessage("danger",  "ERREUR 404 : la page demandé n'existe pas");
+        // }
+
+        // $this->render("admin/list_rooms.php", [
+        //     "h1" => "Suppresion de la chambre n°$id ?",
+        //     "rooms" => $rooms,
+        //     "mode" => "suppression"
+        // ]);
+        $success =  $this->roomsRepository->deleteRoomsById($id);
+
+        if ($success) {
+            return redirection(addLink("admin","rooms","list"));
+            $this->setMessage("succes",  "Suppresion de la chambre n°$id ");
         } else {
             $this->setMessage("danger",  "ERREUR 404 : la page demandé n'existe pas");
+            
         }
 
-        $this->render("rooms/form.php", [
-            "h1" => "Suppresion du produit n°$id ?",
-            "rooms" => $rooms,
-            "mode" => "suppression"
-        ]);
     }
 
     public function show($id)
