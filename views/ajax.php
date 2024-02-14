@@ -12,19 +12,22 @@ if (!empty($_POST['choix'])){
 
     $roomsRepository = new RoomsRepository();
 
-    // Récupère la valeur de la catégorie depuis la requête POST
+// Récupère la valeur de la catégorie depuis la requête POST
     $category = $_POST['choix'];
  
-    // Appelle la méthode findRoomsByCategory avec la catégorie pour récupérer les chambres filtrées
+// Appelle la méthode findRoomsByCategory avec la catégorie pour récupérer les chambres filtrées
     $rooms = $roomsRepository->findRoomsByCategory($category);
  
-    // Si des chambres ont été trouvées, renvoie l'URL de redirection vers show.php pour la première chambre
+// Si des chambres ont été trouvées, renvoie l'URL de redirection vers show.php pour la première chambre
     if (!empty($rooms)) {
-         $firstRoomId = $rooms[0]['id']; // Supposons que 'id' est le champ identifiant de la chambre
+
+//'id' est le champ identifiant de la chambre
+         $firstRoomId = $rooms[0]['id']; 
          $tab['redirectUrl'] = "rooms/show.php?id=" . $firstRoomId;
         }
     }
-    //Converti le tableau '$tab' en JSON
+    
+//Converti le tableau '$tab' en JSON
     echo json_encode($tab);
     echo $jsonResponse;
 
