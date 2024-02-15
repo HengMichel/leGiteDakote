@@ -31,11 +31,11 @@ class HomeController extends BaseController
     {
         $roomss = $this->roomsRepository->findAll($this->rooms);
 
-        if (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['choix'])) {
 
 // Si c'est une requête AJAX, renvoye les données JSON
             $category = $_POST['choix'];
-            
+            // d_die($_POST);
             $jsonResult = $this->roomsRepository->findRoomsByCategoryJson($category);
         
             echo $jsonResult;

@@ -21,7 +21,7 @@
 
 //         if (data.error) {
 //             console.log("Erreur :", data.message);
-//         } else if (data.count !== null && typeof data.count !== 'undefined') {           
+//         } else if (data.count !== null && typeof data.count !== 'undefined') {
 //             $("#nombre").html(data.count);
 //             console.log("nb produits dans mon deuxième panier =", data.count);
 //         } else {
@@ -36,7 +36,7 @@
 //       },
 //       error: (jqXHR, status, error) => {
 //         console.log("ERREUR AJAX", status, error);
-//         console.log("Message d'erreur:", jqXHR.responseText);      
+//         console.log("Message d'erreur:", jqXHR.responseText);
 //       },
 //     });
 //   });
@@ -62,12 +62,12 @@
 //         if (currentCount > 0) {
 //           // Décrémentez le nombre
 //           newCount = currentCount - 1;
-          
+
 //           // Mettre à jour le nombre dans le DOM
 //           $("#nombre").html(newCount);
-          
+
 //           console.log("nb produits dans mon panier = " + newCount);
-          
+
 //         }
 
 //         // Mise à jour dans la sessionStorage si nécessaire
@@ -77,7 +77,7 @@
 
 //           console.log("Erreur :", data.message);
 
-//           // } else if (data.count !== null && typeof data.count !== 'undefined') { 
+//           // } else if (data.count !== null && typeof data.count !== 'undefined') {
 //           //   $("#nombre").html(data.count);
 //           //   console.log("nb produits dans mon deuxième panier =", data.count);
 //           // } else {
@@ -95,16 +95,16 @@
 
 //           // Vérifie la valeur après la mise à jour du DOM
 //           console.log("Nombre après mise à jour du DOM :", $("#nombre").html());
-        
+
 //           // Ajoute la nouvelle classe "cart-counter" pour référence future
 //           $(".num").addClass("cart-counter");
 //         },
 
 //         error: (jqXHR, status, error) => {
 //           console.log("ERREUR AJAX", status, error);
-//           console.log("Message d'erreur:", jqXHR.responseText);      
-//         },    
-        
+//           console.log("Message d'erreur:", jqXHR.responseText);
+//         },
+
 //     });
 //   });
 // }
@@ -123,7 +123,7 @@
 //         $("#nombre").html(data.count);
 //         console.log("nb produits dans mon deuxième cart = " + data.count);
 //       },
-      
+
 //       error: (jqXHR, status, error) => {
 //         console.log("ERREUR AJAX", status, error);
 //       },
@@ -131,113 +131,72 @@
 //   });
 // }
 
-
-
-
-
-
-
-
-
-
-
-
 // ############## filter for category ##############################
 
+$(document).ready(function () {
+  $("#category").on("change", function () {
+    // Récupère la catégorie sélectionnée
+    var category = $(this).val();
 
-$(document).ready(function() {
-    $('#category').on('change', function() {
+    $.ajax({
+      url: $("#form").attr("action"),
+      type: $("#form").attr("method"),
 
-// Récupère la catégorie sélectionnée
-        var category = $(this).val();
-
-        $.ajax({
-            url: $('#form').attr('action'),
-            type: $('#form').attr('method'),
-
-// Envoie uniquement la catégorie sélectionnée
-            data: { choix: category }, 
-            dataType: 'json',
-            success: function(response) {
-
-// Affiche les nouvelles chambres sans effacer le formulaire de catégorie
-                $('#roomsContainer').html('');
-                response.forEach(function(room) {
-                    var roomElement = $('<div class="card border-light border-3 mt-5" style="width: 22rem;">' +
-                        '<div class="img_room">' +
-                        '<img src="' + UPLOAD_CHAMBRES_IMG + room.room_imgs + '" class="card-img-top" alt="image">' +
-                        '</div>' +
-                        '<div class="card-body bg-dark">' +
-                        '<p class="card-text fa-2x fw-medium link-light">' + room.price + '€/nuit</p>' +
-                        '<p class="card-text link-warning fa-xl fw-medium">' + room.category + '</p>' +
-                        '<p class="card-text fw-medium link-light">' + room.persons + ' Persons</p>' +
-                        '<button type="submit" class="btn bg-warning fw-bolder border-black border-2 en-savoir-plus">En savoir plus</button>' +
-                        '</div>' +
-                        '</div>');
-                    $('#roomsContainer').append(roomElement);
-                });
-            }
+      // Envoie uniquement la catégorie sélectionnée
+      data: { choix: category },
+      dataType: "json",
+      success: function (response) {
+console.log(response)
+        // Affiche les nouvelles chambres sans effacer le formulaire de catégorie
+        $("#roomsContainer").html("");
+        response.forEach(function (room) {
+          var roomElement = $(
+            '<div class="card border-light border-3 mt-5" style="width: 22rem;">' +
+              '<div class="img_room">' +
+              '<img src="' +
+              UPLOAD_CHAMBRES_IMG +
+              room.room_imgs +
+              '" class="card-img-top" alt="image">' +
+              "</div>" +
+              '<div class="card-body bg-dark">' +
+              '<p class="card-text fa-2x fw-medium link-light">' +
+              room.price +
+              "€/nuit</p>" +
+              '<p class="card-text link-warning fa-xl fw-medium">' +
+              room.category +
+              "</p>" +
+              '<p class="card-text fw-medium link-light">' +
+              room.persons +
+              " Persons</p>" +
+              //  le bouton "En savoir plus" est ajouté dynamiquement à la page après que le DOM soit chargé
+              '<button type="submit" class="btn bg-warning fw-bolder border-black border-2 en-savoir-plus" data-room-id="' + room.id_room + '">En savoir plus</button>' +
+              "</div>" +
+              "</div>"
+          );
+          $("#roomsContainer").append(roomElement);
         });
+      },
     });
+  });
 
 
-// Délègue l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
-    $(document).on('click', '.en-savoir-plus', function(e) {
 
-// Empêche le formulaire de se soumettre
-        e.preventDefault();
-                        
-console.log("Bouton 'En savoir plus' cliqué.");
-                        
-        var form = $(this).closest('form');
-        var action = form.attr('action');
-        var method = form.attr('method');
-        var formData = form.serialize();
 
-        $.ajax({
-            url: action,
-            type: method,
-            data: formData,
-            dataType: 'json',
-            success: function(response) {
 
-// Affiche la réponse JSON reçue
-        console.log("Réponse JSON reçue :", response);
-        
+  // Délègue l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
+  $(document).on("click", ".en-savoir-plus", function (e) {
+    // Empêche le formulaire de se soumettre
+    e.preventDefault();
 
-// Vérifie si la réponse contient une URL de redirection
-                if (response && response.redirectUrl) {
+    console.log("Bouton 'En savoir plus' cliqué.");
 
-                    console.log("Réponse du serveur:", response);
+    // Récupérer l'ID de la chambre à partir de l'attribut de données
+    var roomId = $(this).data("room-id");
 
-                    // Redirige vers la page show.php
-                    window.location.href = response.redirectUrl;
+    // Rediriger vers show.php avec l'ID de la chambre
+    window.location.href = "rooms/show?id=" + roomId;
 
-                } else {
-                    console.error("La réponse du serveur ne contient pas d'URL de redirection.");
-                }
-
-            },
-            error: function(xhr, status, error) {
-
-// Gère les erreurs si nécessaire
-                console.error("Erreur de requête AJAX:", error);
-
-                // console.log("Réponse HTML reçue :", xhr.responseText);
-            }
-        });
-    });
-})
-
+  });
+});
 
 // #################################################################
-
-
-
-
-
-
-
-
-
-
