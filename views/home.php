@@ -19,7 +19,7 @@
 
     <div class="d-flex flex-wrap justify-content-around" id="roomsContainer">
         <?php foreach($roomss as $rooms) : ?>
-            <form method="POST" action="<?= addLink("bookings", "newBookings") ?>">
+            <form method="POST" action="<?= addLink("rooms", "show", $rooms->getId_room()) ?>">
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <input type="hidden" name="room_imgs" value="<?= $rooms->getRoom_imgs() ?>">

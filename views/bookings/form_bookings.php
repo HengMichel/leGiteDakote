@@ -4,11 +4,11 @@ require "views/errors_form.php";
 ?>
 <form  method="post">
 
-    <div class="img_room border border-3 border-warning">
+    <!-- <div class="img_room border border-3 border-warning">
         <img src="<?= UPLOAD_CHAMBRES_IMG . $room_imgs; ?>" class="card-img-top img-fluid" alt="image">
         <p class="descrip bg-success link-light m-0 lead fw-medium">&nbsp;&nbsp; Magnifique chambre très spacieuse pouvant recevoir 4 personnes , lit parapluie et chaise haute disponible sur demande </p>
     </div>
-   
+    -->
     <div class="form-group link-warning fw-medium justify-content-md-center mt-5">
 
     <!-- Ajout d'une valeur cachée pour room_imgs dans le formulaire :

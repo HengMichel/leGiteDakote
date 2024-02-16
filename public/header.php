@@ -24,7 +24,7 @@
          <script>
             var UPLOAD_CHAMBRES_IMG = '<?= UPLOAD_CHAMBRES_IMG ?>';
         </script>
-        <!-- ################################################################### -->
+    <!--##################################################### -->
         <script src="public/assets/js/ajax.js"></script>
         <title><?= $h1 ?? "Le gîte DAKOTE" ?></title>
     </head>
@@ -36,5 +36,5 @@
 
                     <?php include __DIR__ . "/../views/messages.php";?>
 
-                    <h1 class="titre link-warning mt-2 "><?= $h1 ?? " " ?></h1>
+                    <h1 class="titre link-warning mt-4 "><?= $h1 ?? " " ?></h1>
 

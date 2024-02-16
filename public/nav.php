@@ -97,8 +97,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
         
-        <button type="button" class="btn btn-outline-warning  fw-bold">
-            <a class="nav-link active link-light" aria-current="page" href="<?= addLink("home") ?>">Accueil
+        <button type="button" class="btn btn-outline-warning  fw-semibold">
+            <a class="nav-link active link-light " aria-current="page" href="<?= addLink("home") ?>"> <i class="fa fa-home me-1"></i>Accueil
             </a>
         </button>
 
@@ -106,7 +106,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <?php
                 if( $user = Session::getConnectedUser() ): 
             ?>
-        <button type="button" class="btn btn-outline-warning fw-bolder">
+        <button type="button" class="btn btn-outline-warning fw-semibold">
             <a class="nav-link"
                     href="<?= addLink("users", "show", $user->getId_user()) ?>">
                     <?php echo 'Bienvenue ' . $user->getLast_name() . '';?>
@@ -114,22 +114,22 @@ if (session_status() == PHP_SESSION_NONE) {
         </button>
 
 <!-- déconnexion -->
-        <button type="button" class="btn btn-outline-warning fw-bolder">
-            <a class="nav-link" href="<?= addLink("users", "deco") ?>">
+        <button type="button" class="btn btn-outline-warning fw-semibold">
+            <a class="nav-link" href="<?= addLink("users", "deco") ?>">déconnexion
                 <i class="fa fa-sign-out fa-2xl"></i>
             </a>
         </button>
 
 <!-- connexion de l'admin et acces de tous ses avantages -->
+<?php if( Service\Session::isAdmin() ): ?>
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-outline-warning fw-bolder">
-            <?php if( Service\Session::isAdmin() ): ?>
+            <button type="button" class="btn btn-outline-warning fw-semibold">
                 Utilisateurs
             </button>
             <div class="btn-group" role="group">
                 <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
-                <div class="dropdown-menu show" aria-labelledby="btnGroupDrop1" 
+                <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop1" 
                 style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 40px);" data-popper-placement="bottom-start"
                 >
                     <a class="dropdown-item fw-bolder" href="<?= addLink('admin/rooms', 'list') ?>">Liste</a>
@@ -139,43 +139,43 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-outline-warning fw-bolder">
+            <button type="button" class="btn btn-outline-warning fw-semibold">
             Réservations
             </button>
             <div class="btn-group" role="group">
                 <button id="btnGroupDrop2" type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop2">
                     <a class="dropdown-item fw-bolder" href="<?= addLink('admin/bookings', 'list') ?>">Liste</a>
                     <a class="dropdown-item fw-bolder" href="<?= addLink('admin/category', 'new') ?>">Ajouter</a>
                 </div>
             </div>
-            <?php endif; ?>
         </div>
+<?php endif; ?>
 
 <!-- connexion -->
         <?php else: ?>
-        <button type="button" class="btn btn-outline-warning fw-bolder">
-            <a class="nav-link mt-1" href="<?= addLink("users", "login") ?>">
+        <button type="button" class="btn btn-outline-warning">
+            <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
                 <i class="fa fa-sign-in fa-2xl"></i>
             </a>
         <?php endif ?>
         </button>
 
 <!-- access aux services  -->
-        <button type="button" class="btn btn-outline-warning fw-bolder">
-            <a class="nav-link link-light fw-bold" href="<?= addLink("home","serviceDuGite") ?>">Nos Services
+        <button type="button" class="btn btn-outline-warning">
+            <a class="nav-link link-light fw-semibold" href="<?= addLink("home","serviceDuGite") ?>">Nos Services
             </a>
         </button>
 
 <!-- inscription -->
-        <button type="button" class="btn btn-outline-warning fw-bold">
-            <a class="nav-link link-light fw-bold" href="<?= addLink("users","newUsers") ?>">Inscription</a>
+        <button type="button" class="btn btn-outline-warning">
+            <a class="nav-link link-light fw-semibold" href="<?= addLink("users","newUsers") ?>">Inscription</a>
         </button>
 
 <!-- présentation des propriétaire -->
-        <button type="button" class="btn btn-outline-warning fw-bold">
-            <a class="nav-link link-light fw-bold" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
+        <button type="button" class="btn btn-outline-warning ">
+            <a class="nav-link link-light fw-semibold" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
         </button>
     </nav>
 </div>

@@ -34,12 +34,12 @@ class BookingsHandleRequest extends BaseHandleRequest
 
             $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
             $nbDays = $duration / 86400;
-            $totalPrice = $_POST[self::PRICE] * $nbDays;
-
+            
+                $price = floatval($_POST[self::PRICE]);
+                $totalPrice = $price * $nbDays;
+            
             // date du jour
-            // $today = date("Ymd");
             $today = time();
-
 
             // Vérification de la validité du formulaire
              if (empty($booking_start_date)) {
@@ -94,6 +94,6 @@ class BookingsHandleRequest extends BaseHandleRequest
     public function handleSecurity()
     {
        
-        
+
     }
 }
