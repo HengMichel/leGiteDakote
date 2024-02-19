@@ -33,19 +33,24 @@ class BookingsController extends BaseController
 
     public function newBookings()
     {
-        // Récupère les paramètres GET
+        // Récupère les paramètres POST
         $room_id = $_POST['room_id'] ?? null;
+// d_die($room_id,);
+
         $price = $_POST['price'] ?? null;
+// d_die($price,);
+
         $room_imgs = $_POST['room_imgs'] ?? null;
         $room_state = $_POST['room_state'] ?? null;
 
         // Instancie l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
         $bookings->setRoom_id($room_id);
+// d_die($room_id);
         $bookings->setBooking_price($price);
-
-        // d_die($bookings);
-        // d_die($room_id, $price, $room_imgs, $room_state, $bookings);
+//  d_die($price);       
+// d_die($bookings);
+// d_die($room_id, $price, $room_imgs, $room_state, $bookings);
 
          // Récupère l'utilisateur connecté
          $user = Session::getConnectedUser();
@@ -64,25 +69,28 @@ class BookingsController extends BaseController
             'room_imgs' => $room_imgs,
             'room_state' => $room_state,
         ];
+// d_die($rooms)
 
-        // d_die($rooms)
         $this->form->handleForm($bookings);
+// d_die($bookings);
+
 
         // Vérifie si le formulaire est soumis
         if ($this->form->isSubmitted()) {
-            // d_die($bookings);
+// d_die($bookings);
 
             // Vérifie s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
-                // d_die($_SESSION);
-                // d_die($bookings);
+// d_die($_SESSION);
+// d_die($bookings);
 
                 // Ajoute la réservation à la base de données
                 $success = $this->bookingsRepository->addBookings($bookings);
-                // d_die($success); return bool(true)
+// d_die($success); return bool(true)
+
                 if ($success) {
-                    // d_die($_SESSION);
-                    // d_die($bookings);
+// d_die($_SESSION);
+// d_die($bookings);
 
                     // Redirige vers le tableau de bord
                     return redirection(addLink("users","dashUsers"));
@@ -109,7 +117,7 @@ class BookingsController extends BaseController
         $success = $this->bookingsRepository->cancelBooking($id);
 
         if ($success) {
-        // d_die($bookings);
+// d_die($bookings);
 
         // Redirige vers le tableau de bord
         return redirection(addLink("users","dashUsers"));

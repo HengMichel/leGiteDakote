@@ -14,21 +14,29 @@
             <?php
             $totalPrice = 0; 
             if (!empty($findUserBookings)) { 
-
+// d_die($findUserBookings);
                 foreach($findUserBookings as $bookings){ 
+                    // d_die($bookings);
             ?>
+
             <tr>
                 <td class="idbook border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getRoom_id() ?></td>
+                           <?php
+// d_die($bookings->getRoom_id() );            
+?>
+
+
                 <td class="booking_start_date border-success-subtle border-2 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_start_date())) ?></td>
                 <td class="booking_end_date border-success-subtle border-2 mt-2 fw-medium"><?= date("d-m-Y", strtotime($bookings->getBooking_end_date())) ?></td>
                 <td class="booking_state border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getBooking_state() ?></td>
-                <td class="booking_price border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getBooking_price() ?></td>
-                <td class="btn bg-success m-0 border-warning border-2 mt-2 container">
+                <td class="booking_price border-success-subtle border-2 mt-2 fw-medium"><?= $bookings->getBooking_price() ?>
+                </td>
+                <td class="btn btn-outline-warning m-0 border-warning border-2 mt-2 container">
 
                     <?php
                     if ($bookings->getBooking_state() != 'cancel') {
                     ?>
-                    <a class="canc link-warning fw-medium border-2 border-warning" href="<?= addLink("bookings/cancelBooking", $bookings->getId_booking()) 
+                    <a class="canc link-success fw-medium border-3 border-warning" href="<?= addLink("bookings/cancelBooking", $bookings->getId_booking()) 
                     ?>">Annuler</a>
                     <?php
                     } else {
@@ -39,12 +47,16 @@
                     ?>
                 </td> 
             </tr>
+         
+
             <?php 
             if ($bookings->getBooking_state() != 'cancel') {
 
                 $totalPrice+=$bookings->getBooking_price();
                 // d_die($bookings);
                 }
+                // Affichage du total des prix des réservations
+// echo $totalPrice;
                 }  
             } 
             ?> 

@@ -21,7 +21,9 @@ class BookingsHandleRequest extends BaseHandleRequest
 
     public function handleForm(Bookings $bookings)
     {
-        // d_die($_POST);
+// d_die($_POST);
+// d_die($_POST[self::PRICE]);
+
         if (isset($_POST['book'])) {
 
             extract($_POST);
@@ -32,11 +34,29 @@ class BookingsHandleRequest extends BaseHandleRequest
             $booking_end_date = date("Y-m-d", strtotime($_POST[self::END_DATE]));
             // d_die($booking_start_date);
 
-            $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
-            $nbDays = $duration / 86400;
-            
-                $price = floatval($_POST[self::PRICE]);
-                $totalPrice = $price * $nbDays;
+            // $duration = strtotime($_POST[self::END_DATE]) - strtotime($_POST[self::START_DATE]);
+
+            // Calculer la durée de la réservation en jours
+            $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
+            // Nombre de secondes dans une journée
+            $nbDays = $duration / 86400; 
+
+            // Initialisez la variable $totalPrice à 0
+            $totalPrice = 0;
+
+            // if (isset($_POST['book'])) {
+            //     if (empty($errors)) {
+            //         $nbDays = $duration / 86400;
+            // Effectuez le calcul du prix total de la réservation
+            if (!empty($_POST[self::PRICE])) {
+                $pricePerDay = floatval($_POST[self::PRICE]);
+                $totalPrice = $pricePerDay * $nbDays;
+            }
+                // $price = floatval($_POST[self::PRICE]);
+                // $totalPrice = $price * $nbDays;
+                    $bookings->setBooking_price($totalPrice);
+                // }
+            // }
             
             // date du jour
             $today = time();
@@ -64,7 +84,7 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
                 } else{ 
 
-                    // d_die($_SESSION);
+// d_die($_SESSION);
                 if($bookings->getUser_id() == null){
 
                     $errors[] = "Merci de vous connectez avant toute réservation";
@@ -78,14 +98,14 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setBooking_end_date($booking_end_date);
                 $bookings->setBooking_price($_POST[self::PRICE]);
     
-                // d_die($_POST); 
+// d_die($_POST); 
                 return true;
                 }
                 // Gère les erreurs
                 $this->setEerrorsForm($errors);
  
             } else {
-                // d_die($_POST); 
+// d_die($_POST); 
                 $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
             }      
     
