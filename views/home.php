@@ -23,7 +23,9 @@
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <input type="hidden" name="room_imgs" value="<?= $rooms->getRoom_imgs() ?>">
-
+<?php 
+// d_die($rooms);
+?>
                 <div class="card border-light border-3 mt-5" style="width: 22rem;">
 
                     <div class="img_room">
@@ -35,7 +37,7 @@
                         <p class="card-text link-warning fa-xl fw-medium"><?= $rooms->getCategory() ?></p>
                         <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Persons</p>
 
-                        <button type="submit" class="btn bg-warning fw-bolder border-black border-2">En savoir plus</button>
+                        <button type="submit" class="btn btn-outline-warning fw-bolder border-black border-2">En savoir plus</button>
                     </div>
                 </div>
             </form>

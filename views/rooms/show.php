@@ -10,22 +10,27 @@
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Persons</p>        
     </div>
     <div class="bou bg-dark">
-        <!-- <input name="qte" type="number" class="m-lg-3 form-control-lg" value="1" id="field<?= $rooms->getId_room() ?>">
+        <form method="POST" action="<?= addLink('bookings', 'newBookings'); ?>">
+            <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
+            <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
+<?php 
+// d_die($rooms)
+?>
 
-        <button class="btn btn-warning bg-warning m-lg-3" id="form<?= $rooms->getId_room() ?>">
-            <i class="fa fa-cart-arrow-down"></i>
-        </button> -->
-
-        <div class="d-flex bg-dark">
-            <a href="<?= ROOT ?>" class="btn bg-warning fw-bolder m-lg-3">
+            <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3">
             <i class="fa fa-home"></i> Retour à l'accueil
             </a>
-            <a href="<?= addLink('bookings','newBookings'); ?>" class="btn bg-success link-light fw-bolder m-3">
-            <i class="fa fa-shopping-cart"></i> Passer la commande
-            </a>
+            
+            <button class="btn btn-outline-warning fw-bolder" type="submit" name="submit">Passer la commande</button>
+
+        </form>
+        <div class="d-flex bg-dark">
         </div>
     </div>
 </div>
+
+
+
 
 
 <!-- panier avec ajax pour un site e-commerce -->

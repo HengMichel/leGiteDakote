@@ -114,10 +114,11 @@ class Bookings extends BaseEntity
         return $this;
     }
 
+// Déclarer comme float car est généralement préférable d'utiliser des nombres flottants pour représenter les prix
     /**
      * Get the value of booking_price
      */
-    public function getBooking_price()
+    public function getBooking_price(): float
     {
         return $this->booking_price;
     }
@@ -127,9 +128,9 @@ class Bookings extends BaseEntity
      *
      * @return  self
      */
-    public function setBooking_price($booking_price)
+    public function setBooking_price(float $price)
     {
-        $this->booking_price = $booking_price;
+        $this->booking_price = $price;
 
         return $this;
     }

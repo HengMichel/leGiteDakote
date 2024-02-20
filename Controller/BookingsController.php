@@ -40,8 +40,8 @@ class BookingsController extends BaseController
         $price = $_POST['price'] ?? null;
 // d_die($price,);
 
-        $room_imgs = $_POST['room_imgs'] ?? null;
-        $room_state = $_POST['room_state'] ?? null;
+        // $room_imgs = $_POST['room_imgs'] ?? null;
+        // $room_state = $_POST['room_state'] ?? null;
 
         // Instancie l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
@@ -57,7 +57,6 @@ class BookingsController extends BaseController
 
          // S'assurer que user_id est défini sur l'objet $bookings
          if ($user instanceof Users) {
-            //  d_die($_SESSION);
              $bookings->setUser_id($user->getId_user());
          }
 
@@ -66,8 +65,8 @@ class BookingsController extends BaseController
             'bookings' => $bookings,
             'room_id' => $room_id,
             'price' => $price,
-            'room_imgs' => $room_imgs,
-            'room_state' => $room_state,
+            // 'room_imgs' => $room_imgs,
+            // 'room_state' => $room_state,
         ];
 // d_die($rooms)
 
