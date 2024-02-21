@@ -1,8 +1,8 @@
 <div class="container5 container">
-    <div class="img_room border border-3 border-warning">
+    <div class="img_room border">
  
         <img src="<?= UPLOAD_CHAMBRES_IMG . $rooms->getRoom_imgs(); ?>" class="card-img-top" alt="image">
-            <p class="descrip bg-success link-light m-0 lead fw-normal">&nbsp;&nbsp; Magnifique chambre très spacieuse pouvant recevoir 4 personnes , lit parapluie et chaise haute disponible sur demande </p>
+            <p class="descrip bg-success link-light m-0 fw-medium">&nbsp;&nbsp; Magnifique chambre très spacieuse pouvant recevoir 4 personnes , lit parapluie et chaise haute disponible sur demande </p>
     </div>
     <div class="card-body bg-dark">
         <p class="card-text fa-2x fw-medium link-light m-lg-3"><?= $rooms->getPrice() ?>€ / nuit</p>

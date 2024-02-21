@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table mt-3 border border-warning border-3">
+    <table class="table table-hover mt-3 border border-warning border-3">
         <thead>
             <tr>
                 <th class="id_room bg-success link-light" >Id Users</th>

@@ -146,7 +146,7 @@ $(document).ready(function () {
       data: { choix: category },
       dataType: "json",
       success: function (response) {
-console.log(response)
+        console.log(response);
         // Affiche les nouvelles chambres sans effacer le formulaire de catégorie
         $("#roomsContainer").html("");
         response.forEach(function (room) {
@@ -169,7 +169,9 @@ console.log(response)
               room.persons +
               " Persons</p>" +
               //  le bouton "En savoir plus" est ajouté dynamiquement à la page après que le DOM soit chargé
-              '<button type="submit" class="btn bg-warning fw-bolder border-black border-2 en-savoir-plus" data-room-id="' + room.id_room + '">En savoir plus</button>' +
+              '<button type="submit" class="btn btn-outline-warning fw-bolder border-black border-2 en-savoir-plus" data-room-id="' +
+              room.id_room +
+              '">En savoir plus</button>' +
               "</div>" +
               "</div>"
           );
@@ -178,10 +180,6 @@ console.log(response)
       },
     });
   });
-
-
-
-
 
   // Délègue l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
   $(document).on("click", ".en-savoir-plus", function (e) {
@@ -195,7 +193,6 @@ console.log(response)
 
     // Rediriger vers show.php avec l'ID de la chambre
     window.location.href = "rooms/show?id=" + roomId;
-
   });
 });
 
