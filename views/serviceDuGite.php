@@ -1,16 +1,16 @@
-<div class="restaurant link-warning">  
+<div class="restaurant">  
   <h1>Les services</h1>
   <div class="service1">
-    <h2 class="resto fa-4x">Restauration</h2>
+    <h2 class="resto fa-4x text-center">Restauration</h2>
+  </div>
+  <div class="horaire card-body border border-1 list-group-item lead ">
+    <h5 class="card-title text-center mt-3">Horaire</h5>
+    <p class="card-text text-center mt-1">Notre restaurant Gastronomique vous accueille tous les jours de 6h30 à 11h00 pour le petit déjeuner.</p>
+    <p class="card-text text-center">Le déjeuner débute de 12h à 15h.</p>
+    <p class="card-text text-center">Tandis que le dîner vous invite à partir de 18h et s'achève à 00h00.</p>   
   </div>
 </div>       
-<div class="horaire card-body bg-dark link-warning border border-warning border-3 list-group-item lead">
-  <h5 class="card-title mt-2">Horaire</h5>
-  <p class="card-text">Notre restaurant Gastronomique vous accueille tous les jours de 6h30 à 11h00 pour le petit déjeuner.</p>
-  <p class="card-text">Le déjeuner débute de 12h à 15h.</p>
-  <p class="card-text">Tandis que le dîner vous invite à partir de 18h et s'achève à 00h00.</p>   
-</div>
-<div class="petitDejeuner pb-5">
+<div class="petitDejeuner text-center mt-5">
   <h2>Notre formule petit déjeuner à volonté au prix tous doux de 10€/jour</h2>
   <img src="/leGiteDakote/public/assets/imgs/petitiDejeuner800x800/petit_dejeuner.jpg" alt="" class="img1 border border-success border-4">
   <img src="/leGiteDakote/public/assets/imgs/petitiDejeuner800x800/petit_dejeuner2.jpg" alt="" class="img2 border border-info border-4">
@@ -20,7 +20,7 @@
   <img src="/leGiteDakote/public/assets/imgs/petitiDejeuner800x800/petit_dejeuner6.jpg" alt="" class="img4 border border-danger border-4">
 </div>
 <div class="dejeuner">
-  <h2>Notre formule Gastronomique à volonté au prix tous doux de 30€/jour</h2>
+  <h2 class="titre2 text-center mt-5">Notre formule Gastronomique à volonté au prix tous doux de 30€/jour</h2>
   <div class="container1 d-flex justify-content-center align-items-center"> 
     <div id="carouselExampleFade" class="carousel slide carousel-fade"> 
       <div class="carousel-inner ">
@@ -99,8 +99,12 @@
     </div>
   </div>
 </div>
-<div class="extreme">
-  <h2>Vos loisirs les plus Extrêmes sont réunis ici ne les ratés pas pour seulement 20€ la journée au choix!!!!</h2>
+
+<div class="divLoisir mt-5 text-center">
+  <h1 class="loisir mt-5 link-warning">Les loisirs</h1>
+</div>
+<div class="extreme text-center mt-5">
+  <h2 class="titre2 container ">Vos loisirs les plus Extrêmes sont réunis ici ne les ratés pas pour seulement 20€ la journée au choix!!!!</h2>
   <div class="container2 d-flex justify-content-center align-items-center">  
     <div id="carouselExampleFade2" class="carousel slide carousel-fade "> 
       <div class="carousel-inner2 ">
@@ -141,8 +145,8 @@
   </div>
 </div>
 <div class="douceur">
-  <h2>Une envie de vous plonger dans de nouvelles aventures en douceur et sans efforts ? </h2>
-  <h3>Voici notre Formule Sensationnel à un prix d'ami pour seulement 20€ au choix</h3>
+    <h2 class="titre2 container text-center">Une envie de vous plonger dans de nouvelles aventures en douceur et sans efforts ? </h2>
+    <h3 class="titre3 container text-center">Voici notre Formule Sensationnel à un prix d'ami pour seulement 20€ au choix</h3>
   <div class="container3 d-flex justify-content-center align-items-center">
     <div id="carouselExampleFade3" class="carousel slide carousel-fade">
       <div class="carousel-inner3"> 
@@ -192,8 +196,8 @@
   </div>
 </div>  
 <div class="detente">  
-  <h2>Une envie de vous relaxer en douceur et sans douleurs ? </h2>
-  <h3>Voici notre Formule Spa à un petit prix pour seulement 20€ au choix</h3>
+  <h2 class="titre2 container text-center">Une envie de vous relaxer en douceur et sans douleurs ? </h2>
+  <h3 class="titre3 container text-center">Voici notre Formule Spa à un petit prix pour seulement 20€ au choix</h3>
   <div class="container4 d-flex justify-content-center align-items-center">
     <div id="carouselExampleFade4" class="carousel slide carousel-fade">
       <div class="carousel-inner2 "> 

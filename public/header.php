@@ -36,5 +36,5 @@
 
                     <?php include __DIR__ . "/../views/messages.php";?>
 
-                    <h1 class="titre link-warning mt-4 "><?= $h1 ?? " " ?></h1>
+                    <h1 class="titre link-light mt-4"><?= $h1 ?? " " ?></h1>
 

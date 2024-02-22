@@ -2,11 +2,11 @@
 
     <form method="POST" action="<?= addLink("home", "list") ?>" id="form">
         <div class="row">           
-            <select class="form-select-sm border-warning border-4" name="choix" id="category">
-                <option class="choisir">Choisir une catégorie</option>
-                <option value="classic" class="classic fw-bolder ">Classic
+            <select class="form-select-sm border border-dark border-5" name="choix" id="category">
+                <option class="choisir fw-medium">Choisir une catégorie</option>
+                <option value="classic" class="classic fw-medium ">Classic
                 </option>
-                <option value="piscine" class="piscine fw-bolder ">Piscine
+                <option value="piscine" class="piscine fw-medium ">Piscine
                 </option>
                 <?php
                 foreach ($json as $category) {
@@ -37,7 +37,7 @@
                         <p class="card-text link-warning fa-xl fw-medium"><?= $rooms->getCategory() ?></p>
                         <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Persons</p>
 
-                        <button type="submit" class="btn btn-outline-warning fw-bolder border-black border-2">En savoir plus</button>
+                        <button type="submit" class="btn btn-outline-light fw-bolder border">En savoir plus</button>
                     </div>
                 </div>
             </form>

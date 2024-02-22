@@ -25,14 +25,17 @@ class UsersHandleRequest extends BaseHandleRequest
             if (empty( $email)) {
                 $errors[] = "L'email ne peut pas être vide";
             }
-            if (strlen( $email) < 2) {
-                $errors[] = "L'email doit avoir au moins 2 caractères";
+            if (strlen( $email) < 11) {
+                $errors[] = "L'email doit avoir au moins 11 caractères";
             }
-            if (strlen( $email) > 20) {
-                $errors[] = "L'email ne peut avoir plus de 20 caractères";
+            if (strlen( $email) > 50) {
+                $errors[] = "L'email ne peut avoir plus de50 caractères";
             }
             if (!strpos( $email, " ") === false) {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
+            }
+            if (!strpos( $email, "@") === false) {
+                $errors[] = "L'email n'est pas valide";
             }
             // Est-ce que l'email existe déjà dans la bdd ?
             $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
@@ -59,7 +62,7 @@ class UsersHandleRequest extends BaseHandleRequest
                 $errors[] = "Le mot de passe ne peut pas être vide";
             }         
             if (empty($birthday)) {
-                    $errors[] = "Le birthday ne peut pas être vide";          
+                    $errors[] = "La date de naissance ne peut pas être vide";          
             }    
             if (!empty($address)) {
                 if (strlen($address) < 6) {
@@ -81,7 +84,13 @@ class UsersHandleRequest extends BaseHandleRequest
                 }
             }    
             if (empty($gender)) {
-                        $errors[] = "Le gender ne peut pas être vide";
+                if (strlen($phone_number) < 0) {
+                        $errors[] = "La section 'Civilité' est vide merci de le compléter";
+                }
+                if (strlen($phone_number) > 1) {
+                        $errors[] = "Vous ne pouvez avoir qu'une seule civilité";
+                }
+
             }
             if (empty($errors)) {             
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
