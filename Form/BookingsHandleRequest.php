@@ -23,7 +23,7 @@ class BookingsHandleRequest extends BaseHandleRequest
 
     public function handleForm(Bookings $bookings)
     {
-// d_die($_POST);
+    // d_die($_POST);
 
         if (isset($_POST['book'])) {
 
@@ -33,7 +33,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             // converti en date en seconde avec strtotime depuis le 1janvier 1960         
             $booking_start_date = date("Y-m-d", strtotime($_POST[self::START_DATE]));
             $booking_end_date = date("Y-m-d", strtotime($_POST[self::END_DATE]));
-// d_die($booking_start_date);
+            // d_die($booking_start_date);
 
             // Calculer la durée de la réservation en jours
             $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
@@ -50,7 +50,7 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $pricePerDay = floatval($_POST['price']);
                 $totalPrice = $pricePerDay * $nbDays;
             }
-// d_die($_POST['price']);                   
+            // d_die($_POST['price']);                   
             $bookings->setBooking_price($totalPrice);
             
             // date du jour
@@ -81,7 +81,7 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
                 } else{ 
 
-// d_die($_SESSION);
+                // d_die($_SESSION);
                 if($bookings->getUser_id() == null){
 
                     $errors[] = "Merci de vous connectez avant toute réservation";
@@ -95,14 +95,14 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setBooking_end_date($booking_end_date);
                 $bookings->setBooking_price($_POST['price']);
     
-// d_die($_POST); 
+                // d_die($_POST); 
                 return true;
                 }
                 // Gère les erreurs
                 $this->setEerrorsForm($errors);
  
             } else {
-// d_die($_POST); 
+            // d_die($_POST); 
                 $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
             }      
     

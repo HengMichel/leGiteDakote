@@ -36,8 +36,8 @@ class RoomsController extends BaseController
             $rooms = $r->findRoomsById($id);
 
             // d_die($room);
-                // Vérifie si la chambre existe
-                if (empty($rooms)) {
+            // Vérifie si la chambre existe
+            if (empty($rooms)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }

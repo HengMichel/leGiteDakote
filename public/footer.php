@@ -8,6 +8,15 @@
         <i class="fa-brands fa-square-instagram fa-spin link-danger"></i></div>
     </div> -->
 
+
+
+
+
+
+
+
+
+    
     <!-- modif ici ################## -->
 
          <!-- Initialiser le panier au chargement de la page -->

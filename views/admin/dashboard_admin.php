@@ -15,7 +15,6 @@ require "views/errors_form.php";
         <tbody>
             <tr>
                 <td class="border-warning border-3 link-warning bg-black fw-medium">
-                <!-- <button class="btn btn-warning bg-warning fw-bolder"></button> -->
                 <a href="<?= addLink("admin/newRooms") ?>" class="btn mt-5 mb-5 link-light fw-medium border border-warning">Ajouter</a>
                 </td>
                 <td class="border-warning border-3 link-warning bg-black fw-medium">

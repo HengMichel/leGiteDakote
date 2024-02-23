@@ -8,7 +8,7 @@ $tab = array();
 var_dump($tab);
 error_log("Appel à ajax.php effectué !");
 
-//Applique la condition pour vérifier si "empty($_POST['choix'])" n'est pas vide
+//Applique la condition pour vérifier si "!empty($_POST['choix'])" n'est pas vide
 if (!empty($_POST['choix'])){
 
     $roomsRepository = new RoomsRepository();

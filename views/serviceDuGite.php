@@ -104,7 +104,7 @@
   <h1 class="loisir mt-5 link-warning">Les loisirs</h1>
 </div>
 <div class="extreme text-center mt-5">
-  <h2 class="titre2 container ">Vos loisirs les plus Extrêmes sont réunis ici ne les ratés pas pour seulement 20€ la journée au choix!!!!</h2>
+  <h2 class="titre2 container link-primary-subtle">Vos loisirs les plus Extrêmes sont réunis ici ne les ratés pas pour seulement 20€ la journée au choix!!!!</h2>
   <div class="container2 d-flex justify-content-center align-items-center">  
     <div id="carouselExampleFade2" class="carousel slide carousel-fade "> 
       <div class="carousel-inner2 ">
@@ -144,14 +144,14 @@
     </div>
   </div>
 </div>
-<div class="douceur">
+<div class="douceur mt-5">
     <h2 class="titre2 container text-center">Une envie de vous plonger dans de nouvelles aventures en douceur et sans efforts ? </h2>
     <h3 class="titre3 container text-center">Voici notre Formule Sensationnel à un prix d'ami pour seulement 20€ au choix</h3>
   <div class="container3 d-flex justify-content-center align-items-center">
     <div id="carouselExampleFade3" class="carousel slide carousel-fade">
       <div class="carousel-inner3"> 
         <div class="carousel-item active">
-          <img src="/leGiteDakote/public/assets/imgs/loisir1200x800/douceur/loisir7.BgElico.jpg" class="d-block w-75 m-auto border border-3 border-primary-subtle" alt="...">
+          <img src="/leGiteDakote/public/assets/imgs/loisir1200x800/douceur/loisir7.BgElico.jpg" class="d-block w-75 m-auto border border-3 border-success" alt="...">
         </div> 
         <div class="carousel-item">
           <img src="/leGiteDakote/public/assets/imgs/loisir1200x800/douceur/loisir8.rando.jpg" class="d-block w-75 m-auto border border-3 border-dark-subtle" alt="...">
@@ -195,7 +195,7 @@
     </div>
   </div>
 </div>  
-<div class="detente">  
+<div class="detente mt-5">  
   <h2 class="titre2 container text-center">Une envie de vous relaxer en douceur et sans douleurs ? </h2>
   <h3 class="titre3 container text-center">Voici notre Formule Spa à un petit prix pour seulement 20€ au choix</h3>
   <div class="container4 d-flex justify-content-center align-items-center">

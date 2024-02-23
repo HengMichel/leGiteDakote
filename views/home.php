@@ -1,5 +1,4 @@
 <div id="resultat" class="result container d-flex flex-wrap justify-content-around">
-
     <form method="POST" action="<?= addLink("home", "list") ?>" id="form">
         <div class="row">           
             <select class="form-select-sm border border-dark border-5" name="choix" id="category">
@@ -23,9 +22,9 @@
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <input type="hidden" name="room_imgs" value="<?= $rooms->getRoom_imgs() ?>">
-<?php 
-// d_die($rooms);
-?>
+                <?php 
+                // d_die($rooms);
+                ?>
                 <div class="card border border-2 mt-5" style="width: 22rem;">
 
                     <div class="img_room">
@@ -35,7 +34,7 @@
                     <div class="card-body bg-dark">
                         <p class="card-text fa-2x fw-medium link-light"><?= $rooms->getPrice() ?>€/nuit</p>
                         <p class="card-text link-warning fa-xl fw-medium"><?= $rooms->getCategory() ?></p>
-                        <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Persons</p>
+                        <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Personnes</p>
 
                         <button type="submit" class="btn btn-outline-light fw-bolder border">En savoir plus</button>
                     </div>

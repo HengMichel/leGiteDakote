@@ -9,9 +9,9 @@
   flex-direction: column;
   min-height: 100vh;
 }
-.bgNav{
-    background-color: rgba(0, 0, 0, 0.4);
-    display: inline-block; 
+.bgNav {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: inline-block;
 }
 .fa-beat-fade {
   /* Ajustez la durée d'animation selon vos préférences (1s = 1 seconde) */
@@ -60,7 +60,6 @@ span {
   padding-left: 20px;
   /* 0.5 représente l'opacité (ajustez selon vos préférences) */
   background-color: rgba(0, 0, 0, 0.3);
-  /* display: inline-block; */
   padding-top: 10px;
   margin-bottom: 0px;
 }
@@ -115,7 +114,7 @@ span {
   width: 100%;
 }
 .extreme > h2 {
-  color: rgb(154 43 235);
+  color: rgb(158, 197, 254);
   background-color: rgba(0, 0, 0, 0.5);
 }
 .douceur {
@@ -225,8 +224,6 @@ span {
   }
   .p2bis {
     display: block;
-    color: rgb(117, 8, 99);
-    background-color: rgba(219, 218, 218, 0.625);
   }
   .fa-beat-fade {
     /* Ajustez la durée d'animation selon vos préférences (1s = 1 seconde) */

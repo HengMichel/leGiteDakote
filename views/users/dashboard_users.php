@@ -16,9 +16,9 @@
 // Initialiser comme un nombre flottant
             $totalPrice = 0.0; 
             if (!empty($findUserBookings)) { 
-// d_die($findUserBookings);
+                // d_die($findUserBookings);
                 foreach($findUserBookings as $bookings){ 
-// d_die($bookings);
+                // d_die($bookings);
             ?>
 
             <tr class="table-active">
@@ -26,7 +26,7 @@
                 </td>
                            
                 <?php
-// d_die($bookings->getRoom_id() );            
+                // d_die($bookings->getRoom_id() );            
                 ?>
                 <td class="booking_start_date border-success-subtle border-3 mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($bookings->getBooking_start_date())) ?>
                 </td>
@@ -36,8 +36,8 @@
                 <td class="booking_price border-success-subtle border-3 mt-2  col-2 align-middle fs-5 text-center fw-semibold"><?= $bookings->getBooking_price() ?>
                 </td>
                 <?php 
-// d_die($bookings);
-?>
+                // d_die($bookings);
+                ?>
                 <?php
                 if ($bookings->getBooking_state() != 'cancel') {
                 ?>
@@ -54,7 +54,7 @@
 // Convertir le prix en float avant l'addition
                 $totalPrice += floatval($bookings->getBooking_price());
 
-// d_die($bookings);
+                // d_die($bookings);
                 }
                 ?>
 
@@ -74,11 +74,11 @@
                     ?>
                 </td> 
             </tr>
-<?php 
-// echo $totalPrice;
+            <?php 
+            // echo $totalPrice;
                 }  
             } 
-?> 
+            ?> 
         </tbody>
         <tfoot>
              <!-- Affichage du total des prix des réservations -->

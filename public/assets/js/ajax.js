@@ -167,7 +167,7 @@ $(document).ready(function () {
               "</p>" +
               '<p class="card-text fw-medium link-light">' +
               room.persons +
-              " Persons</p>" +
+              " Personnes</p>" +
               //  le bouton "En savoir plus" est ajouté dynamiquement à la page après que le DOM soit chargé
               '<button type="submit" class="btn btn-outline-light fw-bolder border en-savoir-plus" data-room-id="' +
               room.id_room +
