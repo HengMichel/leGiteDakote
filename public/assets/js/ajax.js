@@ -151,7 +151,8 @@ $(document).ready(function () {
         $("#roomsContainer").html("");
         response.forEach(function (room) {
           var roomElement = $(
-            '<div class="card border-light border-3 mt-5" style="width: 22rem;">' +
+           
+            '<div class="card border mt-5 " style="width: 22rem;">' +
               '<div class="img_room">' +
               '<img src="' +
               UPLOAD_CHAMBRES_IMG +

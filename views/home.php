@@ -1,4 +1,4 @@
-<div id="resultat" class="result container d-flex flex-wrap justify-content-around">
+<div id="resultat" class="result container d-flex flex-wrap justify-content-around mt-2">
     <form method="POST" action="<?= addLink("home", "list") ?>" id="form">
         <div class="row">           
             <select class="form-select-sm border border-dark border-5" name="choix" id="category">
@@ -16,7 +16,7 @@
         </div>
     </form>
 
-    <div class="d-flex flex-wrap justify-content-around" id="roomsContainer">
+    <div class="d-flex flex-wrap justify-content-around mt-2" id="roomsContainer">
         <?php foreach($roomss as $rooms) : ?>
             <form method="POST" action="<?= addLink("rooms", "show", $rooms->getId_room()) ?>">
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
@@ -25,7 +25,7 @@
                 <?php 
                 // d_die($rooms);
                 ?>
-                <div class="card border border-2 mt-5" style="width: 22rem;">
+                <div class="card border mt-5" style="width: 22rem;">
 
                     <div class="img_room">
                         <img src="<?= UPLOAD_CHAMBRES_IMG . $rooms->getRoom_imgs(); ?>" 

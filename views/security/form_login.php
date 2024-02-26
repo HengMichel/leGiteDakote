@@ -16,8 +16,8 @@ require "views/errors_form.php";
                     <input type="password" class="form-control mt-3 bg-black link-light" id="password" name="password" placeholder="Votre mot de passe">
                     <label for="password">Votre mot de passe</label>
 
-                    <div class="form-group mt-4 col-md-3 m-auto bg-dark">
-                        <button type="submit" id="bouton" class="btn btn-primary fw-bolder  border-2 container " name="submit">Valider</button>
+                    <div class="form-group mt-4 col-md-3 m-auto">
+                        <button type="submit" id="bouton" class="btn bg-primary link-light border container " name="submit">Valider</button>
                     </div>
                 </div>
             </div>

@@ -66,13 +66,13 @@ require "views/errors_form.php";
                     <label>Votre n° de tel</label>
                 </div>    
             </div>
-            <div class="form-group mt-2 col-md-3 m-auto">
-                <label class="birthday bg-dark fw-semibold" >Votre date de naissance<sup>*</sup></label>
+            <div class="form-group mt-3 col-md-3 m-auto">
+                <label class="birthday bg-dark" >Votre date de naissance<sup>*</sup></label>
                 <input type="date" class="form-control fw-bold link-dark border border-3 border-dark bg-light" name="birthday" value="<?= $users->getBirthday() ?>">
 
                 <!-- création de cette div pour que le btn soit visible(hoover +visible) -->
-                <div class="form-group mt-2  m-auto bg-dark">
-                    <button type="submit" id="bouton" class="btn btn-primary fw-bolder border-2 container" name="submit">Valider</button>
+                <div class="form-group mt-2 text-center">
+                    <button type="submit" id="bouton" class="btn bg-primary link-light border" name="submit">Valider</button>
                 </div>
             </div>
         </div>

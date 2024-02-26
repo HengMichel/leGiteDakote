@@ -35,7 +35,7 @@ class RoomsController extends BaseController
     public function newRooms()
     {
         $rooms = $this->rooms;
-        $this->form->handleForm($rooms);
+        $this->form->RoomsHandleForm($rooms);
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 
@@ -72,7 +72,7 @@ class RoomsController extends BaseController
              */
             $rooms = $this->rooms;
 
-            $this->form->handleForm($rooms);
+            $this->form->RoomsHandleForm($rooms);
 
             if ($this->form->isSubmitted() && $this->form->isValid()) {
                 $this->roomsRepository->updateRooms($rooms);

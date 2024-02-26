@@ -14,7 +14,7 @@ class RoomsHandleRequest extends BaseHandleRequest
         $this->roomsRepository  = new RoomsRepository;
     }
 
-    public function handleForm(Rooms $rooms)
+    public function RoomsHandleForm(Rooms $rooms)
     {
         if (isset($_POST['submit'])) {
 

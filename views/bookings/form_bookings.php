@@ -28,8 +28,8 @@ Ajout d'un champ caché (input type="hidden") pour stocker la valeur de $room_im
             <label class="edD bg-black">Fin Date :</label>
             <input type="date" class="form-control bg-light border fw-bolder border-3 border-black" name="booking_end_date" value="<?= $bookings->getBooking_end_date() ?>">
         </div>
-        <div class="form-group mt-4 col-md-3 m-auto bg-dark">
-            <button type="submit" name="book" class="btn btn-primary fw-bolder border-2 container">Je réserve   
+        <div class="form-group mt-4 col-md-3 m-auto">
+            <button type="submit" name="book" class="btn bg-primary border link-light container">Je réserve   
             </button>
         </div>
     </form>

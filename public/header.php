@@ -31,6 +31,7 @@
 
     <body class="bgAllpage">
         <div class="container-fluid">
+        <!-- <div class="container"> -->
                 <div class="row text-white">
                     <?php include __DIR__ . "/nav.php"; ?>
 
