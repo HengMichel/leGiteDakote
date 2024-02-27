@@ -1,7 +1,7 @@
-<div id="resultat" class="result container d-flex flex-wrap justify-content-around mt-2">
+<div id="resultat" class="result container flex-wrap mt-4">
     <form method="POST" action="<?= addLink("home", "list") ?>" id="form">
         <div class="row">           
-            <select class="form-select-sm border border-dark border-5" name="choix" id="category">
+            <select class="form-select-sm border border-dark border-5  m-auto col-auto" name="choix" id="category">
                 <option class="choisir fw-medium">Choisir une catégorie</option>
                 <option value="classic" class="classic fw-medium ">Classic
                 </option>
@@ -18,13 +18,6 @@
 
     <div class="d-flex flex-wrap justify-content-around mt-2" id="roomsContainer">
         <?php foreach($roomss as $rooms) : ?>
-            <form method="POST" action="<?= addLink("rooms", "show", $rooms->getId_room()) ?>">
-                <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
-                <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
-                <input type="hidden" name="room_imgs" value="<?= $rooms->getRoom_imgs() ?>">
-                <?php 
-                // d_die($rooms);
-                ?>
                 <div class="card border mt-5" style="width: 22rem;">
 
                     <div class="img_room">
@@ -36,10 +29,9 @@
                         <p class="card-text link-warning fa-xl fw-medium"><?= $rooms->getCategory() ?></p>
                         <p class="card-text fw-medium link-light"><?= $rooms->getPersons() ?> Personnes</p>
 
-                        <button type="submit" class="btn btn-outline-light fw-bolder border">En savoir plus</button>
+                        <a href="<?= addLink("rooms", "show", $rooms->getId_room()) ?>" class="btn btn-outline-light fw-bolder border">En savoir plus</a>
                     </div>
                 </div>
-            </form>
         <?php endforeach; ?>
     </div>
 </div>

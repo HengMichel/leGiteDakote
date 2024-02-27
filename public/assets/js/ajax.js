@@ -134,6 +134,7 @@
 // ############## filter for category ##############################
 
 $(document).ready(function () {
+
   $("#category").on("change", function () {
     // Récupère la catégorie sélectionnée
     var category = $(this).val();

@@ -24,7 +24,6 @@ class RoomsController extends BaseController
     {
         if (!empty($id) && is_numeric($id)) 
         {   
-            
             // Converti l'ID en entier
             $id = intval($id); 
             // d_die($id);  
