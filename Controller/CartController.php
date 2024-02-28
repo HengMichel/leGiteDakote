@@ -7,7 +7,7 @@ namespace Controller;
 use Service\CartManager;
 
 /**
- * Summary of >RoomsController
+ * Summary of ProductController
  */
 class CartController extends BaseController
 {
@@ -16,29 +16,21 @@ class CartController extends BaseController
      * @param mixed $id
      * @return void
      */
-    // public function addToCart($id)
-    // {   
-    //     $cm = new CartManager();
-    //     $nb = $cm->addCart($id);
-    //     echo $nb;  
-    // }
-
-    // public function delectToCart($id)
-    // {   
-    //     $cm = new CartManager();
-    //     $nb = $cm->delectCart($id);
-    //     echo $nb;  
-    // }
-
+    public function addToCart($id)
+    {   
+        $cm = new CartManager();
+        $nb = $cm->addCart($id);
+        echo $nb;        
+    }
     /**
      * Summary of show
      * @return void
      */
     public function show()
-    {              
+    {          
         $this->render("cart/show.php", [            
-            "h1" => "Fiche cart"
-            ]);
+        "h1" => "Fiche cart"
+        ]);
     }
     /**
      * Summary of edit

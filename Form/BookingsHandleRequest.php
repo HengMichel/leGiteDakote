@@ -82,10 +82,11 @@ class BookingsHandleRequest extends BaseHandleRequest
                 } else{ 
 
                 // d_die($_SESSION);
-                if($bookings->getUser_id() == null){
-
-                    $errors[] = "Merci de vous connectez avant toute réservation";
-                    }
+// ###################  Si pas connecté ############################################### 
+                // if($bookings->getUser_id() == null){
+                //     $errors[] = "Merci de vous connectez avant toute réservation";
+                //     }
+// ####################################################################################
                 }
 
             // Si aucune erreur, définir les propriétés de l'entité

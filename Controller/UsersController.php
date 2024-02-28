@@ -9,12 +9,13 @@ use Model\Repository\UsersRepository;
 use Model\Repository\BookingsRepository;
 
 class UsersController extends BaseController
-{
+{   
+    // ##### les propriétées #####
     private $usersRepository;
     private $bookingsRepository;
     private $form;
     private $users;
-
+    // ###########################
     public function __construct()
     {
         $this->usersRepository = new UsersRepository;
