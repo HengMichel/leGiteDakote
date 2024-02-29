@@ -1,3 +1,7 @@
+<!-- ################################################################## -->
+
+<!-- lié au future handleresquestCart afin d'afficher ci dessous -->
+
 <div class="container5 ">
     <table class="table table-hover mt-5 bg-secondary-subtle">
         <thead>

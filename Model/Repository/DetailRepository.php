@@ -41,6 +41,19 @@ class DetailRepository extends BaseRepository
     }
 
 
+    public function findDetailById($id)
+    {
+        $request = $this->dbConnection->prepare("SELECT * FROM detail WHERE room_id = :room_id");
+        $request->bindParam(':room_id',$id);
+
+        if($request->execute()) {
+            if ($request->rowCount() == 1) {
+                $class = "Model\Entity\\" . ucfirst('detail');
+                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
+                return $request->fetch();
+            }
+        }
+    }
     // public function updateOrder(Order $order)
     // {
     //     $sql = "UPDATE order 
