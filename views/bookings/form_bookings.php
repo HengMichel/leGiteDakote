@@ -1,3 +1,6 @@
+<!-- ########################################################## -->
+<!-- ###########  fichier remplacé par le form_cart ########### -->
+<!-- ########################################################## -->
 <?php 
 require "views/errors_form.php";
 ?>
@@ -7,7 +10,6 @@ require "views/errors_form.php";
 <!-- Ajout d'une valeur cachée pour room_imgs dans le formulaire :
 Ajout d'un champ caché (input type="hidden") pour stocker la valeur de $room_imgs. Ainsi, cette valeur sera conservée lors de la soumission du formulaire. -->
         <input type="hidden" name="room_imgs" value="<?= $room_imgs ?>">
-
         <input type="hidden" name="room_id" value="<?= $bookings->getRoom_id() ?>">
             <?php 
         // d_die($bookings)
@@ -34,3 +36,6 @@ Ajout d'un champ caché (input type="hidden") pour stocker la valeur de $room_im
         </div>
     </form>
 </div>
+<!-- ########################################################## -->
+<!-- ###########  fichier remplacé par le form_cart ########### -->
+<!-- ########################################################## -->

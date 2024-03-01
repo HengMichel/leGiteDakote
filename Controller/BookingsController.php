@@ -34,7 +34,7 @@ class BookingsController extends BaseController
     public function newBookings()
     {
         // Récupère les paramètres POST
-        $room_id = $_POST['room_id'] ?? null;
+        // $user_id = $_POST['user_id'] ?? null;
         // d_die($room_id,);
 
         $price = $_POST['price'] ?? null;
@@ -42,7 +42,7 @@ class BookingsController extends BaseController
 
         // Instancie l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
-        $bookings->setRoom_id($room_id);
+        // $bookings->setUser_id($user_id);
         // d_die($room_id);
         $bookings->setBooking_price($price);
         // d_die($price);       
@@ -60,7 +60,7 @@ class BookingsController extends BaseController
         // Passe les données à la vue
         $data = [
             'bookings' => $bookings,
-            'room_id' => $room_id,
+            // 'user_id' => $user_id,
             'price' => $price,
             // 'room_imgs' => $room_imgs,
             // 'room_state' => $room_state,

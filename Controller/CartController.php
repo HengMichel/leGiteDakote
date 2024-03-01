@@ -90,7 +90,8 @@ class CartController extends BaseController
 
     }
     
-
+// #################################################################
+//  methode a faire pour le panier
 
 
 

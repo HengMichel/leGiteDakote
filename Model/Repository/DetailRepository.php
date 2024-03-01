@@ -23,7 +23,7 @@ class DetailRepository extends BaseRepository
             $request = $this->dbConnection->prepare($sql);
             
             $request->bindValue(":room_id", $room_id);
-            $request->bindValue(":orderId", $booking_id);
+            $request->bindValue(":booking_id", $booking_id);
             $request->bindValue(":booking_start_date", $booking_start_date);
             $request->bindValue(":booking_end_date", $booking_end_date);
 

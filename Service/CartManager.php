@@ -19,7 +19,7 @@ class CartManager
     public function addCart($id){
         $quantity = $_GET["qte"] ?? 1;
         $pr = $this->bookingsRepository;
-        $booking = $pr->findById('product', $id);
+        $room = $pr->findById('room', $id);
 
         if(!isset($_SESSION["cart"]))
             $_SESSION["cart"] = [];
@@ -27,17 +27,17 @@ class CartManager
         // on récupère ce qu'il y a dans le cart en session
         $cart = $_SESSION["cart"]; 
 
-        $bookingDejaDanscart = false;
+        $roomDejaDanscart = false;
         foreach ($cart as $indice => $value) {
-            if ($booking->getId() == $value["product"]->getId()) {
+            if ($room->getId() == $value["room"]->getId()) {
                 $cart[$indice]["quantity"] += $quantity;
-                $productDejaDanscart = true;
+                $roomDejaDanscart = true;
                 break;  // pour sortir de la boucle foreach
             }
         }
         
-        if (!$bookingDejaDanscart) {
-            $cart[] = ["quantity" => $quantity, "product" => $booking];  // on ajoute une value au cart => $cart est un array d'array
+        if (!$roomDejaDanscart) {
+            $cart[] = ["quantity" => $quantity, "room" => $room];  // on ajoute une value au cart => $cart est un array d'array
         }
         
         $_SESSION["cart"] = $cart;  // je remets $cart dans la session, à l'indice 'cart'

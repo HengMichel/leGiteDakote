@@ -248,4 +248,27 @@ class RoomsRepository extends BaseRepository
             return null;
         }
     }   
+
+
+
+
+    public function findRoomDetail($roomId)
+    {
+    $request = $this->dbConnection->prepare("SELECT * FROM detail WHERE room_id = :room_id");
+    $request->bindParam(":room_id", $userId, \PDO::PARAM_INT);
+    // Affiche le requête SQL pour le débogage
+    // var_dump($request->queryString);
+
+    if ($request->execute()) {
+        $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Detail");
+        // Affiche les résultats pour le débogage
+        //   var_dump($results);
+
+          return $results;
+
+    } else {
+        return null;
+        }
+    }
+
 }

@@ -18,9 +18,9 @@
             <?php
 // Initialiser comme un nombre flottant
             $totalPrice = 0.0; 
-            if (!empty($findUserBookings)) { 
-                // d_die($findUserBookings);
-                foreach($findUserBookings as $detail){ 
+            if (!empty($findRoomDetail)) { 
+                // d_die($findRoomDetail);
+                foreach($findRoomDetail as $detail){ 
                 // d_die($bookings);
             ?>
 
@@ -29,53 +29,24 @@
                 </td>
                            
                 <?php
-                // d_die($bookings->getRoom_id() );            
+                // d_die($detail->getRoom_id() );            
                 ?>
                 <td class="booking_start_date border-secondary-subtle border mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_start_date())) ?>
                 </td>
                 <td class="booking_end_date border-secondary-subtle border mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_end_date())) ?></td>
                 <td class="booking_state border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold"><?= $detail->getBooking_state() ?>
                 </td>
-                <td class="booking_price border-secondary-subtle border mt-2  col-2 align-middle fs-5 text-center fw-semibold"><?= $detail->getBooking_price() ?>
-                </td>
-                <?php 
-                // d_die($bookings);
-                ?>
+               
                 <?php
-                if ($bookings->getBooking_state() != 'cancel') {
+                // if ($bookings->getBooking_state() != 'cancel') 
+                // {
                 ?>
                     <a class="canc link-secondary border border-secondary-subtle align-middle fs-5 text-center fw-semibold" href="<?= addLink("bookings/cancelBooking", $detail->getId_booking()) 
                     ?>">Annuler
                     </a>
                 <?php                    
-                }
+                // }
                 ?>
-           
-            <?php 
-            if ($detail->getBooking_state() != 'cancel') {
-
-// Convertir le prix en float avant l'addition
-                $totalPrice += floatval($detail->getBooking_price());
-
-                // d_die($bookings);
-                }
-                ?>
-
-                <td class=" m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
-
-                    <?php
-                    if ($detail->getBooking_state() != 'cancel') {
-                    ?>
-                    <a class="canc link-secondary fw-medium border border-secondary-subtle" href="<?= addLink("bookings/cancelBooking", $detail->getId_booking()) 
-                    ?>">Annuler</a>
-                    <?php
-                    } else {
-                        ?>
-                        <strong class="text-muted">Annulé</strong>
-                        <?php
-                        }
-                    ?>
-                </td> 
             </tr>
             <?php 
             // echo $totalPrice;
@@ -91,14 +62,15 @@
                 <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
                 <?php
 // ########   methode a changer
-                    if ($detail->getBooking_state() != 'cancel') {
+                    // if ($detail->getBooking_state() != 'cancel') 
+                    {
                     ?>   
-                    <a class="payBooking link-secondary fw-medium border-3 border-secondary-subtle" href="
-                    <?= addLink("bookings/updateBooking", $deteail->getId_booking())
+                    <a class="payDetail link-secondary fw-medium border-3 border-secondary-subtle" href="
+                    <?= addLink("detail/updateDetail", $detail->getBooking_id())
 // ########   methode a changer     
                     ?>">Payer</a>
                     <?php
-                    } else {
+                    // } else {
                         ?>
                         <strong class="text-muted align-middle fs-5 text-center fw-semibold">A payer</strong>
                         <?php
@@ -112,8 +84,8 @@
 
 
 <div>
-    <a class="btn btn-primary" href="<?= addLink('booking', 'newBookings') ?>">
-        Passer la commande
+    <a class="btn btn-primary" href="<?= addLink('detail', 'newDetail') ?>">
+        Payer
     </a>
 </div>
 <div class="d-flex justify-content-between mt-5">
