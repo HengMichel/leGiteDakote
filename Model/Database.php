@@ -7,6 +7,7 @@ class Database
     // connexion à la base de données
     private $host = "localhost";
     private $db_name = "gite_db";
+    // private $db_name = "gite_db_v2";
     private $username = "root";
     private $password = "";
     private $connection = null;

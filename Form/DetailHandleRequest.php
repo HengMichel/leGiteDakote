@@ -5,22 +5,22 @@ namespace Form;
 use Model\Entity\Detail;
 use Model\Repository\DetailRepository;
 
-// class CartHandleRequest extends BaseHandleRequest
+// class DetailHandleRequest extends BaseHandleRequest
 // {
-    // private $detailRepository;
+//     private $detailRepository;
 
-    // const ROOM_ID = 'room_id';
-    // const BOOKING_ID = 'booking_id';
-    // const START_DATE = 'booking_start_date';
-    // const END_DATE = 'booking_end_date';
+//     const ROOM_ID = 'room_id';
+//     const BOOKING_ID = 'booking_id';
+//     const START_DATE = 'booking_start_date';
+//     const END_DATE = 'booking_end_date';
 
-    // public function __construct()
-    // {
-    //     $this->detailRepository = new DetailRepository;
-    // }
+//     public function __construct()
+//     {
+//         $this->detailRepository = new DetailRepository;
+//     }
 
-    // public function handleFormCart(Detail $detail)
-    // {
+//     public function handleFormDetail(Detail $detail)
+//     {
     // d_die($_POST);
 
         // if (isset($_POST['panier'])) {
@@ -81,11 +81,5 @@ use Model\Repository\DetailRepository;
             // d_die($_POST); 
 //             $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";    
 //         }
-//     }
-    
-//     public function handleSecurity()
-//     {
-       
-
 //     }
 // }

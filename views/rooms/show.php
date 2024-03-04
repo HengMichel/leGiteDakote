@@ -9,16 +9,18 @@
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Personnes
         </p>        
         <div class="bou bg-dark p-3">
-            <form method="POST" action="<?= addLink('cart','showForm'); ?>">
+            <form method="POST" action="<?= addLink('bookings','newBookings'); ?>">
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
 
-                <!-- <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>"> -->
+                <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <?php 
                 // d_die($rooms)
                 ?>
                 <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3">
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
+                <!-- <a href="<?= addLink('detail','newDetail') ?>" class="btn btn-primary fw-bolder m-lg-3">
+                <i class="fa fa-home"></i> Passer la commande</a> -->
     
                 <button class="btn btn-primary fw-bolder" type="submit" name="submit">Passer la commande</button>
             </form>

@@ -21,7 +21,7 @@ class BookingsRepository extends BaseRepository
             $request->bindValue(":user_id", $bookings->getUser_id());
 
             // $request->bindValue(":booking_price", $bookings->getBooking_price());
-            // $request->bindValue(":booking_state", $bookings->getBooking_state());
+            $request->bindValue(":booking_state", $bookings->getBooking_state());
 
             // Exécute la requête
             $request->execute();
