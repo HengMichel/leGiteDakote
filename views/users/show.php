@@ -24,10 +24,6 @@
           <td class="email2 border  bg-dark-subtle fw-medium"><?= $users->getEmail() ?></td>
         </tr>
         <tr class="table">
-          <th scope="row" class="password bg-secondary link-light border align-middle text-center">Mot de passe</th>
-          <td class="password2 border  bg-dark-subtle fw-medium"><?= $users->getPassword() ?></td>
-        </tr>
-        <tr class="table">
           <th scope="row" class="role bg-secondary link-light border align-middle text-center">Role</th>
           <td class="role2 border  bg-dark-subtle fw-medium"><?= $users->getRole() ?></td>
         </tr>

@@ -9,20 +9,31 @@
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Personnes
         </p>        
         <div class="bou bg-dark p-3">
-            <form method="POST" action="<?= addLink('bookings','newBookings'); ?>">
+<!-- Formulaire -->
+            <form method="POST" action="<?= addLink('bookings','newPanier'); ?>">
                 <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
 
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <?php 
                 // d_die($rooms)
                 ?>
-                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3">
+
+<!-- Par défaut, la date de début est définie sur la date actuelle  -->
+                <div class="formBooking form-group col-md-3 m-auto">
+                    <label class="stD bg-black link-light">Début Date :</label>
+                    <input type="date" class="form-control bg-light border fw-bolder border border-3 border-black" name="booking_start_date" value="<?= date('Y-m-d') ?>" >
+                </div>
+<!-- et la date de fin est définie sur le jour suivant -->
+                <div class="formBooking form-group col-md-3 m-auto mt-2">
+                    <label class="edD bg-black">Fin Date :</label>
+                    <input type="date" class="form-control bg-light border fw-bolder border-3 border-black" name="booking_end_date" value="<?= date('Y-m-d', strtotime('+1 day')) ?>">
+                </div>
+
+                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3 mt-3">
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
-                <!-- <a href="<?= addLink('detail','newDetail') ?>" class="btn btn-primary fw-bolder m-lg-3">
-                <i class="fa fa-home"></i> Passer la commande</a> -->
-    
-                <button class="btn btn-primary fw-bolder" type="submit" name="submit">Passer la commande</button>
+               
+                <button class="btn btn-primary fw-bolder mt-3" type="submit" name="submit">Passer la commande</button>
             </form>
         </div>
     </div>
@@ -30,24 +41,3 @@
 
 
 
-
-
-<!-- panier avec ajax pour un site e-commerce -->
-<?php
-// Récupére la quantité actuelle dans le panier côté serveur
-// $quantiteActuelle = $_SESSION["nombre"] ?? 0;
-
-// Stocke cette quantité dans le sessionStorage
-// echo "<script>sessionStorage.setItem('cartCount', $quantiteActuelle);</script>";
-?>
-<script>
-
-    // window.addEventListener("load", () => {
-
-        // Récupére l'ID de la chambre directement du PHP
-        // var idRoom = "<?= $rooms->getId_room() ?>";
-
-        // Appelez la fonction qui gère l'ajout au panier
-        // addRoomToCartAjax(idRoom)
-    // });
-</script>

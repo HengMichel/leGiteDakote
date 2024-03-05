@@ -104,6 +104,23 @@ class BookingsRepository extends BaseRepository
 
 //  ###################################################################################################################
 
+    public function findBookingsForRoom($id)
+    {
+        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE room_id = :room_id");
+        $request->bindParam(':room_id', $id);
+    
+        if ($request->execute()) {
+            $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
+            return $results;
+        } else {
+            return null;
+        }
+    }
+
+    
+
+
+
     public function findBookingById($id){
 
         try {
