@@ -66,10 +66,10 @@ class CartController extends BaseController
 //             $id = intval($id); 
 //             // d_die($id);  
 
-//             // Instancie la classe DetailsRepository pour interagir avec la base de données
+// Instancie la classe DetailsRepository pour interagir avec la base de données
 //             $d = new DetailRepository;
 
-//             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
+// Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
 //             $id = $d->findDetailById($id);
 //             d_die($id);  
 
@@ -91,8 +91,8 @@ class CartController extends BaseController
 
 //     }
     
-// // #################################################################
-// //  methode a faire pour le panier
+// #################################################################
+//  methode a faire pour le panier
     // public function newPanier($id){
         
         // Instancie l'objet Detail avec les données appropriées

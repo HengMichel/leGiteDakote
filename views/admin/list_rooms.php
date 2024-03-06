@@ -27,7 +27,6 @@
                     </td>
                     <td class="roomState border mt-2 align-middle text-center border-secondary-subtle border-3 bg-secondary-subtle"><?= $room->getRoom_state() ?>
                     </td>
-
                     <td class="suppr border-secondary-subtle border-3 bg-secondary-subtle align-middle">
                             <a class="btn btn-danger border border-danger border-2  list-group-item rounded link-light" href="<?= addLink("admin/rooms/deleteRooms", $room->getId_room()) 
                             ?>">supprimer la chambre

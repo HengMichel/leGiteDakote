@@ -23,7 +23,7 @@ Ajout d'un champ caché (input type="hidden") pour stocker la valeur. Ainsi, cet
         </div>
 
 
-<!--  dois faire une handleForm pour traiter la soumission -->
+<!  dois faire une handleForm pour traiter la soumission -->
         <!-- <div class="form-group mt-4 col-md-3 m-auto">
             <a href="<?= addLink('detail','newDetail') ?>" class="btn bg-primary link-light fw-bolder m-lg-3">
                 <i class="fa fa-home"></i> Je réserve</a> -->

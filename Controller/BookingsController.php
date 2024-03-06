@@ -8,6 +8,7 @@ use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
 use Model\Repository\BookingsRepository;
+use Service\CartManager;
 
 class BookingsController extends BaseController
 {
@@ -134,72 +135,86 @@ class BookingsController extends BaseController
     }
 
     public function newPanier()
-{
-    // Récupère les paramètres POST
-    $user_id = $_POST['user_id'] ?? null;
-    $room_id = $_POST['room_id'] ?? null;
-    $price = $_POST['price'] ?? null;
+    {
+        // Récupère les paramètres POST
+        // $user_id = $_POST['user_id'] ?? null;
+        $room_id = $_POST['room_id'] ?? null;
+        $price = $_POST['price'] ?? null;
+        $booking_start_date = $_POST['booking_start_date'] ?? null;
+        $booking_end_date = $_POST['booking_end_date'] ?? null;
+        $booking_state = $_POST['booking_state'] ?? null;
+
+        // d_die($booking_state);
+        
+        // Instancie l'objet Bookings avec les données appropriées
+        // $bookings = new Bookings();
+        // $bookings->setUser_id($user_id);
+        // $bookings->setRoom_id($room_id);
+        // $bookings->setBooking_price($price);
+        
+        // Stockez les informations du panier dans la session
+        $_SESSION['panier'][] = [
+            // 'user_id' => $user_id,
+            'room_id' => $room_id,
+            'price' => $price,
+            'booking_start_date' => $booking_start_date,
+            'booking_end_date' => $booking_end_date,
+            'booking_state' => $booking_state
+        ];
+        // d_die($_SESSION);
+        // Redirigez l'utilisateur vers la vue du panier
+        return redirection(addLink("bookings", "showPanier"));
+    }
+
+
+    /**
+     * Summary of add
+     * @param mixed $id
+     * @return void
+     */
+    public function showPanier($id)
+    {
+        // Récupérez les informations du panier depuis la session
+        $panier = $_SESSION['panier'] ?? [];
+
+        // Passez les informations du panier à la vue
+        return $this->render("bookings/show_bookings.php", [
+            "panier" => $panier,
+        ]);
+    }
+
+
+
+    public function annulerReservation()
+    {
+        // Instancier la classe BookingsHandleRequest
+        $bookingsHandleRequest = new BookingsHandleRequest();
+
+        // Appeler la méthode annulerPanier pour annuler la réservation
+        $bookingsHandleRequest->annulerPanier();
+
+         // Rediriger l'utilisateur vers la page de réservation ou une autre page appropriée
+         return redirection(addLink("bookings", "showPanier"));
+        exit;
+    }
+
+
+
+// // Méthode pour insérer les réservations de la session dans la base de données
+// public function insertReservationsFromSessionIntoDatabase()
+// {
+//     // Récupérer les réservations de la session
+//     $reservations = $_SESSION['panier'] ?? [];
     
-    // Instancie l'objet Bookings avec les données appropriées
-    // $bookings = new Bookings();
-    // $bookings->setUser_id($user_id);
-    // $bookings->setRoom_id($room_id);
-    // $bookings->setBooking_price($price);
-      
-    // Stockez les informations du panier dans la session
-    $_SESSION['panier'][] = [
-        'user_id' => $user_id,
-        'room_id' => $room_id,
-        'price' => $price
-    ];
-    // $_SESSION['panier'][] = serialize($bookings);
-
-    // Redirigez l'utilisateur vers la vue du panier
-    return redirection(addLink("bookings", "showPanier"));
-}
-
-public function showPanier()
-{
-// Récupérez les informations du panier depuis la session
-    $panier = $_SESSION['panier'] ?? [];
-
-    //   // Vérifiez si les éléments du panier sont déjà désérialisés
-    // foreach ($panier as $key => $value) {
-    //     if (is_string($value)) {
-    //         // Si l'élément est une chaîne de caractères, désérialisez-le
-    //         $panier[$key] = unserialize($value);
-    //     }
-    // }
-
-     // Désérialiser les objets Bookings
-    //  $panier = array_map('unserialize', $panier);
-
-     // Instanciez un nouvel objet Bookings
-     $bookings = new Bookings();
-
-// d_die($panier);
-// array(1) {
-//   [0]=>
-//   array(3) {
-//     ["user_id"]=>
-//     NULL
-//     ["room_id"]=>
-//     string(2) "25"
-//     ["price"]=>
-//     string(2) "50"
-//   }
+//     // Insérer chaque réservation dans la base de données
+//     foreach ($reservations as $reservation) {
+//         // Insérer la réservation dans la base de données
+//         // Assurez-vous de récupérer l'identifiant généré par la base de données
+//         // Stockez l'identifiant généré dans la session ou tout autre moyen de suivi
+//     }
+    
+//     // Effacer les réservations de la session après l'insertion dans la base de données
+//     unset($_SESSION['panier']);
 // }
-
-    // Instanciez un nouvel objet Bookings
-    // $bookings = new Bookings();
-    
-    // Passez les informations du panier à la vue
-    return $this->render("bookings/show_bookings.php", [
-        "panier" => $panier,
-        "bookings" => $bookings
-    // return $this->render("bookings/booking_show.php", [
-    //     "panier" => $panier
-    ]);
-}
 
 }

@@ -129,7 +129,9 @@ class BookingsRepository extends BaseRepository
               $request->bindValue(":id", $id);
               $request->execute();
       
-              return $request->fetch(\PDO::FETCH_ASSOC);
+            //   return $request->fetch(\PDO::FETCH_ASSOC);
+            // Utiliser FETCH_CLASS pour récupérer un objet de type réservation
+            return $request->fetchObject("Model\Entity\Bookings");
 
         } catch (PDOException $e) {
             // Gérer l'erreur
@@ -237,6 +239,4 @@ class BookingsRepository extends BaseRepository
         return null;
         }
     }
-
-  
 }
