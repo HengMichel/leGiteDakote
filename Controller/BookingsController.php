@@ -136,8 +136,16 @@ class BookingsController extends BaseController
 
     public function newPanier()
     {
+         // Nettoyer la session du panier si nécessaire
+    if (!isset($_SESSION['panier']) || !is_array($_SESSION['panier'])) {
+        $_SESSION['panier'] = [];
+    }
+
+     // Vérifier les données POST
+     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
         // Récupère les paramètres POST
-        // $user_id = $_POST['user_id'] ?? null;
+        $id_booking = $_POST['id_booking'] ?? null;
         $room_id = $_POST['room_id'] ?? null;
         $price = $_POST['price'] ?? null;
         $booking_start_date = $_POST['booking_start_date'] ?? null;
@@ -146,22 +154,27 @@ class BookingsController extends BaseController
 
         // d_die($booking_state);
         
+ // Vérifier si toutes les données nécessaires sont présentes
+ if ($id_booking && $room_id && $price && $booking_start_date && $booking_end_date && $booking_state) {
+    // Créer une nouvelle réservation
+
+
         // Instancie l'objet Bookings avec les données appropriées
-        // $bookings = new Bookings();
-        // $bookings->setUser_id($user_id);
-        // $bookings->setRoom_id($room_id);
-        // $bookings->setBooking_price($price);
+    $bookings = new Bookings();
+    $bookings->setId_booking($id_booking);
+    $bookings->setRoom_id($room_id);
+    $bookings->setBooking_price($price);
+    $bookings->setBooking_start_date($booking_start_date);
+    $bookings->setBooking_end_date($booking_end_date);
+    $bookings->setBooking_state($booking_state);
         
         // Stockez les informations du panier dans la session
-        $_SESSION['panier'][] = [
-            // 'user_id' => $user_id,
-            'room_id' => $room_id,
-            'price' => $price,
-            'booking_start_date' => $booking_start_date,
-            'booking_end_date' => $booking_end_date,
-            'booking_state' => $booking_state
-        ];
+        $_SESSION['panier'][] = $bookings;
         // d_die($_SESSION);
+
+    }
+}
+
         // Redirigez l'utilisateur vers la vue du panier
         return redirection(addLink("bookings", "showPanier"));
     }
@@ -177,25 +190,42 @@ class BookingsController extends BaseController
         // Récupérez les informations du panier depuis la session
         $panier = $_SESSION['panier'] ?? [];
 
+        // d_die($_SESSION['panier']);
+
+        
         // Passez les informations du panier à la vue
         return $this->render("bookings/show_bookings.php", [
             "panier" => $panier,
         ]);
+        // Après avoir ajouté la réservation, redirigez l'utilisateur vers la vue du panier
+    // return redirection(addLink("bookings", "showPanier"));
     }
 
 
 
     public function annulerReservation()
     {
-        // Instancier la classe BookingsHandleRequest
-        $bookingsHandleRequest = new BookingsHandleRequest();
+        // d_die($_GET['id_booking']);
+        // Récupérer l'ID de la réservation à partir de la requête GET
+        $idBooking = $_GET['id_booking'] ?? null;
 
-        // Appeler la méthode annulerPanier pour annuler la réservation
-        $bookingsHandleRequest->annulerPanier();
+        
 
-         // Rediriger l'utilisateur vers la page de réservation ou une autre page appropriée
-         return redirection(addLink("bookings", "showPanier"));
-        exit;
+        // Vérifier si un ID de réservation est fourni
+        if ($idBooking !== null) {
+
+            // Instancier la classe BookingsHandleRequest
+            $bookingsHandleRequest = new BookingsHandleRequest();
+
+            // Appeler la méthode annulerPanier pour annuler la réservation
+            $bookingsHandleRequest->annulerPanier($idBooking);
+
+             // Rediriger l'utilisateur vers la page de réservation ou une autre page appropriée
+             return redirection(addLink("bookings", "showPanier"));
+
+        } else {
+
+    }
     }
 
 

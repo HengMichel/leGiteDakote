@@ -144,33 +144,33 @@ class BookingsHandleRequest extends BaseHandleRequest
     }
     
     
-        public function cancelPanier($idBooking)
-        {
-             // Vérifier si la réservation existe dans le panier de la session
+    public function cancelPanier($idBooking)
+    {
+         // Vérifier si la réservation existe dans le panier de la session
         if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
-            // Parcourir le panier pour trouver la réservation à annuler
+        // Parcourir le panier pour trouver la réservation à annuler
             foreach ($_SESSION['panier'] as $key => $item) {
-                // Vérifier si l'élément est une réservation et correspond à l'ID fourni
+            // Vérifier si l'élément est une réservation et correspond à l'ID   fourni
                 if (is_array($item) && isset($item['booking_id']) && $item['booking_id'] == $idBooking) {
-                    // Supprimer la réservation du panier
-                    unset($_SESSION['panier'][$key]);
-                    // Sortir de la boucle une fois la réservation annulée
-                    break;
+                // Supprimer la réservation du panier
+                unset($_SESSION['panier'][$key]);
+                // Sortir de la boucle une fois la réservation annulée
+                break;
                 }
             }
         }
-    
+    }
+
+    public function annulerPanier() {
+        d_die($_GET['id_booking']);
+        // Vérifier si un ID de réservation est fourni dans l'URL
+        if (isset($_GET['id_booking'])) {
+            // Récupérer l'ID de la réservation depuis l'URL
+            $idPanier = $_GET['id_booking'];
+            
+            // Annuler la réservation en appelant la fonction cancelBooking
+            $this->cancelPanier($idPanier);
         }
-    
-        public function annulerPanier() {
-            // Vérifier si un ID de réservation est fourni dans l'URL
-            if (isset($_GET['id'])) {
-                // Récupérer l'ID de la réservation depuis l'URL
-                $idPanier = $_GET['id'];
-                
-                // Annuler la réservation en appelant la fonction cancelBooking
-                $this->cancelPanier($idPanier);
-            }
-        }
+    }
     
 }
