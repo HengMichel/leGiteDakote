@@ -10,8 +10,8 @@
         </p>        
         <div class="bou bg-dark p-3">
 <!-- Formulaire -->
-            <form method="POST" action="<?= addLink('bookings','newPanier'); ?>">
-                <input type="hidden" name="room_id" value="<?= $rooms->getId_room() ?>">
+            <form method="POST" action="<?= addLink('detail','newDetail'); ?>">
+                <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
 
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
                 <?php 

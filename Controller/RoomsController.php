@@ -2,19 +2,19 @@
 
 namespace Controller;
 
-use Model\Repository\BookingsRepository;
+use Model\Repository\DetailRepository;
 use Model\Repository\RoomsRepository;
 
 class RoomsController extends BaseController
 {
 
     private $roomsRepository;
-    private $bookingsRepository;
+    private $detailRepository;
 
     public function __construct()
     {   // Initialisez le repository
         $this->roomsRepository = new RoomsRepository;
-        $this->bookingsRepository = new BookingsRepository;
+        $this->detailRepository = new DetailRepository;
         
     }
 
@@ -45,14 +45,14 @@ class RoomsController extends BaseController
             }
 
             // Récupérer les réservations pour cette chambre
-            $bookings = $this->bookingsRepository->findBookingsForRoom($id);
+            $detail = $this->detailRepository->findDetailById($id);
 
             // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("rooms/room_show.php", [
             "rooms" => $rooms,
             
             // Passer les réservations à la vue
-            "bookings" => $bookings, 
+            "detail" => $detail, 
             "h1" => "Fiche de la chambre"
             ]);
         } else {
