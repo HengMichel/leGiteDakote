@@ -9,11 +9,15 @@
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Personnes
         </p>        
         <div class="bou bg-dark p-3">
+            
 <!-- Formulaire -->
+<!-- method="POST" redirection au controller 'detail' et methode 'newDetail' -->
             <form method="POST" action="<?= addLink('detail','newDetail'); ?>">
-                <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
 
+                <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
+                <input type="hidden" name="booking_start_date" value="<?= date('Y-m-d') ?>">
+                <input type="hidden" name="booking_end_date" value="<?= date('Y-m-d', strtotime('+1 day')) ?>">
                 <?php 
                 // d_die($rooms)
                 ?>

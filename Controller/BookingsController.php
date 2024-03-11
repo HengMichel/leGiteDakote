@@ -34,23 +34,23 @@ class BookingsController extends BaseController
 
     public function newBookings()
     {
-        // Récupère les paramètres POST
+// Récupère les paramètres POST
         $user_id = $_POST['user_id'] ?? null;
-    // d_die($room_id,);
+        // d_die($room_id,);
         $room_id = $_POST['room_id'] ?? null;
-    // d_die($room_id,);
+        // d_die($room_id,);
         $price = $_POST['price'] ?? null;
-    // d_die($price,);
+        // d_die($price,);
 
-        // Instancie l'objet Bookings avec les données appropriées
+// Instancie l'objet Bookings avec les données appropriées
         $bookings = new Bookings();
         $bookings->setUser_id($user_id);
-    // d_die($user_id);
+        // d_die($user_id);
         $bookings->setRoom_id($room_id);
-    // d_die($room_id);
+        // d_die($room_id);
         $bookings->setBooking_price($price);
-    // d_die($price);       
-    // d_die($bookings);
+        // d_die($price);       
+        // d_die($bookings);
 
 // Récupère l'utilisateur connecté
         $user = Session::getConnectedUser();
@@ -75,11 +75,11 @@ class BookingsController extends BaseController
         // d_die($bookings);
 
 
-        // Vérifie si le formulaire est soumis
+// Vérifie si le formulaire est soumis
         if ($this->form->isSubmitted()) {
         // d_die($bookings);
 
-            // Vérifie s'il n'y a pas d'erreurs dans les données soumises
+// Vérifie s'il n'y a pas d'erreurs dans les données soumises
             if ($this->form->isValid()) {
             // d_die($_SESSION);
             // d_die($bookings);

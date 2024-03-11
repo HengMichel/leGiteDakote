@@ -105,26 +105,18 @@ class DetailRepository extends BaseRepository
         }
     }
 
-    // public function updateOrder(Order $order)
-    // {
-    //     $sql = "UPDATE order 
-    //             SET state = :state, user_id = :userId
-    //             WHERE id = :id";
-    //     $request = $this->dbConnection->prepare($sql);
-    //     $request->bindValue(":id", $order->getId());
-    //     $request->bindValue(":state", $order->getState());
-    //     $request->bindValue(":userId", $order->getUserId());
-    //     $request = $request->execute();
-    //     if ($request) {
-    //         if ($request == 1) {
-    //             Session::addMessage("success",  "La mise à jour de la commande a bien été éffectuée");
-    //             return true;
-    //         }
-    //         Session::addMessage("danger",  "Erreur : la commande n'a pas été mise à jour");
-    //         return false;
-    //     }
-    //     Session::addMessage("danger",  "Erreur SQL");
-    //     return null;
-    // }
+    public function getRoomPriceById($id)
+    {
+        $request = $this->dbConnection->prepare("SELECT price FROM rooms WHERE id_room = :id_room");
+        $request->bindParam(':id_room',$id);
+
+        if($request->execute()) {
+            $result = $request->fetchColumn();
+            return $result !== false ? $result : null;
+        } else {
+            return null;
+            
+        }
+    }
 
 }

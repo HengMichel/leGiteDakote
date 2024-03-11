@@ -9,17 +9,12 @@ class DetailHandleRequest extends BaseHandleRequest
 {
     private $detailRepository;
 
-    // const ROOM_ID = 'room_id';
-    // const BOOKING_ID = 'booking_id';
-    // const START_DATE = 'booking_start_date';
-    // const END_DATE = 'booking_end_date';
-
     public function __construct()
     {
         $this->detailRepository = new DetailRepository;
     }
 
-    public function handleFormDetail(Detail $detail)
+    public function handleFormDetail(Detail $detail, $id_room)
     {
     // d_die($_POST);
 

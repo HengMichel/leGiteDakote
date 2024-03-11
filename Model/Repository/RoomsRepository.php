@@ -242,11 +242,17 @@ class RoomsRepository extends BaseRepository
         $request->bindValue(":id_room", $id_room);
 
         if ($request->execute()) {
+             // Vérifier si la requête a retourné un résultat
+            if ($request->rowCount() > 0) {
             // Retourne le prix en tant que résultat de la requête
             return $request->fetchColumn();
         } else {
             return null;
         }
+    } else {
+        // En cas d'échec de l'exécution de la requête, retourner null ou une autre valeur par défaut
+        return null;
+    }
     }   
 
 
