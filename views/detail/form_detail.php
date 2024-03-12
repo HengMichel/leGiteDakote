@@ -18,91 +18,59 @@ $totalPrice = 0.0;
             </tr>
         </thead>
         <tbody>
-        <?php 
+            <?php 
             // Vérifier si $detail est défini et s'il contient des éléments
             if (!empty($detail)) {
-             foreach ($detail as $item) {
-              ?>
-                   
-             <tr class="table-active">
-                <input type="hidden" name="id_detail" value="<?= $item->getId_detail() ?>">
-<?php 
-// d_die($item);
-// echo "<pre>";
-// var_dump($item->getId_detail());
-// echo "</pre>";
-?>
-                <input type="hidden" name="booking_id" value="<?= $item->getBooking_id() ?>">
-<?php 
-// d_die($item->getBooking_id());
-?>
-              
-                <td class="idbook border-success-subtle border-3 mt-2 col-1 align-middle fs-5 text-center fw-semibold"><?= $item->getRoom_id() ?>
-                </td>
-                <td class="booking_start_date border-success-subtle border-3 mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($item->getBooking_start_date())) ?>
-                </td>
-                <td class="booking_end_date border-success-subtle border-3 mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($item->getBooking_end_date())) ?>
-                </td>
-
-<!-- prendre la valeur de Rooms $rooms->getPrice -->
-                <td class="price bg-secondary link-light border align-middle fs-5 text-center fw-semibold"><?= number_format($item->getPrice() ,2) ?>
-                </td>
-
-<?php 
-// d_die($item->getPrice());
-?>
-
-                </td>
-            </tr>
-            <?php 
- // Ajouter le prix de chaque réservation au total
- $totalPrice += $item->getPrice();
-             }
-} else {
-    echo "<tr><td colspan='5'>Aucune réservation trouvée.</td></tr>";
-}
-        ?> 
-
+            // d_die($detail);
+            ?>
+                <tr class="table-active">
+                    <input type="hidden" name="id_detail" value="<?= $detail->getId_detail() ?>">
+                    <input type="hidden" name="booking_id" value="<?= $detail->getBooking_id() ?>">
+                
+                    <td class="roomId border bg-secondary-subtle mt-2 col-1 align-middle fs-5 text-center fw-semibold"><?= 
+                    $detail->getRoom_id() 
+                    ?>
+                    <?php
+                    // d_die($detail);
+                    ?>               
+                    </td>
+                    <td class="booking_start_date bg-secondary-subtle border mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_start_date())) ?>
+                    </td>
+                    <?php
+                    // d_die($detail);
+                    ?>              
+                    <td class="booking_end_date bg-secondary-subtle border mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_end_date())) ?>
+                    </td>
+                    <td class="price bg-secondary-subtle border align-middle fs-5 text-center fw-semibold">
+                    <?php 
+                    // Vérifie si l'objet $room existe et n'est pas null
+                    if ($price !== null) { 
+                        echo number_format($price, 2);
+                    } else {
+                        echo "Prix non disponible";
+                    }
+                    ?>
+                    </td>
+                </tr> 
+                <?php
+            } else { ?>
+                <tr>
+                    <td colspan='5'>Aucune réservation trouvée.</td>
+                </tr>
+                <?php 
+            } 
+                ?> 
         </tbody>
         <tfoot>
             <tr class="table-active">
-                <td class="total_reservation border-secondary border-2 mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="4">Total de vos réservations:</td>
-                <td class="price border-primary border-4 mt-2 alert-link  col-2 align-middle fs-5 text-center fw-semibold"><?= $totalPrice; ?></td>
+                <td class="total_reservation border-secondary border-2 border-light mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="3">Total de vos réservations:
+                </td>
+                <td class="price border-primary border-4 mt-2 alert-link  col-2 align-middle fs-5 text-center fw-semibold"><?= $totalPrice; ?>
+                </td>
                 <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
-
-                <?php
-                 // Afficher le lien pour Payer uniquement si une réservation est présente et que l'état de la réservation n'est pas "cancel"
-                 if (!empty($detail)) {
-                $hasBooking = false;
-                foreach ($detail as $bookingItem) {
-                    if ($bookingItem instanceof Model\Entity\Bookings) {
-                        $hasBooking = true;
-                        break;
-                    }
-                }
-                if ($hasBooking) {
-                    echo "<a class='payBooking link-secondary fw-medium border-3' href='" . addLink("bookings/updateBooking", $bookingItem->getId_booking()) . "'>Payer</a>";
-                } else {
-                    echo "<strong class='text-muted align-middle fs-5 text-center fw-semibold'>Aucune réservation à payer</strong>";
-                }
-            } else {
-                echo "<strong class='text-muted align-middle fs-5 text-center fw-semibold'>Aucune réservation trouvée</strong>";
-            }
-            ?>
+                <a href="<?= addLink("bookings/newBooking") ?>" class="btn btn-primary">Payer</a>
                 </td>
             </tr>
         </tfoot>
     </table>
 </div>
-
-    
-
-
-
-
-
-
-
-
-
-

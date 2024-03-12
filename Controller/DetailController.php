@@ -30,85 +30,52 @@ class DetailController extends BaseController
     public function newDetail()
     {
         // Récupère les paramètres POST
-        $id_room = $_POST['id_room'] ?? null;
-        // d_die($id_room);
-        // resultat: string(2) "25"
-
-        $booking_id = $_POST['booking_id'] ?? null;
-        // d_die($booking_id,);
-
+        $room_id = $_POST['id_room'] ?? null;
         $booking_start_date = $_POST['booking_start_date'] ?? null;
-        // d_die($booking_start_date,);
-        // resultat: string(10) "2024-03-11"
-
         $booking_end_date = $_POST['booking_end_date'] ?? null;
-        // d_die($booking_end_date,);
-        // resultat: string(10) "2024-03-12"
+      
+        // Charge les données de la chambre à partir de son identifiant
+        $room = $this->roomsRepository->findRoomsById($room_id);
 
-        // d_die($_POST);
-        // array(5) {
-//   ["id_room"]=>
-//   string(2) "25"
-//   ["price"]=>
-//   string(2) "50"
-//   ["booking_start_date"]=>
-//   string(10) "2024-03-11"
-//   ["booking_end_date"]=>
-//   string(10) "2024-03-12"
-//   ["submit"]=>
-//   string(0) ""
-// }
+        // Initialise $price à null par défaut
+        $price = null;
 
-        // Instancie l'objet Bookings avec les données appropriées
+        // Vérifie si la chambre existe
+        if ($room) {
+            // Récupérer le prix de la chambre
+            $price = $room->getPrice();
+
+            // Vérifie si le prix est valide
+            if ($price === null) {
+                // Gérer le cas où le prix n'a pas pu être récupéré
+                echo "Erreur: Prix de la chambre non trouvé.";
+                }
+            } else {
+                // Gérer le cas où le prix n'a pas pu être récupéré
+                echo "Erreur: Chambre non trouvée.";
+            }
+
+        // Créer une instance de Detail
         $detail = new Detail();
-        $detail->setRoom_id($id_room);
-        // d_die($room_id);
-
-        $detail->setBooking_Id($booking_id);
-        // d_die($booking_id);
-
+        // Attribuer les valeurs récupérées aux propriétés de l'objet Detail
+        $detail->setRoom_id($room_id);
         $detail->setBooking_start_date($booking_start_date);
-        // d_die($booking_start_date);   
-
         $detail->setBooking_end_date($booking_end_date);
-        // d_die($booking_start_date);
-
-        
-
-//############################################### pas de user connecté ici  
-        // Récupère l'utilisateur connecté
-        // $user = Session::getConnectedUser();
-
-        //  S'assurer que user_id est défini sur l'objet $detail
-        // if ($detail instanceof Detail) {
-        //      $detail->setRoom_id($detail->getRoom_id());
-        // }
-//##############################################################################
-
-    // Charger les données de la chambre à partir de son identifiant
-    $price = $this->detailRepository->getRoomPriceById($id_room);
-    // d_die($price);
-
-// Vérifier si la valeur retournée est valide avant d'utiliser getPrice()
-if ($price !== null) {
 
         // Passe les données à la vue
         $data = [
             'detail' => $detail,
-            'id_room' => $id_room,
-            // 'booking_id' => $booking_id,
+            'room_id' => $room_id,
             'booking_start_date' => $booking_start_date,
             'booking_end_date' => $booking_end_date,
             'price' => $price,
         ];
         // d_die($data);
-    } else {
-        // Gérer le cas où le prix n'est pas disponible
-        // Par exemple, rediriger vers une page d'erreur ou afficher un message d'erreur
-        echo "Le prix de la chambre n'est pas disponible.";
-    }
+    // } else {
+    //     echo "Le prix de la chambre n'est pas disponible.";
+    // }
 
-        $this->form->handleFormDetail($detail,$id_room);
+        $this->form->handleFormDetail($detail,$room_id);
         // d_die($detail);
         // d_die($this);
 
@@ -131,7 +98,7 @@ if ($price !== null) {
 
                     // Redirige vers le tableau de bord
                     // return redirection(addLink("detail","show"));
-                    // return $this->render("detail/form_detail.php");
+                    return redirection(addLink("home","list"));
 
                 } else {
                     // Gestion d'une éventuelle erreur lors de l'ajout de la réservation

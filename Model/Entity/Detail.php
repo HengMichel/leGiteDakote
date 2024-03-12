@@ -15,7 +15,7 @@ class Detail extends BaseEntity
     /**
      * Get the value of id_detail
      */
-    public function getId_Detail()
+    public function getId_detail()
     {
         return $this->id_detail;
     }
@@ -25,7 +25,7 @@ class Detail extends BaseEntity
      *
      * @return  self
      */
-    public function setId_Detail($id_detail)
+    public function setId_detail($id_detail)
     {
         $this->id_detail = $id_detail;
 
@@ -37,6 +37,7 @@ class Detail extends BaseEntity
     public function getRoom_id()
     {
         return $this->room_id;
+
     }
 
     /**

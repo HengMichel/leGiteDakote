@@ -14,7 +14,7 @@ class DetailHandleRequest extends BaseHandleRequest
         $this->detailRepository = new DetailRepository;
     }
 
-    public function handleFormDetail(Detail $detail, $id_room)
+    public function handleFormDetail(Detail $detail, $room_id)
     {
     // d_die($_POST);
 
@@ -56,7 +56,7 @@ class DetailHandleRequest extends BaseHandleRequest
                 'booking_start_date' => $booking_start_date,
                 'booking_end_date' => $booking_end_date,
                 // Assurez-vous que $id_room est défini
-                'room_id' => $id_room 
+                'room_id' => $room_id 
             ]);
 
             if ($request) {
@@ -69,11 +69,11 @@ class DetailHandleRequest extends BaseHandleRequest
 
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
             } 
-
+// d_die($_POST);
             // Si aucune erreur, définir les propriétés de l'entité
             if (empty($errors)) {             
-                $detail->setRoom_id($id_room);
-                $detail->setBooking_id($booking_id);
+                $detail->setRoom_id($room_id);
+                // $detail->setBooking_id($booking_id);
                 $detail->setBooking_start_date($booking_start_date);
                 $detail->setBooking_end_date($booking_end_date);
     
