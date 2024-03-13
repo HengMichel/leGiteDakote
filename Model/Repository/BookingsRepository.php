@@ -5,6 +5,7 @@ namespace Model\Repository;
 use Exception;
 use PDOException;
 use Service\Session;
+use Model\Entity\Detail;
 use Model\Entity\Bookings;
 
 class BookingsRepository extends BaseRepository
@@ -163,6 +164,20 @@ class BookingsRepository extends BaseRepository
         $request = $this->dbConnection->prepare($sql);
         
         $request->bindValue(":id_booking",$bookings);
+        
+        $request->execute();
+        
+        return $request->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function findBookingsForDetail(Detail $detail)
+    {
+
+        $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
+        
+        $request = $this->dbConnection->prepare($sql);
+        
+        $request->bindValue(":id_booking",$detail->getBooking_id());
         
         $request->execute();
         

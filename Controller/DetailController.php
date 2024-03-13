@@ -42,22 +42,24 @@ class DetailController extends BaseController
 
         // Vérifie si la chambre existe
         if ($room) {
-            // Récupérer le prix de la chambre
+            // Récupère le prix de la chambre
             $price = $room->getPrice();
 
             // Vérifie si le prix est valide
             if ($price === null) {
-                // Gérer le cas où le prix n'a pas pu être récupéré
+                // Gère le cas où le prix n'a pas pu être récupéré
                 echo "Erreur: Prix de la chambre non trouvé.";
-                }
-            } else {
-                // Gérer le cas où le prix n'a pas pu être récupéré
-                echo "Erreur: Chambre non trouvée.";
+                return;
             }
+        } else {
+            // Gère le cas où le prix n'a pas pu être récupéré
+            echo "Erreur: Chambre non trouvée.";
+            return;
+        }
 
-        // Créer une instance de Detail
+        // On crée une instance de Detail
         $detail = new Detail();
-        // Attribuer les valeurs récupérées aux propriétés de l'objet Detail
+        // Attribue les valeurs récupérées aux propriétés de l'objet Detail
         $detail->setRoom_id($room_id);
         $detail->setBooking_start_date($booking_start_date);
         $detail->setBooking_end_date($booking_end_date);
@@ -70,53 +72,28 @@ class DetailController extends BaseController
             'booking_end_date' => $booking_end_date,
             'price' => $price,
         ];
-        // d_die($data);
-    // } else {
-    //     echo "Le prix de la chambre n'est pas disponible.";
-    // }
+// d_die($data);
 
         $this->form->handleFormDetail($detail,$room_id);
-        // d_die($detail);
-        // d_die($this);
+// d_die( $this->form->handleFormDetail($detail,$room_id));
+// d_die($this);
 
-        // Vérifie si le formulaire est soumis
-        if ($this->form->isSubmitted()) {
-        // d_die($detail);
+        // Vérifie si le formulaire est soumis et valide
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
+// d_die($detail);
 
-            // Vérifie s'il n'y a pas d'erreurs dans les données soumises
-            if ($this->form->isValid()) {
-            // d_die($_SESSION);
-            // d_die($detail);
-
-                // Ajoute la réservation à la base de données
-                $success = $this->detailRepository->addDetail($detail);
-                // d_die($success); return bool(true)
-
-                if ($success) {
-                // d_die($_SESSION);
-                // d_die($detail);
-
-                    // Redirige vers le tableau de bord
-                    // return redirection(addLink("detail","show"));
-                    return redirection(addLink("home","list"));
-
-                } else {
-                    // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
-                    $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
-                }
-            }
-
+            // $this->render("detail/form_detail.php");              
         }
         // Récupère les erreurs du formulaire
         $errors = $this->form->getEerrorsForm();
-
         return $this->render("detail/form_detail.php",$data + [
             'detail' => $detail,
             "errors" => $errors
         ]);
-    }      
 
-  
+    }
+          
+
     public function deleteDetail($id)
     {
         // Annule la réservation

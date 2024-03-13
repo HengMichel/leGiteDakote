@@ -99,36 +99,34 @@ class BookingsHandleRequest extends BaseHandleRequest
 
             // Est-ce que user_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
             $request = $this->bookingsRepository->findByAttributes($bookings,
-            [self::START_DATE => $booking_start_date,self::END_DATE => $booking_end_date,self::USER_ID => $_POST[self::USER_ID]
-           
-            ]);
+            [self::START_DATE => $booking_start_date,self::END_DATE => $booking_end_date,self::USER_ID => $_POST[self::USER_ID]]);
+
             if ($request) {
                 $errors[] = "La chambre n'est pas disponible pour cette période";
             }
             
             // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
             if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) {
-            if ($todayDate > $_POST[self::START_DATE] || $todayDate > $_POST[self::END_DATE]) {
+                if ($todayDate > $_POST[self::START_DATE] || $todayDate > $_POST[self::END_DATE]) {
 
-
-                $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
+                    $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
                 } else{ 
 
-                // d_die($_SESSION);
-// ###################  Si pas connecté ############################################### 
-                // if($bookings->getUser_id() == null){
-                //     $errors[] = "Merci de vous connectez avant toute réservation";
-                //     }
+    // d_die($_SESSION);
+// ###################  Si pas connecté ######################################### 
+                if($bookings->getUser_id() == null){
+                    $errors[] = "Merci de vous connectez avant toute réservation";
+                    }
                 }
 // ####################################################################################
 
             // Si aucune erreur, définir les propriétés de l'entité
             if (empty($errors)) {             
-                // $bookings->setUser_id($_POST[self::USER_ID]);
-                // $bookings->setBooking_start_date($booking_start_date);
-                // $bookings->setBooking_end_date($booking_end_date);
-                // $bookings->setBooking_price($_POST['price']);
-                // $bookings->setBooking_state($_POST['state']);
+                $bookings->setUser_id($_POST[self::USER_ID]);
+                $bookings->setBooking_start_date($booking_start_date);
+                $bookings->setBooking_end_date($booking_end_date);
+                $bookings->setBooking_price($_POST['price']);
+                $bookings->setBooking_state($_POST['state']);
     
                 // d_die($_POST); 
                 return true;

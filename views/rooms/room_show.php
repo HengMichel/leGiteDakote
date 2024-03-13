@@ -13,11 +13,10 @@
 <!-- Formulaire -->
 <!-- method="POST" redirection au controller 'detail' et methode 'newDetail' -->
             <form method="POST" action="<?= addLink('detail','newDetail'); ?>">
-
                 <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
-                <input type="hidden" name="booking_start_date" value="<?= date('Y-m-d') ?>">
-                <input type="hidden" name="booking_end_date" value="<?= date('Y-m-d', strtotime('+1 day')) ?>">
+                <!-- <input type="hidden" name="booking_start_date" value="<?= date('Y-m-d') ?>"> -->
+                <!-- <input type="hidden" name="booking_end_date" value="<?= date('Y-m-d', strtotime('+1 day')) ?>"> -->
                 <?php 
                 // d_die($rooms)
                 ?>
@@ -25,7 +24,7 @@
 <!-- Par défaut, la date de début est définie sur la date actuelle  -->
                 <div class="formBooking form-group col-md-3 m-auto">
                     <label class="stD bg-black link-light">Début Date :</label>
-                    <input type="date" class="form-control bg-light border fw-bolder border border-3 border-black" name="booking_start_date" value="<?= date('Y-m-d') ?>" >
+                    <input type="date" class="form-control bg-light border fw-bolder border-3 border-black" name="booking_start_date" value="<?= date('Y-m-d') ?>" >
                 </div>
 <!-- et la date de fin est définie sur le jour suivant -->
                 <div class="formBooking form-group col-md-3 m-auto mt-2">
@@ -37,7 +36,7 @@
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
                
-                <button class="btn btn-primary fw-bolder mt-3" type="submit" name="submit">Passer la commande</button>
+                <button class="btn btn-primary fw-bolder mt-3" type="submit" name="passerLaCommande">Passer la commande</button>
             </form>
         </div>
     </div>

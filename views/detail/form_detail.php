@@ -19,7 +19,7 @@ $totalPrice = 0.0;
         </thead>
         <tbody>
             <?php 
-            // Vérifier si $detail est défini et s'il contient des éléments
+            // Vérifie si $detail est défini et s'il contient des éléments
             if (!empty($detail)) {
             // d_die($detail);
             ?>
@@ -41,9 +41,9 @@ $totalPrice = 0.0;
                     ?>              
                     <td class="booking_end_date bg-secondary-subtle border mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_end_date())) ?>
                     </td>
-                    <td class="price bg-secondary-subtle border align-middle fs-5 text-center fw-semibold">
+                    <td class="price bg-secondary-subtle border align-middle fs-5 text-center fw-bolder link-primary">
                     <?php 
-                    // Vérifie si l'objet $room existe et n'est pas null
+                    // Vérifie si l'objet $price existe et n'est pas null
                     if ($price !== null) { 
                         echo number_format($price, 2);
                     } else {
@@ -51,26 +51,13 @@ $totalPrice = 0.0;
                     }
                     ?>
                     </td>
+                    <td class="m-0 border bg-secondary col-2 align-middle fs-5 text-center fw-semibold">
+                        <a href="<?= addLink("bookings","newBookings") ?>" class="btn btn-primary border-2 fw-medium link-light">Payer</a>
+                    </td>
                 </tr> 
-                <?php
-            } else { ?>
-                <tr>
-                    <td colspan='5'>Aucune réservation trouvée.</td>
-                </tr>
                 <?php 
             } 
                 ?> 
         </tbody>
-        <tfoot>
-            <tr class="table-active">
-                <td class="total_reservation border-secondary border-2 border-light mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="3">Total de vos réservations:
-                </td>
-                <td class="price border-primary border-4 mt-2 alert-link  col-2 align-middle fs-5 text-center fw-semibold"><?= $totalPrice; ?>
-                </td>
-                <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
-                <a href="<?= addLink("bookings/newBooking") ?>" class="btn btn-primary">Payer</a>
-                </td>
-            </tr>
-        </tfoot>
     </table>
 </div>
