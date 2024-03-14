@@ -29,12 +29,12 @@ class UsersHandleRequest extends BaseHandleRequest
                 $errors[] = "L'email doit avoir au moins 11 caractères";
             }
             if (strlen( $email) > 50) {
-                $errors[] = "L'email ne peut avoir plus de50 caractères";
+                $errors[] = "L'email ne peut avoir plus de 50 caractères";
             }
             if (!strpos( $email, " ") === false) {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
-            if (!strpos( $email, "@") === false) {
+            if (empty( $email) . "@" === false) {
                 $errors[] = "L'email n'est pas valide";
             }
             // Est-ce que l'email existe déjà dans la bdd ?
