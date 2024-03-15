@@ -37,7 +37,6 @@ class RoomsController extends BaseController
             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $rooms = $r->findRoomsById($id);
 
-            // d_die($room);
             // Vérifie si la chambre existe
             if (empty($rooms)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");

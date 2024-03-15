@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 <div class="bgNav container-fluid">
-    <nav class="navbar-expand-lg m-2"> 
+    <nav class="navbar-expand-lg display-6"> 
 
         <button type="button" class="btn btn-outline-light  fw-semibold">
             <a class="nav-link active  " aria-current="page" href="<?= addLink("home") ?>"> <i class="fa fa-home me-1"></i>Accueil
@@ -25,7 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <?php echo 'Bienvenue ' . $user->getLast_name() . '';?>
             </a>
         </button>
-
+      
 <!-- déconnexion -->
         <button type="button" class="btn btn-primary fw-semibold">
             <a class="nav-link" href="<?= addLink("users", "deco") ?>">déconnexion
@@ -65,14 +65,24 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 <?php endif; ?>
 
-<!-- connexion -->
+<!-- connexion et ou inscription -->
         <?php else: ?>
-        <button type="button" class="btn btn-primary">
-            <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
-                <i class="fa fa-sign-in fa-2xl"></i>
-            </a>
+
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" class="btn btn-outline-light fw-semibold">
+                    <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
+                    <i class="fa fa-sign-in fa-2xl"></i>
+                    </a>
+                </button>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop2">
+                        <a class="nav-link fw-semibold text-center" href="<?= addLink("users","newUsers") ?>">Inscription</a>
+                    </div>
+                </div>
+            </div>
         <?php endif ?>
-        </button>
 
 <!-- access aux services  -->
         <button type="button" class="btn btn-outline-light">
@@ -81,9 +91,9 @@ if (session_status() == PHP_SESSION_NONE) {
         </button>
 
 <!-- inscription -->
-        <button type="button" class="btn btn-outline-light">
+        <!-- <button type="button" class="btn btn-outline-light">
             <a class="nav-link fw-semibold" href="<?= addLink("users","newUsers") ?>">Inscription</a>
-        </button>
+        </button> -->
 
 <!-- présentation des propriétaire -->
         <button type="button" class="btn btn-outline-light ">

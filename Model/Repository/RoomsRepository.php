@@ -57,7 +57,7 @@ class RoomsRepository extends BaseRepository
 // Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
     public function insertRooms(Rooms $rooms)
     {
-        $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category, NOW())";
+        $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
         $request = $this->dbConnection->prepare($sql);
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());

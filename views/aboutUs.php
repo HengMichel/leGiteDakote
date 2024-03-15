@@ -5,7 +5,7 @@
             <h1>Bienvenue au gîte DAKOTÉ</h1>
         </div>
     </div>
-    <div class="descriptionDescriptif border  mt-5 container">
+    <div class="descriptionDescriptif mt-5 container">
         <h3>Descriptif</h3>
         <p class="p1">Descriptif 2023, susceptible de modifications pour 2024, merci de vous référer à la fiche descriptive validée lors de la réservation.
 
@@ -18,11 +18,11 @@
        <h4>Les propriétaires</h4>
        <div class="photoProfile">
            <p><span>Jacqueline et Lucien</span></p>
-           <img class="pro border border-2" src="/leGiteDakote/public/assets/imgs/les_proprio.jpg " alt="">
+           <img class="pro" src="/leGiteDakote/public/assets/imgs/les_proprio.jpg " alt="">
        </div>
     </div>
     <div>
-        <h3 class="local">Localisation</h3>
+        <h3 class="local text-center">Localisation</h3>
     </div>
     <iframe class="map" width="100%" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2628.7214751326624!2d2.3966389!3d48.7872074!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6739a5f64b489%3A0x5fa105b2ca801da8!2sCentre%20des%20Finances%20Publiques!5e0!3m2!1sfr!2sfr!4v1698741539012!5m2!1sfr!2sfr" width="1200" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
