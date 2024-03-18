@@ -22,7 +22,7 @@ class RoomsHandleRequest extends BaseHandleRequest
         // if (isset($_POST['add_room'])) {
             extract($_POST);
             $errors = [];
-        d_die($_POST);
+        // d_die($_POST);
 
             // Vérification de la validité du formulaire
             if (empty($room_number)) {
