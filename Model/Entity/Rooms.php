@@ -1,5 +1,4 @@
 <?php
-
 namespace Model\Entity;
 
 class Rooms extends BaseEntity

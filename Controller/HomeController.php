@@ -50,5 +50,4 @@ class HomeController extends BaseController
             "roomss" => $roomss
         ]);
     }
-
 }

@@ -5,7 +5,9 @@ use Model\Repository\RoomsRepository;
 //Création d' une variable $tab de type tableau
 $tab = array();
 // Avant la conversion en JSON
-var_dump($tab);
+
+// var_dump($tab);
+
 error_log("Appel à ajax.php effectué !");
 
 //Applique la condition pour vérifier si "!empty($_POST['choix'])" n'est pas vide
