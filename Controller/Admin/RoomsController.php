@@ -1,7 +1,6 @@
 <?php
 namespace Controller\Admin;
 
-
 use Model\Entity\Rooms;
 use Service\ImageHandler;
 use Controller\BaseController;
@@ -42,7 +41,7 @@ class RoomsController extends BaseController
 // d_die($rooms);
             // ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
             ImageHandler::handelPhoto($rooms);
-            // new methode pour ajouter les rooms
+            // new method for add rooms insertRooms($rooms)
             $this->roomsRepository->insertRooms($rooms);
 
             // $this->roomsRepository->addRooms($rooms);

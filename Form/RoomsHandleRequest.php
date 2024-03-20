@@ -15,10 +15,8 @@ class RoomsHandleRequest extends BaseHandleRequest
 
     public function RoomsHandleForm(Rooms $rooms)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
         // d_die($_POST);
-        // if (isset($_POST['add_room'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             extract($_POST);
             $errors = [];
         // d_die($_POST);
@@ -33,41 +31,28 @@ class RoomsHandleRequest extends BaseHandleRequest
             if (strlen($room_number) > 3) {
                 $errors[] = "Le N° de chambre doit avoir au maximum 3 caractères";
             }
-// ancienne version 
-            // if (empty($room_imgs)) {
-            //         $errors[] = "Le fichier image ne peut pas être vide";
-            // }
-            
-// #################
-// Vérifie si un fichier a été téléchargé
-// if ($_FILES["room_imgs"]["error"] === UPLOAD_ERR_NO_FILE) {
-    // $errors[] = "Le fichier image ne peut pas être vide";
-// }
-
-            if (!(isset($_FILES["room_imgs"]) && $_FILES["room_imgs"]["error"] === UPLOAD_ERR_OK)) {
-                $room_imgs = ''; // Initialisation à une valeur par défaut
+            // Vérifie si un fichier a été téléchargé
+            if ($_FILES["room_imgs"]["error"] === UPLOAD_ERR_OK) {
+                // Récupère les informations sur le fichier téléchargé
+                $room_imgs = $_FILES['room_imgs']['name'];
             } else {
-                 // Récupérez les informations sur le fichier téléchargé
-        $room_imgs = $_FILES['room_imgs']['name'];
-        // Continuez votre traitement avec $room_imgs
-    // } else {
                 $errors[] = "Veuillez sélectionner une image à télécharger pour continuer.";
             }
-            // Est-ce que L'image existe déjà dans la bdd ?
-            // $requete = $this->roomsRepository->findByAttributes($rooms, ["room_imgs" => $room_imgs]);
-            // if ($requete) {
-            //     $errors[] = "L'image de la rooms existe déjà, veuillez en choisir un nouveau";
-            // }
-
-            if (!empty($price)) {
-                if (strlen($price)) {
-                    $errors[] = "Le price ne peut pas être vide";
-                }
-                
-            }
-            if (!empty($persons)) {
-                if (strlen($persons)) {
-                    $errors[] = "Les persons ne peut pas être vide";
+            // Validation du prix
+            if (!isset($_POST['price']) || empty(trim($_POST['price']))) {
+                $errors[] = "Le prix ne peut pas être vide";
+            } else {
+                // Conversion du prix en float
+                $price = floatval($_POST['price']);
+            }   
+           // Validation du champ "persons"
+            if (!isset($_POST['persons']) || empty(trim($_POST['persons']))) {
+                $errors[] = "Le nombre de personnes ne peut pas être vide";
+            } else {
+                // Vérifie si la valeur est un entier positif
+                $persons = intval($_POST['persons']);
+                if ($persons <= 0) {
+                    $errors[] = "Le nombre de personnes doit être un entier positif";
                 }
             }
             if (!empty($category)) {
@@ -75,9 +60,7 @@ class RoomsHandleRequest extends BaseHandleRequest
                     $errors[] = "La category ne peut pas être vide";
                 }
             }    
-            
             if (empty($errors)) {
-    // d_die($room_number);
                 $rooms->setRoom_number($room_number);
                 $rooms->setRoom_imgs($room_imgs);
                 $rooms->setPrice($price);
@@ -85,17 +68,8 @@ class RoomsHandleRequest extends BaseHandleRequest
                 $rooms->setCategory($category);
                 return $this;
             }
-
             $this->setEerrorsForm($errors);
             return $this;
-
         }
-    }
-    // }
-
-    public function handleSecurity()
-    {
-       
-        
     }
 }

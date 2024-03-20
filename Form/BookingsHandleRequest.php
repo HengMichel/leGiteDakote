@@ -1,5 +1,4 @@
 <?php
-
 namespace Form;
 
 use Model\Entity\Bookings;

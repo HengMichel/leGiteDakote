@@ -27,6 +27,7 @@ class DetailController extends BaseController
     }
 
 
+//################################ need debug
     public function newDetail()
     {
         // Récupère les paramètres POST
@@ -81,18 +82,19 @@ class DetailController extends BaseController
         // Vérifie si le formulaire est soumis et valide
         if ($this->form->isSubmitted() && $this->form->isValid()) {
 // d_die($detail);
+return $this->render("detail/form_detail.php",$data + [
+    'detail' => $detail,
+    // "errors" => $errors
+]);
 
             // $this->render("detail/form_detail.php");              
-        }
-        // Récupère les erreurs du formulaire
-        $errors = $this->form->getEerrorsForm();
-        return $this->render("detail/form_detail.php",$data + [
-            'detail' => $detail,
-            "errors" => $errors
-        ]);
+        }else{
 
+            // Récupère les erreurs du formulaire
+            $errors = $this->form->getEerrorsForm();
+        }
     }
-          
+//################################ need debug   
 
     public function deleteDetail($id)
     {

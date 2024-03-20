@@ -13,14 +13,14 @@ require "views/errors_form.php";
             </div>
             <div class="form-group mt-4">
                 <div class="form-floating col-md-6 m-auto">
-                    <input type="text" class="form-control bg-dark link-light" placeholder="Prix de la chambre" name="room_price" value="<?= $rooms->getPrice() ?>">
+                    <input type="text" class="form-control bg-dark link-light" placeholder="Prix de la chambre" name="price" value="<?= $rooms->getPrice() ?>">
                     <label>Prix de la chambre</label>
                 </div>
             </div>
 
             <div class="form-group mt-4">
                 <div class="form-floating col-md-6 m-auto">
-                    <input type="number" class="form-control bg-dark link-light" placeholder="Nombre de personnes max" name="person"value="<?= $rooms->getPersons() ?>" >
+                    <input type="number" class="form-control bg-dark link-light" placeholder="Nombre de personnes max" name="persons"value="<?= $rooms->getPersons() ?>" >
                     <label>Nombre de personnes max</label>
                 </div>
             </div>
