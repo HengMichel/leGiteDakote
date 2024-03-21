@@ -3,7 +3,6 @@ require "views/errors_form.php";
 
 // Initialisation du total des prix
 $totalPrice = 0.0;
-
 ?>
 <!-- Affichage du contenu du detail -->
 <div class="container5 link-light fw-medium mt-5">
@@ -20,26 +19,37 @@ $totalPrice = 0.0;
         <tbody>
             <?php 
             // Vérifie si $detail est défini et s'il contient des éléments
-            if (!empty($detail)) {
-            // d_die($detail);
+            if (!empty($_SESSION['cart'])) {
+                // d_die($_SESSION['cart']);
+                // extract($_SESSION['cart']);
+            foreach($_SESSION['cart'] as $reservation){
+            //     echo $reservation["room"]->getId_room();
             ?>
                 <tr class="table-active">
-                    <input type="hidden" name="id_detail" value="<?= $detail->getId_detail() ?>">
-                    <input type="hidden" name="booking_id" value="<?= $detail->getBooking_id() ?>">
                 
                     <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold"><?= 
-                    $detail->getRoom_id() 
+                    $reservation["room"]->getId_room(); 
                     ?>
                     <?php
                     // d_die($detail);
                     ?>               
                     </td>
-                    <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_start_date())) ?>
+<!--########################### date ne s'affiche pas #########################################################-->
+                    <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", 
+                    strtotime(
+                        // $detail->getBooking_start_date()
+                        $reservation["date_debut"]->getBooking_start_date()
+                    )); 
+                    // d_die($reservation["date_debut"]->getBooking_start_date());
+                    ?>
                     </td>
                     <?php
                     // d_die($detail);
                     ?>              
-                    <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($detail->getBooking_end_date())) ?>
+                    <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime(
+                        // $detail->getBooking_end_date()
+                        $reservation["date_fin"]->getBooking_end_date()
+                        )) ?>
                     </td>
                     <td class="price align-middle fs-5 text-center fw-bolder link-primary">
                     <?php 
@@ -50,12 +60,17 @@ $totalPrice = 0.0;
                         echo "Prix non disponible";
                     }
                     ?>
+                      <?php
+                    // d_die($price);
+                    ?>      
                     </td>
                     <td class="m-0 col-2 align-middle fs-5 text-center fw-semibold">
                         <a href="<?= addLink("bookings","newBookings") ?>" class="btn btn-primary fw-medium link-light">Payer</a>
                     </td>
                 </tr> 
                 <?php 
+                }
+
             } 
                 ?> 
         </tbody>

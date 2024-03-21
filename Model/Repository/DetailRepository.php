@@ -8,14 +8,8 @@ use Model\Entity\Detail;
 
 class DetailRepository extends BaseRepository
 {
-    public function insertDetail($room_id, $booking_id, $booking_start_date,$booking_end_date)
+    public function insertDetail(Detail $detail)
     {
-        $detail = new Detail;
-        $detail->setRoom_id($room_id)
-            ->setBooking_id($booking_id)
-            ->setBooking_start_date($booking_start_date)
-            ->setBooking_end_date($booking_end_date);
-        
         try {
             $this->dbConnection->beginTransaction();
 
@@ -23,10 +17,10 @@ class DetailRepository extends BaseRepository
 
             $request = $this->dbConnection->prepare($sql);
             
-            $request->bindValue(":room_id", $room_id);
-            $request->bindValue(":booking_id", $booking_id);
-            $request->bindValue(":booking_start_date", $booking_start_date);
-            $request->bindValue(":booking_end_date", $booking_end_date);
+            $request->bindValue(":room_id", $detail->getRoom_id());
+            $request->bindValue(":booking_id", $detail->getBooking_id());
+            $request->bindValue(":booking_start_date", $detail->getBooking_start_date());
+            $request->bindValue(":booking_end_date", $detail->getBooking_end_date());
 
             $request = $request->execute();
             

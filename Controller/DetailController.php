@@ -64,34 +64,27 @@ class DetailController extends BaseController
         $detail->setRoom_id($room_id);
         $detail->setBooking_start_date($booking_start_date);
         $detail->setBooking_end_date($booking_end_date);
-
-        // Passe les données à la vue
-        $data = [
-            'detail' => $detail,
-            'room_id' => $room_id,
-            'booking_start_date' => $booking_start_date,
-            'booking_end_date' => $booking_end_date,
-            'price' => $price,
-        ];
-// d_die($data);
+// d_die($detail);
 
         $this->form->handleFormDetail($detail,$room_id);
 // d_die( $this->form->handleFormDetail($detail,$room_id));
-// d_die($this);
 
         // Vérifie si le formulaire est soumis et valide
         if ($this->form->isSubmitted() && $this->form->isValid()) {
-// d_die($detail);
-return $this->render("detail/form_detail.php",$data + [
-    'detail' => $detail,
-    // "errors" => $errors
-]);
+            $this->detailRepository->insertDetail($detail);
+            return $this->render("detail/form_detail.php", [
+                'detail' => $detail,
+            ]);
 
-            // $this->render("detail/form_detail.php");              
         }else{
-
             // Récupère les erreurs du formulaire
             $errors = $this->form->getEerrorsForm();
+            // d_die($errors);
+           
+            return $this->render("rooms/room_show.php", [
+                "rooms" => $room,
+                "errors" => $errors
+            ]);
         }
     }
 //################################ need debug   

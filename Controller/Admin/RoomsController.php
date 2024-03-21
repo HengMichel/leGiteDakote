@@ -44,8 +44,6 @@ class RoomsController extends BaseController
             // new method for add rooms insertRooms($rooms)
             $this->roomsRepository->insertRooms($rooms);
 
-            // $this->roomsRepository->addRooms($rooms);
-
             return redirection(addLink("admin","rooms"));
         }
 

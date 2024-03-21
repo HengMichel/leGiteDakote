@@ -34,24 +34,32 @@ class CartController extends BaseController
     public function addToCart($id)
     {   
         $cm = new CartManager();
-        $nb = $cm->addCart($id);
-        echo $nb;        
+        $cm->addCart($id);
+        // $nb = $cm->addCart($id);
+        // echo $nb;        
     }
     /**
      * Summary of show
      * @return void
      */
 
-    public function showCart()
-    {
-        $detail = new Detail;
-        $detail = $this->detailRepository->findAll($detail);
+     public function showCart()
+     {
+         $detail = new Detail;
+         $detail = $this->detailRepository->findAll($detail);
+ 
+         return $this->render("cart/form_cart.php", [            
+         "h1" => "Date de réservation",
+         'detail' => $detail,
+         ]);
+     }
 
-        return $this->render("cart/form_cart.php", [            
-        "h1" => "Date de réservation",
-        'detail' => $detail,
+     public function detailCart()
+     {
+        return $this->render("detail/form_detail.php", [            
+         "h1" => "Date de réservation"
         ]);
-    }
+     }
 
 
     public function show($id)

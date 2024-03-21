@@ -154,7 +154,9 @@ span {
 .canc {
   text-decoration: none;
 }
-
+.calendar{
+  display: flex;
+}
 /*************** MEDIAQUERY ***************/
 @media (max-width: 1023px) {
   .navbar-nav {

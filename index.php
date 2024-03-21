@@ -1,6 +1,6 @@
 <?php
 require "inc/init.inc.php";
-
+// session_destroy();
 $admin      = $_GET["doc"] ?? null;
 $controller = $_GET["controller"] ?? "home";
 $method     = $_GET["method"] ?? "list";

@@ -4,11 +4,13 @@ namespace Form;
 
 use DateTime;
 use Model\Entity\Detail;
+use Model\Repository\DetailRepository;
 use Model\Repository\BookingsRepository;
 
 class DetailHandleRequest extends BaseHandleRequest
 {
-    private $bookingsRepository;
+    // private $bookingsRepository;
+    private $detailRepository;
 
     const START_DATE = 'booking_start_date';
     const END_DATE = 'booking_end_date';
@@ -17,83 +19,72 @@ class DetailHandleRequest extends BaseHandleRequest
 
     public function __construct()
     {
-        $this->bookingsRepository = new BookingsRepository;
+        // $this->bookingsRepository = new BookingsRepository;
+        $this->detailRepository = new DetailRepository;
     }
 
     public function handleFormDetail(Detail $detail, $room_id)
     {
 // d_die($_POST);
-// d_die($_POST['booking_start_date']);
 
         if (isset($_POST['passerLaCommande'])) {
 // d_die($_POST);
-// d_die($_POST['booking_start_date']);
 
             extract($_POST);
             $errors = [];
 
-            // Convertit les dates en secondes depuis le 1er janvier 1970
-            // $booking_start_date = date("Y-m-d", strtotime($booking_start_date));
-            // $booking_end_date = date("Y-m-d", strtotime($booking_end_date));
-// d_die($booking_start_date);
-
             // Convertit les dates en objets DateTime
             $startDateTime = new DateTime($booking_start_date);
             $endDateTime = new DateTime($booking_end_date);
-
+// d_die($startDateTime);
             // date du jour
-            // $today = time();
             $today = new DateTime();
-
-// ne fait pas le calcul problème a résoudre #####################
-            // Calcule la durée de la réservation en jours
-            $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
-            // d_die($duration);
-            // Nombre de secondes dans une journée
-            $nbDays = $duration / 86400; 
-// ###############################################################
-// d_die($nbDays);
-
-          
-
-
+            // d_die($today);
 
 // Vérifie si la date de début de réservation est antérieure à la date actuelle
             // if ($booking_start_date < $today) {
-            if ($startDateTime < $today) {
+            if ($startDateTime->getTimestamp() < $today->getTimestamp()) {
 
                 $errors[] = "La date de début de réservation ne peut pas être antérieure à la date d'aujourd'hui.";
             }
 // d_die($errors);
         // Vérifie si la date de fin de réservation est antérieure à la date actuelle
             // if ($booking_end_date < $today) {
-            if ($endDateTime < $today) {
+            if ($endDateTime->getTimestamp() < $today->getTimestamp()) {
 
                 $errors[] = "La date de fin de réservation ne peut pas être antérieure à la date d'aujourd'hui.";
             }
 // d_die($errors);
 
-// d_die($endDateTime < $today);
         // Vérifie si la date de début de réservation est postérieure à la date de fin de réservation
         // if ($booking_start_date > $booking_end_date) {
-            if ($startDateTime > $endDateTime) {
+            if ($startDateTime->getTimestamp() > $endDateTime->getTimestamp()) {
 
                 $errors[] = "La date de début de réservation ne peut pas être postérieure à la date de fin de réservation.";
             }
 
-             // Si des erreurs sont trouvées
-             if (!empty($errors)) {
-                // Gère les erreurs
-                $this->setEerrorsForm($errors);
 
-                // d_die($_POST[self::ROOM_ID]);
- // Redirigez l'utilisateur vers la page précédente avec l'identifiant de la chambre
- 
-// ici si je décommente je reste sur la meme page mais sinon je suis redirigé http://localhost/leGiteDakote/detail/newDetail
 
-                // return redirection(addLink("rooms", "show", $_POST[self::ROOM_ID]));
+            // Calculer le nombre de jours de réservation
+        $interval = $startDateTime->diff($endDateTime);
+        $nbDays = $interval->days;
+
+        // Vérifier si la réservation est pour plusieurs jours
+        if ($nbDays > 0) {
+            // Traiter chaque jour de la réservation
+            $currentDate = $startDateTime;
+            for ($i = 0; $i < $nbDays; $i++) {
+                
+                // Incrémenter la date actuelle pour passer au jour suivant
+                $currentDate->modify('+1 day');
+                // d_die($nbDays);
             }
+        } else {
+            // Si la réservation ne concerne qu'un seul jour, traiter la réservation normalement
+            // $this->insertDetail($detail, $room_id, $startDateTime);
+        }
 
+             
 
 // // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd dans bookings?
 
@@ -111,7 +102,7 @@ class DetailHandleRequest extends BaseHandleRequest
 // d_die($request);            
             // if ($request) {
             //     $errors[] = "La chambre n'est pas disponible pour cette période";
-            // }
+           
 
 
             // Vérifie si la chambre est disponible pour la période spécifiée
@@ -140,6 +131,13 @@ class DetailHandleRequest extends BaseHandleRequest
 // if (strtotime($today) > strtotime($_POST['booking_start_date']) || strtotime($today) > strtotime($_POST['booking_end_date'])) {
 //     $errors[] = "votre date de début ou de fin de réservation ne peut pas être antérieure à la date d'aujourd'hui";
 // }
+
+// Si des erreurs sont trouvées
+if (!empty($errors)) {
+    // Gère les erreurs
+    $this->setEerrorsForm($errors);
+    return false;
+}
    
 // d_die($_POST);
             // Si aucune erreur, définir les propriétés de l'entité
