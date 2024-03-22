@@ -33,7 +33,8 @@ class CartManager
             if ($room->getId_room() == $value["room"]->getId_room()) {
                 $cart[$indice]["quantity"] += $quantity;
                 $roomDejaDanscart = true;
-                break;  // pour sortir de la boucle foreach
+                break;  
+                // pour sortir de la boucle foreach
             }
         }
         
@@ -50,8 +51,6 @@ class CartManager
             $nb += $value["quantity"];
         }
         $_SESSION["nombre"] = $nb;
-        //return $nb;
-
         // Redirige vers le tableau de bord
         return redirection(addLink("cart","detailCart"));
     }

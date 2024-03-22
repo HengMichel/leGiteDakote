@@ -16,7 +16,6 @@ require "views/errors_form.php";
             
 <!-- Formulaire -->
 <!-- method="POST" redirection au controller 'detail' et methode 'newDetail' -->
-            <!-- <form method="POST" action="<?= addLink('detail','newDetail'); ?>"> -->
             <form method="get" action="<?= addLink('cart','addToCart', $rooms->getId_room()); ?>">
                 <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
@@ -34,11 +33,11 @@ require "views/errors_form.php";
                     </div>
                 </div>
 
-                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3 mt-3">
+                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3">
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
                
-                <button class="btn btn-primary fw-bolder mt-3" type="submit" name="passerLaCommande">Passer la commande</button>
+                <button class="btn btn-primary fw-bolder" type="submit" name="passerLaCommande">Passer la commande</button>
             </form>
         </div>
     </div>

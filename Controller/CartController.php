@@ -43,20 +43,20 @@ class CartController extends BaseController
      * @return void
      */
 
-     public function showCart()
-     {
-         $detail = new Detail;
-         $detail = $this->detailRepository->findAll($detail);
+    //  public function showCart()
+    //  {
+    //      $detail = new Detail;
+    //      $detail = $this->detailRepository->findAll($detail);
  
-         return $this->render("cart/form_cart.php", [            
-         "h1" => "Date de réservation",
-         'detail' => $detail,
-         ]);
-     }
+    //      return $this->render("cart/form_cart.php", [            
+    //      "h1" => "Date de réservation",
+    //      'detail' => $detail,
+    //      ]);
+    //  }
 
      public function detailCart()
      {
-        return $this->render("detail/form_detail.php", [            
+        return $this->render("cart/form_cart.php", [            
          "h1" => "Date de réservation"
         ]);
      }
