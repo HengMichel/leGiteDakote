@@ -25,4 +25,13 @@ class UsersController extends BaseController
             "users" => $users
         ]);
     }
+    public function dashboard()
+    {
+        $users = $this->usersRepository->findAll($this->users);
+
+        $this->render("admin/dashboard_admin.php", [
+            "h1" => "Dashboard",
+            "users" => $users
+        ]);
+    }
 }

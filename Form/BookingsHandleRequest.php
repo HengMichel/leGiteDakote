@@ -21,34 +21,50 @@ class BookingsHandleRequest extends BaseHandleRequest
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    public function handleForm(Bookings $bookings)
+    public function handleForm(Bookings $bookings, $user_id)
     {
 // d_die($_SESSION);
-        if (isset($_POST['book'])) {
-            
-            extract($_POST);
-            $errors = [];
-            // d_die($_POST);
+// d_die($_POST); 
+        $errors = [];
 
-            if (isset($_SESSION['cart'])) {
+        // Vérifier si le formulaire est soumis
+        if (isset($_POST['book'])) {
+            // extract($_POST);
+            // d_die($_POST);
+            // d_die($_SESSION);
+
+            // S'assurer que l'utilisateur est connecté
+            if (!$user_id) {
+                $errors[] = "Merci de vous connecter avant de faire une réservation.";
+            } else {
+                // Définir directement la valeur de user_id à partir de la session
+                $bookings->setUser_id($user_id);
+                // d_die($bookings);
+
+                $totalPrice = 0;
+                // Traiter chaque réservation dans le panier
                 foreach ($_SESSION['cart'] as $reservation) {
-                    // Récupérer les valeurs nécessaires depuis la session
-                    // Si la clé 'user_id' est définie dans la session
-                    // $userId = $_SESSION['user_id']; 
+     
+                    // Calcul du prix total des réservations dans le panier
                     // Convertir le prix en float
                     $price = floatval($reservation['room']->getPrice()); 
+                    // d_die($price);
+                    $totalPrice += $price;
+                }
+                // Définir le prix total et l'état de réservation
+                $bookings->setBooking_price($totalPrice);
+                $bookings->setBooking_state($_POST['booking_state']);
 
-            
-
-
-
-
-
-
-
-
-
-
+                // Retourne true pour indiquer que le formulaire a été traité avec succès
+                return true;
+            }
+        } 
+        // Gère les erreurs
+        $this->setEerrorsForm($errors);
+        // d_die($_POST); 
+        $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
+        return false;                   
+        }
 
 //###################### gestion de la date ##############################
             // converti en date en seconde avec strtotime depuis le 1janvier 1960         
@@ -64,24 +80,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             // $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
             // Nombre de secondes dans une journée
             // $nbDays = $duration / 86400; 
-
-            // Initialisez la variable $totalPrice à 0
-            $totalPrice = 0;
-
-            // Effectuez le calcul du prix total de la réservation
-            if (!empty($_POST['price'])) {
-
-                //converted price ("string") to float
-                $pricePerDay = floatval($_POST['price']);
-                $totalPrice = $pricePerDay * $nbDays;
-            }
-            // d_die($_POST['price']);                   
-            $bookings->setBooking_price($totalPrice);
-            
-            // date du jour
-            $todayDate = time();
-
-            // Vérification de la validité du formulaire
+    // Vérification de la validité du formulaire
             // if (empty($booking_start_date)) {
             //     $errors[] = "La date de début ne peut pas être vide";
             //     }
@@ -104,70 +103,7 @@ class BookingsHandleRequest extends BaseHandleRequest
 
             //         $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
             //     } else{ 
-// ###############################################################################
-
-
-
-// Vérifie si l'utilisateur est connecté
-            if (isset($_SESSION['user_id'])) {
-
-// L'utilisateur est connecté, associez les réservations à son compte
-                $userId = $_SESSION['user_id'];
-                $bookings->setUser_id($userId);
-
-// Ajoute les réservations à la base de données
-            //     $this->bookingsRepository->addBookings($bookings);
-            // } else {
-
-// L'utilisateur n'est pas connecté, crée un cookie avec les détails de la réservation
-                // $cookieName = 'pending_booking_' . uniqid();
-
-// Converti l'objet réservation en chaîne sérialisée
-                // $cookieValue = serialize($bookings); 
-// Valable pendant 30 jours
-                // setcookie($cookieName, $cookieValue, time() + (86400 * 30), '/'); 
-            }
-// Ainsi, si l'utilisateur est connecté, les réservations seront associées à son compte et stockées dans la base de données. Sinon, les détails de la réservation seront stockés dans un cookie. Une fois que l'utilisateur se connecte, vous pouvez récupérer les réservations en attente à partir du cookie et les associer à son compte utilisateur.
-
-// Assurez-vous de prendre en compte la sécurité des cookies en vérifiant et en validant les données avant de les utiliser.
-
-// ###############################################################################
-
-
-
-
-
-
-    // d_die($_SESSION);
-// ###################  Si pas connecté ######################################### 
-                if($bookings->getUser_id() == null){
-                    $errors[] = "Merci de vous connectez avant toute réservation";
-                    }
-                
-// ####################################################################################
-
-            // Si aucune erreur, définir les propriétés de l'entité
-            if (empty($errors)) {
-                d_die($bookings);             
-                $bookings->setUser_id($_POST[self::USER_ID]);
-                // $bookings->setBooking_start_date($booking_start_date);
-                // $bookings->setBooking_end_date($booking_end_date);
-                $bookings->setBooking_price($_POST['price']);
-                $bookings->setBooking_state($_POST['state']);
-    
-                // d_die($_POST); 
-                return true;
-                }
-                // Gère les erreurs
-                $this->setEerrorsForm($errors);
- 
-            // } else {
-            // d_die($_POST); 
-                $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
-            }      
-        }      
-    }
-    }
+// ##############################################################################
     
     
     public function cancelPanier($idBooking)

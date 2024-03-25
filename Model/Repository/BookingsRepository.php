@@ -21,7 +21,7 @@ class BookingsRepository extends BaseRepository
             // Utilisation de bindValue pour lier les valeurs
             $request->bindValue(":user_id", $bookings->getUser_id());
 
-            // $request->bindValue(":booking_price", $bookings->getBooking_price());
+            $request->bindValue(":booking_price", $bookings->getBooking_price());
             $request->bindValue(":booking_state", $bookings->getBooking_state());
 
             // Exécute la requête
@@ -130,7 +130,7 @@ class BookingsRepository extends BaseRepository
               $request->bindValue(":id", $id);
               $request->execute();
       
-            //   return $request->fetch(\PDO::FETCH_ASSOC);
+            // return $request->fetch(\PDO::FETCH_ASSOC);
             // Utiliser FETCH_CLASS pour récupérer un objet de type réservation
             return $request->fetchObject("Model\Entity\Bookings");
 
@@ -240,15 +240,14 @@ class BookingsRepository extends BaseRepository
     {
     $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
     $request->bindParam(":user_id", $userId, \PDO::PARAM_INT);
-    // Affiche le requête SQL pour le débogage
+    // Affiche la requête SQL pour le débogage
     // var_dump($request->queryString);
 
     if ($request->execute()) {
         $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
         // Affiche les résultats pour le débogage
         //   var_dump($results);
-
-          return $results;
+        return $results;
 
     } else {
         return null;

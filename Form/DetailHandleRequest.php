@@ -23,7 +23,8 @@ class DetailHandleRequest extends BaseHandleRequest
         $this->detailRepository = new DetailRepository;
     }
 
-    public function handleFormDetail(Detail $detail, $room_id)
+    // public function handleFormDetail(Detail $detail, $room_id)
+    public function handleFormDetail(Detail $detail)
     {
 // d_die($_POST);
 
@@ -49,7 +50,6 @@ class DetailHandleRequest extends BaseHandleRequest
             }
 // d_die($errors);
         // Vérifie si la date de fin de réservation est antérieure à la date actuelle
-            // if ($booking_end_date < $today) {
             if ($endDateTime->getTimestamp() < $today->getTimestamp()) {
 
                 $errors[] = "La date de fin de réservation ne peut pas être antérieure à la date d'aujourd'hui.";
@@ -57,7 +57,6 @@ class DetailHandleRequest extends BaseHandleRequest
 // d_die($errors);
 
         // Vérifie si la date de début de réservation est postérieure à la date de fin de réservation
-        // if ($booking_start_date > $booking_end_date) {
             if ($startDateTime->getTimestamp() > $endDateTime->getTimestamp()) {
 
                 $errors[] = "La date de début de réservation ne peut pas être postérieure à la date de fin de réservation.";
@@ -66,24 +65,25 @@ class DetailHandleRequest extends BaseHandleRequest
 
 
             // Calculer le nombre de jours de réservation
-        $interval = $startDateTime->diff($endDateTime);
-        $nbDays = $interval->days;
+            $interval = $startDateTime->diff($endDateTime);
+            $nbDays = $interval->days;
 
-        // Vérifier si la réservation est pour plusieurs jours
-        if ($nbDays > 0) {
-            // Traiter chaque jour de la réservation
-            $currentDate = $startDateTime;
-            for ($i = 0; $i < $nbDays; $i++) {
-                
-                // Incrémenter la date actuelle pour passer au jour suivant
-                $currentDate->modify('+1 day');
-                // d_die($nbDays);
+            // Vérifier si la réservation est pour plusieurs jours
+            if ($nbDays > 0) {
+                // Traiter chaque jour de la réservation
+                $currentDate = $startDateTime;
+                for ($i = 0; $i < $nbDays; $i++) {    
+                    // Incrémenter la date actuelle pour passer au jour suivant
+                    $currentDate->modify('+1 day');
+                    // d_die($nbDays);
+                }
+            } else {
+                // Si la réservation ne concerne qu'un seul jour, traiter la réservation normalement
+                // $this->insertDetail($detail, $room_id, $startDateTime);
+//################### a verifier ##########################               // 
+                $detail->setId_detail($id);
             }
-        } else {
-            // Si la réservation ne concerne qu'un seul jour, traiter la réservation normalement
-            // $this->insertDetail($detail, $room_id, $startDateTime);
-        }
-
+// #########################################################
              
 
 // // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd dans bookings?

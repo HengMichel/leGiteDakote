@@ -4,15 +4,18 @@ require "views/errors_form.php";
 $totalPrice = 0.0;
 ?>
 <!-- Affichage du contenu du detail -->
-<div class="container5 link-light fw-medium mt-5">
-    <table class="table table-hover mt-5 container ">
-        <thead>
+<div class="container5 link-light fw-medium mt-3">
+    <form action="<?= addLink("bookings","newBookings") ?>" method="post">
+        <input type="hidden" name="user_id" value="<?= $user_id ?>">
+        <input type="hidden" name="booking_state" value="<?= $booking_state ?>">
+
+        <table class="table table-hover mt-5 container ">
+            <thead>     
                 <tr>
                     <th scope="col" class="id_reservation align-middle fs-5 text-center fw-semibold">Chambre#</th>
                     <th class="start_date align-middle fs-5 text-center fw-semibold">Date début</th>
                     <th class="end_date align-middle fs-5 text-center fw-semibold">Date fin</th>
                     <th class="price align-middle fs-5 text-center fw-semibold">Prix</th>
-                    <th class="action m-3 align-middle fs-5 text-center fw-semibold">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,12 +23,10 @@ $totalPrice = 0.0;
                 // Vérifie si $detail est défini et s'il contient des éléments
                 if (!empty($_SESSION['cart'])) {
                     // d_die($_SESSION['cart']);
-                    // extract($_SESSION['cart']);
                     foreach($_SESSION['cart'] as $reservation){
                         //     echo $reservation["room"]->getId_room();
-                        ?>
+                ?>
                     <tr class="table-active">
-
                         <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
                             <?= $reservation["room"]->getId_room(); ?>
                         </td>
@@ -53,21 +54,17 @@ $totalPrice = 0.0;
                                 }
                             ?>
                         </td>
-                        <td class="modifMedia m-0 col-2 align-middle fs-5 text-center fw-semibold">
-                            <form action="<?= addLink("bookings","newBookings") ?>" method="post">
-                            <!-- <a href="<?= addLink("bookings","newBookings") ?>" class="btn btn-outline-primary fw-medium">Valider</a> -->
-                                <div class="form-group m-auto">
-                                    <button type="submit" name="book" class="btn bg-primary border link-light ">Valider   
-                                    </button>
-                                </div>
-                            </form>
-                                <a href="<?= ROOT ?>" class="btn btn-outline-danger fw-medium mt-1">retour accueil</a>
-                            </td>
-                        </tr> 
-                        <?php 
-                        }
-                    } 
-                    ?> 
+                    </tr> 
+                <?php 
+                    }
+                } 
+                ?> 
             </tbody>
-        </table>
+            </table>
+            <div class="form-group text-center">
+                <a href="<?= ROOT ?>" class="btn bg-danger link-light ">retour accueil</a>
+                <button type="submit" name="book" class="btn bg-primary  link-light ">Valider   
+                </button>
+            </div>
+    </form>
 </div>

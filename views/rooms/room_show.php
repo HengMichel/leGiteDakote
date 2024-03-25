@@ -1,6 +1,5 @@
 <?php 
 require "views/errors_form.php";
-
 ?>
 <div class="container">
     <div class="card-body bg-dark text-center m-0 border w-75 m-auto">
@@ -13,31 +12,27 @@ require "views/errors_form.php";
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Personnes
         </p>        
         <div class="bou bg-dark p-3">
-            
-<!-- Formulaire -->
-<!-- method="POST" redirection au controller 'detail' et methode 'newDetail' -->
+<!-- Formulaire method="POST" redirection au controller 'detail' et methode 'newDetail' -->
             <form method="get" action="<?= addLink('cart','addToCart', $rooms->getId_room()); ?>">
                 <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
              
                 <div class="calendar">
-    <!-- Par défaut, la date de début est définie sur la date actuelle  -->
+                <!-- Par défaut, la date de début est définie sur la date actuelle  -->
                     <div class="formBooking form-group col-md-6 ">
                         <label class="stD bg-black link-light">Début Date :</label>
                         <input type="date" class="form-control bg-light border fw-bolder border-3 border-black" name="booking_start_date" value="<?= date('Y-m-d') ?>" >
                     </div>
-    <!-- et la date de fin est définie sur le jour suivant -->
+                    <!-- et la date de fin est définie sur le jour suivant -->
                     <div class="formBooking form-group col-md-6 ">
                         <label class="edD bg-black">Fin Date :</label>
                         <input type="date" class="form-control bg-light border fw-bolder border-3 border-black" name="booking_end_date" value="<?= date('Y-m-d', strtotime('+1 day')) ?>">
                     </div>
                 </div>
-
-                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3">
+                <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3 mt-1">
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
-               
-                <button class="btn btn-primary fw-bolder" type="submit" name="passerLaCommande">Passer la commande</button>
+                <button class="btn btn-primary fw-bolder mt-1" type="submit" name="passerLaCommande">Passer la commande</button>
             </form>
         </div>
     </div>

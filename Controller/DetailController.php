@@ -30,44 +30,48 @@ class DetailController extends BaseController
 //################################ need debug
     public function newDetail()
     {
+        d_die($_SESSION);
         // Récupère les paramètres POST
-        $room_id = $_POST['id_room'] ?? null;
-        $booking_start_date = $_POST['booking_start_date'] ?? null;
-        $booking_end_date = $_POST['booking_end_date'] ?? null;
+        // $room_id = $_POST['id_room'] ?? null;
+        // $booking_start_date = $_POST['booking_start_date'] ?? null;
+        // $booking_end_date = $_POST['booking_end_date'] ?? null;
       
         // Charge les données de la chambre à partir de son identifiant
-        $room = $this->roomsRepository->findRoomsById($room_id);
+        // $room = $this->roomsRepository->findRoomsById($room_id);
 
         // Initialise $price à null par défaut
-        $price = null;
+        // $price = null;
 
         // Vérifie si la chambre existe
-        if ($room) {
+        // if ($room) {
             // Récupère le prix de la chambre
-            $price = $room->getPrice();
+            // $price = $room->getPrice();
 
             // Vérifie si le prix est valide
-            if ($price === null) {
-                // Gère le cas où le prix n'a pas pu être récupéré
-                echo "Erreur: Prix de la chambre non trouvé.";
-                return;
-            }
-        } else {
+        //     if ($price === null) {
+        //         // Gère le cas où le prix n'a pas pu être récupéré
+        //         echo "Erreur: Prix de la chambre non trouvé.";
+        //         return;
+        //     }
+        // } else {
             // Gère le cas où le prix n'a pas pu être récupéré
-            echo "Erreur: Chambre non trouvée.";
-            return;
-        }
+        //     echo "Erreur: Chambre non trouvée.";
+        //     return;
+        // }
 
         // On crée une instance de Detail
-        $detail = new Detail();
+        // $detail = new Detail();
         // Attribue les valeurs récupérées aux propriétés de l'objet Detail
-        $detail->setRoom_id($room_id);
-        $detail->setBooking_start_date($booking_start_date);
-        $detail->setBooking_end_date($booking_end_date);
+        // $detail->setRoom_id($room_id);
+        // $detail->setBooking_start_date($booking_start_date);
+        // $detail->setBooking_end_date($booking_end_date);
 // d_die($detail);
 
-        $this->form->handleFormDetail($detail,$room_id);
+        // $this->form->handleFormDetail($detail,$room_id);
 // d_die( $this->form->handleFormDetail($detail,$room_id));
+
+        $detail = $this->detail;
+        $this->form->handleFormDetail($detail);
 
         // Vérifie si le formulaire est soumis et valide
         if ($this->form->isSubmitted() && $this->form->isValid()) {
@@ -81,8 +85,8 @@ class DetailController extends BaseController
             $errors = $this->form->getEerrorsForm();
             // d_die($errors);
            
-            return $this->render("rooms/room_show.php", [
-                "rooms" => $room,
+            return $this->render("cart/form_cart.php", [
+                
                 "errors" => $errors
             ]);
         }

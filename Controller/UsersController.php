@@ -93,7 +93,7 @@ class UsersController extends BaseController
                 // alors si il n'est pas client mais admin donc  
             } elseif ($userRole == 'admin'){
                 
-                return redirection(addLink("home"));
+                return redirection(addLink("admin/users","dashboard"));
 
                 }
         }
