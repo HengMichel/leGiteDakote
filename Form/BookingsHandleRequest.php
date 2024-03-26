@@ -48,12 +48,12 @@ class BookingsHandleRequest extends BaseHandleRequest
                     // Calcul du prix total des réservations dans le panier
                     // Convertir le prix en float
                     $price = floatval($reservation['room']->getPrice()); 
-                    // d_die($price);
                     $totalPrice += $price;
                 }
                 // Définir le prix total et l'état de réservation
                 $bookings->setBooking_price($totalPrice);
                 $bookings->setBooking_state($_POST['booking_state']);
+                // d_die($bookings);
 
                 // Retourne true pour indiquer que le formulaire a été traité avec succès
                 return true;

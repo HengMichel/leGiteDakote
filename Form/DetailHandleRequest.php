@@ -26,10 +26,10 @@ class DetailHandleRequest extends BaseHandleRequest
     // public function handleFormDetail(Detail $detail, $room_id)
     public function handleFormDetail(Detail $detail)
     {
-// d_die($_POST);
-
-        if (isset($_POST['passerLaCommande'])) {
-// d_die($_POST);
+        d_die($_POST);
+        // if (isset($_POST['passerLaCommande'])) {
+        // if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // d_die($_POST);
 
             extract($_POST);
             $errors = [];
@@ -37,32 +37,28 @@ class DetailHandleRequest extends BaseHandleRequest
             // Convertit les dates en objets DateTime
             $startDateTime = new DateTime($booking_start_date);
             $endDateTime = new DateTime($booking_end_date);
-// d_die($startDateTime);
+            // d_die($startDateTime);
+
             // date du jour
             $today = new DateTime();
             // d_die($today);
 
-// Vérifie si la date de début de réservation est antérieure à la date actuelle
-            // if ($booking_start_date < $today) {
+            // Vérifie si la date de début de réservation est antérieure à la date actuelle
             if ($startDateTime->getTimestamp() < $today->getTimestamp()) {
 
                 $errors[] = "La date de début de réservation ne peut pas être antérieure à la date d'aujourd'hui.";
             }
-// d_die($errors);
-        // Vérifie si la date de fin de réservation est antérieure à la date actuelle
+            // Vérifie si la date de fin de réservation est antérieure à la date actuelle
             if ($endDateTime->getTimestamp() < $today->getTimestamp()) {
 
                 $errors[] = "La date de fin de réservation ne peut pas être antérieure à la date d'aujourd'hui.";
             }
-// d_die($errors);
 
-        // Vérifie si la date de début de réservation est postérieure à la date de fin de réservation
+            // Vérifie si la date de début de réservation est postérieure à la date de fin de réservation
             if ($startDateTime->getTimestamp() > $endDateTime->getTimestamp()) {
 
                 $errors[] = "La date de début de réservation ne peut pas être postérieure à la date de fin de réservation.";
             }
-
-
 
             // Calculer le nombre de jours de réservation
             $interval = $startDateTime->diff($endDateTime);
@@ -80,11 +76,17 @@ class DetailHandleRequest extends BaseHandleRequest
             } else {
                 // Si la réservation ne concerne qu'un seul jour, traiter la réservation normalement
                 // $this->insertDetail($detail, $room_id, $startDateTime);
+
+                
+
 //################### a verifier ##########################               // 
-                $detail->setId_detail($id);
+                // $detail->setId_detail($id);
             }
 // #########################################################
              
+
+
+
 
 // // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd dans bookings?
 
@@ -154,4 +156,4 @@ if (!empty($errors)) {
             
         }
     }
-}
+// }

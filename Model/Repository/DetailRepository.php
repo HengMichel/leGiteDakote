@@ -45,7 +45,6 @@ class DetailRepository extends BaseRepository
 
             // Utilisation de bindValue pour lier les valeurs
             $request->bindValue(":room_id", $detail->getRoom_id());
-
             $request->bindValue(":booking_id", $detail->getBooking_id());
             $request->bindValue(":booking_start_date", $detail->getBooking_start_date());
             $request->bindValue(":booking_end_date", $detail->getBooking_end_date());
@@ -83,8 +82,6 @@ class DetailRepository extends BaseRepository
         }
     }
 
-
-
     public function findDetailById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM detail WHERE room_id = :room_id");
@@ -109,7 +106,6 @@ class DetailRepository extends BaseRepository
             return $result !== false ? $result : null;
         } else {
             return null;
-            
         }
     }
 

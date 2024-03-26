@@ -55,7 +55,7 @@ class BookingsController extends BaseController
             // $success = $this->render("bookings/booking_show.php")
             if ($success) {
             // d_die($_SESSION);
-            // d_die($bookings);
+            // d_die($success);
                 // Redirige vers le tableau de bord
                 // return redirection(addLink("users","dashUsers"));
 

@@ -30,7 +30,7 @@ class DetailController extends BaseController
 //################################ need debug
     public function newDetail()
     {
-        d_die($_SESSION);
+        // d_die($_SESSION);
         // Récupère les paramètres POST
         // $room_id = $_POST['id_room'] ?? null;
         // $booking_start_date = $_POST['booking_start_date'] ?? null;
@@ -110,7 +110,6 @@ class DetailController extends BaseController
             return $this->render("bookings/form_bookings.php", [
                 "errors" => $errors
             ]);
-        
         }
     }
 }

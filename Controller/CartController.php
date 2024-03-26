@@ -6,6 +6,7 @@ use Model\Entity\Rooms;
 use Model\Entity\Detail;
 use Service\CartManager;
 use Form\CartHandleRequest;
+use Form\DetailHandleRequest;
 use Model\Repository\RoomsRepository;
 use Model\Repository\DetailRepository;
 
@@ -21,7 +22,7 @@ class CartController extends BaseController
     {
         $this->detailRepository = new DetailRepository;
         $this->roomsRepository = new RoomsRepository;
-        $this->form = new CartHandleRequest;
+        $this->form = new DetailHandleRequest;
         $this->rooms = new Rooms;
         $this->detail = new Detail;
     }
@@ -33,10 +34,31 @@ class CartController extends BaseController
      */
     public function addToCart($id)
     {   
+        try {
+            // d_die($_POST);
+            $cm = new CartManager();
+            $cm->addCart($id);
+            // Redirection en cas de succès
+            $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
+            header("Location: $redirectUrl");
+            exit();
+        } catch (\Exception $e) {
+            // Gestion des erreurs
+            $_SESSION['error'] = $e->getMessage();
+            $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
+            header("Location: $redirectUrl");
+            exit();
+        }
+    }
+    /**
+     * Summary of add
+     * @param mixed $id
+     * @return void
+     */
+    public function delectToCart($roomId)
+    {   
         $cm = new CartManager();
-        $cm->addCart($id);
-        // $nb = $cm->addCart($id);
-        // echo $nb;        
+        $cm->cancelCart($roomId);
     }
     /**
      * Summary of show
@@ -59,6 +81,7 @@ class CartController extends BaseController
         return $this->render("cart/form_cart.php", [            
          "h1" => "Date de réservation"
         ]);
+        
      }
 
 
@@ -66,13 +89,13 @@ class CartController extends BaseController
     {
         if (!empty($id) && is_numeric($id)) 
         {   
-    //         // Récupère les paramètres POST
-            // $user_id = $_POST['user_id'] ?? null;
-            // d_die($room_id,);
+        // Récupère les paramètres POST
+        // $user_id = $_POST['user_id'] ?? null;
+        // d_die($room_id,);
 
-    //         // Converti l'ID en entier
+            // Converti l'ID en entier
             $id = intval($id); 
-//             // d_die($id);  
+            // d_die($id);  
 
 // Instancie la classe DetailsRepository pour interagir avec la base de données
             $d = new DetailRepository;
@@ -106,7 +129,7 @@ class CartController extends BaseController
         // Instancie l'objet Detail avec les données appropriées
         $detail = new Detail();
         
-        $this->form->handleFormCart($detail);
+        // $this->form->handleFormCart($detail);
 
         if ($detail instanceof Detail) {
             $detail->setRoom_id($detail->getRoom_id());

@@ -1,5 +1,9 @@
 <?php 
-require "views/errors_form.php";
+if (isset($_SESSION['error'])) {
+    echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+    // Effacer le message d'erreur de la session après l'avoir affiché
+    unset($_SESSION['error']); 
+}
 ?>
 <div class="container">
     <div class="card-body bg-dark text-center m-0 border w-75 m-auto">
@@ -12,10 +16,13 @@ require "views/errors_form.php";
         <p class="card-text fw-medium link-light m-lg-3"><?= $rooms->getPersons() ?> Personnes
         </p>        
         <div class="bou bg-dark p-3">
-<!-- Formulaire method="POST" redirection au controller 'detail' et methode 'newDetail' -->
-            <form method="get" action="<?= addLink('cart','addToCart', $rooms->getId_room()); ?>">
+
+            <!-- Formulaire method="POST" redirection au controller 'detail' et methode 'newDetail' -->
+            <form method="post" action="<?= addLink('cart','addToCart', $rooms->getId_room()); ?>">
                 <input type="hidden" name="id_room" value="<?= $rooms->getId_room() ?>">
                 <input type="hidden" name="price" value="<?= $rooms->getPrice() ?>">
+                <input type="hidden" name="redirect_url" value="<?= $_SERVER['REQUEST_URI'] ?>">
+
              
                 <div class="calendar">
                 <!-- Par défaut, la date de début est définie sur la date actuelle  -->
@@ -34,6 +41,7 @@ require "views/errors_form.php";
                 </a>
                 <button class="btn btn-primary fw-bolder mt-1" type="submit" name="passerLaCommande">Passer la commande</button>
             </form>
+
         </div>
     </div>
 </div>

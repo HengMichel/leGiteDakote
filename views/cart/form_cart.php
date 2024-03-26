@@ -16,6 +16,7 @@ $totalPrice = 0.0;
                     <th class="start_date align-middle fs-5 text-center fw-semibold">Date début</th>
                     <th class="end_date align-middle fs-5 text-center fw-semibold">Date fin</th>
                     <th class="price align-middle fs-5 text-center fw-semibold">Prix</th>
+                    <th class="price align-middle fs-5 text-center fw-semibold">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +25,7 @@ $totalPrice = 0.0;
                 if (!empty($_SESSION['cart'])) {
                     // d_die($_SESSION['cart']);
                     foreach($_SESSION['cart'] as $reservation){
-                        //     echo $reservation["room"]->getId_room();
+                            // d_die($reservation);
                 ?>
                     <tr class="table-active">
                         <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
@@ -49,10 +50,14 @@ $totalPrice = 0.0;
                                 // Vérifie si l'objet $price existe et n'est pas null
                                 if ($reservation["room"]->getPrice() !== null) { 
                                     echo number_format($reservation["room"]->getPrice(), 2);
+                                    // d_die($reservation["room"]->getPrice(), 2);
                                 } else {
                                     echo "Prix non disponible";
                                 }
                             ?>
+                        </td>
+                        <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
+                        <a href="<?= addLink("cart","delectToCart", $reservation["room"]->getId_room()) ?>" class="btn bg-danger link-light ">annuler</a>
                         </td>
                     </tr> 
                 <?php 
@@ -60,11 +65,25 @@ $totalPrice = 0.0;
                 } 
                 ?> 
             </tbody>
-            </table>
-            <div class="form-group text-center">
-                <a href="<?= ROOT ?>" class="btn bg-danger link-light ">retour accueil</a>
-                <button type="submit" name="book" class="btn bg-primary  link-light ">Valider   
-                </button>
-            </div>
+            <tfoot>
+
+                <tr class="table-active">
+                    <td class="total_reservation border-secondary border-2 mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="3">Total de vos réservations:</td>
+                    <td class="price border-primary border-4 mt-2 alert-link  col-2 align-middle fs-5 text-center fw-semibold"><?= 
+                    
+                    // $totalPrice;
+                    isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00'; 
+                    // d_die($totalPrice);
+
+                    ?></td>
+                    <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
+                        <button type="submit" name="book" class="btn bg-primary  link-light ">Valider   
+                        </button>
+                      
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+            <a href="<?= ROOT ?>" class="btn bg-danger link-light">retour accueil</a>
     </form>
 </div>
