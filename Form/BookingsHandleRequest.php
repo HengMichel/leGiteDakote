@@ -29,7 +29,7 @@ class BookingsHandleRequest extends BaseHandleRequest
 
         // Vérifier si le formulaire est soumis
         if (isset($_POST['book'])) {
-            // extract($_POST);
+            extract($_POST);
             // d_die($_POST);
             // d_die($_SESSION);
 

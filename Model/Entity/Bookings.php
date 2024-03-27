@@ -7,10 +7,7 @@ use Model\Entity\BaseEntity;
 class Bookings extends BaseEntity
 {
     private $id_booking;
-    // private $booking_start_date;
-    // private $booking_end_date;
     private $user_id;
-    // private $room_id;
     private $booking_price;
     private $booking_state = 'in progress';
 

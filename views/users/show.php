@@ -42,7 +42,7 @@
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center m-auto">
     
-      <a href="<?= addLink("users","dashUsers") ?>" class="btn bg-primary link-light fw-medium">dashboard</a>
+      <a href="<?= addLink("cart","detailCart") ?>" class="btn bg-primary link-light fw-medium">mon panier</a>
     </li>
   </ul>
 </div>

@@ -17,9 +17,8 @@ class CartManager
     }
 
     public function addCart($id){
-        
+        // d_die($totalPrice);
         extract($_POST);
-
         $quantity = $_POST["qte"] ?? 1;
         $pr = $this->roomsRepository;
         /** @var Rooms */
@@ -54,7 +53,9 @@ class CartManager
         $totalPrice = $nbDays * $room->getPrice() * $quantity;
         // d_die($totalPrice);
 
-
+        // Mets à jour le prix total avec la methode calculateTotalPrice()
+        $this->calculateTotalPrice();
+        // d_die($this->calculateTotalPrice());
 
         if(!isset($_SESSION["cart"])) {
             $_SESSION["cart"] = [];
@@ -74,21 +75,26 @@ class CartManager
         }
         
         if (!$roomDejaDanscart) {
-            $cart[] = ["quantity" => $quantity, "room" => $room, "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "total_price" => $totalPrice];  
+            $cart[] = ["quantity" => $quantity, "room" => $room, "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "totalPrice" => $totalPrice];  
             // on ajoute une value au cart => $cart est un array d'array
         }
-
-        // Mets à jour le prix total avec la methode calculateTotalPrice()
-        $this->calculateTotalPrice();
-
+        
+        
         // je remets $cart dans la session, à l'indice 'cart'
-        $_SESSION["cart"] = $cart;  
+        $_SESSION["cart"] = $cart; 
+        // d_die($_SESSION["cart"]);
         
         $nb = 0;
         foreach ($cart as $value){
             $nb += $value["quantity"];
         }
         $_SESSION["nombre"] = $nb;
+
+        // Recalculez le prix total après avoir mis à jour le panier
+        $this->calculateTotalPrice();
+        // d_die($this->calculateTotalPrice());
+        
+        
         // Redirige vers le tableau de bord
         return redirection(addLink("cart","detailCart"));
     }
@@ -110,10 +116,16 @@ class CartManager
 
     public function calculateTotalPrice() {
         $totalPrice = 0.0;
-    
+        // d_die($_SESSION['cart']);
+
         if(isset($_SESSION['cart'])) {
             foreach($_SESSION['cart'] as $reservation) {
-                $totalPrice += $reservation['room']->getPrice() * $reservation['quantity'];
+                
+                $bookingStartDate = new DateTime($reservation['date_debut']);
+            $bookingEndDate = new DateTime($reservation['date_fin']);
+            $nbDays = $bookingStartDate->diff($bookingEndDate)->days;
+
+                $totalPrice += $reservation['room']->getPrice() * $reservation['quantity'] * $nbDays;
             }
         }
     

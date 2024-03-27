@@ -27,6 +27,9 @@ class BookingsRepository extends BaseRepository
             // Exécute la requête
             $request->execute();
 
+            // Récupère l'ID de la dernière réservation insérée
+            $lastInsertId = $this->dbConnection->lastInsertId();
+
             // Utilisation de rowCount pour vérifier le nombre de lignes affectées
             if ($request->rowCount() > 0) {
                 // Retourne true si la requête a réussi
@@ -35,16 +38,32 @@ class BookingsRepository extends BaseRepository
                 // Retourne false si aucune ligne n'a été affectée
                 return false;
             }
+
+            // Retourne l'ID de la réservation
+            return $lastInsertId; 
+
         } catch (PDOException $e) {
             // Gestion des exceptions PDO
             error_log("PDOException in addBookings: " . $e->getMessage());
             return false;
         }
-    
+    }
+
+    public function getLastInsertedBookingId()
+    {
+        try {
+            // Utilise la méthode lastInsertId() de l'objet PDO pour récupérer l'ID de la dernière réservation insérée
+            return $this->dbConnection->lastInsertId('id_booking');
+        } catch (PDOException $e) {
+            error_log("PDOException in getLastInsertedBookingId: " . $e->getMessage());
+            return null;
+        }
     }
 
 
-    public function cancelBooking($id){
+
+    public function cancelBooking($id)
+    {
         
         try {
 // Avant la recherche de la réservation
@@ -131,7 +150,7 @@ class BookingsRepository extends BaseRepository
               $request->execute();
       
             // return $request->fetch(\PDO::FETCH_ASSOC);
-            // Utiliser FETCH_CLASS pour récupérer un objet de type réservation
+            // Utilise FETCH_CLASS pour récupérer un objet de type réservation
             return $request->fetchObject("Model\Entity\Bookings");
 
         } catch (PDOException $e) {
@@ -185,55 +204,26 @@ class BookingsRepository extends BaseRepository
     }
 
 
-    // public function populateBookingsEntity(Bookings $bookings, array $data)
-    // {
-    //     $bookings->setRoom_id($data['room_id']);
-    //     $bookings->setBooking_price($data['booking_price']);
-    //     $bookings->setBooking_start_date($data['booking_start_date']);
-    //     $bookings->setBooking_end_date($data['booking_end_date']);
-    // }
+    public function getRoomIdByBookingId($bookingId)
+{
+    try {
+        $sql = "SELECT room_id FROM detail WHERE booking_id = :booking_id";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":booking_id", $bookingId);
+        $request->execute();
 
+        // Utilisez fetchColumn pour récupérer la première colonne de la première ligne du résultat de la requête
+        $roomId = $request->fetchColumn();
 
-    // public function findTableRooms(Bookings $bookings){
+        // Retourne l'ID de la chambre associée à la réservation
+        return $roomId !== false ? $roomId : null;
+    } catch (PDOException $e) {
+        // Gérer l'exception
+        error_log("PDOException in getRoomIdByBookingId: " . $e->getMessage());
+        return null;
+    }
+}
 
-    //     $sql= "SELECT 
-    //     b.`id_booking`,
-    //     b.`booking_start_date`,
-    //     b.`booking_end_date`,
-    //     b.`user_id`,
-    //     b.`room_id`,
-    //     b.`booking_price`,
-    //     b.`booking_state`,
-    //     r.`id_room`,
-    //     r.`room_number`,
-    //     r.`price`,
-    //     r.`room_imgs`,
-    //     r.`persons`,
-    //     r.`category`,
-    //     r.`room_state`
-    // FROM 
-    //     `bookings` AS b
-    // JOIN 
-    //     `rooms` AS r ON b.`room_id` = r.`id_room`
-    // WHERE 
-    //     r.`room_imgs` IS NOT NULL
-    //     AND r.`room_imgs` != '' 
-    //     AND b.`room_id` = :room_id";
-
-    // $request = $this->dbConnection->prepare($sql);
-
-    // // S'assurer de lier la valeur pour :room_id; 
-    // $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);  
-
-    // // Récupère les résultats
-    // $results = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-    // // Exécute la requête avant de récupérer les résultats
-    // $request->execute();  
-
-    // // Traite les résultats comme nécessaire
-    // return $results;
-    // }
 
 
     public function findUserBookings($userId)

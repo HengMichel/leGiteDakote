@@ -22,7 +22,7 @@ class CartController extends BaseController
     {
         $this->detailRepository = new DetailRepository;
         $this->roomsRepository = new RoomsRepository;
-        $this->form = new DetailHandleRequest;
+        // $this->form = new DetailHandleRequest;
         $this->rooms = new Rooms;
         $this->detail = new Detail;
     }
@@ -50,6 +50,19 @@ class CartController extends BaseController
             exit();
         }
     }
+
+    /**
+     * Summary of show
+     * @return void
+     */
+    public function detailCart()
+    {
+       return $this->render("cart/form_cart.php", [            
+        "h1" => "Date de réservation"
+       ]);
+       
+    }
+
     /**
      * Summary of add
      * @param mixed $id
@@ -60,10 +73,6 @@ class CartController extends BaseController
         $cm = new CartManager();
         $cm->cancelCart($roomId);
     }
-    /**
-     * Summary of show
-     * @return void
-     */
 
     //  public function showCart()
     //  {
@@ -76,13 +85,6 @@ class CartController extends BaseController
     //      ]);
     //  }
 
-     public function detailCart()
-     {
-        return $this->render("cart/form_cart.php", [            
-         "h1" => "Date de réservation"
-        ]);
-        
-     }
 
 
     public function show($id)
@@ -97,20 +99,20 @@ class CartController extends BaseController
             $id = intval($id); 
             // d_die($id);  
 
-// Instancie la classe DetailsRepository pour interagir avec la base de données
+            // Instancie la classe DetailsRepository pour interagir avec la base de données
             $d = new DetailRepository;
 
-// Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
+            // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailById($id);
 //             d_die($id);  
 
-//             // d_die($room);
-//             // Vérifie si la chambre existe
+            // d_die($room);
+            // Vérifie si la chambre existe
             if (empty($detail)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
-// Affiche la vue de détails de la chambre avec les informations récupérées
+            // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("cart/form_cart.php", [
             "detail" => $detail,
             "h1" => "Fiche de la chambre"
@@ -121,6 +123,12 @@ class CartController extends BaseController
         }
 
     }
+
+
+
+
+
+
     
 // #################################################################
 //  methode a faire pour le panier
