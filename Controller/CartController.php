@@ -34,9 +34,25 @@ class CartController extends BaseController
      */
     public function addToCart($id)
     {   
+        // d_die($_POST);
+        // array(6) {
+        //   ["id_room"]=>
+        //   string(2) "25"
+        //   ["price"]=>
+        //   string(2) "50"
+        //   ["redirect_url"]=>
+        //   string(27) "/leGiteDakote/rooms/show/25"
+        //   ["booking_start_date"]=>
+        //   string(10) "2024-03-29"
+        //   ["booking_end_date"]=>
+        //   string(10) "2024-03-30"
+        //   ["passerLaCommande"]=>
+        //   string(0) ""
+        // }
         try {
-            // d_die($_POST);
             $cm = new CartManager();
+
+            // Appeler la méthode addCart avec l'identifiant 
             $cm->addCart($id);
             // Redirection en cas de succès
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
@@ -74,27 +90,10 @@ class CartController extends BaseController
         $cm->cancelCart($roomId);
     }
 
-    //  public function showCart()
-    //  {
-    //      $detail = new Detail;
-    //      $detail = $this->detailRepository->findAll($detail);
- 
-    //      return $this->render("cart/form_cart.php", [            
-    //      "h1" => "Date de réservation",
-    //      'detail' => $detail,
-    //      ]);
-    //  }
-
-
-
     public function show($id)
     {
         if (!empty($id) && is_numeric($id)) 
         {   
-        // Récupère les paramètres POST
-        // $user_id = $_POST['user_id'] ?? null;
-        // d_die($room_id,);
-
             // Converti l'ID en entier
             $id = intval($id); 
             // d_die($id);  
@@ -104,9 +103,8 @@ class CartController extends BaseController
 
             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailById($id);
-//             d_die($id);  
+            //  d_die($id);  
 
-            // d_die($room);
             // Vérifie si la chambre existe
             if (empty($detail)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
@@ -121,7 +119,6 @@ class CartController extends BaseController
             // Redirige vers une page d'erreur si l'ID n'est pas valide
             error("404.php");
         }
-
     }
 
 

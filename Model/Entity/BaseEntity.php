@@ -6,9 +6,9 @@ class BaseEntity
 {
     protected $id;
     // new code
-    protected $created_at;
-    protected $updated_at;
-    protected $is_deleted;
+    // protected $created_at;
+    // protected $updated_at;
+    // protected $is_deleted;
 
    
 
@@ -53,61 +53,61 @@ class BaseEntity
     /**
      * Get the value of created_at
      */ 
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
+    // public function getCreatedAt()
+    // {
+    //     return $this->created_at;
+    // }
 
     /**
      * Set the value of created_at
      *
      * @return  self
      */ 
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
+    // public function setCreatedAt($createdAt)
+    // {
+    //     $this->created_at = $createdAt;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of updated_at
      */ 
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
+    // public function getUpdatedAt()
+    // {
+    //     return $this->updated_at;
+    // }
 
     /**
      * Set the value of updated_at
      *
      * @return  self
      */ 
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
+    // public function setUpdatedAt($updatedAt)
+    // {
+    //     $this->updated_at = $updatedAt;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of is_deleted
      */ 
-    public function getIsDeleted()
-    {
-        return $this->is_deleted;
-    }
+    // public function getIsDeleted()
+    // {
+    //     return $this->is_deleted;
+    // }
 
     /**
      * Set the value of is_deleted
      *
      * @return  self
      */ 
-    public function setIsDeleted($isDeleted)
-    {
-        $this->is_deleted = $isDeleted;
+    // public function setIsDeleted($isDeleted)
+    // {
+    //     $this->is_deleted = $isDeleted;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
 }

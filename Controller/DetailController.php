@@ -31,7 +31,7 @@ class DetailController extends BaseController
     {
         // Récupère l'ID de la réservation insérée
         $bookingId = $this->bookingsRepository->getLastInsertedBookingId();
-        d_die($bookingId);
+        // d_die($bookingId);
          // Maintenant, récupére l'ID de la chambre associée à cette réservation à partir de la base de données
         $roomId = $this->bookingsRepository->getRoomIdByBookingId($bookingId);
         // d_die($roomId);

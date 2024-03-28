@@ -137,10 +137,6 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-    
-
-
-
     public function findBookingById($id){
 
         try {
@@ -158,7 +154,6 @@ class BookingsRepository extends BaseRepository
             throw new Exception("Erreur lors de la recherche de la réservation par ID : " . $e->getMessage());
         } 
     }
-        
     
     public function findBookingsRoomsById($id)
     {
@@ -195,11 +190,8 @@ class BookingsRepository extends BaseRepository
         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
         
         $request = $this->dbConnection->prepare($sql);
-        
         $request->bindValue(":id_booking",$detail->getBooking_id());
-        
         $request->execute();
-        
         return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
 

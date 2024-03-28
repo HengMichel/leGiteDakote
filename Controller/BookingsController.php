@@ -47,9 +47,11 @@ class BookingsController extends BaseController
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
 
-        if ($this->form->isSubmitted() && $this->form->isValid()) {     
+        if ($this->form->isSubmitted() && $this->form->isValid()) {  
+            
+            // d_die($this->bookings);
             // Ajoute la réservation à la base de données
-            $success = $this->bookingsRepository->addBookings($this->bookings);
+            $success = $this->bookingsRepository->addBookings($this->bookings, $_SESSION['totalPrice']);
             // d_die($success); return bool(true)
             
             if ($success) {
