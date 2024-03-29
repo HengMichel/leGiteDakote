@@ -23,20 +23,20 @@ class BookingsHandleRequest extends BaseHandleRequest
 
     public function handleForm(Bookings $bookings, $user_id)
     {
-// d_die($_SESSION);
-// d_die($_POST); 
-        $errors = [];
+        // d_die($_SESSION);
+        // d_die($_POST); 
 
         // Convertir $user_id en entier
         $user_id = intval($user_id); 
 
         // Vérifier si le formulaire est soumis
         if (isset($_POST['book'])&& $user_id !== 0) {
-             // Utiliser $user_id pour définir la propriété user_id de l'objet Bookings
-    
+            // Utilise $user_id pour définir la propriété user_id de l'objet Bookings
+           
             extract($_POST);
             // d_die($_POST);
             // d_die($_SESSION);
+            $errors = [];
 
             // S'assurer que l'utilisateur est connecté
             if (!$user_id) {
@@ -46,17 +46,11 @@ class BookingsHandleRequest extends BaseHandleRequest
                 $bookings->setUser_id($user_id);
                 // d_die($bookings->setUser_id($user_id));
 
-                $totalPrice = 0;
-                // Traiter chaque réservation dans le panier
-                foreach ($_SESSION['cart'] as $reservation) {
-     
-                    // Calcul du prix total des réservations dans le panier
-                    // Convertir le prix en float
-                    $price = floatval($reservation['room']->getPrice()); 
-                    $totalPrice += $price;
-                }
+                // Récupérer le prix total de la session
+                $totalPrice = $_SESSION['totalPrice'] ?? 0;
+                // d_die($totalPrice);
+                // d_die($bookings->setBooking_price($totalPrice));
 
-                d_die($bookings->setBooking_price($totalPrice));
                 // Définir le prix total et l'état de réservation
                 $bookings->setBooking_price($totalPrice);
                 $bookings->setBooking_state($_POST['booking_state']);
@@ -71,6 +65,5 @@ class BookingsHandleRequest extends BaseHandleRequest
         // d_die($_POST); 
         $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";
         return false;                   
-    }
-    
+    }  
 }

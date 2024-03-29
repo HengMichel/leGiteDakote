@@ -12,6 +12,8 @@ class BookingsRepository extends BaseRepository
 {
     public function addBookings(Bookings $bookings)
     {
+        // d_die($bookings);
+
         $sql = "INSERT INTO bookings (user_id, booking_price, booking_state) VALUES ( :user_id, :booking_price, :booking_state)";
 
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
@@ -20,15 +22,11 @@ class BookingsRepository extends BaseRepository
 
             // Utilisation de bindValue pour lier les valeurs
             $request->bindValue(":user_id", $bookings->getUser_id());
-
             $request->bindValue(":booking_price", $bookings->getBooking_price());
             $request->bindValue(":booking_state", $bookings->getBooking_state());
 
             // Exécute la requête
             $request->execute();
-
-            // Récupère l'ID de la dernière réservation insérée
-            $lastInsertId = $this->dbConnection->lastInsertId();
 
             // Utilisation de rowCount pour vérifier le nombre de lignes affectées
             if ($request->rowCount() > 0) {
@@ -38,9 +36,6 @@ class BookingsRepository extends BaseRepository
                 // Retourne false si aucune ligne n'a été affectée
                 return false;
             }
-
-            // Retourne l'ID de la réservation
-            return $lastInsertId; 
 
         } catch (PDOException $e) {
             // Gestion des exceptions PDO

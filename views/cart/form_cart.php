@@ -25,7 +25,7 @@ $totalPrice = 0.0;
                 if (!empty($_SESSION['cart'])) {
                     // d_die($_SESSION['cart']);
                     foreach($_SESSION['cart'] as $reservation){
-                            // d_die($reservation);
+                        // d_die($reservation);
                 ?>
                     <tr class="table-active">
                         <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
@@ -50,7 +50,10 @@ $totalPrice = 0.0;
                                 // Vérifie si l'objet $price existe et n'est pas null
                                 if ($reservation["room"]->getPrice() !== null) { 
                                     echo number_format($reservation["room"]->getPrice(), 2);
-                                    // d_die($reservation["room"]->getPrice(), 2);
+                                    // Ajoute le prix de cette réservation au total
+                                    $totalPrice += $reservation["totalPrice"];
+                                    // $totalPrice += $reservation["room"]->getPrice();
+                                    
                                 } else {
                                     echo "Prix non disponible";
                                 }
@@ -72,7 +75,7 @@ $totalPrice = 0.0;
                     <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold"><?= 
                     // $totalPrice;
                     isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00'; 
-                    // d_die($totalPrice);
+                    // d_die($_SESSION["totalPrice"]);
                     ?></td>
                     <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
                         <button type="submit" name="book" class="btn bg-primary  link-light ">Payer   
