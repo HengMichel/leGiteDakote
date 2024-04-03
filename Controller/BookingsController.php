@@ -48,16 +48,21 @@ class BookingsController extends BaseController
         $this->form->handleForm($this->bookings, $user_id);
         // d_die($this->form->handleForm($this->bookings, $user_id));
 
-
         if ($this->form->isSubmitted() && $this->form->isValid()) {  
             
             // Ajoute la réservation à la base de données
             $success = $this->bookingsRepository->addBookings($this->bookings, $_SESSION['totalPrice']);
             // d_die($success); 
-         
             
             if ($success) {
-                return redirection(addLink("detail","newDetail"));
+                // Récupérer l'id_booking nouvellement créé
+                $id_booking = $this->bookings->getId_booking();
+
+        d_die($id_booking);
+                // Créer l'URL de redirection avec l'id_booking en tant que paramètre
+                $redirectUrl = addLink("detail", "newDetail", ["id" => $id_booking]);
+                // Rediriger l'utilisateur vers la création d'un nouveau détail de réservation
+                return redirection($redirectUrl);
             } else {
                 // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                 $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];

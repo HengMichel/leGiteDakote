@@ -28,8 +28,7 @@ class DetailController extends BaseController
     }
 
 
-// ###############  manque requete sql + insertion dans bdd #################
-// ############### + check views + bdd #########################
+
     public function newDetail()
     {
          // Récupérer les valeurs booking_start_date et booking_end_date depuis la session
@@ -37,7 +36,7 @@ class DetailController extends BaseController
          $bookingEndDate = $_SESSION['booking_end_date'] ?? null;
  
          // Récupère l'ID de la réservation insérée
-         $bookingId = $this->bookingsRepository->getLastInsertedBookingId();
+        //  $bookingId = $this->bookingsRepository->findBookingById($bookingId);
  
          // Maintenant, récupérer l'ID de la chambre associée à cette réservation à partir de la base de données
          $roomId = $this->bookingsRepository->getRoomIdByBookingId($bookingId);
@@ -49,7 +48,7 @@ class DetailController extends BaseController
              'detail' => $detail,
              "h1" => "Facture"
          ]);
-     
+    
     }
 // ############################################################################
 

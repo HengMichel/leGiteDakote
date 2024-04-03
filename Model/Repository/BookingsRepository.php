@@ -44,19 +44,6 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-    public function getLastInsertedBookingId()
-    {
-        try {
-            // Utilise la méthode lastInsertId() de l'objet PDO pour récupérer l'ID de la dernière réservation insérée
-            return $this->dbConnection->lastInsertId('id_booking');
-        } catch (PDOException $e) {
-            error_log("PDOException in getLastInsertedBookingId: " . $e->getMessage());
-            return null;
-        }
-    }
-
-
-
     public function cancelBooking($id)
     {
         
@@ -132,24 +119,35 @@ class BookingsRepository extends BaseRepository
         }
     }
 
+
+
+    
     public function findBookingById($id){
-
+        // d_die($id);
         try {
-              $sql = "SELECT * FROM bookings WHERE id_booking = :id";
-              $request = $this->dbConnection->prepare($sql);
-              $request->bindValue(":id", $id);
-              $request->execute();
-      
-            // return $request->fetch(\PDO::FETCH_ASSOC);
-            // Utilise FETCH_CLASS pour récupérer un objet de type réservation
-            return $request->fetchObject("Model\Entity\Bookings");
-
+            $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
+            $request = $this->dbConnection->prepare($sql);
+            $request->bindValue(":id_booking", $id, \PDO::PARAM_INT);
+            $request->execute(); // Exécutez la requête ici
+    // d_die($request);
+            // Récupérez les résultats après l'exécution de la requête
+            $bookingData = $request->fetch(\PDO::FETCH_ASSOC);
+            // d_die($bookingData); 
+            // Utilisez ce débogage si nécessaire
+    
+            return $bookingData;
         } catch (PDOException $e) {
             // Gérer l'erreur
             throw new Exception("Erreur lors de la recherche de la réservation par ID : " . $e->getMessage());
         } 
     }
     
+    
+
+
+
+
+
     public function findBookingsRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE room_id = :room_id");

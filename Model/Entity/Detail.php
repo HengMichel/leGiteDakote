@@ -37,7 +37,6 @@ class Detail extends BaseEntity
     public function getRoom_id()
     {
         return $this->room_id;
-
     }
 
     /**
@@ -109,6 +108,5 @@ class Detail extends BaseEntity
 
         return $this;
     }
-
 
 }

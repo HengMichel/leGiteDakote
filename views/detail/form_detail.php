@@ -20,10 +20,11 @@
                 </td>
      
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= $detail->getBooking_start_date(); ?>
+                <?= date_format(date_create($detail->getBooking_start_date()), 'd.m.Y'); ?>
+
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= $detail->getBooking_end_date(); ?>
+                <?= date_format(date_create($detail->getBooking_end_date()), 'd.m.Y'); ?>
                 </td>
             </tr> 
         </tbody>
