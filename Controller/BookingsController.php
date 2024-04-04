@@ -51,16 +51,11 @@ class BookingsController extends BaseController
         if ($this->form->isSubmitted() && $this->form->isValid()) {  
             
             // Ajoute la réservation à la base de données
-            $success = $this->bookingsRepository->addBookings($this->bookings, $_SESSION['totalPrice']);
-            // d_die($success); 
-            
-            if ($success) {
-                // Récupérer l'id_booking nouvellement créé
-                $id_booking = $this->bookings->getId_booking();
-
-        d_die($id_booking);
+            $id_booking = $this->bookingsRepository->addBookings($this->bookings);
+        // d_die($id_booking);
+            if ($id_booking) {
                 // Créer l'URL de redirection avec l'id_booking en tant que paramètre
-                $redirectUrl = addLink("detail", "newDetail", ["id" => $id_booking]);
+                $redirectUrl = addLink("detail", "newDetail", $id_booking);
                 // Rediriger l'utilisateur vers la création d'un nouveau détail de réservation
                 return redirection($redirectUrl);
             } else {

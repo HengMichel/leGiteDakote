@@ -21,21 +21,15 @@ class BookingsRepository extends BaseRepository
             $request = $this->dbConnection->prepare($sql);
 
             // Utilisation de bindValue pour lier les valeurs
-            $request->bindValue(":user_id", $bookings->getUser_id());
+            $request->bindValue(":user_id", $bookings->getUser_id(), \PDO::PARAM_INT);
             $request->bindValue(":booking_price", $bookings->getBooking_price());
             $request->bindValue(":booking_state", $bookings->getBooking_state());
 
             // Exécute la requête
             $request->execute();
 
-            // Utilisation de rowCount pour vérifier le nombre de lignes affectées
-            if ($request->rowCount() > 0) {
-                // Retourne true si la requête a réussi
-                return true;
-            } else {
-                // Retourne false si aucune ligne n'a été affectée
-                return false;
-            }
+            // Retourne l'ID de la réservation nouvellement créée
+            return $this->dbConnection->lastInsertId();
 
         } catch (PDOException $e) {
             // Gestion des exceptions PDO
@@ -106,20 +100,6 @@ class BookingsRepository extends BaseRepository
 
 //  ###################################################################################################################
 
-    public function findBookingsForRoom($id)
-    {
-        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE room_id = :room_id");
-        $request->bindParam(':room_id', $id);
-    
-        if ($request->execute()) {
-            $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
-            return $results;
-        } else {
-            return null;
-        }
-    }
-
-
 
     
     public function findBookingById($id){
@@ -142,25 +122,6 @@ class BookingsRepository extends BaseRepository
         } 
     }
     
-    
-
-
-
-
-
-    public function findBookingsRoomsById($id)
-    {
-        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE room_id = :room_id");
-        $request->bindParam(':room_id',$id);
-
-        if($request->execute()) {
-            if ($request->rowCount() == 1) {
-                $class = "Model\Entity\\" . ucfirst('bookings');
-                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
-                return $request->fetch();
-            }
-        }
-    }
 
    // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
@@ -211,19 +172,19 @@ class BookingsRepository extends BaseRepository
 
 
 
-    public function findUserBookings($userId)
+    public function findUserBookings($id)
     {
     $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
-    $request->bindParam(":user_id", $userId, \PDO::PARAM_INT);
+    $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
     // Affiche la requête SQL pour le débogage
     // var_dump($request->queryString);
 
     if ($request->execute()) {
-        $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Bookings");
+        // Utilise fetchObject pour récupérer un objet de la classe Bookings
+        $results = $request->fetchObject("Model\Entity\Bookings");
         // Affiche les résultats pour le débogage
         //   var_dump($results);
         return $results;
-
     } else {
         return null;
         }

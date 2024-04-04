@@ -36,6 +36,7 @@ class CartController extends BaseController
 
             // Appeler la méthode addCart avec l'identifiant 
             $cm->addCart($id);
+            // d_die($cm);
             // Redirection en cas de succès
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
             header("Location: $redirectUrl");

@@ -35,35 +35,23 @@ class DetailRepository extends BaseRepository
         }
     }
 
-    public function addDetail(Detail $detail)
+    public function addDetail($bookingId)
     {
-        $sql = "INSERT INTO detail (room_id, booking_id, booking_start_date, booking_end_date) VALUES (:room_id, :booking_id, :booking_start_date, :booking_end_date";
-
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
         try {
+// En résumé, cette requête récupère l'ID de la réservation et l'ID de la chambre associés à une réservation spécifique à partir de la table detail, en reliant les tables detail, bookings et rooms à l'aide de jointures internes.
+            $sql = "SELECT d.booking_id, r.room_id FROM detail d 
+                INNER JOIN bookings b ON d.booking_id = b.id_booking
+                INNER JOIN rooms r ON d.room_id = r.id_room
+                WHERE d.booking_id = :booking_id";
             $request = $this->dbConnection->prepare($sql);
-
-            // Utilisation de bindValue pour lier les valeurs
-            $request->bindValue(":room_id", $detail->getRoom_id());
-            $request->bindValue(":booking_id", $detail->getBooking_id());
-            $request->bindValue(":booking_start_date", $detail->getBooking_start_date());
-            $request->bindValue(":booking_end_date", $detail->getBooking_end_date());
-
-            // Exécute la requête
+            $request->bindValue(":booking_id", $bookingId, \PDO::PARAM_INT);
+    // d_die($request);
             $request->execute();
-
-            // Utilisation de rowCount pour vérifier le nombre de lignes affectées
-            if ($request->rowCount() > 0) {
-                // Retourne true si la requête a réussi
-                return true;
-            } else {
-                // Retourne false si aucune ligne n'a été affectée
-                return false;
-            }
+            return $request->fetch(\PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // Gestion des exceptions PDO
-            error_log("PDOException in addBookings: " . $e->getMessage());
-            return false;
+            error_log("PDOException in getBookingAndRoomIdsByBookingId: " . $e->getMessage());
+            return null;
         }
     }
 
