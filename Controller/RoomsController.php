@@ -2,19 +2,18 @@
 
 namespace Controller;
 
-use Model\Repository\DetailRepository;
+use Model\Repository\DetailsRepository;
 use Model\Repository\RoomsRepository;
 
 class RoomsController extends BaseController
 {
-
     private $roomsRepository;
-    private $detailRepository;
+    private $detailsRepository;
 
     public function __construct()
     {   // Initialisez le repository
         $this->roomsRepository = new RoomsRepository;
-        $this->detailRepository = new DetailRepository;
+        $this->detailsRepository = new DetailsRepository;
         
     }
 
@@ -42,23 +41,18 @@ class RoomsController extends BaseController
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
-
             // Récupérer les réservations pour cette chambre
-            $detail = $this->detailRepository->findDetailById($id);
+            $details = $this->detailsRepository->findDetailById($id);
 
             // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("rooms/room_show.php", [
             "rooms" => $rooms,
-            
-            // Passer les réservations à la vue
-            "detail" => $detail, 
+            "details" => $details, 
             "h1" => "Fiche de la chambre"
             ]);
         } else {
             // Redirige vers une page d'erreur si l'ID n'est pas valide
             error("404.php");
         }
-
     }
-
 }

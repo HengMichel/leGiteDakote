@@ -8,7 +8,6 @@ $totalPrice = 0.0;
     <form action="<?= addLink("bookings","newBookings") ?>" method="post">
         <input type="hidden" name="user_id" value="<?= $user_id ?>">
         <input type="hidden" name="booking_state" value="<?= $booking_state ?>">
-
         <table class="table table-hover mt-5 container ">
             <thead>     
                 <tr>
@@ -52,8 +51,6 @@ $totalPrice = 0.0;
                                     echo number_format($reservation["room"]->getPrice(), 2);
                                     // Ajoute le prix de cette réservation au total
                                     $totalPrice += $reservation["totalPrice"];
-                                    // $totalPrice += $reservation["room"]->getPrice();
-                                    
                                 } else {
                                     echo "Prix non disponible";
                                 }

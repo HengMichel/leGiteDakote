@@ -3,25 +3,25 @@
 namespace Controller;
 
 use Model\Entity\Rooms;
-use Model\Entity\Detail;
+use Model\Entity\Details;
 use Service\CartManager;
 use Model\Repository\RoomsRepository;
-use Model\Repository\DetailRepository;
+use Model\Repository\DetailsRepository;
 
 class CartController extends BaseController
 {
     private $roomsRepository;
-    private $detailRepository;
+    private $detailsRepository;
     private $form;
     private $rooms;
-    private $detail;
+    private $details;
 
     public function __construct()
     {
-        $this->detailRepository = new DetailRepository;
+        $this->detailsRepository = new DetailsRepository;
         $this->roomsRepository = new RoomsRepository;
         $this->rooms = new Rooms;
-        $this->detail = new Detail;
+        $this->details = new Details;
     }
 
     /**
@@ -29,6 +29,7 @@ class CartController extends BaseController
      * @param mixed $id
      * @return void
      */
+    
     public function addToCart($id)
     {          
         try {
@@ -59,7 +60,6 @@ class CartController extends BaseController
        return $this->render("cart/form_cart.php", [            
         "h1" => "Date de réservation"
        ]);
-       
     }
 
     /**
@@ -82,20 +82,20 @@ class CartController extends BaseController
             // d_die($id);  
 
             // Instancie la classe DetailsRepository pour interagir avec la base de données
-            $d = new DetailRepository;
+            $d = new DetailsRepository;
 
             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailById($id);
             //  d_die($id);  
 
             // Vérifie si la chambre existe
-            if (empty($detail)) {
+            if (empty($details)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
             // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("cart/form_cart.php", [
-            "detail" => $detail,
+            "detail" => $details,
             "h1" => "Fiche de la chambre"
             ]);
         } else {

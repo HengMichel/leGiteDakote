@@ -4,7 +4,7 @@ namespace Model\Entity;
 
 use Model\Entity\BaseEntity;
 
-class Detail extends BaseEntity
+class Details extends BaseEntity
 {
     private $id_detail;
     private $room_id;

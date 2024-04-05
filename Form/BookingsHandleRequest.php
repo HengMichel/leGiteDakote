@@ -30,7 +30,7 @@ class BookingsHandleRequest extends BaseHandleRequest
         $user_id = intval($user_id); 
 
         // Vérifier si le formulaire est soumis
-        if (isset($_POST['book'])&& $user_id !== 0) {
+        if (isset($_POST['book'])&& $user_id !== null) {
             // Utilise $user_id pour définir la propriété user_id de l'objet Bookings
            
             extract($_POST);

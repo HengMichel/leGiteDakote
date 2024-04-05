@@ -11,20 +11,23 @@
             </tr>
         </thead>
         <tbody>   
+            <?php
+            // foreach($details as $detail){
+            ?>
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $detail->getBooking_id(); ?>
+                    <?= $details->getBooking_id(); ?>
                 </td>
                 <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $detail->getRoom_id(); ?>
+                    <?= $details->getRoom_id(); ?>
                 </td>
      
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($detail->getBooking_start_date()), 'd.m.Y'); ?>
+                <?= date_format(date_create($details->getBooking_start_date()), 'd.m.Y'); ?>
 
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($detail->getBooking_end_date()), 'd.m.Y'); ?>
+                <?= date_format(date_create($details->getBooking_end_date()), 'd.m.Y'); ?>
                 </td>
             </tr> 
         </tbody>
@@ -40,6 +43,9 @@
                 ?>
                 </td>
             </tr>
+            <?php 
+            // }  
+            ?> 
         </tfoot>
     </table>
 </div>

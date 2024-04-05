@@ -2,12 +2,12 @@
 
 namespace Form;
 
-use Model\Entity\Detail;
-use Model\Repository\DetailRepository;
+use Model\Entity\Details;
+use Model\Repository\DetailsRepository;
 
 class CartHandleRequest extends BaseHandleRequest
 {
-    private $detailRepository;
+    private $detailsRepository;
 
     const ROOM_ID = 'room_id';
     const BOOKING_ID = 'booking_id';
@@ -16,10 +16,10 @@ class CartHandleRequest extends BaseHandleRequest
 
     public function __construct()
     {
-        $this->detailRepository = new DetailRepository;
+        $this->detailsRepository = new DetailsRepository;
     }
 
-    public function handleFormCart(Detail $detail)
+    public function handleFormCart(Details $details)
     {
     // d_die($_POST);
 
@@ -51,7 +51,7 @@ class CartHandleRequest extends BaseHandleRequest
                 }
 
             // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
-            $request = $this->detailRepository->findByAttributes($detail,
+            $request = $this->detailsRepository->findByAttributes($details,
             [self::START_DATE => $booking_start_date,self::END_DATE => $booking_end_date,self::ROOM_ID => $_POST[self::ROOM_ID]
             ]);
             if ($request) {
@@ -67,10 +67,10 @@ class CartHandleRequest extends BaseHandleRequest
 
             // Si aucune erreur, définir les propriétés de l'entité
             if (empty($errors)) {             
-                $detail->setRoom_id($_POST[self::ROOM_ID]);
-                $detail->setBooking_id($_POST[self::BOOKING_ID]);
-                $detail->setBooking_start_date($booking_start_date);
-                $detail->setBooking_end_date($booking_end_date);
+                $details->setRoom_id($_POST[self::ROOM_ID]);
+                $details->setBooking_id($_POST[self::BOOKING_ID]);
+                $details->setBooking_start_date($booking_start_date);
+                $details->setBooking_end_date($booking_end_date);
     
                 // d_die($_POST); 
                 return true;

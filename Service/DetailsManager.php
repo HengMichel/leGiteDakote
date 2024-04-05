@@ -2,18 +2,18 @@
 
 namespace Service;
 
-use Model\Entity\Detail;
-use Model\Repository\DetailRepository;
+use Model\Entity\Details;
+use Model\Repository\DetailsRepository;
 use Model\Repository\BookingsRepository;
 
-class DetailManager{
+class DetailsManager{
 
-    private DetailRepository $detailRepository;
+    private DetailsRepository $detailsRepository;
     private BookingsRepository $bookingsRepository;
 
     public function __construct()
     {
-        $this->detailRepository = new DetailRepository;
+        $this->detailsRepository = new DetailsRepository;
         $this->bookingsRepository = new BookingsRepository;
     }
 
@@ -53,23 +53,23 @@ class DetailManager{
 
         // Vérifier si la réservation existe par rapport a l'id de l'utilisateur
         $bookings = $this->bookingsRepository->findUserBookings($id);
-d_die($bookings);
+// d_die($bookings);
         if (!$bookings) {
             // Gérer le cas où la réservation n'existe pas
             return false;
         }
         // Créer un nouvel objet Detail
-        $detail = new Detail();
-        $detail->setBooking_id($bookings->getId_booking());
-// d_die($detail);
-        $detail->setRoom_id($room_id);
-// d_die($detail);
-        $detail->setBooking_start_date($bookingStartDate);
-        $detail->setBooking_end_date($bookingEndDate);
-// d_die($detail);
+        $details = new Details();
+        $details->setBooking_id($bookings->getId_booking());
+// d_die($details);
+        $details->setRoom_id($room_id);
+// d_die($details);
+        $details->setBooking_start_date($bookingStartDate);
+        $details->setBooking_end_date($bookingEndDate);
+// d_die($details);
         try {
             // Insérer le détail dans la base de données
-            $success = $this->detailRepository->insertDetail($detail);
+            $success = $this->detailsRepository->insertDetail($details);
             return $success;
         } catch (\PDOException $e) {
             // Gérer les erreurs PDO

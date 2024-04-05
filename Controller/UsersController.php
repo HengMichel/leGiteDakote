@@ -44,7 +44,6 @@ class UsersController extends BaseController
     public function show($id)
     {
         $user = $this->usersRepository->findUsersById($id);
-
         // d_die($user);
         return $this->render("users/show.php", [
             "users" => $user,
@@ -57,11 +56,9 @@ class UsersController extends BaseController
         $user = $this->form->handleSecurity();
 
         if ($this->form->isSubmitted() && $this->form->isValid()) {
-
             Session::authentication($user);
             $id = $user->getId_user();
             return redirection(addLink("users","show", $id));             
-
         }
         $errors = $this->form->getEerrorsForm();
         // Si le formulaire n'est pas soumis ou n'est pas valide, affiche le formulaire de connexion            

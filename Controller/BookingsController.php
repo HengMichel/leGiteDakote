@@ -7,20 +7,20 @@ use Model\Entity\Users;
 use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
-use Model\Repository\DetailRepository;
+use Model\Repository\DetailsRepository;
 use Model\Repository\BookingsRepository;
 
 class BookingsController extends BaseController
 {
     private $bookingsRepository;
-    private $detailRepository;
+    private $detailsRepository;
     private $form;
     private $bookings;
 
     public function __construct()
     {
         $this->bookingsRepository = new BookingsRepository;
-        $this->detailRepository = new DetailRepository;
+        $this->detailsRepository = new DetailsRepository;
         $this->form = new BookingsHandleRequest;
         $this->bookings = new Bookings;
     }
@@ -46,18 +46,15 @@ class BookingsController extends BaseController
 
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
-        // d_die($this->form->handleForm($this->bookings, $user_id));
-
+// d_die($this->form->handleForm($this->bookings, $user_id));
+// d_die($user_id);
         if ($this->form->isSubmitted() && $this->form->isValid()) {  
             
             // Ajoute la réservation à la base de données
             $id_booking = $this->bookingsRepository->addBookings($this->bookings);
         // d_die($id_booking);
             if ($id_booking) {
-                // Créer l'URL de redirection avec l'id_booking en tant que paramètre
-                $redirectUrl = addLink("detail", "newDetail", $id_booking);
-                // Rediriger l'utilisateur vers la création d'un nouveau détail de réservation
-                return redirection($redirectUrl);
+                return redirection(addLink("details","newDetail"));
             } else {
                 // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                 $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];

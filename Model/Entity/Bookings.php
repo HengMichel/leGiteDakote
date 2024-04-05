@@ -111,7 +111,7 @@ class Bookings extends BaseEntity
     //     return $this;
     // }
 
-// Déclarer comme float car est généralement préférable d'utiliser des nombres flottants pour représenter les prix
+// Déclare comme float car généralement préférable d'utiliser des nombres flottants pour représenter les prix
     /**
      * Get the value of booking_price
      */

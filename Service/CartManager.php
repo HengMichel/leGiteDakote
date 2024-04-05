@@ -18,7 +18,6 @@ class CartManager
     public function addCart($id){
         // d_die($_SESSION);
         // d_die($_POST);
-        // meme resultat que la methode addToCart
         if(isset($_POST['passerLaCommande'])) {
             extract($_POST);
             // d_die($_POST);
@@ -50,7 +49,6 @@ class CartManager
             // d_die($diff);
 
             // Calcule le nombre de jours de réservation
-            // $nbDays = $bookingStartDate->diff($bookingEndDate)->days;
             $nbDays = $diff->days;
             // d_die($nbDays);
 
@@ -90,7 +88,6 @@ class CartManager
             // d_die($cart[$indice]["quantity"]);
         
             if (!$roomDejaDanscart) {
-                // $cart[] = ["quantity" => $quantity, "room" => $room, "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "totalPrice" => $totalPrice];  
                 $cart[] = ["room" => $room, "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "totalPrice" => $totalPrice];  
                 // on ajoute une value au cart => $cart est un array 
             }
@@ -127,8 +124,6 @@ class CartManager
                 // d_die($nbDays);
               
                 // Calculer le prix total en fonction du nombre de jours de réservation, de la quantité et du prix de la chambre
-                // $totalPrice += $reservation['room']->getPrice() * $reservation['quantity'] * $nbDays;
-                //    probleme avec quantity pourquoi ne pas l'enveler              // 
                 $totalPrice += $reservation['room']->getPrice() * $nbDays;
                 // d_die($reservation['room']->getPrice());
                 // d_die($reservation['quantity']);
@@ -141,10 +136,6 @@ class CartManager
         return $totalPrice;
     }
     
-
-
-
-
     public function cancelCart($roomId) {
         if(isset($_SESSION['cart'])) {
             foreach($_SESSION['cart'] as $key => $reservation) {

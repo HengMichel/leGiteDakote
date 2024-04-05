@@ -8,8 +8,7 @@ use InvalidArgumentException;
 class RoomsRepository extends BaseRepository
 {
 
-// a ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
-
+// Ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
     public function addRooms(Rooms $rooms)
     {
     // Traitement de l'image
@@ -50,10 +49,9 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     }
-
 ###################################################################################################################    
 
-// Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images (no recommanded) 
+// Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images qui est no recommanded!!!!!
     public function insertRooms(Rooms $rooms)
     {
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
@@ -84,20 +82,17 @@ class RoomsRepository extends BaseRepository
             return false;
         }
     
-
     public function findRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
         // Convertir en entier
         // $id = intval($id); 
-
         $id = filter_var($id, FILTER_VALIDATE_INT);
         if ($id === false) {
             // Gère l'erreur d'ID invalide
             error_log("Invalid room ID: " . $id);
             return false;
         }
-
         $request->bindParam(':id_room', $id);
 
         error_log("SQL Query: " . $request->queryString);
@@ -105,12 +100,9 @@ class RoomsRepository extends BaseRepository
         try {
 
             if ($request->execute()) {
-
                 if ($request->rowCount() === 1) {
-
                     $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
                     return $request->fetch();
-
                 } else {
                     return false;
                 }
@@ -128,7 +120,6 @@ class RoomsRepository extends BaseRepository
         // Gère l'exception (loguer l'erreur, afficher un message, etc.)
         // également renvoyer $e->getMessage() pour obtenir le message d'erreur spécifique.
         error_log("Database error: " . $e->getMessage());
-
         return null;
         }
     }
@@ -137,7 +128,6 @@ class RoomsRepository extends BaseRepository
     {
     $request = $this->dbConnection->prepare("DELETE FROM rooms WHERE id_room = :id_room");
     $request->bindParam(':id_room', $id);
-
     if ($request->execute()) {
         return true; 
         // La suppression a réussi
@@ -153,7 +143,6 @@ class RoomsRepository extends BaseRepository
                 SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
                 WHERE id_room = :id_room";
         $request = $this->dbConnection->prepare($sql);
-
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
         $request->bindValue(":room_imgs", $rooms->getRoom_imgs());
@@ -204,7 +193,6 @@ class RoomsRepository extends BaseRepository
 
         // Retourne les résultats 
         return $result;
-
     }
 
     public function findRoomsByCategoryJson($category)
@@ -221,7 +209,6 @@ class RoomsRepository extends BaseRepository
             return json_encode(['error' => 'Erreur de codage JSON']);
         }
         return $jsonResult;
-       
     }
 
     public function findAllRooms()
@@ -245,35 +232,28 @@ class RoomsRepository extends BaseRepository
             if ($request->rowCount() > 0) {
             // Retourne le prix en tant que résultat de la requête
             return $request->fetchColumn();
+            } else {
+                return null;
+            }
         } else {
+            // En cas d'échec de l'exécution de la requête, retourner null par défaut
             return null;
         }
-    } else {
-        // En cas d'échec de l'exécution de la requête, retourner null ou une autre valeur par défaut
-        return null;
-    }
     }   
-
-
-
 
     public function findRoomDetail($roomId)
     {
-    $request = $this->dbConnection->prepare("SELECT * FROM detail WHERE room_id = :room_id");
+    $request = $this->dbConnection->prepare("SELECT * FROM details WHERE room_id = :room_id");
     $request->bindParam(":room_id", $userId, \PDO::PARAM_INT);
     // Affiche le requête SQL pour le débogage
     // var_dump($request->queryString);
-
     if ($request->execute()) {
-        $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Detail");
+        $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Details");
         // Affiche les résultats pour le débogage
         //   var_dump($results);
-
           return $results;
-
     } else {
         return null;
         }
     }
-
 }
