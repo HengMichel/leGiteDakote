@@ -52,7 +52,7 @@ class BookingsController extends BaseController
             
             // Ajoute la réservation à la base de données
             $id_booking = $this->bookingsRepository->addBookings($this->bookings);
-        // d_die($id_booking);
+// d_die($id_booking);
             if ($id_booking) {
                 return redirection(addLink("details","newDetail"));
             } else {

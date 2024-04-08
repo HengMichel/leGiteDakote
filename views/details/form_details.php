@@ -12,40 +12,47 @@
         </thead>
         <tbody>   
             <?php
-            // foreach($details as $detail){
+            if (!empty($details) && is_array($details)) {
+                foreach($details as $detail){
             ?>
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $details->getBooking_id(); ?>
+                    <?= $detail->getBooking_id(); 
+                    // d_die($detail);
+                    ?>
                 </td>
                 <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $details->getRoom_id(); ?>
+                    <?= $detail->getRoom_id(); ?>
                 </td>
      
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($details->getBooking_start_date()), 'd.m.Y'); ?>
+                <?= date_format(date_create($detail->getBooking_start_date()), 'd.m.Y'); ?>
 
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($details->getBooking_end_date()), 'd.m.Y'); ?>
+                <?= date_format(date_create($detail->getBooking_end_date()), 'd.m.Y'); ?>
+                </td>
+                <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold">
+                    <?= $detail->getBooking_price();?>
+                    <?php 
+                    // d_die($_SESSION);
+                    ?>
                 </td>
             </tr> 
+            <?php 
+                }  
+            } else {
+                echo "Aucun détail trouvé";
+            }
+            ?> 
+              
         </tbody>
         <tfoot>
             <tr class="table-active">
-                <td class="total_reservation mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="4">Total de vos réservations:
-                </td>
-                <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold"><?= 
-                // $totalPrice;
-                isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00'; 
-                // d_die($totalPrice);
-                // d_die($_SESSION);
-                ?>
-                </td>
-            </tr>
-            <?php 
-            // }  
-            ?> 
+                <!-- <td class="total_reservation mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="4">Total de vos réservations:
+                </td> -->
+             
+            </tr>     
         </tfoot>
     </table>
 </div>

@@ -11,6 +11,7 @@ class Details extends BaseEntity
     private $booking_id;
     private $booking_start_date;
     private $booking_end_date;
+    private $booking_price;
 
     /**
      * Get the value of id_detail
@@ -105,6 +106,25 @@ class Details extends BaseEntity
     public function setBooking_end_date($booking_end_date)
     {
         $this->booking_end_date = $booking_end_date;
+
+        return $this;
+    }
+    /**
+     * Get the value of booking_price
+     */
+    public function getBooking_price()
+    {
+        return $this->booking_price;
+    }
+
+    /**
+     * Set the value of booking_price
+     *
+     * @return  self
+     */
+    public function setBooking_price($booking_price)
+    {
+        $this->booking_price = $booking_price;
 
         return $this;
     }

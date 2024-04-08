@@ -35,7 +35,7 @@ class CartController extends BaseController
         try {
             $cm = new CartManager();
 
-            // Appeler la méthode addCart avec l'identifiant 
+            // Appel de la méthode addCart avec l'identifiant 
             $cm->addCart($id);
             // d_die($cm);
             // Redirection en cas de succès
@@ -57,9 +57,9 @@ class CartController extends BaseController
      */
     public function detailCart()
     {
-       return $this->render("cart/form_cart.php", [            
-        "h1" => "Date de réservation"
-       ]);
+        return $this->render("cart/form_cart.php", [ 
+            "h1" => "Date de réservation"
+        ]);   
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Model\Repository;
 
 use PDOException;
-use Service\Session;
 use Model\Entity\Details;
 
 class DetailsRepository extends BaseRepository
@@ -21,16 +20,21 @@ class DetailsRepository extends BaseRepository
             $request->bindValue(":booking_start_date", $details->getBooking_start_date());
             $request->bindValue(":booking_end_date", $details->getBooking_end_date());
 
-            $request = $request->execute();
+            $success = $request->execute();
             
             // Validez la transaction si tout s'est bien passé
             $this->dbConnection->commit();
+
+            return $success;
 
          } catch (\PDOException $e) {
             // En cas d'erreur, annulez la transaction
 
             $this->dbConnection->rollBack();
             echo "Erreur : " . $e->getMessage();
+            // Indique un échec d'insertion
+            return false; 
+
         }
     }
 
@@ -103,7 +107,29 @@ class DetailsRepository extends BaseRepository
             if ($request->rowCount() == 1) {
                 $class = "Model\Entity\\" . ucfirst('details');
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
+                return $request->fetchAll();
+            }
+        }
+    }
+
+    public function findDetailBookingPriceById($id)
+    {
+// d_die($id);
+        $request = $this->dbConnection->prepare("
+            SELECT d.*, b.booking_price 
+            FROM details d 
+            JOIN bookings b ON d.booking_id = b.id_booking 
+            WHERE d.id_detail = :id_detail
+        ");
+        $request->bindParam(':id_detail', $id, \PDO::PARAM_INT);
+// d_die($id);
+        if($request->execute()) {
+            if ($request->rowCount() == 1) {
+                $class = "Model\Entity\\" . ucfirst('details');
+                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
+// d_die($request->fetch());
                 return $request->fetch();
+                
             }
         }
     }

@@ -17,14 +17,16 @@ class DetailsManager{
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    public function createDetail($id)
+    public function createDetail($id_user)
     {
+        // d_die($id_user);
         // Vérification de l'existence de la session et initialisation des variables
         $id_user = $_SESSION['users']->getId_user() ?? null;
+    // d_die($id_user);
+
         $bookingStartDate = null;
         $bookingEndDate = null;
         $room_id = null;    
-// d_die($id_user);
         
         // Récupération des valeurs depuis la session
         if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
@@ -52,7 +54,7 @@ class DetailsManager{
         // d_die($id_user);
 
         // Vérifier si la réservation existe par rapport a l'id de l'utilisateur
-        $bookings = $this->bookingsRepository->findUserBookings($id);
+        $bookings = $this->bookingsRepository->findUserBookings($id_user);
 // d_die($bookings);
         if (!$bookings) {
             // Gérer le cas où la réservation n'existe pas
@@ -60,6 +62,7 @@ class DetailsManager{
         }
         // Créer un nouvel objet Detail
         $details = new Details();
+// d_die($details);
         $details->setBooking_id($bookings->getId_booking());
 // d_die($details);
         $details->setRoom_id($room_id);
@@ -67,14 +70,19 @@ class DetailsManager{
         $details->setBooking_start_date($bookingStartDate);
         $details->setBooking_end_date($bookingEndDate);
 // d_die($details);
-        try {
-            // Insérer le détail dans la base de données
-            $success = $this->detailsRepository->insertDetail($details);
-            return $success;
-        } catch (\PDOException $e) {
-            // Gérer les erreurs PDO
-            error_log("PDOException in createDetail: " . $e->getMessage());
-            return false;
-        }
+        $details->setBooking_price($bookings->getBooking_price());
+// d_die($details);
+        // Insérer le détail dans la base de données
+        $success = $this->detailsRepository->insertDetail($details);
+// d_die($details);
+            if ($success) {
+                // Récupérer les détails créés dans la base de données
+                $createdDetails = $this->detailsRepository->findDetailById($details->getBooking_id()); // Remplacez cette ligne par la méthode adéquate pour récupérer les détails créés
+            
+                return $createdDetails; // Retourner les détails créés
+            } else {
+                return false;
+            }
     }
+
 }

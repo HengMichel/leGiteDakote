@@ -39,12 +39,12 @@ class BookingsHandleRequest extends BaseHandleRequest
             $errors = [];
 
             // S'assurer que l'utilisateur est connecté
-            if (!$user_id) {
+            if (!$user_id === null) {
                 $errors[] = "Merci de vous connecter avant de faire une réservation.";
             } else {
                 // Définir directement la valeur de user_id à partir de la session
                 $bookings->setUser_id($user_id);
-                // d_die($bookings->setUser_id($user_id));
+    // d_die($bookings);
 
                 // Récupérer le prix total de la session
                 $totalPrice = $_SESSION['totalPrice'] ?? 0;
