@@ -18,12 +18,10 @@ class BookingsController extends BaseController
 
     public function list()
     {
-       $bookings = $this->bookingsRepository->findAll($this->bookings);
-
+        $bookings = $this->bookingsRepository->findAll($this->bookings);
         $this->render("admin/list_bookings.php", [
             "h1" => "Liste des réservations",
             "bookings" =>$bookings
         ]);
     }
-    
 }

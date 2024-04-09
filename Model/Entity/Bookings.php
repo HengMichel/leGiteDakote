@@ -27,49 +27,8 @@ class Bookings extends BaseEntity
     public function setId_booking($id_booking)
     {
         $this->id_booking = $id_booking;
-
         return $this;
     }
-
-    /**
-     * Get the value of booking_start_date
-     */
-    // public function getBooking_start_date()
-    // {
-    //     return $this->booking_start_date;
-    // }
-
-    /**
-     * Set the value of booking_start_date
-     *
-     * @return  self
-     */
-    // public function setBooking_start_date($booking_start_date)
-    // {
-    //     $this->booking_start_date = $booking_start_date;
-
-    //     return $this;
-    // }
-
-    /**
-     * Get the value of booking_end_date
-     */
-    // public function getBooking_end_date()
-    // {
-    //     return $this->booking_end_date;
-    // }
-
-    /**
-     * Set the value of booking_end_date
-     *
-     * @return  self
-     */
-    // public function setBooking_end_date($booking_end_date)
-    // {
-    //     $this->booking_end_date = $booking_end_date;
-
-    //     return $this;
-    // }
 
     /**
      * Get the value of user_id
@@ -91,27 +50,7 @@ class Bookings extends BaseEntity
         return $this;
     }
 
-    /**
-     * Get the value of room_id
-     */
-    // public function getRoom_id()
-    // {
-    //     return $this->room_id;
-    // }
-
-    /**
-     * Set the value of room_id
-     *
-     * @return  self
-     */
-    // public function setRoom_id($room_id)
-    // {
-    //     $this->room_id = $room_id;
-
-    //     return $this;
-    // }
-
-// Déclare comme float car généralement préférable d'utiliser des nombres flottants pour représenter les prix
+    // Déclare comme float car généralement préférable d'utiliser des nombres flottants pour représenter les prix
     /**
      * Get the value of booking_price
      */
@@ -128,7 +67,6 @@ class Bookings extends BaseEntity
     public function setBooking_price(float $price)
     {
         $this->booking_price = $price;
-
         return $this;
     }
     
@@ -148,7 +86,6 @@ class Bookings extends BaseEntity
     public function setBooking_state($booking_state)
     {
         $this->booking_state = $booking_state;
-
         return $this;
     }
 

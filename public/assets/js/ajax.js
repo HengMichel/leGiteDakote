@@ -1,25 +1,26 @@
 // ############## filter for category ##############################
-
-$(document).ready(function () {
-
-  $("#category").on("change", function () {
+$(document).ready(function () 
+{
+  $("#category").on("change", function () 
+  {
     // Récupère la catégorie sélectionnée
     var category = $(this).val();
+    $.ajax(
+      {
+        url: $("#form").attr("action"),
+        type: $("#form").attr("method"),
 
-    $.ajax({
-      url: $("#form").attr("action"),
-      type: $("#form").attr("method"),
-
-      // Envoie uniquement la catégorie sélectionnée
-      data: { choix: category },
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-        // Affiche les nouvelles chambres sans effacer le formulaire de catégorie
-        $("#roomsContainer").html("");
-        response.forEach(function (room) {
-          var roomElement = $(
-           
+        // Envoie uniquement la catégorie sélectionnée
+        data: { choix: category },
+        dataType: "json",
+        success: function (response) 
+        {
+          console.log(response);
+          // Affiche les nouvelles chambres sans effacer le formulaire de catégorie
+          $("#roomsContainer").html("");
+          response.forEach(function (room) 
+          {
+            var roomElement = $(
             '<div class="card border mt-5 " style="width: 22rem;">' +
               '<div class="img_room">' +
               '<img src="' +
@@ -43,26 +44,21 @@ $(document).ready(function () {
               '">En savoir plus</button>' +
               "</div>" +
               "</div>"
-          );
-          $("#roomsContainer").append(roomElement);
-        });
-      },
-    });
+            );
+            $("#roomsContainer").append(roomElement);
+          });
+        },
+      });
   });
-
   // Délègue l'événement de clic pour les boutons "En savoir plus" aux éléments statiques
-  $(document).on("click", ".en-savoir-plus", function (e) {
+  $(document).on("click", ".en-savoir-plus", function (e) 
+  {
     // Empêche le formulaire de se soumettre
     e.preventDefault();
-
     console.log("Bouton 'En savoir plus' cliqué.");
-
-    // Récupérer l'ID de la chambre à partir de l'attribut de données
+    // Récupère l'ID de la chambre à partir de l'attribut de données
     var roomId = $(this).data("room-id");
-
-    // Rediriger vers show.php avec l'ID de la chambre
+    // Redirige vers show.php avec l'ID de la chambre
     window.location.href = "rooms/show?id=" + roomId;
   });
 });
-
-// #################################################################

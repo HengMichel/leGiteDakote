@@ -9,7 +9,6 @@ $id         = $_GET["id"] ?? null;
 // Instancier le contrôleur
 if(!empty($admin)){
     $classController = 
-    
     // ucfirst: met la première lettre d'un string en majuscule
     "Controller\\admin\\" . ucfirst($controller) . "Controller";
 }else{

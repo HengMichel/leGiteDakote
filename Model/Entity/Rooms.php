@@ -27,7 +27,6 @@ class Rooms extends BaseEntity
     public function setId_room ($id_room )
     {
         $this->id_room  = $id_room ;
-
         return $this;
     }
 
@@ -47,7 +46,6 @@ class Rooms extends BaseEntity
     public function setRoom_number($room_number)
     {
         $this->room_number = $room_number;
-
         return $this;
     }
 
@@ -67,7 +65,6 @@ class Rooms extends BaseEntity
     public function setPrice($price)
     {
         $this->price = $price;
-
         return $this;
     }
     
@@ -87,7 +84,6 @@ class Rooms extends BaseEntity
     public function setRoom_imgs($room_imgs)
     {
         $this->room_imgs = $room_imgs;
-
         return $this;
     }
 
@@ -107,7 +103,6 @@ class Rooms extends BaseEntity
     public function setPersons($persons)
     {
         $this->persons = $persons;
-
         return $this;
     }
 
@@ -127,7 +122,6 @@ class Rooms extends BaseEntity
     public function setCategory($category)
     {
         $this->category = $category;
-
         return $this;
     }
     
@@ -147,8 +141,6 @@ class Rooms extends BaseEntity
     public function setRoom_state($room_state)
     {
         $this->room_state = $room_state;
-
         return $this;
-    }
-    
+    }  
 }

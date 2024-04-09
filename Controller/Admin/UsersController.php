@@ -19,16 +19,15 @@ class UsersController extends BaseController
     public function list()
     {
         $users = $this->usersRepository->findAll($this->users);
-
         $this->render("admin/list_users.php", [
             "h1" => "Liste des utilisateurs",
             "users" => $users
         ]);
     }
+
     public function dashboard()
     {
         $users = $this->usersRepository->findAll($this->users);
-
         $this->render("admin/dashboard_admin.php", [
             "h1" => "Dashboard",
             "users" => $users

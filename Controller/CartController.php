@@ -23,21 +23,18 @@ class CartController extends BaseController
         $this->rooms = new Rooms;
         $this->details = new Details;
     }
-
     /**
      * Summary of add
      * @param mixed $id
      * @return void
      */
-    
     public function addToCart($id)
     {          
         try {
             $cm = new CartManager();
-
             // Appel de la méthode addCart avec l'identifiant 
             $cm->addCart($id);
-            // d_die($cm);
+// d_die($cm);
             // Redirection en cas de succès
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
             header("Location: $redirectUrl");
@@ -50,7 +47,6 @@ class CartController extends BaseController
             exit();
         }
     }
-
     /**
      * Summary of show
      * @return void
@@ -61,7 +57,6 @@ class CartController extends BaseController
             "h1" => "Date de réservation"
         ]);   
     }
-
     /**
      * Summary of add
      * @param mixed $id
@@ -79,15 +74,12 @@ class CartController extends BaseController
         {   
             // Converti l'ID en entier
             $id = intval($id); 
-            // d_die($id);  
-
+// d_die($id);  
             // Instancie la classe DetailsRepository pour interagir avec la base de données
             $d = new DetailsRepository;
-
-            // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
+            // Appele de la méthode findDetailById pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailById($id);
-            //  d_die($id);  
-
+//  d_die($id);  
             // Vérifie si la chambre existe
             if (empty($details)) {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
@@ -103,5 +95,4 @@ class CartController extends BaseController
             error("404.php");
         }
     }
-
 }

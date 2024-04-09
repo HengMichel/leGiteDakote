@@ -15,7 +15,6 @@ require "views/errors_form.php";
                 <div class="form-floating col-md-6 m-auto">
                     <input type="password" class="form-control mt-3 bg-black link-light" id="password" name="password" placeholder="Votre mot de passe">
                     <label>Votre mot de passe</label>
-
                     <div class="form-group mt-4 col-md-3 m-auto">
                         <button type="submit" id="bouton" class="btn bg-primary container link-light" name="submit">Valider</button>
                     </div>
@@ -24,4 +23,3 @@ require "views/errors_form.php";
         </div>
     </form>
 </div>
-

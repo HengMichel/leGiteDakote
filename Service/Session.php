@@ -24,7 +24,8 @@ abstract class Session
     {
         $messages = $_SESSION[self::SESSION_KEY_MESSAGES] ?? null;
 
-        if (isset($_SESSION[self::SESSION_KEY_MESSAGES])) {
+        if (isset($_SESSION[self::SESSION_KEY_MESSAGES])) 
+        {
             unset($_SESSION[self::SESSION_KEY_MESSAGES]);
         }
         return $messages;

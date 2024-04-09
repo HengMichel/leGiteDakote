@@ -30,21 +30,16 @@ class HomeController extends BaseController
     public function list()
     {
         $roomss = $this->roomsRepository->findAll($this->rooms);
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['choix'])) {
-
-// Si c'est une requête AJAX, renvoye les données JSON
+        // Si c'est une requête AJAX, renvoye les données JSON
             $category = $_POST['choix'];
-            // d_die($_POST);
+// d_die($_POST);
             $jsonResult = $this->roomsRepository->findRoomsByCategoryJson($category);
-        
             echo $jsonResult;
-
             exit();
         }
-// Si ce n'est pas une requête AJAX ou si la catégorie n'est pas spécifiée, affiche la page normalement
+        // Si ce n'est pas une requête AJAX ou si la catégorie n'est pas spécifiée, affiche la page normalement
         $roomss = $this->roomsRepository->findAll($this->rooms);
-
         $this->render("home.php", [
             "h1" => "Liste des chambres",
             "roomss" => $roomss

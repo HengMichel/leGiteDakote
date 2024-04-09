@@ -15,12 +15,11 @@ class RoomsHandleRequest extends BaseHandleRequest
 
     public function RoomsHandleForm(Rooms $rooms)
     {
-        // d_die($_POST);
+// d_die($_POST);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             extract($_POST);
             $errors = [];
-        // d_die($_POST);
-
+// d_die($_POST);
             // Vérification de la validité du formulaire
             if (empty($room_number)) {
                 $errors[] = "Le N° de chambre ne peut pas être vide";

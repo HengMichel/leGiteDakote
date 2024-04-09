@@ -1,4 +1,4 @@
-<!-- Affichage du contenu du detail -->
+<!-- Affichage du contenu de la facture -->
 <div class="container5 container link-light fw-medium mt-5">
     <table class="table table-hover mt-5">
         <thead>
@@ -11,48 +11,41 @@
             </tr>
         </thead>
         <tbody>   
-            <?php
-            if (!empty($details) && is_array($details)) {
-                foreach($details as $detail){
-            ?>
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $detail->getBooking_id(); 
-                    // d_die($detail);
+                    <?= $details->getBooking_id(); 
+// d_die($details);
                     ?>
                 </td>
                 <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $detail->getRoom_id(); ?>
-                </td>
-     
+                    <?= $details->getRoom_id();                     
+// d_die($details);
+                    ?>
+                </td>    
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($detail->getBooking_start_date()), 'd.m.Y'); ?>
-
+                <?= date_format(date_create($details->getBooking_start_date()), 'd.m.Y');
+// d_die($details);
+                ?>
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($detail->getBooking_end_date()), 'd.m.Y'); ?>
+                <?= date_format(date_create($details->getBooking_end_date()), 'd.m.Y'); 
+// d_die($details);
+                ?>
                 </td>
                 <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold">
-                    <?= $detail->getBooking_price();?>
-                    <?php 
-                    // d_die($_SESSION);
-                    ?>
+                    <?= isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00';
+// d_die($details);
+// d_die($_SESSION);
+                    ?>                 
                 </td>
             </tr> 
-            <?php 
-                }  
-            } else {
-                echo "Aucun détail trouvé";
-            }
-            ?> 
-              
         </tbody>
-        <tfoot>
-            <tr class="table-active">
-                <!-- <td class="total_reservation mt-2 bg-secondary-subtle align-middle fs-5 text-center fw-semibold" colspan="4">Total de vos réservations:
-                </td> -->
-             
-            </tr>     
-        </tfoot>
     </table>
 </div>
+<?php
+// Clôture de la session après avoir affiché la facture
+// Vide toutes les données de la session
+session_unset(); 
+// Détruit la session complètement
+session_destroy(); 
+?>

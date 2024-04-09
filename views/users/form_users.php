@@ -7,18 +7,13 @@ require "views/errors_form.php";
         <div class="btn-group col-md-6 bg-dark m-auto" role="group" aria-label="Basic radio toggle button group">
           <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
           <label class="btn btn-outline-dark" for="btnradio1">Civilité :<sup>*</sup></label>
-
           <input type="radio" class="btn-check" name="gender" id="btnradio3" autocomplete="off" value="F" <?= $users->getGender() === 'F' ? 'checked' : '' ?>>
           <label class="btn btn-outline-primary link-light" for="btnradio3">Femme</label>
-
           <input type="radio" class="btn-check" name="gender" id="btnradio2" autocomplete="off" value="M"<?= $users->getGender() === 'M' ? 'checked' : '' ?>>
           <label class="btn btn-outline-primary link-light" for="btnradio2">Homme</label>
-
-
           <input type="radio" class="btn-check" name="gender" id="btnradio4" autocomplete="off"  value="O" <?= $users->getGender() === 'O' ? 'checked' : '' ?>>
           <label class="btn btn-outline-primary link-light" for="btnradio4">Autre</label>
         </div>
-
         <div class="row"> 
             <div class="form-group mt-4">
                 <div class="form-floating col-md-6 m-auto">
@@ -61,7 +56,6 @@ require "views/errors_form.php";
             <div class="form-group mt-3 col-md-3 m-auto">
                 <label class="birthday bg-dark" >Votre date de naissance<sup>*</sup></label>
                 <input type="date" class="form-control fw-bold link-dark bg-light" name="birthday" value="<?= $users->getBirthday() ?>">
-   
                 <div class="form-group mt-2 text-center">
                     <button type="submit" id="bouton" class="btn bg-primary link-light fw-medium" name="submit">Valider</button>
                 </div>

@@ -25,12 +25,10 @@ function redirection($url)
     header("Location: $url");
     exit;
 }
-
 // ⚠ test
 function error($num = 404)
 {
     // include "error/$num.php";
     include "error/$num";
-
     exit;
 }

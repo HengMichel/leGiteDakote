@@ -2,22 +2,22 @@
 use Service\Session; 
 
 // Vérifie si la session est déjà active
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() == PHP_SESSION_NONE) 
+{
     // Si elle n'est pas active, démarrer la session
     session_start();
 }
 ?>
 <div class="bgNav container-fluid">
     <nav class="navbar-expand-lg display-6"> 
-
         <button type="button" class="btn btn-outline-light  fw-semibold">
-            <a class="nav-link active  " aria-current="page" href="<?= addLink("home") ?>"> <i class="fa fa-home me-1"></i>Accueil
+            <a class="nav-link active" aria-current="page" href="<?= addLink("home") ?>">
+                <i class="fa fa-home me-1"></i>Accueil
             </a>
         </button>
-
 <!-- connexion avec le message Bienvenue suivi du nom -->
             <?php
-                if( $user = Session::getConnectedUser() ): 
+                if( $user = Session::getConnectedUser()): 
             ?>
         <button type="button" class="btn btn-outline-light fw-semibold">
             <a class="nav-link"
@@ -25,14 +25,12 @@ if (session_status() == PHP_SESSION_NONE) {
                     <?php echo 'Bienvenue ' . $user->getLast_name() . '';?>
             </a>
         </button>
-      
 <!-- déconnexion -->
         <button type="button" class="btn btn-primary fw-semibold">
             <a class="nav-link" href="<?= addLink("users", "deco") ?>">déconnexion
                 <i class="fa fa-sign-out fa-2xl"></i>
             </a>
         </button>
-
 <!-- connexion de l'admin et acces de tous ses avantages -->
 <?php if( Service\Session::isAdmin() ): ?>
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -50,7 +48,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 </div>
             </div>
         </div>
-
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <button type="button" class="btn btn-outline-light fw-semibold">
             Réservations
@@ -59,45 +56,38 @@ if (session_status() == PHP_SESSION_NONE) {
                 <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop2">
-                    <a class="dropdown-item fw-bolder" href="<?= addLink('admin/bookings', 'list') ?>">Liste</a>
+                    <a class="dropdown-item fw-bolder" href="<?= addLink('admin/bookings', 'list') ?>">Liste
+                    </a>
                 </div>
             </div>
         </div>
 <?php endif; ?>
-
 <!-- connexion et ou inscription -->
-        <?php else: ?>
-
-            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-outline-light fw-semibold">
-                    <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
-                    <i class="fa fa-sign-in fa-2xl"></i>
-                    </a>
+<?php else: ?>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-outline-light fw-semibold">
+                <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
+                <i class="fa fa-sign-in fa-2xl"></i>
+                </a>
+            </button>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </button>
-                    <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop2">
-                        <a class="nav-link fw-semibold text-center" href="<?= addLink("users","newUsers") ?>">Inscription</a>
-                    </div>
+                <div class="dropdown-menu lh-1" aria-labelledby="btnGroupDrop2">
+                    <a class="nav-link fw-semibold text-center" href="<?= addLink("users","newUsers") ?>">Inscription</a>
                 </div>
             </div>
-        <?php endif ?>
-
+        </div>
+<?php endif ?>
 <!-- access aux services  -->
         <button type="button" class="btn btn-outline-light">
             <a class="nav-link fw-semibold" href="<?= addLink("home","serviceDuGite") ?>">Nos Services
             </a>
         </button>
-
-<!-- inscription -->
-        <!-- <button type="button" class="btn btn-outline-light">
-            <a class="nav-link fw-semibold" href="<?= addLink("users","newUsers") ?>">Inscription</a>
-        </button> -->
-
 <!-- présentation des propriétaire -->
         <button type="button" class="btn btn-outline-light ">
-            <a class="nav-link fw-semibold" href="<?= addLink("home","aboutUs") ?>">à propos de nous</a>
+            <a class="nav-link fw-semibold" href="<?= addLink("home","aboutUs") ?>">à propos de nous
+            </a>
         </button>
     </nav>
 </div>

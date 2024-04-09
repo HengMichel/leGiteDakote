@@ -16,11 +16,10 @@ class UsersHandleRequest extends BaseHandleRequest
 
     public function handleForm(Users $users)
     {
-        if (isset($_POST['submit'])) {
-
+        if (isset($_POST['submit'])) 
+        {
             extract($_POST);
             $errors = [];
-
             // Vérification de la validité du formulaire
             if (empty( $email)) {
                 $errors[] = "L'email ne peut pas être vide";
@@ -90,7 +89,6 @@ class UsersHandleRequest extends BaseHandleRequest
                 if (strlen($phone_number) > 1) {
                         $errors[] = "Vous ne pouvez avoir qu'une seule civilité";
                 }
-
             }
             if (empty($errors)) {             
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
@@ -113,16 +111,13 @@ class UsersHandleRequest extends BaseHandleRequest
    
             extract($_POST);
             $errors = [];
-
             if (!empty($_POST)) {
-            
                 // Vérification de la validité du formulaire
                 if (empty($email) || empty($password)) {
                     $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
                 } else {
                     // Est-ce que l'email existe déjà dans la bdd ?
                     $userInfo = $this->usersRepository->findByAttributes("users", ["email" => $email]);
-
                     if (empty($userInfo)) {
                         $errors[] = "Utilisateur inconnu !";
                     } else {
@@ -142,5 +137,4 @@ class UsersHandleRequest extends BaseHandleRequest
             return $userInfo;
         }
     }
-
 }

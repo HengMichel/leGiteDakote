@@ -8,7 +8,6 @@ use Model\Entity\Users;
 class UsersRepository extends BaseRepository
 {
     public function addUsers(Users $users)
-
     {
         $sql = "INSERT INTO users (id_user, last_name, first_name, email, password, role, birthday, address, phone_number, gender) VALUES (:id_user, :last_name, :first_name, :email, :password, :role, :birthday, :address, :phone_number, :gender)";
         $request = $this->dbConnection->prepare($sql);
@@ -23,7 +22,8 @@ class UsersRepository extends BaseRepository
         $request->bindValue(":phone_number", $users->getPhone_number()); 
         $request->bindValue(":gender", $users->getGender()); 
         $request = $request->execute();
-        if ($request) {
+        if ($request) 
+        {
             if ($request == 1) {
                 return true;
             }
@@ -36,7 +36,6 @@ class UsersRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
         $request->bindParam(':id_user',$id);
-
         if($request->execute()) {
             if ($request->rowCount() == 1) {
                 $class = "Model\Entity\\" . ucfirst('users');
@@ -47,8 +46,8 @@ class UsersRepository extends BaseRepository
         }
     }
    
-    public function findAllTables(Users $users){
-
+    public function findAllTables(Users $users)
+    {
         $sql="SELECT
                 u.id_user,
                 u.last_name,
@@ -88,47 +87,33 @@ class UsersRepository extends BaseRepository
                 AND b.room_id != :room_id
                 AND b.booking_price != ''
                 AND b.booking_state != ''";
-
-    $request = $this->dbConnection->prepare($sql);
-       
-    // Lie la valeur pour :id_user; 
-    $request->bindValue(":id_user", $users->getId_user(), \PDO::PARAM_INT); 
-    // S'assurer de lier la valeur pour :room_id; 
-    // $request->bindValue(":room_id", $bookings->getRoom_id(), \PDO::PARAM_INT);   
-
-    // Exécute la requête avant de récupérer les résultats
-    $request->execute();  
-
-    // Récupère les résultats
-    $results = $request->fetchAll(\PDO::FETCH_ASSOC);
- 
-    // Traite les résultats comme nécessaire
-    return $results;
-     
+        $request = $this->dbConnection->prepare($sql);
+        // Lie la valeur pour :id_user; 
+        $request->bindValue(":id_user", $users->getId_user(), \PDO::PARAM_INT); 
+        // Exécute la requête avant de récupérer les résultats
+        $request->execute();  
+        // Récupère les résultats
+        $results = $request->fetchAll(\PDO::FETCH_ASSOC);
+        // Traite les résultats comme nécessaire
+        return $results;
     }
     
     public function deleteUsersById($id)
     {
         $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
         $request->bindParam(':id_user', $id);
-    
-        if ($request->execute()) {
-
+        if ($request->execute()) 
+        {
             if ($request->rowCount() == 1) {
-
                 Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
                 return true;
-
                 } else {
                     Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
                     return false;
                 }
-
         }else{
-
             Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
             return false;
         }
     }
-
 }

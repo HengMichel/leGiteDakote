@@ -11,7 +11,6 @@ abstract class BaseController
     public function render(string $fichier, array $parametres = [])
     {
         extract($parametres);
-
         include "public/header.php";
         include "views/$fichier";
         include "public/footer.php";
@@ -21,8 +20,8 @@ abstract class BaseController
     public function getUsers()
     {
         $users = Session::isConnected();
-
-        if (!$users) {
+        if (!$users) 
+        {
             redirection("/error/403.php");
         }
         return $users;
@@ -32,8 +31,8 @@ abstract class BaseController
     public function getAdmin()
     {
         $users = Session::isAdmin();
-
-        if (!$users) {
+        if (!$users) 
+        {
             redirection("/error/403.php");
         }
         return $users;
@@ -64,7 +63,8 @@ abstract class BaseController
         Session::delete($value);
     }
 
-    public function redirectToRoute(array $linkInfo){
+    public function redirectToRoute(array $linkInfo)
+    {
         $controller = $linkInfo[0];
         $method = $linkInfo[1]?? null;
         $id = $linkInfo[2]?? null;

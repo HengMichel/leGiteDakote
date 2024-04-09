@@ -5,24 +5,20 @@ namespace Model\Entity;
 class BaseEntity
 {
     protected $id;
-    // new code
+    // new but don't need but for another project ..
     // protected $created_at;
     // protected $updated_at;
     // protected $is_deleted;
-
-   
 
     public function __toString()
     {
         // retourne le nom de la classe à partir de son namespase 
         // exemple : Model\Entity\Rooms
         $class = get_called_class();
-
         // Découpe une chaine de caractèrs dès qu'il rencotre un caractère spécifique ici c'est le "\"
         // Elle retourne ensuite un tableau indexé contenant les élément dans la chaine de caractères
         // Exemple : 
         // ["Model","Entity","Rooms"]
-
         $class = explode("\\", $class);
         $table = $class[count($class) - 1];
         // strtolower = met tous les caractères d'un string en minuscule

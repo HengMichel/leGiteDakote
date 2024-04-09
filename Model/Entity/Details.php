@@ -29,7 +29,6 @@ class Details extends BaseEntity
     public function setId_detail($id_detail)
     {
         $this->id_detail = $id_detail;
-
         return $this;
     }
     /**
@@ -48,7 +47,6 @@ class Details extends BaseEntity
     public function setRoom_id($room_id)
     {
         $this->room_id = $room_id;
-
         return $this;
     }
     /**
@@ -67,7 +65,6 @@ class Details extends BaseEntity
     public function setBooking_id($booking_id)
     {
         $this->booking_id = $booking_id;
-
         return $this;
     }
     /**
@@ -86,7 +83,6 @@ class Details extends BaseEntity
     public function setBooking_start_date($booking_start_date)
     {
         $this->booking_start_date = $booking_start_date;
-
         return $this;
     }
 
@@ -106,7 +102,6 @@ class Details extends BaseEntity
     public function setBooking_end_date($booking_end_date)
     {
         $this->booking_end_date = $booking_end_date;
-
         return $this;
     }
     /**
@@ -125,8 +120,6 @@ class Details extends BaseEntity
     public function setBooking_price($booking_price)
     {
         $this->booking_price = $booking_price;
-
         return $this;
     }
-
 }

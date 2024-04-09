@@ -12,26 +12,23 @@ class BookingsRepository extends BaseRepository
 {
     public function addBookings(Bookings $bookings)
     {
-        // d_die($bookings);
-
+// d_die($bookings);
         $sql = "INSERT INTO bookings (user_id, booking_price, booking_state) VALUES ( :user_id, :booking_price, :booking_state)";
-
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
-        try {
+        try 
+        {
             $request = $this->dbConnection->prepare($sql);
-
             // Utilisation de bindValue pour lier les valeurs
             $request->bindValue(":user_id", $bookings->getUser_id(), \PDO::PARAM_INT);
             $request->bindValue(":booking_price", $bookings->getBooking_price());
             $request->bindValue(":booking_state", $bookings->getBooking_state());
-
             // Exécute la requête
             $request->execute();
-
             // Retourne l'ID de la réservation nouvellement créée
             return $this->dbConnection->lastInsertId();
 
-        } catch (PDOException $e) {
+        } catch (PDOException $e) 
+        {
             // Gestion des exceptions PDO
             error_log("PDOException in addBookings: " . $e->getMessage());
             return false;
@@ -40,17 +37,14 @@ class BookingsRepository extends BaseRepository
 
     public function cancelBooking($id)
     {
-        
-        try {
-// Avant la recherche de la réservation
+        try 
+        {
+            // Avant la recherche de la réservation
 // echo "ID de réservation à annuler : " . $id;
-
             // Récupérer la réservation par son ID
             $booking = $this->findBookingById($id);
-
-            // echo "Avant la mise à jour : ";
-            // print_r($booking);
-
+// echo "Avant la mise à jour : ";
+// print_r($booking);
             // Vérifie si la réservation existe
             if ($booking) {
                 // Mets à jour l'état de la réservation
@@ -58,12 +52,10 @@ class BookingsRepository extends BaseRepository
                 $request = $this->dbConnection->prepare($sql);
                 $request->bindValue(":booking_state", "cancel");
                 $request->bindValue(":id_booking", $id);
-
                 $success = $request->execute();
-    
-                if ($success) {
-                // echo "Après la mise à jour : " . $id;
-                    
+                if ($success) 
+                {
+// echo "Après la mise à jour : " . $id;
                     Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
                     return true;
                 } else {
@@ -82,111 +74,93 @@ class BookingsRepository extends BaseRepository
     }
 
 // #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
-
-    // public function deleteBookingsById($id){
-
+    // public function deleteBookingsById($id)
+    // {
     //     $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
     //     $request->bindParam(':id_booking',$id);
-
-    //     if($request->execute()) {
-
-    //         return true; 
+    //     if($request->execute()) 
+    //     {
     //         // La suppression a réussi
-    //         } else {
-    //         return false; 
+    //         return true; 
+    //     } else {
     //         // La suppression a échoué
-    //         }
-    //   }  
-
+    //         return false; 
+    //     }
+    // }  
 //  ###################################################################################################################
 
-
-    
     public function findBookingById($id){
-        // d_die($id);
-        try {
+// d_die($id);
+        try 
+        {
             $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
             $request = $this->dbConnection->prepare($sql);
             $request->bindValue(":id_booking", $id, \PDO::PARAM_INT);
-            $request->execute(); // Exécutez la requête ici
-    // d_die($request);
-            // Récupérez les résultats après l'exécution de la requête
+            // Exécute la requête ici
+            $request->execute(); 
+// d_die($request);
+            // Récupère les résultats après l'exécution de la requête
             $bookingData = $request->fetch(\PDO::FETCH_ASSOC);
-            // d_die($bookingData); 
-            // Utilisez ce débogage si nécessaire
-    
+// d_die($bookingData); 
             return $bookingData;
-        } catch (PDOException $e) {
-            // Gérer l'erreur
+        } catch (PDOException $e) 
+        {
+            // Gère l'erreur
             throw new Exception("Erreur lors de la recherche de la réservation par ID : " . $e->getMessage());
         } 
     }
-    
 
-   // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
+    // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
     {
-
         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
-        
         $request = $this->dbConnection->prepare($sql);
-        
         $request->bindValue(":id_booking",$bookings);
-        
         $request->execute();
-        
         return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function findBookingsForDetail(Details $details)
     {
-
         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
-        
         $request = $this->dbConnection->prepare($sql);
         $request->bindValue(":id_booking",$details->getBooking_id());
         $request->execute();
         return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-
     public function getRoomIdByBookingId($bookingId)
-{
-    try {
-        $sql = "SELECT room_id FROM details WHERE booking_id = :booking_id";
-        $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":booking_id", $bookingId);
-        $request->execute();
-
-        // Utilisez fetchColumn pour récupérer la première colonne de la première ligne du résultat de la requête
-        $roomId = $request->fetchColumn();
-
-        // Retourne l'ID de la chambre associée à la réservation
-        return $roomId !== false ? $roomId : null;
-    } catch (PDOException $e) {
-        // Gérer l'exception
-        error_log("PDOException in getRoomIdByBookingId: " . $e->getMessage());
-        return null;
+    {
+        try 
+        {
+            $sql = "SELECT room_id FROM details WHERE booking_id = :booking_id";
+            $request = $this->dbConnection->prepare($sql);
+            $request->bindValue(":booking_id", $bookingId);
+            $request->execute();
+            // Utilise fetchColumn pour récupérer la première colonne de la première ligne du résultat de la requête
+            $roomId = $request->fetchColumn();
+            // Retourne l'ID de la chambre associée à la réservation
+            return $roomId !== false ? $roomId : null;
+        } catch (PDOException $e) {
+            // Gère l'exception
+            error_log("PDOException in getRoomIdByBookingId: " . $e->getMessage());
+            return null;
+        }
     }
-}
-
-
 
     public function findUserBookings($id)
     {
-    $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
-    $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
-    // Affiche la requête SQL pour le débogage
-    // var_dump($request->queryString);
-
-    if ($request->execute()) {
-        // Utilise fetchObject pour récupérer un objet de la classe Bookings
-        $results = $request->fetchObject("Model\Entity\Bookings");
-        // Affiche les résultats pour le débogage
-        //   var_dump($results);
-        return $results;
-    } else {
-        return null;
+        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
+        $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
+        // Affiche la requête SQL pour le débogage
+// var_dump($request->queryString);
+        if ($request->execute()) {
+            // Utilise fetchObject pour récupérer un objet de la classe Bookings
+            $results = $request->fetchObject("Model\Entity\Bookings");
+//   var_dump($results);
+            return $results;
+        } else {
+            return null;
         }
     }
 }

@@ -17,7 +17,6 @@ require "views/errors_form.php";
                     <label>Prix de la chambre</label>
                 </div>
             </div>
-
             <div class="form-group mt-4">
                 <div class="form-floating col-md-6 m-auto">
                     <input type="number" class="form-control bg-dark link-light" placeholder="Nombre de personnes max" name="persons"value="<?= $rooms->getPersons() ?>" >

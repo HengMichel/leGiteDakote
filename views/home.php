@@ -15,7 +15,6 @@
             </select>
         </div>
     </form>
-
     <div class="d-flex flex-wrap justify-content-around mt-2" id="roomsContainer">
         <?php foreach($roomss as $rooms) : ?>
                 <div class="card mt-5" style="width: 22rem;">
