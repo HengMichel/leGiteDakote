@@ -75,7 +75,9 @@ $totalPrice = 0.0;
 // d_die($_SESSION["totalPrice"]);
                     ?></td>
                     <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
-                        <button type="submit" name="book" class="btn bg-primary  link-light "<?php if ($_SESSION["totalPrice"] == 0) echo 'disabled'; ?>>Payer   
+                        <!-- Si la clé "totalPrice" n'est pas définie ou si sa valeur est égale à zéro, le bouton sera désactivé -->
+                        <button type="submit" name="book" class="btn bg-primary  link-light" <?php if (!isset($_SESSION["totalPrice"]) ||$_SESSION["totalPrice"] == 0)
+                         echo 'disabled'; ?>>Payer   
                         </button>
                     </td>
                 </tr>

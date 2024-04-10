@@ -16,7 +16,8 @@ class RoomsHandleRequest extends BaseHandleRequest
     public function RoomsHandleForm(Rooms $rooms)
     {
 // d_die($_POST);
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+        {
             extract($_POST);
             $errors = [];
 // d_die($_POST);
@@ -70,5 +71,29 @@ class RoomsHandleRequest extends BaseHandleRequest
             $this->setEerrorsForm($errors);
             return $this;
         }
+    }
+
+    public function EditRoomHandleForm(Rooms $room)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") 
+        {
+            $room_number = $_POST['room_number'] ?? '';
+            $price = $_POST['price'] ?? '';
+            $room_imgs = $_FILES['room_imgs'] ?? '';
+            $persons = $_POST['persons'] ?? '';
+            $category = $_POST['category'] ?? '';
+            $errors = [];
+            if (empty($errors)) 
+            {
+                $room->setRoom_number($room_number);
+                $room->setRoom_imgs($room_imgs);
+                $room->setPrice($price);
+                $room->setPersons($persons);
+                $room->setCategory($category);
+                return $this;
+            }
+            $this->setEerrorsForm($errors);
+            return $this;
+        }    
     }
 }

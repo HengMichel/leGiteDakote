@@ -62,3 +62,5 @@ $(document).ready(function ()
     window.location.href = "rooms/show?id=" + roomId;
   });
 });
+
+

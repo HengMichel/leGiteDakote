@@ -1,6 +1,7 @@
 <?php
 namespace Model\Repository;
 
+use PDOException;
 use Service\Session;
 use Model\Entity\Rooms;
 use InvalidArgumentException;
@@ -126,15 +127,31 @@ class RoomsRepository extends BaseRepository
 
     public function deleteRoomsById($id)
     {
-        $request = $this->dbConnection->prepare("DELETE FROM rooms WHERE id_room = :id_room");
-        $request->bindParam(':id_room', $id);
-        if ($request->execute()) 
+        try 
         {
-            return true; 
-            // La suppression a réussi
-        } else {
-            return false; 
-            // La suppression a échoué
+            // Connexion à la base de données ici 
+            $dbConnection = $this->dbConnection;
+            // Une nouvelle instance de DetailsRepository
+            $detailsRepository = new DetailsRepository($dbConnection); 
+    
+            $dbConnection->beginTransaction();
+            // Supprimer les détails associés à la chambre à supprimer
+            $detailsRepository->deleteDetailsByRoomId($id);
+
+            // Ensuite, supprimer la chambre de la table 'rooms'
+            $request = $this->dbConnection->prepare("DELETE FROM rooms WHERE id_room = :id_room");
+            $request->bindParam(':id_room', $id);
+            $success = $request->execute();
+
+            $dbConnection->commit();
+
+            return $success; // La suppression a réussi
+        } catch (PDOException $e) 
+        {
+            $dbConnection->rollBack();
+            // Gère les erreurs, par exemple :
+            echo "Erreur : " . $e->getMessage();
+            return false; // La suppression a échoué
         }
     }
 
@@ -249,6 +266,41 @@ class RoomsRepository extends BaseRepository
               return $results;
         } else {
             return null;
+        }
+    }
+    public function updateRoomById($id)
+    {
+        try 
+        {
+            // Connexion à la base de données ici 
+            $dbConnection = $this->dbConnection;
+            // Une nouvelle instance de DetailsRepository
+            // $detailsRepository = new DetailsRepository($dbConnection); 
+    
+            $dbConnection->beginTransaction();
+            // Supprimer les détails associés à la chambre à supprimer
+            // $detailsRepository->updateDetailsByRoomId($id);
+
+            // Ensuite, supprimer la chambre de la table 'rooms'
+            $request = $this->dbConnection->prepare("UPDATE rooms SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category WHERE id_room = :id_room");
+            $request->bindParam(":room_number", $room_number);
+            $request->bindParam(":price", $price);
+            $request->bindParam(":room_imgs", $room_imgs); 
+            // Enregistre le nom du fichier, pas le chemin complet
+            $request->bindParam(":persons", $persons);
+            $request->bindParam(":category", $category);
+            $request->bindParam(':id_room', $id);
+            $success = $request->execute();
+
+            $dbConnection->commit();
+
+            return $success; // La suppression a réussi
+        } catch (PDOException $e) 
+        {
+            $dbConnection->rollBack();
+            // Gère les erreurs, par exemple :
+            echo "Erreur : " . $e->getMessage();
+            return false; // La suppression a échoué
         }
     }
 }

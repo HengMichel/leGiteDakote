@@ -3,8 +3,6 @@
         <thead>
             <tr>
                 <th class="id_bookings align-middle text-center fs-5">Bookings N°</th>
-                <th class="debut_reservation align-middle text-center fs-5">Date début</th>
-                <th class="fin_reservation align-middle text-center fs-5">Date fin</th>
                 <th class="user_id align-middle text-center fs-5">Utilisateur N°</th>
                 <th class="booking_price align-middle text-center fs-5">Prix</th>
                 <th class="booking_state align-middle text-center fs-5">Etat réservation</th>
@@ -14,8 +12,6 @@
             <?php foreach($bookings as $booking) :?>
                 <tr>
                     <td class="idBook bg-secondary-subtle align-middle text-center"><?= $booking->getId_booking() ?></td>
-                    <td class="booking_start_date bg-secondary-subtle align-middle text-center"><?= date("d-m-Y", strtotime($booking->getBooking_start_date())) ?></td>
-                    <td class="booking_end_date bg-secondary-subtle align-middle text-center"><?= date("d-m-Y", strtotime($booking->getBooking_end_date())) ?></td>
                     <td class="user_id bg-secondary-subtle align-middle text-center"><?= $booking->getUser_id() ?></td>
                     <td class="booking_price bg-secondary-subtle align-middle text-center"><?= $booking->getBooking_price() ?></td>
                     <td class="booking_state bg-secondary-subtle align-middle text-center"><?= $booking->getBooking_state() ?></td>

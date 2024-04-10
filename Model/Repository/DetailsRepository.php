@@ -84,6 +84,33 @@ class DetailsRepository extends BaseRepository
         }
     }
 
+    public function updateDetailsByRoomId($id)
+    {
+        $request = $this->dbConnection->prepare("UPDATE details WHERE room_id = :room_id");
+        
+        $request->bindParam(':room_id',$id);
+        if($request->execute()) {
+            // La suppression a réussi
+            return true; 
+        } else {
+            // La suppression a échoué
+            return false; 
+        }
+    }
+
+    public function deleteDetailsByRoomId($id)
+    {
+        $request = $this->dbConnection->prepare("DELETE FROM details WHERE room_id = :room_id");
+        $request->bindParam(':room_id',$id);
+        if($request->execute()) {
+            // La suppression a réussi
+            return true; 
+        } else {
+            // La suppression a échoué
+            return false; 
+        }
+    }
+
     public function findDetailById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE id_detail = :id_detail");
