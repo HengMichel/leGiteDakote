@@ -1,4 +1,4 @@
-<div class="listRoomAdmin container">
+<div class="listRoomAdmin container container5">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -27,7 +27,7 @@
                     </td>
                     <td class="roomState mt-2 align-middle text-center fw-medium bg-secondary-subtle"><?= $room->getRoom_state() ?>
                     </td>
-                    <td class="suppr bg-dark align-middle">
+                    <td class="suppr bg-dark text-center">
                         <a class="btn btn-danger" href="<?= addLink("admin/rooms/editRoom", $room->getId_room()) 
                         ?>">Modifier
                         </a>

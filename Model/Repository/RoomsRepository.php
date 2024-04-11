@@ -155,32 +155,41 @@ class RoomsRepository extends BaseRepository
         }
     }
 
-    public function updateRooms(Rooms $rooms)
+    public function updateRooms($id, Rooms $room)
     {
-        $sql = "UPDATE rooms 
-                SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
-                WHERE id_room = :id_room";
-        $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":room_number", $rooms->getRoom_number());
-        $request->bindValue(":price", $rooms->getPrice());
-        $request->bindValue(":room_imgs", $rooms->getRoom_imgs());
-        $request->bindValue(":persons", $rooms->getPersons());
-        $request->bindValue(":category", $rooms->getCategory());
-        $request->bindValue(":room_state", $rooms->getRoom_state());
-        $request->bindValue(":id_room", $rooms->getId_room());
-        $request = $request->execute();
-        if ($request) 
+        try 
         {
-            if ($request == 1) {
-                Session::addMessage("success",  "La mise à jour du produit a bien été éffectuée");
-                return true;
-            }
-            // Il y a eu un problème avec le téléchargement de l'image
-            Session::addMessage("danger", "Erreur : Le produit n'a pas été mise à jour");
-            return false;
+            // Connexion à la base de données ici 
+            $dbConnection = $this->dbConnection;
+            // Une nouvelle instance de DetailsRepository
+            $detailsRepository = new DetailsRepository($dbConnection); 
+    
+            $dbConnection->beginTransaction();
+            // Supprimer les détails associés à la chambre à supprimer
+            $detailsRepository->updateDetailsByRoomId($id);
+
+            $request = $this->dbConnection->prepare("UPDATE rooms 
+                    SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
+                    WHERE id_room = :id_room");
+            // $request = $this->dbConnection->prepare($sql);
+            $request->bindValue(":room_number", $room->getRoom_number());
+            $request->bindValue(":price", $room->getPrice());
+            $request->bindValue(":room_imgs", $room->getRoom_imgs());
+            $request->bindValue(":persons", $room->getPersons());
+            $request->bindValue(":category", $room->getCategory());
+            $request->bindValue(":room_state", $room->getRoom_state());
+            $request->bindValue(":id_room", $room->getId_room());
+            $success = $request->execute();
+            $dbConnection->commit();
+
+            return $success; // La modification a réussi
+        } catch (PDOException $e) 
+        {
+            $dbConnection->rollBack();
+            // Gère les erreurs, par exemple :
+            echo "Erreur : " . $e->getMessage();
+            return false; // La modification à échoué
         }
-        Session::addMessage("danger",  "Erreur SQL");
-        return null;
     }
 
     public function findRoomsByCategory($category)
@@ -268,39 +277,80 @@ class RoomsRepository extends BaseRepository
             return null;
         }
     }
-    public function updateRoomById($id)
+
+    public function updateRoomById($id, Rooms $room)
     {
+        // d_die($id);
         try 
         {
             // Connexion à la base de données ici 
             $dbConnection = $this->dbConnection;
-            // Une nouvelle instance de DetailsRepository
-            // $detailsRepository = new DetailsRepository($dbConnection); 
-    
             $dbConnection->beginTransaction();
-            // Supprimer les détails associés à la chambre à supprimer
-            // $detailsRepository->updateDetailsByRoomId($id);
+            // Une nouvelle instance de DetailsRepository
+            $detailsRepository = new DetailsRepository($dbConnection); 
 
-            // Ensuite, supprimer la chambre de la table 'rooms'
+            // modifier les détails associés à la chambre à modifier
+            $detailsRepository->updateDetailsByRoomId($id);
+            // d_die($id);
+
+            // Ensuite, modifier la chambre de la table 'rooms'
             $request = $this->dbConnection->prepare("UPDATE rooms SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category WHERE id_room = :id_room");
-            $request->bindParam(":room_number", $room_number);
-            $request->bindParam(":price", $price);
-            $request->bindParam(":room_imgs", $room_imgs); 
+            // Afficher la requête SQL générée pour le débogage
+// echo $request->queryString;
+            $request->bindParam(":room_number", $room->getRoom_number());
+            d_die($request);
+            $request->bindParam(":price",$room->getPrice());
+            $request->bindParam(":room_imgs", $room->getRoom_imgs()); 
             // Enregistre le nom du fichier, pas le chemin complet
-            $request->bindParam(":persons", $persons);
-            $request->bindParam(":category", $category);
+            $request->bindParam(":persons", $room->getPersons());
+            $request->bindParam(":category", $room->getCategory());
             $request->bindParam(':id_room', $id);
             $success = $request->execute();
-
+d_die($success);
             $dbConnection->commit();
 
-            return $success; // La suppression a réussi
+            return $success; // La modification a réussi
         } catch (PDOException $e) 
         {
             $dbConnection->rollBack();
             // Gère les erreurs, par exemple :
             echo "Erreur : " . $e->getMessage();
-            return false; // La suppression a échoué
+            return false; // La modification a échoué
         }
     }
+
+    public function updateRoom(Rooms $rooms)
+    {
+        $sql = "UPDATE rooms SET room_number = :room_number, price = :price, room_imgs = :room_imgs, persons = :persons, category = :category WHERE id_room = :id_room";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":room_number", $rooms->getRoom_number());
+        $request->bindValue(":price", $rooms->getPrice());
+        $request->bindValue(":room_imgs", $rooms->getRoom_imgs()); 
+        // Enregistre le nom du fichier, pas le chemin complet
+        $request->bindValue(":persons", $rooms->getPersons());
+        $request->bindValue(":category", $rooms->getCategory());
+        // Ajout du paramètre id_room
+        $request->bindValue(":id_room", $rooms->getId_room()); 
+        // d_die($request);
+
+        try 
+        {
+            $result = $request->execute();
+            if ($result) {
+            Session::addMessage("success", "La nouvelle chambre a bien été modifiée");
+            return true;
+            } else {
+            Session::addMessage("danger", "Erreur : la chambre n'a pas été modifiée");
+            return false;
+            }
+        } catch (\PDOException $exception) 
+        {
+            Session::addMessage("danger", "Erreur SQL : " . $exception->getMessage());
+            return false;
+        }
+        // Il y a eu un problème avec le téléchargement de l'image
+        Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
+        return false;
+}
+
 }

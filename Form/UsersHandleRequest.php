@@ -107,22 +107,27 @@ class UsersHandleRequest extends BaseHandleRequest
 
     public function handleSecurity()
     {
-        if (isset($_POST['submit'])) {
-   
+        if (isset($_POST['submit'])) 
+        {
             extract($_POST);
             $errors = [];
             if (!empty($_POST)) {
                 // Vérification de la validité du formulaire
-                if (empty($email) || empty($password)) {
+                if (empty($email) || empty($password)) 
+                {
                     $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
-                } else {
+                } else 
+                {
                     // Est-ce que l'email existe déjà dans la bdd ?
                     $userInfo = $this->usersRepository->findByAttributes("users", ["email" => $email]);
-                    if (empty($userInfo)) {
+                    if (empty($userInfo)) 
+                    {
                         $errors[] = "Utilisateur inconnu !";
-                    } else {
+                    } else 
+                    {
                         // Vérifie si le mot de passe est correct
-                        if (!password_verify($password, $userInfo->getPassword())) {
+                        if (!password_verify($password, $userInfo->getPassword())) 
+                        {
                             $errors[] = "Le mot de passe est incorrect";
                         }
                     }
@@ -130,7 +135,8 @@ class UsersHandleRequest extends BaseHandleRequest
             } else {
                 $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
             }
-            if (!empty($errors)) {
+            if (!empty($errors)) 
+            {
                 $this->setEerrorsForm($errors);
                 return null;
             }

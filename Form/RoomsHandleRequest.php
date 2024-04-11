@@ -20,6 +20,8 @@ class RoomsHandleRequest extends BaseHandleRequest
         {
             extract($_POST);
             $errors = [];
+
+     
 // d_die($_POST);
             // Vérification de la validité du formulaire
             if (empty($room_number)) {
@@ -59,41 +61,20 @@ class RoomsHandleRequest extends BaseHandleRequest
                 if (empty($category)) {
                     $errors[] = "La category ne peut pas être vide";
                 }
-            }    
+            } 
+            // d_die($_POST);
+   
             if (empty($errors)) {
                 $rooms->setRoom_number($room_number);
                 $rooms->setRoom_imgs($room_imgs);
                 $rooms->setPrice($price);
                 $rooms->setPersons($persons);
                 $rooms->setCategory($category);
+            // d_die($rooms);
                 return $this;
             }
             $this->setEerrorsForm($errors);
             return $this;
         }
-    }
-
-    public function EditRoomHandleForm(Rooms $room)
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") 
-        {
-            $room_number = $_POST['room_number'] ?? '';
-            $price = $_POST['price'] ?? '';
-            $room_imgs = $_FILES['room_imgs'] ?? '';
-            $persons = $_POST['persons'] ?? '';
-            $category = $_POST['category'] ?? '';
-            $errors = [];
-            if (empty($errors)) 
-            {
-                $room->setRoom_number($room_number);
-                $room->setRoom_imgs($room_imgs);
-                $room->setPrice($price);
-                $room->setPersons($persons);
-                $room->setCategory($category);
-                return $this;
-            }
-            $this->setEerrorsForm($errors);
-            return $this;
-        }    
     }
 }

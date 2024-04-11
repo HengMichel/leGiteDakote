@@ -86,15 +86,25 @@ class DetailsRepository extends BaseRepository
 
     public function updateDetailsByRoomId($id)
     {
-        $request = $this->dbConnection->prepare("UPDATE details WHERE room_id = :room_id");
-        
-        $request->bindParam(':room_id',$id);
-        if($request->execute()) {
-            // La suppression a réussi
-            return true; 
-        } else {
-            // La suppression a échoué
-            return false; 
+        // d_die($id);
+        try {
+            $request = $this->dbConnection->prepare("UPDATE details SET room_id = :room_id WHERE room_id = :id_room");
+            // Mise à jour de la colonne "room_id" dans la table "details" où "room_id" correspond à l'identifiant de la chambre
+    
+            $request->bindParam(':room_id', $id);
+            $request->bindParam(':id_room', $id); // Utilisé pour filtrer les enregistrements à mettre à jour
+    
+            if ($request->execute()) {
+                // La mise à jour a réussi
+                return true; 
+            } else {
+                // La mise à jour a échoué
+                return false; 
+            }
+        } catch (PDOException $e) {
+            // Gère les erreurs, par exemple :
+            echo "Erreur : " . $e->getMessage();
+            return false; // La mise à jour a échoué
         }
     }
 
