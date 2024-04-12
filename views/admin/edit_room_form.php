@@ -39,9 +39,9 @@ require "views/errors_form.php";
                 </div>
             </div>
             <div class="form-group mt-4 text-center">
-            <button type="submit" id="bouton" class="btn bg-primary link-light border" name="add_room" value="submit">Ajouter
-            </button>
-        </div>
+                <button type="submit" id="bouton" class="btn bg-primary link-light border" name="add_room" value="submit">Valider
+                </button>
+            </div>
         </div>
     </form>
 </div>

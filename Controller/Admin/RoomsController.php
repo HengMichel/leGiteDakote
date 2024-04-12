@@ -33,13 +33,13 @@ class RoomsController extends BaseController
     {
         $rooms = $this->rooms;
         $this->form->RoomsHandleForm($rooms);
-        d_die($rooms);
+        // d_die($rooms);
         if ($this->form->isSubmitted() && $this->form->isValid()) 
         {
-        d_die($rooms);
+        // d_die($rooms);
             // ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
             ImageHandler::handelPhoto($rooms);
-            d_die($rooms);
+            // d_die($rooms);
 
             // new method for add rooms insertRooms($rooms)
             $this->roomsRepository->insertRooms($rooms);
@@ -51,16 +51,6 @@ class RoomsController extends BaseController
             "errors" => $errors
         ]);
     }
-
-
-
-
-
-
-
-
-
-
 
     public function editRoom($id)
     {
@@ -80,8 +70,8 @@ class RoomsController extends BaseController
         // d_die($rooms);
         $this->form->RoomsHandleForm($rooms);
         // d_die($rooms);
-        if ($this->form->isSubmitted() && $this->form->isValid()) 
         // d_die($this->form);
+        if ($this->form->isSubmitted() && $this->form->isValid()) 
         {
             // d_die($rooms);
             // ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
@@ -97,27 +87,10 @@ class RoomsController extends BaseController
         ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function show($id)
     {
-        if ($id) {
+        if ($id) 
+        {
             if (is_numeric($id)) 
             {
                 $rooms = $this->roomsRepository->findRoomsById($id); 

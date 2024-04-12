@@ -21,73 +21,92 @@ class UsersHandleRequest extends BaseHandleRequest
             extract($_POST);
             $errors = [];
             // Vérification de la validité du formulaire
-            if (empty( $email)) {
+            if (empty( $email)) 
+            {
                 $errors[] = "L'email ne peut pas être vide";
             }
-            if (strlen( $email) < 11) {
+            if (strlen( $email) < 11) 
+            {
                 $errors[] = "L'email doit avoir au moins 11 caractères";
             }
             if (strlen( $email) > 50) {
                 $errors[] = "L'email ne peut avoir plus de 50 caractères";
             }
-            if (!strpos( $email, " ") === false) {
+            if (!strpos( $email, " ") === false) 
+            {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
-            if (empty( $email) . "@" === false) {
+            if (empty( $email) . "@" === false) 
+            {
                 $errors[] = "L'email n'est pas valide";
             }
             // Est-ce que l'email existe déjà dans la bdd ?
             $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
-            if ($request) {
+            if ($request) 
+            {
                 $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
             }
             if (!empty($last_name)) {
-                if (strlen($last_name) < 1) {
+                if (strlen($last_name) < 1) 
+                {
                     $errors[] = "Le last_name doit avoir au moins 2 caractères";
                 }
-                if (strlen($last_name) > 100) {
+                if (strlen($last_name) > 100) 
+                {
                     $errors[] = "Le last_name ne peut avoir plus de 100 caractères";
                 }
             }
             if (!empty($first_name)) {
-                if (strlen($first_name) < 1) {
+                if (strlen($first_name) < 1) 
+                {
                     $errors[] = "Le nom de famille doit avoir au moins 2 caractères";
                 }
-                if (strlen($first_name) > 100) {
+                if (strlen($first_name) > 100) 
+                {
                     $errors[] = "Le nom de famille ne peut avoir plus de 100 caractères";
                 }
             }    
-            if (empty($password)) {
+            if (empty($password)) 
+            {
                 $errors[] = "Le mot de passe ne peut pas être vide";
             }         
-            if (empty($birthday)) {
-                    $errors[] = "La date de naissance ne peut pas être vide";          
+            if (empty($birthday)) 
+            {
+                $errors[] = "La date de naissance ne peut pas être vide";          
             }    
-            if (!empty($address)) {
-                if (strlen($address) < 6) {
+            if (!empty($address)) 
+            {
+                if (strlen($address) < 6) 
+                {
                     $errors[] = "L'addresse doit avoir au moins 6 caractères";
                 }
-                if (strlen($address) > 100) {
+                if (strlen($address) > 100) 
+                {
                     $errors[] = "L'addresse ne peut avoir plus de 100 caractères";
                 }
             }    
             if (!empty($phone_number)) {
-                if (strlen($phone_number) < 10) {
+                if (strlen($phone_number) < 10) 
+                {
                     $errors[] = "Le numéro de téléphone doit avoir au moins 10 caractères";
                 }
-                if (strlen($phone_number) > 20) {
+                if (strlen($phone_number) > 20) 
+                {
                     $errors[] = "Le numéro de téléphone ne peut avoir plus de 20 caractères";
                 }
-                if (!strpos( $phone_number, " ") === false) {
+                if (!strpos( $phone_number, " ") === false) 
+                {
                     $errors[] = "Les espaces ne sont pas autorisés pour le numéro de téléphone";
                 }
             }    
             if (empty($gender)) {
-                if (strlen($phone_number) < 0) {
-                        $errors[] = "La section 'Civilité' est vide merci de le compléter";
+                if (strlen($gender) < 0) 
+                {
+                    $errors[] = "La section 'Civilité' est vide merci de le compléter";
                 }
-                if (strlen($phone_number) > 1) {
-                        $errors[] = "Vous ne pouvez avoir qu'une seule civilité";
+                if (strlen($gender) > 1) 
+                {
+                    $errors[] = "Vous ne pouvez avoir qu'une seule civilité";
                 }
             }
             if (empty($errors)) {             
@@ -141,6 +160,94 @@ class UsersHandleRequest extends BaseHandleRequest
                 return null;
             }
             return $userInfo;
+        }
+    }
+
+    public function handleFormModif(Users $users)
+    {
+        // d_die($_POST);
+        if ($_SERVER["REQUEST_METHOD"] == "POST") 
+        {
+            extract($_POST);
+            $errors = [];
+            // d_die($_POST);
+
+            // Vérification de la validité du formulaire
+            if (empty( $email)) 
+            {
+                $errors[] = "L'email ne peut pas être vide";
+            }
+            if (strlen( $email) < 11) 
+            {
+                $errors[] = "L'email doit avoir au moins 11 caractères";
+            }
+            if (strlen( $email) > 50) 
+            {
+                $errors[] = "L'email ne peut avoir plus de 50 caractères";
+            }
+            if (!strpos( $email, " ") === false) 
+            {
+                $errors[] = "Les espaces ne sont pas autorisés pour l'email";
+            }
+            if (empty( $email) . "@" === false) 
+            {
+                $errors[] = "L'email n'est pas valide";
+            }
+            // Est-ce que l'email existe déjà dans la bdd ?
+            // $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
+            // if ($request) 
+            // {
+            //     $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
+            // }
+            if (!empty($address)) 
+            {
+                if (strlen($address) < 6) 
+                {
+                    $errors[] = "L'addresse doit avoir au moins 6 caractères";
+                }
+                if (strlen($address) > 100) 
+                {
+                    $errors[] = "L'addresse ne peut avoir plus de 100 caractères";
+                }
+            }    
+            if (!empty($phone_number)) 
+            {
+                if (strlen($phone_number) < 10) 
+                {
+                    $errors[] = "Le numéro de téléphone doit avoir au moins 10 caractères";
+                }
+                if (strlen($phone_number) > 20) 
+                {
+                    $errors[] = "Le numéro de téléphone ne peut avoir plus de 20 caractères";
+                }
+                if (!strpos( $phone_number, " ") === false) 
+                {
+                    $errors[] = "Les espaces ne sont pas autorisés pour le numéro de téléphone";
+                }
+            }    
+            if (empty($password)) 
+            {
+                $errors[] = "Le mot de passe ne peut pas être vide";
+            }  
+            // Récupération des valeurs saisies dans les champs du formulaire
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            // Vérification si les deux mots de passe sont identiques
+            if ($password !== $confirmPassword) 
+            {
+                // Les mots de passe ne sont pas identiques, affichez un message d'erreur à l'utilisateur
+                $errors[] = "Les mots de passe ne correspondent pas.";
+            }  
+            // d_die($users);     
+            if (empty($errors)) 
+            {             
+                $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                $users->setEmail($email);
+                $users->setAddress($address);
+                $users->setPhone_number($phone_number);
+                return true;
+            }
+            $this->setEerrorsForm($errors);
         }
     }
 }

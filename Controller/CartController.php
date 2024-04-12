@@ -30,11 +30,12 @@ class CartController extends BaseController
      */
     public function addToCart($id)
     {          
-        try {
+        try 
+        {
             $cm = new CartManager();
             // Appel de la méthode addCart avec l'identifiant 
             $cm->addCart($id);
-// d_die($cm);
+            // d_die($cm);
             // Redirection en cas de succès
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
             header("Location: $redirectUrl");
@@ -74,14 +75,15 @@ class CartController extends BaseController
         {   
             // Converti l'ID en entier
             $id = intval($id); 
-// d_die($id);  
+            // d_die($id);  
             // Instancie la classe DetailsRepository pour interagir avec la base de données
             $d = new DetailsRepository;
             // Appele de la méthode findDetailById pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailById($id);
-//  d_die($id);  
+            //  d_die($id);  
             // Vérifie si la chambre existe
-            if (empty($details)) {
+            if (empty($details)) 
+            {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
@@ -90,7 +92,8 @@ class CartController extends BaseController
             "detail" => $details,
             "h1" => "Fiche de la chambre"
             ]);
-        } else {
+        } else 
+        {
             // Redirige vers une page d'erreur si l'ID n'est pas valide
             error("404.php");
         }

@@ -64,28 +64,41 @@ class UsersController extends BaseController
             "errors" => $errors
             ]);
     }
-    
-    public function dashUsers()
+    public function editUser($id)
     {
-        $userId = Session::getConnectedUser();
-// d_die($userId);
-        // si l'utilisateur est connecté
-        if ($userId instanceof Users) {
-            // Utilise l'objet utilisateur pour récupérer le rôle
-            $userRole = $userId->getRole();
-            // si l'utilisateur est un client
-            if($userRole == 'client'){
-                // Utilise l'ID de l'utilisateur pour récupérer les réservations
-                $findUserBookings = $this->bookingsRepository->findUserBookings($userId->getId_user());
-                return $this->render("users/dashboard_users.php", [
-                "findUserBookings" => $findUserBookings
-                ]);  
-                // alors si il n'est pas client mais admin donc  
-            } elseif ($userRole == 'admin'){     
-                return redirection(addLink("admin/users","dashboard"));
-            }
+        // Récupérer les modifications du profil à partir de l'identifiant $id
+        $users = $this->usersRepository->findUsersById($id);
+        // d_die($users);
+        // Passer les modifications du profil à la vue
+        $this->render("users/form_modif_users.php", [
+            "h1" => "Modifier le profil",
+            "users" => $users
+        ]);
+    }
+    public function updateUser($id)
+    {
+        $users = $this->usersRepository->findUsersById($id);
+        // d_die($users);
+        $this->form->handleFormModif($users);
+        // d_die($users);
+        if ($this->form->isSubmitted() && $this->form->isValid())  
+        {
+            // d_die($users);
+            $this->usersRepository->updateUsers($users); 
+            // d_die($users);
+  
+            return redirection(addLink("users","show",$users->getId_user()));
+        }
+        else
+        {
+            $errors = $this->form->getEerrorsForm();
+            return $this->render("users/form_modif_users.php", [
+                "users" => $users,
+                "errors" => $errors
+            ]);
         }
     }
+    
 
     public function deco()
     {

@@ -37,23 +37,25 @@ class BookingsController extends BaseController
     {
         // Récupère l'utilisateur connecté
         $user = Session::getConnectedUser();
-// d_die($user);
-// d_die($_SESSION);
+        // d_die($user);
+        // d_die($_SESSION);
         $user_id = $user instanceof Users ? $user->getId_user() : null;
         $booking_state = "in progress";
-// d_die($user_id);
+        // d_die($user_id);
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
-// d_die($this->form->handleForm($this->bookings, $user_id));
-// d_die($user_id);
+        // d_die($this->form->handleForm($this->bookings, $user_id));
+        // d_die($user_id);
         if ($this->form->isSubmitted() && $this->form->isValid()) 
         {            
             // Ajoute la réservation à la base de données
             $id_booking = $this->bookingsRepository->addBookings($this->bookings);
-// d_die($id_booking);
-            if ($id_booking) {
+            // d_die($id_booking);
+            if ($id_booking) 
+            {
                 return redirection(addLink("details","newDetail"));
-            } else {
+            } else 
+            {
                 // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                 $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
             }
@@ -72,9 +74,9 @@ class BookingsController extends BaseController
     {
         // Annule la réservation
         $success = $this->bookingsRepository->cancelBooking($id);
-// d_die($success);
+        // d_die($success);
         if ($success) {
-// d_die($success);
+        // d_die($success);
         // Redirige vers le tableau de bord
         return redirection(addLink("users","dashUsers"));
         } else {

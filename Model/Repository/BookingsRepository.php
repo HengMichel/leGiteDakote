@@ -40,11 +40,11 @@ class BookingsRepository extends BaseRepository
         try 
         {
             // Avant la recherche de la réservation
-// echo "ID de réservation à annuler : " . $id;
+            // echo "ID de réservation à annuler : " . $id;
             // Récupérer la réservation par son ID
             $booking = $this->findBookingById($id);
-// echo "Avant la mise à jour : ";
-// print_r($booking);
+            // echo "Avant la mise à jour : ";
+            // print_r($booking);
             // Vérifie si la réservation existe
             if ($booking) {
                 // Mets à jour l'état de la réservation
@@ -55,7 +55,7 @@ class BookingsRepository extends BaseRepository
                 $success = $request->execute();
                 if ($success) 
                 {
-// echo "Après la mise à jour : " . $id;
+                // echo "Après la mise à jour : " . $id;
                     Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
                     return true;
                 } else {

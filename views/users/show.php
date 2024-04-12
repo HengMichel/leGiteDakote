@@ -40,9 +40,9 @@
     Civilité
       <span class="badge bg-white link-dark fs-5"><?= $users->getGender() ?></span>
     </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center m-auto">
-    
+    <li class="list-group-item d-flex justify-content-between align-items-center m-auto mx-md-0">
       <a href="<?= addLink("cart","detailCart") ?>" class="btn bg-primary link-light fw-medium">mon panier</a>
+      <a href="<?= addLink("users","editUser", $users->getId_user()) ?>" class="btn bg-primary link-light fw-medium">modifier profil</a>
     </li>
   </ul>
 </div>

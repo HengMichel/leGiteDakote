@@ -20,8 +20,6 @@ class RoomsHandleRequest extends BaseHandleRequest
         {
             extract($_POST);
             $errors = [];
-
-     
 // d_die($_POST);
             // Vérification de la validité du formulaire
             if (empty($room_number)) {
