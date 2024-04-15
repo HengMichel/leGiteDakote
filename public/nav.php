@@ -15,24 +15,24 @@ if (session_status() == PHP_SESSION_NONE)
                 <i class="fa fa-home me-1"></i>Accueil
             </a>
         </button>
-<!-- connexion avec le message Bienvenue suivi du nom -->
-            <?php
-                if( $user = Session::getConnectedUser()): 
-            ?>
+        <!-- connexion avec le message Bienvenue suivi du nom -->
+        <?php
+            if( $user = Session::getConnectedUser()): 
+        ?>
         <button type="button" class="btn btn-outline-light fw-semibold">
             <a class="nav-link"
                     href="<?= addLink("users", "show", $user->getId_user()) ?>">
                     <?php echo 'Bienvenue ' . $user->getLast_name() . '';?>
             </a>
         </button>
-<!-- déconnexion -->
+        <!-- déconnexion -->
         <button type="button" class="btn btn-primary fw-semibold">
             <a class="nav-link" href="<?= addLink("users", "deco") ?>">déconnexion
                 <i class="fa fa-sign-out fa-2xl"></i>
             </a>
         </button>
-<!-- connexion de l'admin et acces de tous ses avantages -->
-<?php if( Service\Session::isAdmin() ): ?>
+        <!-- connexion de l'admin et acces de tous ses avantages -->
+        <?php if( Service\Session::isAdmin() ): ?>
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <button type="button" class="btn btn-outline-light fw-semibold">
                 Chambres
@@ -61,9 +61,9 @@ if (session_status() == PHP_SESSION_NONE)
                 </div>
             </div>
         </div>
-<?php endif; ?>
-<!-- connexion et ou inscription -->
-<?php else: ?>
+        <?php endif; ?>
+        <!-- connexion et ou inscription -->
+        <?php else: ?>
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <button type="button" class="btn btn-outline-light fw-semibold">
                 <a class="nav-link mt-0 fw-semibold" href="<?= addLink("users", "login") ?>">connexion
@@ -78,13 +78,13 @@ if (session_status() == PHP_SESSION_NONE)
                 </div>
             </div>
         </div>
-<?php endif ?>
-<!-- access aux services  -->
+        <?php endif ?>
+        <!-- access aux services  -->
         <button type="button" class="btn btn-outline-light">
             <a class="nav-link fw-semibold" href="<?= addLink("home","serviceDuGite") ?>">Nos Services
             </a>
         </button>
-<!-- présentation des propriétaire -->
+        <!-- présentation des propriétaire -->
         <button type="button" class="btn btn-outline-light ">
             <a class="nav-link fw-semibold" href="<?= addLink("home","aboutUs") ?>">à propos de nous
             </a>

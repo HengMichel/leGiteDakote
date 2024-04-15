@@ -34,6 +34,7 @@ class UsersController extends BaseController
         }
         $errors = $this->form->getEerrorsForm();
         return $this->render("users/form_users.php", [
+            "h1" => "Inscription",
             "users" => $users,
             "errors" => $errors
         ]);
@@ -42,8 +43,9 @@ class UsersController extends BaseController
     public function show($id)
     {
         $user = $this->usersRepository->findUsersById($id);
-// d_die($user);
+        // d_die($user);
         return $this->render("users/show.php", [
+            "h1" => "Mon profil",
             "users" => $user,
         ]);
     }
@@ -60,6 +62,7 @@ class UsersController extends BaseController
         $errors = $this->form->getEerrorsForm();
         // Si le formulaire n'est pas soumis ou n'est pas valide, affiche le formulaire de connexion            
         return $this->render("security/form_login.php", [
+            "h1" => "Connexion",
             "users" => $users,
             "errors" => $errors
             ]);
@@ -86,7 +89,6 @@ class UsersController extends BaseController
             // d_die($users);
             $this->usersRepository->updateUsers($users); 
             // d_die($users);
-  
             return redirection(addLink("users","show",$users->getId_user()));
         }
         else
@@ -99,7 +101,6 @@ class UsersController extends BaseController
         }
     }
     
-
     public function deco()
     {
         Session::logout();

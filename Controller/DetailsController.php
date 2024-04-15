@@ -26,7 +26,6 @@ class DetailsController extends BaseController
         // d_die($id_user);
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
-
         // Récupérer les réservations de l'utilisateur à partir de la session
         $bookings = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
         // d_die($bookings);

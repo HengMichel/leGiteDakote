@@ -22,45 +22,45 @@ $totalPrice = 0.0;
                 // Vérifie si $detail est défini et s'il contient des éléments
                 if (!empty($_SESSION['cart'])) 
                 {
-// d_die($_SESSION['cart']);
+                    // d_die($_SESSION['cart']);
                     foreach($_SESSION['cart'] as $reservation)
                     {
-// d_die($reservation);
+                        // d_die($reservation);
                 ?>
-                    <tr class="table-active">
-                        <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                            <?= $reservation["room"]->getId_room(); ?>
-                        </td>
-                        <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                            <?php
-                            $date_debut = DateTime::createFromFormat('Y-m-d', $reservation["date_debut"]);
+                <tr class="table-active">
+                    <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
+                        <?= $reservation["room"]->getId_room(); ?>
+                    </td>
+                    <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
+                        <?php
+                        $date_debut = DateTime::createFromFormat('Y-m-d', $reservation["date_debut"]);
+                        // Affiche la date au format "dd-mm-yyyy"
+                        echo $date_debut->format('d-m-Y'); 
+                        ?>
+                    </td>         
+                    <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
+                        <?php
+                            $date_fin = DateTime::createFromFormat('Y-m-d', $reservation["date_fin"]);
                             // Affiche la date au format "dd-mm-yyyy"
-                            echo $date_debut->format('d-m-Y'); 
-                            ?>
-                        </td>         
-                        <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                            <?php
-                                $date_fin = DateTime::createFromFormat('Y-m-d', $reservation["date_fin"]);
-                                // Affiche la date au format "dd-mm-yyyy"
-                                echo $date_fin->format('d-m-Y'); 
-                            ?>
-                        </td>
-                        <td class="price align-middle fs-5 text-center col-2">
-                            <?php 
-                                // Vérifie si l'objet $price existe et n'est pas null
-                                if ($reservation["room"]->getPrice() !== null) { 
-                                    echo number_format($reservation["room"]->getPrice(), 2);
-                                    // Ajoute le prix de cette réservation au total
-                                    $totalPrice += $reservation["totalPrice"];
-                                } else {
-                                    echo "Prix non disponible";
-                                }
-                            ?>
-                        </td>
-                        <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                        <a href="<?= addLink("cart","delectToCart", $reservation["room"]->getId_room()) ?>" class="btn bg-danger link-light ">annuler</a>
-                        </td>
-                    </tr> 
+                            echo $date_fin->format('d-m-Y'); 
+                        ?>
+                    </td>
+                    <td class="price align-middle fs-5 text-center col-2">
+                        <?php 
+                            // Vérifie si l'objet $price existe et n'est pas null
+                            if ($reservation["room"]->getPrice() !== null) { 
+                                echo number_format($reservation["room"]->getPrice(), 2);
+                                // Ajoute le prix de cette réservation au total
+                                $totalPrice += $reservation["totalPrice"];
+                            } else {
+                                echo "Prix non disponible";
+                            }
+                        ?>
+                    </td>
+                    <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
+                    <a href="<?= addLink("cart","delectToCart", $reservation["room"]->getId_room()) ?>" class="btn bg-danger link-light ">annuler</a>
+                    </td>
+                </tr> 
                 <?php 
                     }
                 } 
@@ -72,7 +72,7 @@ $totalPrice = 0.0;
                     </td>
                     <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold"><?= 
                     isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00'; 
-// d_die($_SESSION["totalPrice"]);
+                    // d_die($_SESSION["totalPrice"]);
                     ?></td>
                     <td class="m-0 border-secondary-subtle border mt-2 col-2 align-middle fs-5 text-center fw-semibold">
                         <!-- Si la clé "totalPrice" n'est pas définie ou si sa valeur est égale à zéro, le bouton sera désactivé -->

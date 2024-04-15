@@ -19,7 +19,8 @@ class BaseRepository
     public function findAll(BaseEntity $table): ?array
     {
         $request = $this->dbConnection->query("SELECT * FROM $table");
-        if ($request) {
+        if ($request) 
+        {
             // ucfirst : majuscule au début de la chaine de caractères
             $class = "Model\Entity\\" . ucfirst($table);  
             return $request->fetchAll(\PDO::FETCH_CLASS, $class);
@@ -48,14 +49,16 @@ class BaseRepository
                 $result = $request->fetchAll(\PDO::FETCH_CLASS, $class);
                 return $result;
             }
-        } catch (\PDOException $exception) {
+        } catch (\PDOException $exception) 
+        {
             echo "Erreur de connetion : " . $exception->getMessage();
         }
     }
 
     public function findByAttributes($tableName, $attributes = [])
     {
-        if (!is_array($attributes)) {
+        if (!is_array($attributes)) 
+        {
             // Retourne false si le tableau d'attributs est vide ou incorrect.
             return false; 
         }
@@ -65,7 +68,8 @@ class BaseRepository
         $conditions = [];
         $values = [];
 
-        foreach ($attributes as $column => $value) {
+        foreach ($attributes as $column => $value) 
+        {
             $conditions[] = "$column = :$column";
             $values[":$column"] = $value;
         }
@@ -73,23 +77,28 @@ class BaseRepository
         $query .= implode(' AND ', $conditions);
         $request = $this->dbConnection->prepare($query);
 
-        foreach ($values as $key => $val) {
+        foreach ($values as $key => $val) 
+        {
             $request->bindValue($key, $val);
         }
 
-        try {
+        try
+         {
             $request->execute();
             $class = "Model\Entity\\" . ucfirst($tableName);
 
-            if ($request->rowCount() == 1) {
+            if ($request->rowCount() == 1) 
+            {
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
                 return $request->fetch();
-            } else if ($request->rowCount() > 1) {
+            } else if ($request->rowCount() > 1) 
+            {
                 // ucfirst : majuscule au début de la chaine de caractères
                 $result = $request->fetchAll(\PDO::FETCH_CLASS, $class);
                 return $result;
             }
-        } catch (\PDOException $exception) {
+        } catch (\PDOException $exception) 
+        {
             echo "Erreur de connetion : " . $exception->getMessage();
         }
     }
@@ -121,8 +130,10 @@ class BaseRepository
         $request = $this->dbConnection->prepare($sql);
         $request->bindValue(":id", $tableName->getId());
         $request = $request->execute();
-        if ($request) {
-            if ($request == 1) {
+        if ($request) 
+        {
+            if ($request == 1) 
+            {
                 Session::addMessage("success",  "La mise à jour de l'utilisateur a bien été éffectuée");
                 return true;
             }

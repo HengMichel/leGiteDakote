@@ -22,7 +22,7 @@
          <script>
             var UPLOAD_CHAMBRES_IMG = '<?= UPLOAD_CHAMBRES_IMG ?>';
         </script>
-    <!--##################################################### -->
+        <!--##################################################### -->
         <script src="public/assets/js/ajax.js"></script>
         <title><?= $h1 ?? "Le gîte DAKOTE" ?></title>
     </head>

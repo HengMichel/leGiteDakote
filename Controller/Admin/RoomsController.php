@@ -36,7 +36,7 @@ class RoomsController extends BaseController
         // d_die($rooms);
         if ($this->form->isSubmitted() && $this->form->isValid()) 
         {
-        // d_die($rooms);
+            // d_die($rooms);
             // ici pour le changement du chemin pour les images via le repertoire uploads et a l aide de Service ImageHandler.php
             ImageHandler::handelPhoto($rooms);
             // d_die($rooms);

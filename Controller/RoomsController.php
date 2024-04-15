@@ -27,7 +27,7 @@ class RoomsController extends BaseController
         {   
             // Converti l'ID en entier
             $id = intval($id); 
-// d_die($id);  
+            // d_die($id);  
             // Instancie la classe RoomsRepository pour interagir avec la base de données
             $r = new RoomsRepository;
             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID

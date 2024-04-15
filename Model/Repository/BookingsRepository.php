@@ -12,7 +12,7 @@ class BookingsRepository extends BaseRepository
 {
     public function addBookings(Bookings $bookings)
     {
-// d_die($bookings);
+        // d_die($bookings);
         $sql = "INSERT INTO bookings (user_id, booking_price, booking_state) VALUES ( :user_id, :booking_price, :booking_state)";
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
         try 
@@ -62,12 +62,14 @@ class BookingsRepository extends BaseRepository
                     Session::addMessage("danger",  "Erreur : la réservation n'a pas été mise à jour");
                     return false;
                 }
-            } else {
+            } else 
+            {
                 // La réservation n'a pas été trouvée
                 Session::addMessage("danger",  "Erreur : réservation introuvable");
                 return false;
             }    
-        } catch (PDOException $e) {
+        } catch (PDOException $e) 
+        {
             // log l'erreur ici
             throw new Exception("Erreur lors de l'annulation de la réservation : " . $e->getMessage());
         }
@@ -89,8 +91,9 @@ class BookingsRepository extends BaseRepository
     // }  
 //  ###################################################################################################################
 
-    public function findBookingById($id){
-// d_die($id);
+    public function findBookingById($id)
+    {
+        // d_die($id);
         try 
         {
             $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
@@ -98,10 +101,10 @@ class BookingsRepository extends BaseRepository
             $request->bindValue(":id_booking", $id, \PDO::PARAM_INT);
             // Exécute la requête ici
             $request->execute(); 
-// d_die($request);
+            // d_die($request);
             // Récupère les résultats après l'exécution de la requête
             $bookingData = $request->fetch(\PDO::FETCH_ASSOC);
-// d_die($bookingData); 
+            // d_die($bookingData); 
             return $bookingData;
         } catch (PDOException $e) 
         {
@@ -153,13 +156,15 @@ class BookingsRepository extends BaseRepository
         $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
         $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
         // Affiche la requête SQL pour le débogage
-// var_dump($request->queryString);
-        if ($request->execute()) {
+        // var_dump($request->queryString);
+        if ($request->execute()) 
+        {
             // Utilise fetchObject pour récupérer un objet de la classe Bookings
             $results = $request->fetchObject("Model\Entity\Bookings");
-//   var_dump($results);
+            // var_dump($results);
             return $results;
-        } else {
+        } else 
+        {
             return null;
         }
     }

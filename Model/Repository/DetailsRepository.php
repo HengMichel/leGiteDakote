@@ -9,7 +9,8 @@ class DetailsRepository extends BaseRepository
 {
     public function insertDetail(Details $details)
     {
-        try {
+        try 
+        {
             $this->dbConnection->beginTransaction();
             $sql = "INSERT INTO `details` (room_id, booking_id, booking_start_date, booking_end_date) VALUES (:room_id, :booking_id, :booking_start_date, :booking_end_date)";
             $request = $this->dbConnection->prepare($sql);
@@ -22,7 +23,8 @@ class DetailsRepository extends BaseRepository
             $this->dbConnection->commit();
             return $success;
 
-         } catch (\PDOException $e) {
+         } catch (\PDOException $e) 
+         {
             // En cas d'erreur, annulez la transaction
             $this->dbConnection->rollBack();
             echo "Erreur : " . $e->getMessage();
@@ -33,7 +35,8 @@ class DetailsRepository extends BaseRepository
 
     public function selectDetail($id_detail)
     {
-        try {
+        try 
+        {
             $this->dbConnection->beginTransaction();
             $sql = "SELECT * FROM `details` WHERE `id_detail` = :id_detail";
             $request = $this->dbConnection->prepare($sql);
@@ -42,7 +45,8 @@ class DetailsRepository extends BaseRepository
             // Valide la transaction si tout s'est bien passé
             $this->dbConnection->commit();
 
-         } catch (\PDOException $e) {
+         } catch (\PDOException $e) 
+         {
             // En cas d'erreur, annule la transaction
             $this->dbConnection->rollBack();
             echo "Erreur : " . $e->getMessage();
@@ -53,7 +57,8 @@ class DetailsRepository extends BaseRepository
     public function addDetail($bookingId)
     {
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
-        try {
+        try 
+        {
         // En résumé, cette requête récupère l'ID de la réservation et l'ID de la chambre associés à une réservation spécifique à partir de la table detail, en reliant les tables detail, bookings et rooms à l'aide de jointures internes.
             $sql = "SELECT d.booking_id, r.room_id FROM details d 
                 INNER JOIN bookings b ON d.booking_id = b.id_booking
@@ -61,11 +66,12 @@ class DetailsRepository extends BaseRepository
                 WHERE d.booking_id = :booking_id";
             $request = $this->dbConnection->prepare($sql);
             $request->bindValue(":booking_id", $bookingId, \PDO::PARAM_INT);
-// d_die($request);
+            // d_die($request);
             $request->execute();
             return $request->fetch(\PDO::FETCH_ASSOC);
 
-        } catch (PDOException $e) {
+        } catch (PDOException $e) 
+        {
             error_log("PDOException in getBookingAndRoomIdsByBookingId: " . $e->getMessage());
             return null;
         }
@@ -75,7 +81,8 @@ class DetailsRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("DELETE FROM details WHERE id_detail = :id_detail");
         $request->bindParam(':id_detail',$id);
-        if($request->execute()) {
+        if($request->execute()) 
+        {
             // La suppression a réussi
             return true; 
         } else {
@@ -87,21 +94,25 @@ class DetailsRepository extends BaseRepository
     public function updateDetailsByRoomId($id)
     {
         // d_die($id);
-        try {
+        try 
+        {
             $request = $this->dbConnection->prepare("UPDATE details SET room_id = :room_id WHERE room_id = :id_room");
             // Mise à jour de la colonne "room_id" dans la table "details" où "room_id" correspond à l'identifiant de la chambre
     
             $request->bindParam(':room_id', $id);
             $request->bindParam(':id_room', $id); // Utilisé pour filtrer les enregistrements à mettre à jour
     
-            if ($request->execute()) {
+            if ($request->execute()) 
+            {
                 // La mise à jour a réussi
                 return true; 
-            } else {
+            } else 
+            {
                 // La mise à jour a échoué
                 return false; 
             }
-        } catch (PDOException $e) {
+        } catch (PDOException $e) 
+        {
             // Gère les erreurs, par exemple :
             echo "Erreur : " . $e->getMessage();
             return false; // La mise à jour a échoué
@@ -112,10 +123,12 @@ class DetailsRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("DELETE FROM details WHERE room_id = :room_id");
         $request->bindParam(':room_id',$id);
-        if($request->execute()) {
+        if($request->execute()) 
+        {
             // La suppression a réussi
             return true; 
-        } else {
+        } else 
+        {
             // La suppression a échoué
             return false; 
         }
@@ -125,9 +138,11 @@ class DetailsRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE id_detail = :id_detail");
         $request->bindParam(':id_detail',$id, \PDO::PARAM_INT);
-// d_die($id);
-        if($request->execute()) {
-            if ($request->rowCount() == 1) {
+        // d_die($id);
+        if($request->execute()) 
+        {
+            if ($request->rowCount() == 1) 
+            {
                 $class = "Model\Entity\\" . ucfirst('details');
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
                 return $request->fetchAll();
@@ -137,19 +152,21 @@ class DetailsRepository extends BaseRepository
 
     public function findDetailBookingPriceById($id)
     {
-// d_die($id);
+        // d_die($id);
         $request = $this->dbConnection->prepare("
         SELECT d.*, b.booking_price 
         FROM details d 
         JOIN bookings b ON d.booking_id = b.id_booking 
         WHERE d.id_detail = :id_detail");
         $request->bindParam(':id_detail', $id, \PDO::PARAM_INT);
-// d_die($id);
-        if($request->execute()) {
-            if ($request->rowCount() == 1) {
+        // d_die($id);
+        if($request->execute()) 
+        {
+            if ($request->rowCount() == 1) 
+            {
                 $class = "Model\Entity\\" . ucfirst('details');
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
-// d_die($request->fetch());
+                // d_die($request->fetch());
                 return $request->fetch();
             }
         }
@@ -159,10 +176,12 @@ class DetailsRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("SELECT price FROM rooms WHERE id_room = :id_room");
         $request->bindParam(':id_room',$id);
-        if($request->execute()) {
+        if($request->execute()) 
+        {
             $result = $request->fetchColumn();
             return $result !== false ? $result : null;
-        } else {
+        } else 
+        {
             return null;
         }
     }

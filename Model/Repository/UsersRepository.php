@@ -25,7 +25,8 @@ class UsersRepository extends BaseRepository
         $request = $request->execute();
         if ($request) 
         {
-            if ($request == 1) {
+            if ($request == 1) 
+            {
                 return true;
             }
             return false;
@@ -37,8 +38,10 @@ class UsersRepository extends BaseRepository
     {
         $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
         $request->bindParam(':id_user',$id);
-        if($request->execute()) {
-            if ($request->rowCount() == 1) {
+        if($request->execute()) 
+        {
+            if ($request->rowCount() == 1) 
+            {
                 $class = "Model\Entity\\" . ucfirst('users');
                 // utilise le bon mode de récupération selon la configuration
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
@@ -95,14 +98,17 @@ class UsersRepository extends BaseRepository
         $request->bindParam(':id_user', $id);
         if ($request->execute()) 
         {
-            if ($request->rowCount() == 1) {
+            if ($request->rowCount() == 1) 
+            {
                 Session::addMessage("success", "L'utilisateur a été supprimé avec succès");
-                return true;
-                } else {
+                return true;               
+            } else 
+                {
                     Session::addMessage("danger", "Aucun utilisateur n'a été supprimé");
                     return false;
                 }
-        }else{
+        }else
+        {
             Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
             return false;
         }

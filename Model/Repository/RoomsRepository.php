@@ -8,51 +8,6 @@ use InvalidArgumentException;
 
 class RoomsRepository extends BaseRepository
 {
-
-// Ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
-    // public function addRooms(Rooms $rooms)
-    // {
-    //     // Traitement de l'image
-    //     $imgName = $_FILES["room_imgs"]["name"];
-    //     $tmpName = $_FILES["room_imgs"]["tmp_name"];
-    //     $destination = $_SERVER["DOCUMENT_ROOT"] . "/leGiteDakote/assets/imgs/chambres/" . $imgName;
-
-    //     // Valider et déplacer le fichier téléchargé
-    //     if (move_uploaded_file($tmpName, $destination)) 
-    //     {
-    //         // L'image a été téléchargée avec succès, procédez à l'insertion dans la base de données
-    //         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
-    //         $request = $this->dbConnection->prepare($sql);
-    //         $request->bindValue(":room_number", $rooms->getRoom_number());
-    //         $request->bindValue(":price", $rooms->getPrice());
-    //         $request->bindValue(":room_imgs", $imgName); 
-    //         // Enregistre le nom du fichier, pas le chemin complet
-    //         $request->bindValue(":persons", $rooms->getPersons());
-    //         $request->bindValue(":category", $rooms->getCategory());
-    //         try 
-    //         {
-    //             $result = $request->execute();
-    //                 if ($result) 
-    //                 {
-    //                     Session::addMessage("success", "La nouvelle chambre a bien été enregistrée");
-    //                     return true;
-    //                 } else {
-    //                     Session::addMessage("danger", "Erreur : la chambre n'a pas été enregistrée");
-    //                     return false;
-    //                 }
-    //         } catch (\PDOException $exception) 
-    //         {
-    //             Session::addMessage("danger", "Erreur SQL : " . $exception->getMessage());
-    //             return false;
-    //         }
-    //     } else {
-    //         // Il y a eu un problème avec le téléchargement de l'image
-    //         Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
-    //         return false;
-    //     }
-    // }
-###################################################################################################################    
-
     // Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images qui est no recommanded!!!!!
     public function insertRooms(Rooms $rooms)
     {
@@ -67,10 +22,12 @@ class RoomsRepository extends BaseRepository
         try 
         {
             $result = $request->execute();
-            if ($result) {
+            if ($result) 
+            {
             Session::addMessage("success", "La nouvelle chambre a bien été enregistrée");
             return true;
-            } else {
+            } else 
+            {
             Session::addMessage("danger", "Erreur : la chambre n'a pas été enregistrée");
             return false;
             }
@@ -102,13 +59,16 @@ class RoomsRepository extends BaseRepository
         {
             if ($request->execute()) 
             {
-                if ($request->rowCount() === 1) {
+                if ($request->rowCount() === 1) 
+                {
                     $request->setFetchMode(\PDO::FETCH_CLASS,"Model\Entity\Rooms");
                     return $request->fetch();
-                } else {
+                } else 
+                {
                     return false;
                 }
-            } else {
+            } else 
+            {
                 // Log des erreurs
                 error_log("SQL Error: " . print_r($request->errorInfo(), true));
                 // Retourne false ou déclenche une exception, en fonction de la logique
@@ -236,7 +196,8 @@ class RoomsRepository extends BaseRepository
         if ($request->execute()) 
         {
             return $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Rooms");
-        } else {
+        } else 
+        {
             return null;
         }
     }   
@@ -252,10 +213,12 @@ class RoomsRepository extends BaseRepository
             {
                 // Retourne le prix en tant que résultat de la requête
                 return $request->fetchColumn();
-            } else {
+            } else 
+            {
                 return null;
             }
-        } else {
+        } else 
+        {
             // En cas d'échec de l'exécution de la requête, retourner null par défaut
             return null;
         }
@@ -266,14 +229,15 @@ class RoomsRepository extends BaseRepository
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE room_id = :room_id");
         $request->bindParam(":room_id", $userId, \PDO::PARAM_INT);
         // Affiche le requête SQL pour le débogage
-// var_dump($request->queryString);
+        // var_dump($request->queryString);
         if ($request->execute()) 
         {
             $results = $request->fetchAll(\PDO::FETCH_CLASS, "Model\Entity\Details");
             // Affiche les résultats pour le débogage
-//   var_dump($results);
+            //   var_dump($results);
               return $results;
-        } else {
+        } else 
+        {
             return null;
         }
     }
@@ -296,7 +260,7 @@ class RoomsRepository extends BaseRepository
             // Ensuite, modifier la chambre de la table 'rooms'
             $request = $this->dbConnection->prepare("UPDATE rooms SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category WHERE id_room = :id_room");
             // Afficher la requête SQL générée pour le débogage
-// echo $request->queryString;
+            // echo $request->queryString;
             $request->bindParam(":room_number", $room->getRoom_number());
             d_die($request);
             $request->bindParam(":price",$room->getPrice());
@@ -306,7 +270,7 @@ class RoomsRepository extends BaseRepository
             $request->bindParam(":category", $room->getCategory());
             $request->bindParam(':id_room', $id);
             $success = $request->execute();
-d_die($success);
+            // d_die($success);
             $dbConnection->commit();
 
             return $success; // La modification a réussi
@@ -351,6 +315,49 @@ d_die($success);
         // Il y a eu un problème avec le téléchargement de l'image
         Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
         return false;
-}
+    }
 
+// Ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
+    // public function addRooms(Rooms $rooms)
+    // {
+    //     // Traitement de l'image
+    //     $imgName = $_FILES["room_imgs"]["name"];
+    //     $tmpName = $_FILES["room_imgs"]["tmp_name"];
+    //     $destination = $_SERVER["DOCUMENT_ROOT"] . "/leGiteDakote/assets/imgs/chambres/" . $imgName;
+
+    //     // Valider et déplacer le fichier téléchargé
+    //     if (move_uploaded_file($tmpName, $destination)) 
+    //     {
+    //         // L'image a été téléchargée avec succès, procédez à l'insertion dans la base de données
+    //         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
+    //         $request = $this->dbConnection->prepare($sql);
+    //         $request->bindValue(":room_number", $rooms->getRoom_number());
+    //         $request->bindValue(":price", $rooms->getPrice());
+    //         $request->bindValue(":room_imgs", $imgName); 
+    //         // Enregistre le nom du fichier, pas le chemin complet
+    //         $request->bindValue(":persons", $rooms->getPersons());
+    //         $request->bindValue(":category", $rooms->getCategory());
+    //         try 
+    //         {
+    //             $result = $request->execute();
+    //                 if ($result) 
+    //                 {
+    //                     Session::addMessage("success", "La nouvelle chambre a bien été enregistrée");
+    //                     return true;
+    //                 } else {
+    //                     Session::addMessage("danger", "Erreur : la chambre n'a pas été enregistrée");
+    //                     return false;
+    //                 }
+    //         } catch (\PDOException $exception) 
+    //         {
+    //             Session::addMessage("danger", "Erreur SQL : " . $exception->getMessage());
+    //             return false;
+    //         }
+    //     } else {
+    //         // Il y a eu un problème avec le téléchargement de l'image
+    //         Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
+    //         return false;
+    //     }
+    // }
+###################################################################################################################    
 }

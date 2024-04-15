@@ -171,7 +171,6 @@ class UsersHandleRequest extends BaseHandleRequest
             extract($_POST);
             $errors = [];
             // d_die($_POST);
-
             // Vérification de la validité du formulaire
             if (empty( $email)) 
             {

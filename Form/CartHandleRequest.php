@@ -21,7 +21,7 @@ class CartHandleRequest extends BaseHandleRequest
 
     public function handleFormCart(Details $details)
     {
-// d_die($_POST);
+        // d_die($_POST);
         if (isset($_POST['panier'])) 
         {
             extract($_POST);
@@ -29,7 +29,7 @@ class CartHandleRequest extends BaseHandleRequest
             // converti en date en seconde avec strtotime depuis le 1janvier 1960         
             $booking_start_date = date("Y-m-d", strtotime($_POST[self::START_DATE]));
             $booking_end_date = date("Y-m-d", strtotime($_POST[self::END_DATE]));
-// d_die($booking_start_date);
+            // d_die($booking_start_date);
             // Calculer la durée de la réservation en jours
             $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
             // Nombre de secondes dans une journée
@@ -66,7 +66,7 @@ class CartHandleRequest extends BaseHandleRequest
                 $details->setBooking_id($_POST[self::BOOKING_ID]);
                 $details->setBooking_start_date($booking_start_date);
                 $details->setBooking_end_date($booking_end_date);
-// d_die($details); 
+                // d_die($details); 
                 return true;
             }
             // Gère les erreurs

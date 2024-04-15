@@ -1,5 +1,4 @@
 <div class="container5 container">
-
     <table class="table table-hover mt-5">
         <thead>
             <tr>
@@ -12,23 +11,23 @@
             </tr>
         </thead>
         <tbody>
-        <?php
-// d_die($_SESSION);
-        // Initialise comme un nombre flottant
-        $totalPrice = 0.0; 
-        if (!empty($findUserBookings)) 
-        { 
-// d_die($findUserBookings);
-            foreach($findUserBookings as $bookings)
+            <?php
+            // d_die($_SESSION);
+            // Initialise comme un nombre flottant
+            $totalPrice = 0.0; 
+            if (!empty($findUserBookings)) 
             { 
-// d_die($bookings);
-        ?>
+                // d_die($findUserBookings);
+                foreach($findUserBookings as $bookings)
+                { 
+                    // d_die($bookings);
+            ?>
             <tr class="table-active">
                 <td class="idbook mt-2 col-1 align-middle fs-5 text-center fw-semibold"><?= $bookings->getRoom_id() ?>
                 </td>           
-<?php
-// d_die($bookings->getRoom_id() );    
-?>
+                <?php
+                // d_die($bookings->getRoom_id() );    
+                ?>
                 <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($bookings->getBooking_start_date())) ?>
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold"><?= date("d-m-Y", strtotime($bookings->getBooking_end_date())) ?></td>
@@ -36,9 +35,9 @@
                 </td>
                 <td class="booking_price mt-2  col-2 align-middle fs-5 text-center fw-semibold"><?= $bookings->getBooking_price() ?>
                 </td>
-<?php 
-// d_die($bookings);
-?>
+                <?php 
+                // d_die($bookings);
+                ?>
                 <?php
                 if ($bookings->getBooking_state() != 'cancel') 
                 { ?>
@@ -50,9 +49,9 @@
                 <?php 
                 if ($bookings->getBooking_state() != 'cancel') 
                 {
-                // Convertir le prix en float avant l'addition
+                    // Convertir le prix en float avant l'addition
                     $totalPrice += floatval($bookings->getBooking_price());
-// d_die($bookings);
+                    // d_die($bookings);
                 } ?>
                 <td class=" m-0 mt-2 col-2 align-middle fs-5 text-center fw-semibold">
                     <?php
@@ -69,10 +68,11 @@
                     } ?>
                 </td> 
             </tr>
-        <?php 
-// echo $totalPrice;
-            }  
-        } ?> 
+            <?php 
+            // echo $totalPrice;
+                }  
+            } 
+            ?> 
         </tbody>
         <tfoot>
              <!-- Affichage du total des prix des réservations -->
@@ -80,7 +80,7 @@
                 <td class="total_reservation mt-2  alert-link align-middle fs-5 text-center fw-semibold" colspan="4">Total de vos réservations:</td>
                 <td class="price border-primary border-4 mt-2 alert-link col-2 align-middle fs-5 text-center fw-semibold"><?= $totalPrice; ?></td>
                 <td class="m-0 mt-2 col-2 align-middle fs-5 text-center fw-semibold">
-                <?php
+                    <?php
                     if ($bookings->getBooking_state() != 'cancel') 
                     {
                     ?>

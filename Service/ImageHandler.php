@@ -22,7 +22,8 @@ class ImageHandler
         if (!in_array($imageFileType, $fileType)) 
         {
             Sess::addMessage("errors", "Seules les images de types JPEG, png, gif et svg sont autorisées.");
-        } else {
+        } else 
+        {
             // Vérifie la taille de l'image (par exemple, 1 Mo)
             if ($_FILES["room_imgs"]["size"] > 1000000) 
             {
