@@ -57,11 +57,13 @@ class CartHandleRequest extends BaseHandleRequest
         // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
         if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) 
         {
-            if ($todayDate > $_POST[self::START_DATE] || $todayDate > $_POST[self::END_DATE]) {
+            if ($todayDate > $_POST[self::START_DATE] || $todayDate > $_POST[self::END_DATE]) 
+            {
                 $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
             } 
             // Si aucune erreur, définir les propriétés de l'entité
-            if (empty($errors)) {             
+            if (empty($errors)) 
+            {             
                 $details->setRoom_id($_POST[self::ROOM_ID]);
                 $details->setBooking_id($_POST[self::BOOKING_ID]);
                 $details->setBooking_start_date($booking_start_date);

@@ -59,7 +59,7 @@ class DetailsRepository extends BaseRepository
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
         try 
         {
-        // En résumé, cette requête récupère l'ID de la réservation et l'ID de la chambre associés à une réservation spécifique à partir de la table detail, en reliant les tables detail, bookings et rooms à l'aide de jointures internes.
+        // En résumé, cette requête récupère l'ID de la réservation et l'ID de la chambre associés à une réservation spécifique à partir de la table details, en reliant les tables details, bookings et rooms à l'aide de jointures internes.
             $sql = "SELECT d.booking_id, r.room_id FROM details d 
                 INNER JOIN bookings b ON d.booking_id = b.id_booking
                 INNER JOIN rooms r ON d.room_id = r.id_room
@@ -85,7 +85,8 @@ class DetailsRepository extends BaseRepository
         {
             // La suppression a réussi
             return true; 
-        } else {
+        } else 
+        {
             // La suppression a échoué
             return false; 
         }

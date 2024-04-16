@@ -28,7 +28,8 @@ class UsersController extends BaseController
     {
         $users = $this->users;
         $this->form->handleForm($users);
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
+        if ($this->form->isSubmitted() && $this->form->isValid()) 
+        {
             $this->usersRepository->addUsers($users);
             return redirection(addLink("users","login"));
         }
@@ -54,7 +55,8 @@ class UsersController extends BaseController
     {
         $users = $this->users;
         $user = $this->form->handleSecurity();
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
+        if ($this->form->isSubmitted() && $this->form->isValid()) 
+        {
             Session::authentication($user);
             $id = $user->getId_user();
             return redirection(addLink("users","show", $id));             

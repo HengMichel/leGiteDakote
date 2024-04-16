@@ -50,7 +50,8 @@ class BookingsHandleRequest extends BaseHandleRequest
                 // Retourne true pour indiquer que le formulaire a été traité avec succès
                 return true;
             }
-        } else {
+        } else 
+        {
             $errors[] = "Merci de vous connecter avant de faire une réservation.";
         } 
         // Gère les erreurs

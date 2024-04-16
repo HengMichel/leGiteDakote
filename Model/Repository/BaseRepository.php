@@ -103,6 +103,25 @@ class BaseRepository
         }
     }
 
+    public function remove(BaseEntity $tableName)
+    {
+        $sql = "DELETE FROM $tableName WHERE id = :id";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":id", $tableName->getId());
+        $request = $request->execute();
+        if ($request) 
+        {
+            if ($request == 1) 
+            {
+                Session::addMessage("success",  "La mise à jour de l'utilisateur a bien été éffectuée");
+                return true;
+            }
+            Session::addMessage("danger",  "Erreur : l'utilisateur n'a pas été mise à jour");
+            return false;
+        }
+        Session::addMessage("danger",  "Erreur SQL");
+        return null;
+    }
     // public function setIsDeletedTrueById(BaseEntity $tableName)
     // {
     //     $tableName->setIsDeleted(true);
@@ -124,23 +143,4 @@ class BaseRepository
     //     return null;
 
     // }
-    public function remove(BaseEntity $tableName)
-    {
-        $sql = "DELETE FROM $tableName WHERE id = :id";
-        $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":id", $tableName->getId());
-        $request = $request->execute();
-        if ($request) 
-        {
-            if ($request == 1) 
-            {
-                Session::addMessage("success",  "La mise à jour de l'utilisateur a bien été éffectuée");
-                return true;
-            }
-            Session::addMessage("danger",  "Erreur : l'utilisateur n'a pas été mise à jour");
-            return false;
-        }
-        Session::addMessage("danger",  "Erreur SQL");
-        return null;
-    }
 }

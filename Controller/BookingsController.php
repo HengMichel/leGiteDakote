@@ -75,11 +75,13 @@ class BookingsController extends BaseController
         // Annule la réservation
         $success = $this->bookingsRepository->cancelBooking($id);
         // d_die($success);
-        if ($success) {
-        // d_die($success);
-        // Redirige vers le tableau de bord
-        return redirection(addLink("users","dashUsers"));
-        } else {
+        if ($success) 
+        {
+            // d_die($success);
+            // Redirige vers le tableau de bord
+            return redirection(addLink("users","dashUsers"));
+        } else 
+        {
             // Récupére les erreurs du formulaire
             $errors = $this->form->getEerrorsForm();
             return $this->render("bookings/form_bookings.php", [

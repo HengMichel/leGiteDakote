@@ -29,7 +29,8 @@ class UsersHandleRequest extends BaseHandleRequest
             {
                 $errors[] = "L'email doit avoir au moins 11 caractères";
             }
-            if (strlen( $email) > 50) {
+            if (strlen( $email) > 50) 
+            {
                 $errors[] = "L'email ne peut avoir plus de 50 caractères";
             }
             if (!strpos( $email, " ") === false) 
@@ -46,7 +47,8 @@ class UsersHandleRequest extends BaseHandleRequest
             {
                 $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
             }
-            if (!empty($last_name)) {
+            if (!empty($last_name)) 
+            {
                 if (strlen($last_name) < 1) 
                 {
                     $errors[] = "Le last_name doit avoir au moins 2 caractères";
@@ -56,7 +58,8 @@ class UsersHandleRequest extends BaseHandleRequest
                     $errors[] = "Le last_name ne peut avoir plus de 100 caractères";
                 }
             }
-            if (!empty($first_name)) {
+            if (!empty($first_name)) 
+            {
                 if (strlen($first_name) < 1) 
                 {
                     $errors[] = "Le nom de famille doit avoir au moins 2 caractères";
@@ -85,7 +88,8 @@ class UsersHandleRequest extends BaseHandleRequest
                     $errors[] = "L'addresse ne peut avoir plus de 100 caractères";
                 }
             }    
-            if (!empty($phone_number)) {
+            if (!empty($phone_number)) 
+            {
                 if (strlen($phone_number) < 10) 
                 {
                     $errors[] = "Le numéro de téléphone doit avoir au moins 10 caractères";
@@ -109,7 +113,8 @@ class UsersHandleRequest extends BaseHandleRequest
                     $errors[] = "Vous ne pouvez avoir qu'une seule civilité";
                 }
             }
-            if (empty($errors)) {             
+            if (empty($errors)) 
+            {             
                 $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $users->setLast_name($last_name);
                 $users->setFirst_name($first_name);
@@ -130,7 +135,8 @@ class UsersHandleRequest extends BaseHandleRequest
         {
             extract($_POST);
             $errors = [];
-            if (!empty($_POST)) {
+            if (!empty($_POST)) 
+            {
                 // Vérification de la validité du formulaire
                 if (empty($email) || empty($password)) 
                 {
@@ -151,7 +157,8 @@ class UsersHandleRequest extends BaseHandleRequest
                         }
                     }
                 }
-            } else {
+            } else 
+            {
                 $errors[] = "L'email et le mot de passe ne peuvent pas être vides";
             }
             if (!empty($errors)) 
@@ -192,12 +199,6 @@ class UsersHandleRequest extends BaseHandleRequest
             {
                 $errors[] = "L'email n'est pas valide";
             }
-            // Est-ce que l'email existe déjà dans la bdd ?
-            // $request = $this->usersRepository->findByAttributes($users, ["email" =>  $email]);
-            // if ($request) 
-            // {
-            //     $errors[] = "L'email  existe déjà, veuillez en choisir un nouveau";
-            // }
             if (!empty($address)) 
             {
                 if (strlen($address) < 6) 

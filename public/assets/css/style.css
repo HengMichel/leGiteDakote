@@ -190,6 +190,7 @@ span
 {
   display: flex;
 }
+
 /*************** MEDIAQUERY ***************/
 @media (max-width: 1023px) 
 {

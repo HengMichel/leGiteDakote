@@ -40,7 +40,8 @@ class CartController extends BaseController
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
             header("Location: $redirectUrl");
             exit();
-        } catch (\Exception $e) {
+        } catch (\Exception $e) 
+        {
             // Gestion des erreurs
             $_SESSION['error'] = $e->getMessage();
             $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");

@@ -6,7 +6,8 @@ use Model\Entity\Details;
 use Model\Repository\DetailsRepository;
 use Model\Repository\BookingsRepository;
 
-class DetailsManager{
+class DetailsManager
+{
 
     private DetailsRepository $detailsRepository;
     private BookingsRepository $bookingsRepository;

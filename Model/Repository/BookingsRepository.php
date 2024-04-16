@@ -55,7 +55,7 @@ class BookingsRepository extends BaseRepository
                 $success = $request->execute();
                 if ($success) 
                 {
-                // echo "Après la mise à jour : " . $id;
+                    // echo "Après la mise à jour : " . $id;
                     Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
                     return true;
                 } else {
@@ -74,22 +74,6 @@ class BookingsRepository extends BaseRepository
             throw new Exception("Erreur lors de l'annulation de la réservation : " . $e->getMessage());
         }
     }
-
-// #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
-    // public function deleteBookingsById($id)
-    // {
-    //     $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
-    //     $request->bindParam(':id_booking',$id);
-    //     if($request->execute()) 
-    //     {
-    //         // La suppression a réussi
-    //         return true; 
-    //     } else {
-    //         // La suppression a échoué
-    //         return false; 
-    //     }
-    // }  
-//  ###################################################################################################################
 
     public function findBookingById($id)
     {
@@ -168,4 +152,20 @@ class BookingsRepository extends BaseRepository
             return null;
         }
     }
+
+    // #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
+    // public function deleteBookingsById($id)
+    // {
+    //     $request = $this->dbConnection->prepare("DELETE FROM bookings WHERE id_booking = :id_booking");
+    //     $request->bindParam(':id_booking',$id);
+    //     if($request->execute()) 
+    //     {
+    //         // La suppression a réussi
+    //         return true; 
+    //     } else {
+    //         // La suppression a échoué
+    //         return false; 
+    //     }
+    // }  
+//  ###################################################################################################################
 }

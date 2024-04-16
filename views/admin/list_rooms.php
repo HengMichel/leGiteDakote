@@ -28,12 +28,14 @@
                     <td class="roomState mt-2 align-middle text-center fw-medium bg-secondary-subtle"><?= $room->getRoom_state() ?>
                     </td>
                     <td class="suppr bg-dark text-center">
-                        <a class="btn btn-danger" href="<?= addLink("admin/rooms/editRoom", $room->getId_room()) 
-                        ?>">Modifier
-                        </a>
-                        <a class="btn btn-danger mt-1" href="<?= addLink("admin/rooms/deleteRooms", $room->getId_room()) 
-                        ?>">Supprimer
-                        </a>
+                        <div class="button-container">
+                            <a class="btn btn-danger" href="<?= addLink("admin/rooms/editRoom", $room->getId_room()) 
+                            ?>">Modifier
+                            </a>
+                            <a class="btn btn-danger mt-1" href="<?= addLink("admin/rooms/deleteRooms", $room->getId_room()) 
+                            ?>">Supprimer
+                            </a>
+                        </div>
                     </td> 
                 </tr>
             <?php endforeach; ?>

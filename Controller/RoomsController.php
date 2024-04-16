@@ -33,7 +33,8 @@ class RoomsController extends BaseController
             // Appele de la méthode findRoomsById pour récupérer les informations de la chambre par son ID
             $rooms = $r->findRoomsById($id);
             // Vérifie si la chambre existe
-            if (empty($rooms)) {
+            if (empty($rooms)) 
+            {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
@@ -45,7 +46,8 @@ class RoomsController extends BaseController
             "details" => $details, 
             "h1" => "Fiche de la chambre"
             ]);
-        } else {
+        } else 
+        {
             // Redirige vers une page d'erreur si l'ID n'est pas valide
             error("404.php");
         }
