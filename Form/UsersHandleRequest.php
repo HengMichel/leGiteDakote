@@ -21,23 +21,23 @@ class UsersHandleRequest extends BaseHandleRequest
             extract($_POST);
             $errors = [];
             // Vérification de la validité du formulaire
-            if (empty( $email)) 
+            if (empty($email)) 
             {
                 $errors[] = "L'email ne peut pas être vide";
             }
-            if (strlen( $email) < 11) 
+            if (strlen($email) < 11) 
             {
                 $errors[] = "L'email doit avoir au moins 11 caractères";
             }
-            if (strlen( $email) > 50) 
+            if (strlen($email) > 50) 
             {
                 $errors[] = "L'email ne peut avoir plus de 50 caractères";
             }
-            if (!strpos( $email, " ") === false) 
+            if (!strpos($email, " ") === false) 
             {
                 $errors[] = "Les espaces ne sont pas autorisés pour l'email";
             }
-            if (empty( $email) . "@" === false) 
+            if (empty($email) . "@" === false) 
             {
                 $errors[] = "L'email n'est pas valide";
             }
@@ -51,11 +51,11 @@ class UsersHandleRequest extends BaseHandleRequest
             {
                 if (strlen($last_name) < 1) 
                 {
-                    $errors[] = "Le last_name doit avoir au moins 2 caractères";
+                    $errors[] = "Le prénom doit avoir au moins 2 caractères";
                 }
                 if (strlen($last_name) > 100) 
                 {
-                    $errors[] = "Le last_name ne peut avoir plus de 100 caractères";
+                    $errors[] = "Le prénom ne peut avoir plus de 100 caractères";
                 }
             }
             if (!empty($first_name)) 

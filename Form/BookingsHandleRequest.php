@@ -29,7 +29,6 @@ class BookingsHandleRequest extends BaseHandleRequest
         {
             extract($_POST);
             $errors = [];
-            // $book = $_POST['book'] ?? null;
             // d_die($_POST);
             // d_die($_SESSION);
             // d_die($errors);
@@ -52,7 +51,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             }
         } else 
         {
-            $errors[] = "Merci de vous connecter avant de faire une réservation.";
+            $errors[] = "Pour tout paiment Merci de vous connecter.";
         } 
         // Gère les erreurs
         $this->setEerrorsForm($errors);

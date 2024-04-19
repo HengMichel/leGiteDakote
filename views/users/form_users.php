@@ -17,7 +17,7 @@ require "views/errors_form.php";
         <div class="row"> 
             <div class="form-group mt-4">
                 <div class="form-floating col-md-6 m-auto">
-                    <input type="text" class="form-control bg-dark link-light" placeholder="Votre Nom" id="last_name" name="last_name"  value="<?= $users->getLast_name() ?>">
+                    <input type="text" class="form-control bg-dark link-light" placeholder="Votre Nom" id="last_name" name="last_name" required value="<?= $users->getLast_name() ?>">
                     <label for="last_name">Votre nom</label>
                 </div>
             </div>
