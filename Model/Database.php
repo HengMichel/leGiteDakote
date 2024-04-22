@@ -6,7 +6,6 @@ class Database
 {
     // connexion à la base de données
     private $host = "localhost";
-    // private $db_name = "gite_db";
     private $db_name = "gite_db_v2";
     private $username = "root";
     private $password = "";
@@ -21,7 +20,6 @@ class Database
             echo "Erreur de connetion : " . $exception->getMessage();
             
         }
-
         return $this->connection;
     }
 }

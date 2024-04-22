@@ -157,10 +157,10 @@ class RoomsRepository extends BaseRepository
         // Valide la valeur de la catégorie par rapport aux valeurs ENUM possibles
         $validCategories = ["classic","piscine"];
 
-        // Vérifiez la valeur de la catégorie
+        // Vérifie la valeur de la catégorie
         if (!in_array($category, $validCategories)) 
         {
-            // Gérer une catégorie invalide
+            // Gère une catégorie invalide
             throw new InvalidArgumentException("Catégorie invalide");
         }
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE category = :category");
