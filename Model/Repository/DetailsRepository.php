@@ -137,6 +137,8 @@ class DetailsRepository extends BaseRepository
 
     public function findDetailById($id)
     {
+        //  c'est l'id de booking_id
+        // d_die($id);
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE id_detail = :id_detail");
         $request->bindParam(':id_detail',$id, \PDO::PARAM_INT);
         // d_die($id);
@@ -146,7 +148,7 @@ class DetailsRepository extends BaseRepository
             {
                 $class = "Model\Entity\\" . ucfirst('details');
                 $request->setFetchMode(\PDO::FETCH_CLASS, $class);
-                return $request->fetchAll();
+                return $request->fetch();
             }
         }
     }

@@ -26,7 +26,8 @@ class DetailsManager
         // d_die($id_user);
         $bookingStartDate = null;
         $bookingEndDate = null;
-        $room_id = null;    
+        $room_id = null;
+        $totalPrice = null;    
         // Récupération des valeurs depuis la session
         if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) 
         {
@@ -40,6 +41,10 @@ class DetailsManager
                 if (isset($item['date_fin'])) 
                 {
                     $bookingEndDate = $item['date_fin'];
+                }
+                if (isset($item['totalPrice'])) 
+                {
+                    $totalPrice = $item['totalPrice'];
                 }
                 if (isset($item['room']) && is_object($item['room']) && method_exists($item['room'], 'getId_room')) 
                 {
@@ -55,6 +60,7 @@ class DetailsManager
         // d_die($bookingStartDate);
         // d_die($bookingEndDate);
         // d_die($id_user);
+        // d_die($totalPrice);
         // Vérifie si la réservation existe par rapport a l'id de l'utilisateur
         $bookings = $this->bookingsRepository->findUserBookings($id_user);
         // d_die($bookings);
@@ -63,8 +69,8 @@ class DetailsManager
             // Gère le cas où la réservation n'existe pas
             return false;
         }
-        $booking_price = $bookings->getBooking_price(); 
-        // d_die($booking_price);
+        // $totalPrice = $bookings->getBooking_price(); 
+        // d_die($totalPrice);
         // Créé un nouvel objet Detail
         $details = new Details();
         // d_die($details);
@@ -76,20 +82,28 @@ class DetailsManager
         $details->setBooking_start_date($bookingStartDate);
         $details->setBooking_end_date($bookingEndDate);
         // d_die($details);
-        // Utilisation des réservations passées en paramètre pour obtenir le prix de la réservation
-        $details->setBooking_price($booking_price);
+        $details->setBooking_price($totalPrice);
         // d_die($details);
         // Insère le l'objet détail dans la base de données
         $success = $this->detailsRepository->insertDetail($details);
-        // d_die($details);
-        // d_die($success);
+        d_die($details);
+        d_die($success);
         if ($success) 
         {
-            // Récupère les détails créés dans la base de données
-            $createdDetails = $this->detailsRepository->findDetailBookingPriceById($details->getBooking_id()); 
-            // d_die($createdDetails);
-            // Retourne les détails créés
-            return $createdDetails; 
+            // Insertion réussie
+            // Récupère les détails créés dans la base de données en utilisant l'identifiant de réservation
+            $createdDetails = $this->detailsRepository->findDetailById($details->getBooking_id()); 
+// d_die($createdDetails);
+            // Vérifie si les détails ont été récupérés avec succès
+            if ($createdDetails) 
+            {
+                // Les détails ont été récupérés avec succès
+                return $createdDetails;
+            } else 
+            {
+                // Impossible de récupérer les détails
+                return false;
+            }
         } else 
         {
             return false;
