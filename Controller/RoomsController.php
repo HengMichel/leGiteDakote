@@ -39,7 +39,7 @@ class RoomsController extends BaseController
                 redirection(addLink("home"));
             }
             // Récupère les réservations pour cette chambre
-            $details = $this->detailsRepository->findDetailById($id);
+            $details = $this->detailsRepository->findDetailByBookingId($id);
             // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("rooms/room_show.php", [
             "rooms" => $rooms,

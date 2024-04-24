@@ -17,12 +17,13 @@ class DetailsController extends BaseController
     public function __construct()
     {
         $this->detailsManager = new DetailsManager;
-        $this->detailsRepository = new DetailsRepository;
-        $this->bookingsRepository = new BookingsRepository;
+        // $this->detailsRepository = new DetailsRepository;
+        // $this->bookingsRepository = new BookingsRepository;
     }
 
     public function newDetail()
     {
+        // d_die($_POST);
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
         // Récupérer les réservations de l'utilisateur à partir de la session
@@ -30,7 +31,7 @@ class DetailsController extends BaseController
         // d_die($bookings);
         // Créer les détails
         $details = $this->detailsManager->createDetail($id_user,$bookings);
-        d_die($details);  
+        // d_die($details);  
         // d_die($id_user,$bookings);  
         // Vérifie si les détails ont été créés avec succès avant de les passer à la vue
         if ($details) 

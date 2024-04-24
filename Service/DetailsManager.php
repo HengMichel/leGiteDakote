@@ -22,7 +22,9 @@ class DetailsManager
     {
         // d_die($id_user);
         // Vérification de l'existence de la session et initialisation des variables
-        $id_user = $_SESSION['users']->getId_user() ?? null;
+
+        // $id_user = $_SESSION['users']->getId_user() ?? null;
+
         // d_die($id_user);
         $bookingStartDate = null;
         $bookingEndDate = null;
@@ -86,17 +88,16 @@ class DetailsManager
         // d_die($details);
         // Insère le l'objet détail dans la base de données
         $success = $this->detailsRepository->insertDetail($details);
-        d_die($details);
-        d_die($success);
+        // d_die($success);
         if ($success) 
         {
             // Insertion réussie
             // Récupère les détails créés dans la base de données en utilisant l'identifiant de réservation
-            $createdDetails = $this->detailsRepository->findDetailById($details->getBooking_id()); 
-// d_die($createdDetails);
+            $createdDetails = $this->detailsRepository->findDetailByBookingId($details->getBooking_id()); 
             // Vérifie si les détails ont été récupérés avec succès
             if ($createdDetails) 
             {
+                // d_die($createdDetails);
                 // Les détails ont été récupérés avec succès
                 return $createdDetails;
             } else 
@@ -104,9 +105,6 @@ class DetailsManager
                 // Impossible de récupérer les détails
                 return false;
             }
-        } else 
-        {
-            return false;
         }
     }
 }

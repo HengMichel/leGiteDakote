@@ -44,7 +44,7 @@ class BookingsController extends BaseController
         // d_die($user_id);
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
-        // d_die($this->form->handleForm($this->bookings, $user_id));
+        // d_die($this);
         // d_die($user_id);
         if ($this->form->isSubmitted() && $this->form->isValid()) 
         {            
@@ -70,24 +70,24 @@ class BookingsController extends BaseController
         ]);
     }      
 
-    public function cancelBooking($id)
-    {
-        // Annule la réservation
-        $success = $this->bookingsRepository->cancelBooking($id);
-        // d_die($success);
-        if ($success) 
-        {
-            // d_die($success);
-            // Redirige vers le tableau de bord
-            return redirection(addLink("users","dashUsers"));
-        } else 
-        {
-            // Récupére les erreurs du formulaire
-            $errors = $this->form->getEerrorsForm();
-            return $this->render("bookings/form_bookings.php", [
-                "errors" => $errors
-            ]);       
-        }
-    }
+    // public function cancelBooking($id)
+    // {
+    //     // Annule la réservation
+    //     $success = $this->bookingsRepository->cancelBooking($id);
+    //     // d_die($success);
+    //     if ($success) 
+    //     {
+    //         // d_die($success);
+    //         // Redirige vers le tableau de bord
+    //         return redirection(addLink("users","dashUsers"));
+    //     } else 
+    //     {
+    //         // Récupére les erreurs du formulaire
+    //         $errors = $this->form->getEerrorsForm();
+    //         return $this->render("bookings/form_bookings.php", [
+    //             "errors" => $errors
+    //         ]);       
+    //     }
+    // }
 }
 

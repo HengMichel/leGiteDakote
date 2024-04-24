@@ -28,17 +28,17 @@ $totalPrice = 0.0;
                         // d_die($reservation);
                 ?>
                 <tr class="table-active">
-                    <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
+                    <td class="roomId mt-2 col-1 align-middle text-center fw-bold">
                         <?= $reservation["room"]->getId_room(); ?>
                     </td>
-                    <td class="booking_start_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
+                    <td class="booking_start_date mt-2 fw-medium col-2 align-middle text-center fw-bold">
                         <?php
                         $date_debut = DateTime::createFromFormat('Y-m-d', $reservation["date_debut"]);
                         // Affiche la date au format "dd-mm-yyyy"
                         echo $date_debut->format('d-m-Y'); 
                         ?>
                     </td>         
-                    <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
+                    <td class="booking_end_date mt-2 fw-medium col-2 align-middle text-center fw-bold">
                         <?php
                             $date_fin = DateTime::createFromFormat('Y-m-d', $reservation["date_fin"]);
                             // Affiche la date au format "dd-mm-yyyy"

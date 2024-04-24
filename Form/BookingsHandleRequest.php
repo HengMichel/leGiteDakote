@@ -31,6 +31,7 @@ class BookingsHandleRequest extends BaseHandleRequest
             $errors = [];
             // d_die($_POST);
             // d_die($_SESSION);
+            // d_die($user_id);
             // d_die($errors);
             // S'assurer que l'utilisateur est connecté
             if ($user_id !== null) 
@@ -41,7 +42,6 @@ class BookingsHandleRequest extends BaseHandleRequest
                 // Récupère le prix total de la session
                 $totalPrice = $_SESSION['totalPrice'] ?? 0;
                 // d_die($totalPrice);
-                // d_die($bookings->setBooking_price($totalPrice));
                 // Définir le prix total et l'état de réservation
                 $bookings->setBooking_price($totalPrice);
                 $bookings->setBooking_state($_POST['booking_state']);

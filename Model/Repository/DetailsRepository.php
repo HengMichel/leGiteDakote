@@ -135,23 +135,14 @@ class DetailsRepository extends BaseRepository
         }
     }
 
-    public function findDetailById($id)
+    public function findDetailByBookingId($id)
     {
-        //  c'est l'id de booking_id
-        // d_die($id);
-        $request = $this->dbConnection->prepare("SELECT * FROM details WHERE id_detail = :id_detail");
-        $request->bindParam(':id_detail',$id, \PDO::PARAM_INT);
-        // d_die($id);
-        if($request->execute()) 
-        {
-            if ($request->rowCount() == 1) 
-            {
-                $class = "Model\Entity\\" . ucfirst('details');
-                $request->setFetchMode(\PDO::FETCH_CLASS, $class);
-                return $request->fetch();
-            }
-        }
+        $request = $this->dbConnection->prepare("SELECT * FROM details WHERE booking_id = :booking_id");
+        $request->bindParam(':booking_id', $id , \PDO::PARAM_INT);
+        $request->execute();
+        return $request->fetch();
     }
+    
 
     public function findDetailBookingPriceById($id)
     {

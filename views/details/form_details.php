@@ -13,22 +13,22 @@
         <tbody>   
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $details->getBooking_id(); 
+                    <?= $details['room_id']; 
                     // d_die($details);
                     ?>
                 </td>
                 <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
-                    <?= $details->getRoom_id();                     
+                    <?= $details['room_id'];                     
                     // d_die($details);
                     ?>
                 </td>    
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($details->getBooking_start_date()), 'd.m.Y');
+                <?= date_format(date_create($details['booking_start_date']), 'd.m.Y');
                 // d_die($details);
                 ?>
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
-                <?= date_format(date_create($details->getBooking_end_date()), 'd.m.Y'); 
+                <?= date_format(date_create($details['booking_end_date']), 'd.m.Y'); 
                 // d_die($details);
                 ?>
                 </td>
