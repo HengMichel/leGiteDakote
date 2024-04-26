@@ -22,8 +22,7 @@ class DetailsManager
     {
         // d_die($id_user);
         // Vérification de l'existence de la session et initialisation des variables
-
-        // $id_user = $_SESSION['users']->getId_user() ?? null;
+        $id_user = $_SESSION['users']->getId_user() ?? null;
 
         // d_die($id_user);
         $bookingStartDate = null;
@@ -63,6 +62,7 @@ class DetailsManager
         // d_die($bookingEndDate);
         // d_die($id_user);
         // d_die($totalPrice);
+
         // Vérifie si la réservation existe par rapport a l'id de l'utilisateur
         $bookings = $this->bookingsRepository->findUserBookings($id_user);
         // d_die($bookings);
@@ -73,6 +73,7 @@ class DetailsManager
         }
         // $totalPrice = $bookings->getBooking_price(); 
         // d_die($totalPrice);
+
         // Créé un nouvel objet Detail
         $details = new Details();
         // d_die($details);

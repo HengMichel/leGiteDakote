@@ -7,12 +7,10 @@ use Model\Repository\RoomsRepository;
 
 class RoomsController extends BaseController
 {
-    private $roomsRepository;
     private $detailsRepository;
 
     public function __construct()
-    {   // Initialis le repository
-        $this->roomsRepository = new RoomsRepository;
+    {   // Initialise le repository
         $this->detailsRepository = new DetailsRepository;
     }
 

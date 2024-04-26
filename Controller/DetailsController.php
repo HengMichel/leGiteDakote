@@ -2,23 +2,16 @@
 
 namespace Controller;
 
-use Model\Entity\Details;
 use Service\DetailsManager;
 use Controller\BaseController;
-use Model\Repository\DetailsRepository;
-use Model\Repository\BookingsRepository;
 
 class DetailsController extends BaseController
 {
-    private $detailsRepository;
-    private $bookingsRepository;
     private $detailsManager;
 
     public function __construct()
     {
         $this->detailsManager = new DetailsManager;
-        // $this->detailsRepository = new DetailsRepository;
-        // $this->bookingsRepository = new BookingsRepository;
     }
 
     public function newDetail()

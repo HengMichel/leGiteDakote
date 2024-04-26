@@ -7,20 +7,17 @@ use Model\Entity\Users;
 use Model\Entity\Bookings;
 use Controller\BaseController;
 use Form\BookingsHandleRequest;
-use Model\Repository\DetailsRepository;
 use Model\Repository\BookingsRepository;
 
 class BookingsController extends BaseController
 {
     private $bookingsRepository;
-    private $detailsRepository;
     private $form;
     private $bookings;
 
     public function __construct()
     {
         $this->bookingsRepository = new BookingsRepository;
-        $this->detailsRepository = new DetailsRepository;
         $this->form = new BookingsHandleRequest;
         $this->bookings = new Bookings;
     }
@@ -69,25 +66,5 @@ class BookingsController extends BaseController
             "errors" => $errors
         ]);
     }      
-
-    // public function cancelBooking($id)
-    // {
-    //     // Annule la réservation
-    //     $success = $this->bookingsRepository->cancelBooking($id);
-    //     // d_die($success);
-    //     if ($success) 
-    //     {
-    //         // d_die($success);
-    //         // Redirige vers le tableau de bord
-    //         return redirection(addLink("users","dashUsers"));
-    //     } else 
-    //     {
-    //         // Récupére les erreurs du formulaire
-    //         $errors = $this->form->getEerrorsForm();
-    //         return $this->render("bookings/form_bookings.php", [
-    //             "errors" => $errors
-    //         ]);       
-    //     }
-    // }
 }
 

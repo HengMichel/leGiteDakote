@@ -33,7 +33,7 @@ class UsersRepository extends BaseRepository
         }
         return null;
     }
-
+    // ok
     public function findUsersById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
@@ -49,7 +49,7 @@ class UsersRepository extends BaseRepository
             }
         }
     }
-    
+    // ok
     public function updateUsers(Users $users)
     {
         try 
@@ -91,7 +91,8 @@ class UsersRepository extends BaseRepository
             return false; 
         }
     }
-
+    // ok
+    
     public function deleteUsersById($id)
     {
         $request = $this->dbConnection->prepare("DELETE FROM users WHERE id_user = :id_user");
@@ -112,57 +113,5 @@ class UsersRepository extends BaseRepository
             Session::addMessage("danger", "Erreur lors de la suppression du utilisateur");
             return false;
         }
-    }
-
-    public function findAllTables(Users $users)
-    {
-        $sql="SELECT
-                u.id_user,
-                u.last_name,
-                u.first_name,
-                u.email,
-                u.password,
-                u.role,
-                u.birthday,
-                u.address,
-                u.phone_number,
-                u.gender,
-                b.id_booking,
-                b.booking_start_date,
-                b.booking_end_date,
-                b.user_id,
-                b.room_id,
-                b.booking_price,
-                b.booking_state,
-                r.id_room,
-                r.room_number,
-                r.price,
-                r.room_imgs,
-                r.persons,
-                r.category,
-                r.room_state
-            FROM
-                bookings AS b
-            JOIN
-                users AS u ON b.user_id = u.id_user
-            JOIN
-                rooms AS r ON b.room_id = r.id_room
-            WHERE
-                b.booking_state IS NOT NULL
-                AND b.booking_start_date != ''
-                AND b.booking_end_date != ''
-                AND b.user_id != :id_user
-                AND b.room_id != :room_id
-                AND b.booking_price != ''
-                AND b.booking_state != ''";
-        $request = $this->dbConnection->prepare($sql);
-        // Lie la valeur pour :id_user; 
-        $request->bindValue(":id_user", $users->getId_user(), \PDO::PARAM_INT); 
-        // Exécute la requête avant de récupérer les résultats
-        $request->execute();  
-        // Récupère les résultats
-        $results = $request->fetchAll(\PDO::FETCH_ASSOC);
-        // Traite les résultats comme nécessaire
-        return $results;
     }
 }

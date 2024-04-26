@@ -2,10 +2,10 @@
 
 namespace Controller;
 
-use Model\Entity\Rooms;
-use Model\Entity\Details;
+// use Model\Entity\Rooms;
+// use Model\Entity\Details;
 use Service\CartManager;
-use Model\Repository\RoomsRepository;
+// use Model\Repository\RoomsRepository;
 use Model\Repository\DetailsRepository;
 
 class CartController extends BaseController
@@ -18,10 +18,10 @@ class CartController extends BaseController
 
     public function __construct()
     {
-        $this->detailsRepository = new DetailsRepository;
-        $this->roomsRepository = new RoomsRepository;
-        $this->rooms = new Rooms;
-        $this->details = new Details;
+        // $this->detailsRepository = new DetailsRepository;
+        // $this->roomsRepository = new RoomsRepository;
+        // $this->rooms = new Rooms;
+        // $this->details = new Details;
     }
     /**
      * Summary of add

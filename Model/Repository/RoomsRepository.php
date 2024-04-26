@@ -40,7 +40,8 @@ class RoomsRepository extends BaseRepository
         Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
         return false;
     }
-    
+    // ok 
+
     public function findRoomsById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM rooms WHERE id_room = :id_room");
@@ -84,7 +85,8 @@ class RoomsRepository extends BaseRepository
             return null;
         }
     }
-
+    // ok
+    
     public function deleteRoomsById($id)
     {
         try 
@@ -114,43 +116,44 @@ class RoomsRepository extends BaseRepository
             return false; // La suppression a échoué
         }
     }
+    // ok
 
-    public function updateRooms($id, Rooms $room)
-    {
-        try 
-        {
-            // Connexion à la base de données ici 
-            $dbConnection = $this->dbConnection;
-            // Une nouvelle instance de DetailsRepository
-            $detailsRepository = new DetailsRepository($dbConnection); 
+    // public function updateRooms($id, Rooms $room)
+    // {
+    //     try 
+    //     {
+    //         // Connexion à la base de données ici 
+    //         $dbConnection = $this->dbConnection;
+    //         // Une nouvelle instance de DetailsRepository
+    //         $detailsRepository = new DetailsRepository($dbConnection); 
     
-            $dbConnection->beginTransaction();
-            // Supprimer les détails associés à la chambre à supprimer
-            $detailsRepository->updateDetailsByRoomId($id);
+    //         $dbConnection->beginTransaction();
+    //         // Supprimer les détails associés à la chambre à supprimer
+    //         $detailsRepository->updateDetailsByRoomId($id);
 
-            $request = $this->dbConnection->prepare("UPDATE rooms 
-                    SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
-                    WHERE id_room = :id_room");
-            // $request = $this->dbConnection->prepare($sql);
-            $request->bindValue(":room_number", $room->getRoom_number());
-            $request->bindValue(":price", $room->getPrice());
-            $request->bindValue(":room_imgs", $room->getRoom_imgs());
-            $request->bindValue(":persons", $room->getPersons());
-            $request->bindValue(":category", $room->getCategory());
-            $request->bindValue(":room_state", $room->getRoom_state());
-            $request->bindValue(":id_room", $room->getId_room());
-            $success = $request->execute();
-            $dbConnection->commit();
+    //         $request = $this->dbConnection->prepare("UPDATE rooms 
+    //                 SET room_number = :room_number, price = :price, room_imgs = :room_imgs,persons = :persons,category = :category,room_state = :room_state
+    //                 WHERE id_room = :id_room");
+    //         // $request = $this->dbConnection->prepare($sql);
+    //         $request->bindValue(":room_number", $room->getRoom_number());
+    //         $request->bindValue(":price", $room->getPrice());
+    //         $request->bindValue(":room_imgs", $room->getRoom_imgs());
+    //         $request->bindValue(":persons", $room->getPersons());
+    //         $request->bindValue(":category", $room->getCategory());
+    //         $request->bindValue(":room_state", $room->getRoom_state());
+    //         $request->bindValue(":id_room", $room->getId_room());
+    //         $success = $request->execute();
+    //         $dbConnection->commit();
 
-            return $success; // La modification a réussi
-        } catch (PDOException $e) 
-        {
-            $dbConnection->rollBack();
-            // Gère les erreurs, par exemple :
-            echo "Erreur : " . $e->getMessage();
-            return false; // La modification à échoué
-        }
-    }
+    //         return $success; // La modification a réussi
+    //     } catch (PDOException $e) 
+    //     {
+    //         $dbConnection->rollBack();
+    //         // Gère les erreurs, par exemple :
+    //         echo "Erreur : " . $e->getMessage();
+    //         return false; // La modification à échoué
+    //     }
+    // }
 
     public function findRoomsByCategory($category)
     {
@@ -175,6 +178,7 @@ class RoomsRepository extends BaseRepository
         // Retourne les résultats 
         return $result;
     }
+    // ok
 
     public function findRoomsByCategoryJson($category)
     {
@@ -189,6 +193,7 @@ class RoomsRepository extends BaseRepository
         }
         return $jsonResult;
     }
+    // ok
 
     public function findAllRooms()
     {
@@ -296,7 +301,6 @@ class RoomsRepository extends BaseRepository
         // Ajout du paramètre id_room
         $request->bindValue(":id_room", $rooms->getId_room()); 
         // d_die($request);
-
         try 
         {
             $result = $request->execute();
@@ -316,6 +320,7 @@ class RoomsRepository extends BaseRepository
         Session::addMessage("danger", "Erreur lors du téléchargement de l'image");
         return false;
     }
+// ok
 
 // Ne pas utiliser car cela m'oblige de passer par le chemin racine afin d'afficher les images (no recommanded) ######
     // public function addRooms(Rooms $rooms)
