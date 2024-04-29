@@ -29,17 +29,19 @@
                     </td>
                     <td class="suppr bg-dark text-center">
                         <div class="button-container">
-                            <a class="btn btn-danger" href="<?= addLink("admin/rooms/editRoom", $room->getId_room()) 
+                            <a class="btn btn-danger mt-1" href="<?= addLink("admin/rooms/editRoom", $room->getId_room()) 
                             ?>">Modifier
                             </a>
                             <a class="btn btn-danger mt-1" href="<?= addLink("admin/rooms/deleteRooms", $room->getId_room()) 
                             ?>">Supprimer
                             </a>
+                            <a class="btn btn-danger mt-1" href="<?= addLink("admin/rooms/historique", $room->getId_room()) 
+                            ?>">historique
+                            </a>
                         </div>
                     </td> 
                 </tr>
             <?php endforeach; ?>
-            <!-- <?php d_die($rooms); ?> -->
         </tbody>
     </table>
 </div>    

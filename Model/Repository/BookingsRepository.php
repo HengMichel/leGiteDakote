@@ -34,71 +34,8 @@ class BookingsRepository extends BaseRepository
             return false;
         }
     }
-    // ok
 
-    // public function cancelBooking($id)
-    // {
-    //     try 
-    //     {
-    //         // Avant la recherche de la réservation
-    //         // echo "ID de réservation à annuler : " . $id;
-    //         // Récupérer la réservation par son ID
-    //         $booking = $this->findBookingById($id);
-    //         // echo "Avant la mise à jour : ";
-    //         // print_r($booking);
-    //         // Vérifie si la réservation existe
-    //         if ($booking) {
-    //             // Mets à jour l'état de la réservation
-    //             $sql = "UPDATE bookings SET booking_state = :booking_state WHERE id_booking = :id_booking";
-    //             $request = $this->dbConnection->prepare($sql);
-    //             $request->bindValue(":booking_state", "cancel");
-    //             $request->bindValue(":id_booking", $id);
-    //             $success = $request->execute();
-    //             if ($success) 
-    //             {
-    //                 // echo "Après la mise à jour : " . $id;
-    //                 Session::addMessage("success",  "L'annulation de la réservation a bien été effectuée");
-    //                 return true;
-    //             } else {
-    //                 Session::addMessage("danger",  "Erreur : la réservation n'a pas été mise à jour");
-    //                 return false;
-    //             }
-    //         } else 
-    //         {
-    //             // La réservation n'a pas été trouvée
-    //             Session::addMessage("danger",  "Erreur : réservation introuvable");
-    //             return false;
-    //         }    
-    //     } catch (PDOException $e) 
-    //     {
-    //         // log l'erreur ici
-    //         throw new Exception("Erreur lors de l'annulation de la réservation : " . $e->getMessage());
-    //     }
-    // }
-
-    // public function findBookingById($id)
-    // {
-    //     // d_die($id);
-    //     try 
-    //     {
-    //         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
-    //         $request = $this->dbConnection->prepare($sql);
-    //         $request->bindValue(":id_booking", $id, \PDO::PARAM_INT);
-    //         // Exécute la requête ici
-    //         $request->execute(); 
-    //         // d_die($request);
-    //         // Récupère les résultats après l'exécution de la requête
-    //         $bookingData = $request->fetch(\PDO::FETCH_ASSOC);
-    //         // d_die($bookingData); 
-    //         return $bookingData;
-    //     } catch (PDOException $e) 
-    //     {
-    //         // Gère l'erreur
-    //         throw new Exception("Erreur lors de la recherche de la réservation par ID : " . $e->getMessage());
-    //     } 
-    // }
-
-    // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
+// préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
     {
         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";
@@ -107,26 +44,6 @@ class BookingsRepository extends BaseRepository
         $request->execute();
         return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
-    // ok
-
-    // public function getRoomIdByBookingId($bookingId)
-    // {
-    //     try 
-    //     {
-    //         $sql = "SELECT room_id FROM details WHERE booking_id = :booking_id";
-    //         $request = $this->dbConnection->prepare($sql);
-    //         $request->bindValue(":booking_id", $bookingId);
-    //         $request->execute();
-    //         // Utilise fetchColumn pour récupérer la première colonne de la première ligne du résultat de la requête
-    //         $roomId = $request->fetchColumn();
-    //         // Retourne l'ID de la chambre associée à la réservation
-    //         return $roomId !== false ? $roomId : null;
-    //     } catch (PDOException $e) {
-    //         // Gère l'exception
-    //         error_log("PDOException in getRoomIdByBookingId: " . $e->getMessage());
-    //         return null;
-    //     }
-    // }
 
     public function findUserBookings($id)
     {
@@ -145,7 +62,6 @@ class BookingsRepository extends BaseRepository
             return null;
         }
     }
-    // ok
     
     // #########  Ne pas utiliser cette methode car il est préférable de conserver les données utilisateur ###############  
     // public function deleteBookingsById($id)

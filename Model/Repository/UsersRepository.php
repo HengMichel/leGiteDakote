@@ -33,7 +33,7 @@ class UsersRepository extends BaseRepository
         }
         return null;
     }
-    // ok
+
     public function findUsersById($id)
     {
         $request = $this->dbConnection->prepare("SELECT * FROM users WHERE id_user = :id_user");
@@ -49,7 +49,7 @@ class UsersRepository extends BaseRepository
             }
         }
     }
-    // ok
+
     public function updateUsers(Users $users)
     {
         try 
@@ -91,7 +91,6 @@ class UsersRepository extends BaseRepository
             return false; 
         }
     }
-    // ok
     
     public function deleteUsersById($id)
     {

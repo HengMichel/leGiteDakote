@@ -121,4 +121,15 @@ class RoomsController extends BaseController
         }
         return redirection(addLink("admin","rooms","list"));
     }
+
+    public function historique($roomId)
+    {
+        $users = $this->roomsRepository->findUsersByReservedRoom($roomId);
+        // d_die($roomId);
+        $this->render("admin/list_room_historique.php", [
+            "h1" => "Historique réservation",
+            "users" => $users
+        ]);
+    }
+
 }
