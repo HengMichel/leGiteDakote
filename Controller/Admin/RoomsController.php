@@ -131,5 +131,4 @@ class RoomsController extends BaseController
             "users" => $users
         ]);
     }
-
 }

@@ -6,9 +6,8 @@
                 <th class="nom align-middle text-center fs-5">Nom</th>
                 <th class="nom align-middle text-center fs-5">Prénom</th>
                 <th class="email align-middle text-center fs-5">Email</th>
-                <th class="email align-middle text-center fs-5">Date debut</th>
+                <th class="email align-middle text-center fs-5">Date début</th>
                 <th class="email align-middle text-center fs-5">Date fin</th>
-                <!-- Ajoutez d'autres colonnes si nécessaire -->
             </tr>
         </thead>
         <tbody class="bordure">
@@ -21,7 +20,6 @@
                     <td class="email align-middle text-center fw-medium bg-secondary-subtle"><?= $user['email'] ?></td>
                     <td class="email align-middle text-center fw-medium bg-secondary-subtle"><?= date_format(date_create($user['booking_start_date']), 'd.m.Y'); ?></td>
                     <td class="email align-middle text-center fw-medium bg-secondary-subtle"><?= date_format(date_create($user['booking_end_date']), 'd.m.Y'); ?></td>
-                    <!-- Ajoutez d'autres colonnes si nécessaire -->
                 </tr>
             <?php endforeach; ?>
         </tbody>

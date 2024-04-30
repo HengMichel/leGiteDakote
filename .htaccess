@@ -1,6 +1,6 @@
 RewriteEngine On
 # Règles de réécriture d'URL :
- # Exclure tous les fichiers et dossiers du répertoire "assets" de la réécriture
+# Exclure tous les fichiers et dossiers du répertoire "assets" de la réécriture
     RewriteCond %{REQUEST_URI} ^/public/ [OR]
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
@@ -9,7 +9,8 @@ RewriteEngine On
     RewriteRule ^403$ /errors/403.php
 # pour les routes
 #La règle de réécriture RewriteRule ^$ est utilisée pour rediriger l'URL racine vers une autre page ou une autre URL. Le ^$ signifie que la règle s'appliquera uniquement lorsque l'URL demandée est la racine du site, c'est-à-dire lorsqu'il n'y a rien après le nom de domaine dans l'URL.
-#[L] signifie "Last" (dernière) et indique que si la règle actuelle est appliquée, c'est la dernière règle qui sera évaluée, et aucune autre règle de réécriture ne sera exécutée. Cela peut être utile pour éviter que des règles ultérieures interfèrent avec la règle actuelle.
+#[L] signifie "Last" (dernière) et indique que si la règle actuelle est appliquée, c'est la dernière règle qui sera évaluée, et aucune autre règle de réécriture ne sera exécutée. 
+# Cela peut être utile pour éviter que des règles ultérieures interfèrent avec la règle actuelle.
 # Si la requête commence par "/admin/", utilisez "admin/" dans la chaîne de requête
 RewriteRule ^admin/?$                             index.php?doc=admin [L,QSA]
 RewriteRule ^admin/(\w+)/?$                       index.php?doc=admin&controller=$1 [L,QSA]
