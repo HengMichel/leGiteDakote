@@ -79,8 +79,8 @@ class CartController extends BaseController
             // d_die($id);  
             // Instancie la classe DetailsRepository pour interagir avec la base de données
             $d = new DetailsRepository;
-            // Appele de la méthode findDetailById pour récupérer les informations de la chambre par son ID
-            $id = $d->findDetailById($id);
+            // Appele de la méthode findDetailByBookingId pour récupérer les informations de la chambre par son ID
+            $id = $d->findDetailByBookingId($id);
             //  d_die($id);  
             // Vérifie si la chambre existe
             if (empty($details)) 

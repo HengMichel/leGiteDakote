@@ -321,5 +321,16 @@ span
   {
     display: contents;
   }
+  /* .room_state
+  {
+    display: none;
+  }
+  .roomState
+  {
+    display: none;
+  } */
+  .tableListAdmin{
+    display: block;
+  }
 }
 /*************** END MEDIAQUERY ***************/

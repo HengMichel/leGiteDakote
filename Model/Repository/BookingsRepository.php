@@ -2,10 +2,7 @@
 
 namespace Model\Repository;
 
-use Exception;
 use PDOException;
-use Service\Session;
-use Model\Entity\Details;
 use Model\Entity\Bookings;
 
 class BookingsRepository extends BaseRepository
@@ -77,5 +74,5 @@ class BookingsRepository extends BaseRepository
     //         return false; 
     //     }
     // }  
-//  ###################################################################################################################
+//  ########################################################################################
 }

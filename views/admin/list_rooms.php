@@ -1,5 +1,5 @@
 <div class="listRoomAdmin container container5">
-    <table class="table table-hover">
+    <table class="tableListAdmin table table-hover">
         <thead>
             <tr>
                 <th class="id_room align-middle text-center fs-5" >Id</th>

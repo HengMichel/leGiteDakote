@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class RoomsRepository extends BaseRepository
 {
-    // Permet d afficher les images en passant par le repertoire uploads conteant les images car l ancienne methode passe par le chemin racine afin d afficher les images qui est no recommanded!!!!!
+    // Permet d afficher les images en passant par le repertoire uploads contenant les images car l ancienne methode passe par le chemin racine afin d afficher les images qui est no recommanded!!!!!
     public function insertRooms(Rooms $rooms)
     {
         $sql = "INSERT INTO rooms (room_number, price, room_imgs, persons, category) VALUES (:room_number, :price, :room_imgs, :persons, :category)";
@@ -16,7 +16,6 @@ class RoomsRepository extends BaseRepository
         $request->bindValue(":room_number", $rooms->getRoom_number());
         $request->bindValue(":price", $rooms->getPrice());
         $request->bindValue(":room_imgs", $rooms->getRoom_imgs()); 
-        // Enregistre le nom du fichier, pas le chemin complet
         $request->bindValue(":persons", $rooms->getPersons());
         $request->bindValue(":category", $rooms->getCategory());
         try 
