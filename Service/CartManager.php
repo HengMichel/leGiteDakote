@@ -32,6 +32,7 @@ class CartManager
             $today = new DateTime();
             $bookingStartDate = new DateTime($booking_start_date);
             $bookingEndDate = new DateTime($booking_end_date);
+
             if ($bookingStartDate < $today || $bookingEndDate < $today) 
             {
                 throw new \Exception("La date de début ou de fin de réservation ne peut pas être antérieure à la date d'aujourd'hui.");
@@ -40,10 +41,7 @@ class CartManager
             {
                 throw new \Exception("La date de fin de réservation ne peut pas être antérieure à la date de début de réservation.");
             }
-            if ($bookingStartDate > $bookingEndDate) 
-            {
-                throw new \Exception("La date de début de réservation ne peut pas être postérieure à la date de fin de réservation.");
-            }
+            
             // Calcule la différence de dates
             $diff = $bookingStartDate->diff($bookingEndDate);
             // d_die($diff);
