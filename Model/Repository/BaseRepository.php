@@ -51,7 +51,7 @@ class BaseRepository
             }
         } catch (\PDOException $exception) 
         {
-            echo "Erreur de connetion : " . $exception->getMessage();
+            echo "Erreur de connexion : " . $exception->getMessage();
         }
     }
 
@@ -99,7 +99,7 @@ class BaseRepository
             }
         } catch (\PDOException $exception) 
         {
-            echo "Erreur de connetion : " . $exception->getMessage();
+            echo "Erreur de connexion : " . $exception->getMessage();
         }
     }
 
