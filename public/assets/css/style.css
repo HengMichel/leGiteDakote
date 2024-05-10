@@ -190,7 +190,9 @@ span
 {
   display: flex;
 }
-
+.linkedin{
+  color: rgba(0,102,154);
+}
 /*************** MEDIAQUERY ***************/
 @media (max-width: 1023px) 
 {
