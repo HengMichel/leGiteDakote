@@ -263,6 +263,14 @@ span
     margin-right: 10px;
     font-size: medium;
   }
+  .nosServices
+  {
+    margin-top: 1%;
+  }
+  .aProposDeNous
+  {
+    margin-top: 1%;
+  }
   .p1 
   {
     display: none;
@@ -331,7 +339,8 @@ span
   {
     display: none;
   } */
-  .tableListAdmin{
+  .tableListAdmin
+  {
     display: block;
   }
 }

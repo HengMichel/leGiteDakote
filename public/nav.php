@@ -80,12 +80,12 @@ if (session_status() == PHP_SESSION_NONE)
         </div>
         <?php endif ?>
         <!-- access aux services  -->
-        <button type="button" class="btn btn-outline-light">
+        <button type="button" class="nosServices btn btn-outline-light">
             <a class="nav-link fw-semibold" href="<?= addLink("home","serviceDuGite") ?>">Nos Services
             </a>
         </button>
         <!-- présentation des propriétaire -->
-        <button type="button" class="btn btn-outline-light ">
+        <button type="button" class="aProposDeNous btn btn-outline-light">
             <a class="nav-link fw-semibold" href="<?= addLink("home","aboutUs") ?>">à propos de nous
             </a>
         </button>
