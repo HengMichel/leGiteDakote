@@ -45,7 +45,7 @@ class BaseEntity
     {
         $this->id = $id;
     }
-
+    // ######## pas l'utilite pour ce projet ######################################
     /**
      * Get the value of created_at
      */ 
