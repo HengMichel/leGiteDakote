@@ -35,7 +35,7 @@
                 <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold">
                     <?= isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00';
                     // d_die($details);
-                    // d_die($_SESSION);
+                    debug($_SESSION);
                     ?>                 
                 </td>
             </tr> 
