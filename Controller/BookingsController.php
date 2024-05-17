@@ -50,6 +50,10 @@ class BookingsController extends BaseController
             // d_die($id_booking);
             if ($id_booking) 
             {
+    // modif ici a checker #################################
+                // Ajoute les réservations à la session avec la clé 'cart'
+                $_SESSION['cart'] = $this->bookings;
+// ####################################################
                 return redirection(addLink("details","newDetail"));
             } else 
             {

@@ -16,12 +16,13 @@ class DetailsController extends BaseController
 
     public function newDetail()
     {
-        // d_die($_POST);
+        // debug($_POST);
+debug($_SESSION['cart']);
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
         // Récupérer les réservations de l'utilisateur à partir de la session
         $bookings = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
-        // d_die($bookings);
+        // debug($bookings);
         // Créer les détails
         $details = $this->detailsManager->createDetail($id_user,$bookings);
         // d_die($details);  
