@@ -28,9 +28,12 @@ class CartManager
             $pr = $this->roomsRepository;
             /** @var Rooms */
             $room = $pr->findRoomsById($id);
+
             // Vérifie si les dates sont valides
             $today = new DateTime();
+            // Doit être une variable de type string contenant une date valide
             $bookingStartDate = new DateTime($booking_start_date);
+            // Idem
             $bookingEndDate = new DateTime($booking_end_date);
 
             if ($bookingStartDate < $today || $bookingEndDate < $today) 
@@ -45,6 +48,7 @@ class CartManager
             // Calcule la différence de dates
             $diff = $bookingStartDate->diff($bookingEndDate);
             // d_die($diff);
+
             // Calcule le nombre de jours de réservation
             $nbDays = $diff->days;
             // d_die($nbDays);
@@ -62,13 +66,16 @@ class CartManager
             // Mets à jour le prix total avec la methode calculateTotalPrice()
             $_SESSION['totalPrice'] = $totalPrice;
             // d_die($_SESSION['totalPrice']);
+
             if(!isset($_SESSION["cart"])) 
             {
                 $_SESSION["cart"] = [];
             }
+
             // Récupère le panier depuis la session
             $cart = $_SESSION["cart"] ?? [];
             // d_die($cart);
+
             $roomDejaDanscart = false;
             foreach ($cart as $indice => $value) 
             {
@@ -81,15 +88,36 @@ class CartManager
             }
             // d_die($roomDejaDanscart);
             // d_die($cart[$indice]["quantity"]);
+// ###############################################################################################################
+// Probleme ici D'après le debug que vous avez partagé, l'erreur semble être que vous essayez d'accéder aux propriétés de l'objet Bookings comme s'il s'agissait d'un tableau dans la boucle foreach. Cependant, dans votre code, $value["room"] suppose que $value est un tableau, alors qu'en fait, d'après votre debug, $value est un objet de type Bookings.
+// Pour corriger cela, vous devez accéder aux propriétés de l'objet Bookings en utilisant la notation objet plutôt que la notation tableau. Voici comment vous pouvez ajuster votre boucle foreach :
+    //foreach ($cart as $indice => $value) 
+// {
+    // Assurez-vous que $value est bien un objet de type Bookings
+    // if ($room->getId_room() == $value->getId_room()) 
+    // {
+    //     $roomDejaDanscart = true;
+        // pour sortir de la boucle foreach
+//         break;  
+//     }
+// }
+// ########################################################################################################################## 
+
             if (!$roomDejaDanscart) 
             {
-                $cart[] = ["room" => $room, "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "totalPrice" => $totalPrice];  
+                $cart[] = 
+                [
+                    "room" => $room, 
+                    "date_debut" => $booking_start_date, "date_fin" => $booking_end_date, "totalPrice" => $totalPrice
+                ];  
                 // on ajoute une value au cart => $cart est un array 
             }
             // d_die(!$roomDejaDanscart);
+
             // je remets $cart dans la session, à l'indice 'cart'
             $_SESSION["cart"] = $cart; 
             // d_die($_SESSION["cart"]);
+
             // Recalcule le prix total après avoir mis à jour le panier
             $this->calculateTotalPrice();
             // d_die($this->calculateTotalPrice());

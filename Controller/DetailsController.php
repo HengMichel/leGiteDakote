@@ -17,7 +17,7 @@ class DetailsController extends BaseController
     public function newDetail()
     {
         // debug($_POST);
-debug($_SESSION['cart']);
+// debug($_SESSION['cart']);
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
         // Récupérer les réservations de l'utilisateur à partir de la session

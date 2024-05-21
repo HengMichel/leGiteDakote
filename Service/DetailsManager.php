@@ -18,7 +18,90 @@ class DetailsManager
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    // public function createDetail($id_user,$bookings)
+    public function createDetail($id_user, $bookings)
+    {
+        // Récupération de l'identifiant de l'utilisateur à partir de la session si non fourni
+        $id_user = $id_user ?? ($_SESSION['users']->getId_user() ?? null);
+
+        // Vérification de la présence des données de session 'cart'
+        if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) 
+        {
+            // Initialisation des variables pour les détails de la réservation
+            $bookingStartDate = null;
+            $bookingEndDate = null;
+            $room_id = null;
+            $totalPrice = null;
+            // debug($_SESSION);
+
+            // Parcours des éléments de la session 'cart'
+            foreach ($_SESSION['cart'] as $item) 
+            {
+                // Récupération des données nécessaires pour les détails de la réservation
+                if (isset($item['date_debut'])) 
+                {
+                    $bookingStartDate = $item['date_debut'];
+                }
+                if (isset($item['date_fin'])) 
+                {
+                    $bookingEndDate = $item['date_fin'];
+                }
+                if (isset($item['totalPrice'])) 
+                {
+                    $totalPrice = $item['totalPrice'];
+                }
+                if (isset($item['room']) && is_object($item['room']) && method_exists($item['room'], 'getId_room')) {
+                    $room_id = $item['room']->getId_room();
+                    // Sortie de la boucle dès qu'on trouve la valeur de id_room
+                    break;
+                }
+            }
+            // debug($room_id);
+
+            // Vérification si les réservations de l'utilisateur existent
+            $userBookings = $this->bookingsRepository->findUserBookings($id_user);
+            if (!$userBookings)
+            {
+                // Gère le cas où la réservation n'existe pas
+                return false;
+            }
+
+            // Création d'un nouvel objet Detail
+            $details = new Details();
+            // Assignation des propriétés de l'objet Detail
+            $details->setBooking_id($userBookings->getId_booking());
+            $details->setRoom_id($room_id);
+            $details->setBooking_start_date($bookingStartDate);
+            $details->setBooking_end_date($bookingEndDate);
+            $details->setBooking_price($totalPrice);
+
+            // Insertion des détails dans la base de données
+            $success = $this->detailsRepository->insertDetail($details);
+            if ($success) 
+            {
+                // Récupération des détails créés dans la base de données en utilisant l'identifiant de réservation
+                $createdDetails = $this->detailsRepository->findDetailByBookingId($details->getBooking_id());
+                if ($createdDetails) 
+                {
+                    // Retourne les détails créés avec succès
+                    return $createdDetails;
+                } else 
+                {
+                    // Impossible de récupérer les détails
+                    return false;
+                }
+            } else 
+            {
+                // Gestion de l'échec de l'insertion dans la base de données
+                return false;
+            }
+        } else 
+        {
+            // Données de session 'cart' non trouvées ou au mauvais format
+            return false;
+        }
+    }
+}
+ // public function createDetail($id_user,$bookings)
     // {
     //     // d_die($id_user);
     //     // Vérification de l'existence de la session et initialisation des variables
@@ -108,79 +191,4 @@ class DetailsManager
     //         }
     //     }
     // }
-
-// ########################### ICI tres mal indente ######################################################
-    public function createDetail($id_user, $bookings)
-{
-    // Récupération de l'identifiant de l'utilisateur à partir de la session si non fourni
-    $id_user = $id_user ?? ($_SESSION['users']->getId_user() ?? null);
-
-    // Vérification de la présence des données de session 'cart'
-    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
-        // Initialisation des variables pour les détails de la réservation
-        $bookingStartDate = null;
-        $bookingEndDate = null;
-        $room_id = null;
-        $totalPrice = null;
-
-        // debug($_SESSION);
-
-        // Parcours des éléments de la session 'cart'
-        foreach ($_SESSION['cart'] as $item) {
-            // Récupération des données nécessaires pour les détails de la réservation
-            if (isset($item['date_debut'])) {
-                $bookingStartDate = $item['date_debut'];
-            }
-            if (isset($item['date_fin'])) {
-                $bookingEndDate = $item['date_fin'];
-            }
-            if (isset($item['totalPrice'])) {
-                $totalPrice = $item['totalPrice'];
-            }
-            if (isset($item['room']) && is_object($item['room']) && method_exists($item['room'], 'getId_room')) {
-                $room_id = $item['room']->getId_room();
-                // Sortie de la boucle dès qu'on trouve la valeur de id_room
-                break;
-            }
-        }
-        // debug($room_id);
-
-        // Vérification si les réservations de l'utilisateur existent
-        $userBookings = $this->bookingsRepository->findUserBookings($id_user);
-        if (!$userBookings) {
-            // Gère le cas où la réservation n'existe pas
-            return false;
-        }
-
-        // Création d'un nouvel objet Detail
-        $details = new Details();
-        // Assignation des propriétés de l'objet Detail
-        $details->setBooking_id($userBookings->getId_booking());
-        $details->setRoom_id($room_id);
-        $details->setBooking_start_date($bookingStartDate);
-        $details->setBooking_end_date($bookingEndDate);
-        $details->setBooking_price($totalPrice);
-
-        // Insertion des détails dans la base de données
-        $success = $this->detailsRepository->insertDetail($details);
-        if ($success) {
-            // Récupération des détails créés dans la base de données en utilisant l'identifiant de réservation
-            $createdDetails = $this->detailsRepository->findDetailByBookingId($details->getBooking_id());
-            if ($createdDetails) {
-                // Retourne les détails créés avec succès
-                return $createdDetails;
-            } else {
-                // Impossible de récupérer les détails
-                return false;
-            }
-        } else {
-            // Gestion de l'échec de l'insertion dans la base de données
-            return false;
-        }
-    } else {
-        // Données de session 'cart' non trouvées ou au mauvais format
-        return false;
-    }
-}
-
-}
+ 

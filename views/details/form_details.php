@@ -11,15 +11,6 @@
             </tr>
         </thead>
         <tbody>
-        <?php 
-        // debug($details); 
-        ?>
-        <?php foreach ($details as $detail): ?>
-        <?php 
-            // debug($details); 
-            ?>
-            
-
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
                     <?= $details['booking_id']; 
@@ -48,8 +39,6 @@
                     ?>                 
                 </td>
             </tr> 
-            <?php endforeach; ?>
-
         </tbody>
     </table>
 </div>
