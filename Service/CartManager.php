@@ -4,6 +4,7 @@ namespace Service;
 
 use DateTime;
 use Model\Entity\Rooms;
+use Model\Entity\Details;
 use Model\Repository\RoomsRepository;
 
 class CartManager
@@ -77,6 +78,7 @@ class CartManager
             // d_die($cart);
 
             $roomDejaDanscart = false;
+
             foreach ($cart as $indice => $value) 
             {
                 if ($room->getId_room() == $value["room"]->getId_room()) 
@@ -86,22 +88,7 @@ class CartManager
                     break;  
                 }
             }
-            // d_die($roomDejaDanscart);
-            // d_die($cart[$indice]["quantity"]);
-// ###############################################################################################################
-// Probleme ici D'après le debug que vous avez partagé, l'erreur semble être que vous essayez d'accéder aux propriétés de l'objet Bookings comme s'il s'agissait d'un tableau dans la boucle foreach. Cependant, dans votre code, $value["room"] suppose que $value est un tableau, alors qu'en fait, d'après votre debug, $value est un objet de type Bookings.
-// Pour corriger cela, vous devez accéder aux propriétés de l'objet Bookings en utilisant la notation objet plutôt que la notation tableau. Voici comment vous pouvez ajuster votre boucle foreach :
-    //foreach ($cart as $indice => $value) 
-// {
-    // Assurez-vous que $value est bien un objet de type Bookings
-    // if ($room->getId_room() == $value->getId_room()) 
-    // {
-    //     $roomDejaDanscart = true;
-        // pour sortir de la boucle foreach
-//         break;  
-//     }
-// }
-// ########################################################################################################################## 
+           
 
             if (!$roomDejaDanscart) 
             {
