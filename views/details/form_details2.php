@@ -1,4 +1,4 @@
-<!-- Affichage du contenu de la facture -->
+<!-- Ajoutez les autres détails ici -->
 
 <div class="container5 container link-light fw-medium mt-5">
     <table class="table table-hover mt-5">
@@ -15,7 +15,7 @@
             <tr class="table-active">
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
                     <?= $details->getBooking_id(); 
-                    debug($details);
+                    // debug($details);
                     ?>
                 </td>
                 <td class="roomId mt-2 col-1 align-middle fs-5 text-center fw-semibold">
@@ -43,6 +43,7 @@
         </tbody>
     </table>
 </div>
+
 
 <?php
 // Supprimer les variables de session spécifiques à la facture

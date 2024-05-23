@@ -65,6 +65,20 @@ class DetailsManager
                 return false;
             }
 
+
+
+// modif ici
+            $booking_id = $userBookings->getId_booking();
+
+             // Vérifiez si le détail existe déjà pour ce booking_id
+             $existingDetail = $this->detailsRepository->findDetailByBookingId($userBookings->getId_booking());
+             if ($existingDetail !== null) {
+                 // Si le détail existe déjà, retournez-le
+                 return $existingDetail;
+             }
+// ###################
+
+            
             // Création d'un nouvel objet Detail
             $details = new Details();
             // Assignation des propriétés de l'objet Detail
@@ -73,6 +87,9 @@ class DetailsManager
             $details->setBooking_start_date($bookingStartDate);
             $details->setBooking_end_date($bookingEndDate);
             $details->setBooking_price($totalPrice);
+
+            debug('Inserting details:', $details);
+
 
             // Insertion des détails dans la base de données
             $success = $this->detailsRepository->insertDetail($details);
