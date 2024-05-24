@@ -37,7 +37,7 @@ class BookingsController extends BaseController
         // d_die($user);
         // d_die($_SESSION);
         $user_id = $user instanceof Users ? $user->getId_user() : null;
-        $booking_state = "in progress";
+        // $booking_state = "in progress";
         // d_die($user_id);
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
@@ -50,10 +50,9 @@ class BookingsController extends BaseController
             // d_die($id_booking);
             if ($id_booking) 
             {
-    // modif ici a checker #################################
-                // Ajoute les réservations à la session avec la clé 'cart'
-                // $_SESSION['cart'] = $this->bookings;
-// ####################################################
+                // Save booking ID in session for later use
+                $_SESSION['current_booking_id'] = $id_booking; 
+
                 return redirection(addLink("details","newDetail"));
             } else 
             {
@@ -66,7 +65,7 @@ class BookingsController extends BaseController
         // Affiche le formulaire de réservation
         return $this->render("cart/form_cart.php",[
             "user_id" => $user_id,
-            "booking_state" => $booking_state,
+            "booking_state" => "in progress",
             "errors" => $errors
         ]);
     }      

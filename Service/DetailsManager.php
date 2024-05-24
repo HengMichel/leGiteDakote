@@ -29,6 +29,7 @@ class DetailsManager
             // Initialisation des variables pour les détails de la réservation
             $bookingStartDate = null;
             $bookingEndDate = null;
+            $booking_id = null;
             $room_id = null;
             $totalPrice = null;
             // debug($_SESSION);
@@ -53,8 +54,14 @@ class DetailsManager
                     $room_id = $item['room']->getId_room();
                     // Sortie de la boucle dès qu'on trouve la valeur de id_room
                     break;
+ 
                 }
             }
+            // Vérifiez si le panier est vide
+        if (!$booking_id) {
+            // Gérer le cas où le panier est vide
+            return false;
+        }
             // debug($room_id);
 
             // Vérification si les réservations de l'utilisateur existent
@@ -69,7 +76,7 @@ class DetailsManager
 
 // modif ici
             $booking_id = $userBookings->getId_booking();
-
+debug($booking_id);
              // Vérifiez si le détail existe déjà pour ce booking_id
              $existingDetail = $this->detailsRepository->findDetailByBookingId($userBookings->getId_booking());
              if ($existingDetail !== null) {
@@ -84,19 +91,20 @@ class DetailsManager
             // Assignation des propriétés de l'objet Detail
             $details->setBooking_id($userBookings->getId_booking());
             $details->setRoom_id($room_id);
+            debug($details);
             $details->setBooking_start_date($bookingStartDate);
             $details->setBooking_end_date($bookingEndDate);
             $details->setBooking_price($totalPrice);
 
-            debug('Inserting details:', $details);
-
 
             // Insertion des détails dans la base de données
             $success = $this->detailsRepository->insertDetail($details);
+
             if ($success) 
             {
                 // Récupération des détails créés dans la base de données en utilisant l'identifiant de réservation
                 $createdDetails = $this->detailsRepository->findDetailByBookingId($details->getBooking_id());
+            // debug($createdDetails);
                 if ($createdDetails) 
                 {
                     // Retourne les détails créés avec succès

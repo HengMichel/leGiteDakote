@@ -4,6 +4,7 @@
     <table class="table table-hover mt-5">
         <thead>
             <tr>
+                <th scope="col" class="id_reservation align-middle fs-5 text-center fw-semibold">details#</th>
                 <th scope="col" class="id_reservation align-middle fs-5 text-center fw-semibold">Reservation#</th>
                 <th scope="col" class="id_chambre align-middle fs-5 text-center fw-semibold">Chambre#</th>
                 <th class="start_date align-middle fs-5 text-center fw-semibold">Date début</th>
@@ -13,6 +14,11 @@
         </thead>
         <tbody>
             <tr class="table-active">
+                <td class="id_detail mt-2 col-1 align-middle fs-5 text-center fw-semibold">
+                    <?= $details->getId_detail(); 
+                    // debug($details);
+                    ?>
+                </td>
                 <td class="booking_id mt-2 col-1 align-middle fs-5 text-center fw-semibold">
                     <?= $details->getBooking_id(); 
                     // debug($details);

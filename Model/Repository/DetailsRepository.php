@@ -79,20 +79,32 @@ class DetailsRepository extends BaseRepository
 
     public function findDetailByBookingId($id)
     {
-        // debug($id);
+        debug($id);
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE booking_id = :booking_id");
         $request->bindParam(':booking_id', $id , \PDO::PARAM_INT);
         $request->execute();
-        return $request->fetch(); 
+debug($request);
+        return $request->fetch(\PDO::FETCH_ASSOC);
+        
     }
     
     public function findDetailByRoomId($id)
     {
-        debug($id);
+        // debug($id);
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE room_id = :room_id");
         $request->bindParam(':room_id', $id , \PDO::PARAM_INT);
         $request->execute();
-        return $request->fetch();
-        
+        return $request->fetch(\PDO::FETCH_ASSOC);
+
+       
+    }
+
+    public function findDetail(Details $details)
+    {
+        $sql = "SELECT * FROM details WHERE id_detail = :id_detail";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":id_detail",$details);
+        $request->execute();
+        return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

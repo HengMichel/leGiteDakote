@@ -12,6 +12,7 @@ class DetailsController extends BaseController
 
     // modif ici ###############
     private $detailsRepository;
+    private $details;
     // ##########################
 
     public function __construct()
@@ -31,69 +32,78 @@ class DetailsController extends BaseController
 // debug($_SESSION['cart']);
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
-        // Récupérer les réservations de l'utilisateur à partir de la session
-        $rooms = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
+        // Récupérer les réservations de l'utilisateur à partir de la session
+        // $rooms = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+$rooms = $_SESSION['cart'] ?? [];
+
+// debug($booking_id);
  // Vérifier si le panier contient des réservations
- if (empty($rooms)) {
+ if (empty($rooms)) 
+ {
     return $this->render("details/form_details2.php", [
         "details" => null,
         "h1" => "Aucun détail trouvé"
     ]);
 }
- // Obtenir l'ID de réservation du premier élément du panier (ou d'un élément approprié)
- $room = $rooms[0];
-// debug($_SESSION);
- $room_id = $room['room']->getId_room();
-
-        // Vérifiez d'abord si les détails existent déjà
-    $existingDetails = $this->detailsRepository->findDetailByRoomId($room_id);
-
-    if ($existingDetails !== null) {
-        debug($existingDetails);
+ // Récupérer l'identifiant de réservation
+ $booking_id = null;
+ foreach ($rooms as $item) {
+     if (isset($item['booking_id'])) {
+         $booking_id = $item['booking_id'];
+         break;
+     }
+ }
+    // Vérifier si l'identifiant de réservation est valide
+    if ($booking_id === null) 
+    {
+        // Handle missing booking ID
         return $this->render("details/form_details2.php", [
-            "details" => $existingDetails,
-            "h1" => "Facture"
+            "details" => null,
+            "h1" => "Erreur : réservation non trouvée"
         ]);
     }
-        debug('Creating details with user id:', $id_user, 'and rooms:', $rooms);
+       
 
         // Créer les détails
         $detailsCreated = $this->detailsManager->createDetail($id_user,$rooms);
         // d_die($details);  
         // d_die($id_user,$rooms); 
         
-        debug('Details created status:', $detailsCreated);
 
         // Vérifie si les détails ont été créés avec succès avant de les passer à la vue
         if ($detailsCreated ) 
         {
             // modif ici
-            debug('Details created successfully. Fetching details for room id:', $rooms);
 
-            $details = $this->detailsRepository->findDetailByRoomId($room_id);
+            // $details = $this->detailsRepository->findDetailByRoomId($room_id);
+            $details = $this->detailsRepository->findDetailByBookingId($booking_id);
 
-            if ($details !== null) {
-                debug('Details found:', $details);
+            debug($details);
+            if ($details !== null) 
+            {
                 return $this->render("details/form_details2.php", [
                     "details" => $details,
                     "h1" => "Facture"
                 ]);  
             } else {
-                debug('No details found for rooms:', $room_id);
+
                 return $this->render("details/form_details2.php", [
                     "details" => null,
                     "h1" => "Aucun détail trouvé"
                 ]);
             } 
-
-        } else {
-            debug('Error creating details');
-                return $this->render("details/form_details2.php", [
-                    "details" => null,
-                    "h1" => "Erreur lors de la création des détails"
-                ]); 
-
-        }    
+        } 
+       
     }
+
+    // public function newDetail2()
+    // {
+    //     $details = $this->detailsRepository->findDetail($this->details);
+    //     return $this->render("details/form_details2.php", [
+    //         "details" => $details,
+    //         "h1" => "Facture"
+    //     ]);  
+
+    // }
 }
