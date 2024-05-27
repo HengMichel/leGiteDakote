@@ -110,7 +110,8 @@ class CartManager
             // d_die($this->calculateTotalPrice());
             // d_die($quantity);
             // Redirige vers le tableau de bord
-            return redirection(addLink("cart","detailCart"));
+            // return redirection(addLink("cart","detailCart"));
+            return redirection(addLink("cart","addToCart"));
         }
     }
 
@@ -158,6 +159,7 @@ class CartManager
             // d_die($_SESSION['totalPrice']);
         }
         // Redirige l'utilisateur vers la page du panier après l'annulation
-        return redirection(addLink("cart", "detailCart"));
+        // return redirection(addLink("cart", "detailCart"));
+        return redirection(addLink("cart", "addToCart"));
     }
 }

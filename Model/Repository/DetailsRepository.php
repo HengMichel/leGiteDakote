@@ -79,11 +79,12 @@ class DetailsRepository extends BaseRepository
 
     public function findDetailByBookingId($id)
     {
-        debug($id);
+        // PROBleme ici id = room_id
+        // debug($id);
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE booking_id = :booking_id");
         $request->bindParam(':booking_id', $id , \PDO::PARAM_INT);
         $request->execute();
-debug($request);
+// debug($request);
         return $request->fetch(\PDO::FETCH_ASSOC);
         
     }

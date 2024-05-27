@@ -18,7 +18,7 @@ class DetailsManager
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    public function createDetail($id_user, $bookings)
+    public function createDetail($id_user, $booking_id)
     {
         // Récupération de l'identifiant de l'utilisateur à partir de la session si non fourni
         $id_user = $id_user ?? ($_SESSION['users']->getId_user() ?? null);
@@ -66,6 +66,7 @@ class DetailsManager
 
             // Vérification si les réservations de l'utilisateur existent
             $userBookings = $this->bookingsRepository->findUserBookings($id_user);
+            debug($userBookings);
             if (!$userBookings)
             {
                 // Gère le cas où la réservation n'existe pas

@@ -51,7 +51,7 @@ class BookingsController extends BaseController
             if ($id_booking) 
             {
                 // Save booking ID in session for later use
-                $_SESSION['current_booking_id'] = $id_booking; 
+                // $_SESSION['current_booking_id'] = $id_booking; 
 
                 return redirection(addLink("details","newDetail"));
             } else 

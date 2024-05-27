@@ -37,28 +37,21 @@ class CartController extends BaseController
             $cm->addCart($id);
             // d_die($cm);
             // Redirection en cas de succès
-            $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
-            header("Location: $redirectUrl");
+            return $this->render("cart/form_cart.php", [ 
+                        "h1" => "Date de réservation"
+                    ]);  
             exit();
         } catch (\Exception $e) 
         {
-            // Gestion des erreurs
+            // Gestion des erreurs 
             $_SESSION['error'] = $e->getMessage();
-            $redirectUrl = $_POST['redirect_url'] ?? addLink("cart", "detailCart");
+            // aucune redirection on reste sur la meme page avec le message d'erreur affiché
+            $redirectUrl = $_POST['redirect_url'];
             header("Location: $redirectUrl");
             exit();
-        }
+        }  
     }
-    /**
-     * Summary of show
-     * @return void
-     */
-    public function detailCart()
-    {
-        return $this->render("cart/form_cart.php", [ 
-            "h1" => "Date de réservation"
-        ]);   
-    }
+ 
     /**
      * Summary of add
      * @param mixed $id

@@ -35,11 +35,11 @@ class DetailsController extends BaseController
 
         // Récupérer les réservations de l'utilisateur à partir de la session
         // $rooms = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
-$rooms = $_SESSION['cart'] ?? [];
-
+$booking_id = $_SESSION['cart'] ?? [];
 // debug($booking_id);
+
  // Vérifier si le panier contient des réservations
- if (empty($rooms)) 
+ if (empty($booking_id)) 
  {
     return $this->render("details/form_details2.php", [
         "details" => null,
@@ -47,8 +47,8 @@ $rooms = $_SESSION['cart'] ?? [];
     ]);
 }
  // Récupérer l'identifiant de réservation
- $booking_id = null;
- foreach ($rooms as $item) {
+//  $booking_id = null;
+ foreach ($booking_id as $item) {
      if (isset($item['booking_id'])) {
          $booking_id = $item['booking_id'];
          break;
@@ -66,9 +66,8 @@ $rooms = $_SESSION['cart'] ?? [];
        
 
         // Créer les détails
-        $detailsCreated = $this->detailsManager->createDetail($id_user,$rooms);
-        // d_die($details);  
-        // d_die($id_user,$rooms); 
+        $detailsCreated = $this->detailsManager->createDetail($id_user,$booking_id);
+        debug($detailsCreated);  
         
 
         // Vérifie si les détails ont été créés avec succès avant de les passer à la vue

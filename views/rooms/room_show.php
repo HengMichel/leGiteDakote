@@ -37,6 +37,7 @@ if (isset($_SESSION['error']))
                 <a href="<?= ROOT ?>" class="btn btn-outline-light fw-bolder m-lg-3 mt-1">
                 <i class="fa fa-home"></i> Retour à l'accueil
                 </a>
+                <!-- apres soumission redirige vers service CartManager -->
                 <button class="btn btn-primary fw-bolder mt-1" type="submit" name="passerLaCommande">Passer la commande</button>
             </form>
         </div>
