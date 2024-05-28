@@ -18,7 +18,8 @@ class DetailsManager
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    public function createDetail($id_user, $booking_id)
+    // public function createDetail($id_user, $booking_id)
+    public function createDetail(Details $details)
     {
         // Récupération de l'identifiant de l'utilisateur à partir de la session si non fourni
         $id_user = $id_user ?? ($_SESSION['users']->getId_user() ?? null);
@@ -66,7 +67,7 @@ class DetailsManager
 
             // Vérification si les réservations de l'utilisateur existent
             $userBookings = $this->bookingsRepository->findUserBookings($id_user);
-            debug($userBookings);
+            // debug($userBookings);
             if (!$userBookings)
             {
                 // Gère le cas où la réservation n'existe pas
@@ -75,11 +76,9 @@ class DetailsManager
 
 
 
-// modif ici
-            $booking_id = $userBookings->getId_booking();
-debug($booking_id);
              // Vérifiez si le détail existe déjà pour ce booking_id
              $existingDetail = $this->detailsRepository->findDetailByBookingId($userBookings->getId_booking());
+        debug($existingDetail);
              if ($existingDetail !== null) {
                  // Si le détail existe déjà, retournez-le
                  return $existingDetail;
@@ -88,15 +87,18 @@ debug($booking_id);
 
             
             // Création d'un nouvel objet Detail
-            $details = new Details();
+            // $details = new Details();
+            if (empty($errors)) 
+            {   
             // Assignation des propriétés de l'objet Detail
             $details->setBooking_id($userBookings->getId_booking());
             $details->setRoom_id($room_id);
-            debug($details);
             $details->setBooking_start_date($bookingStartDate);
             $details->setBooking_end_date($bookingEndDate);
             $details->setBooking_price($totalPrice);
-
+debug($details);
+            return true;
+            }
 
             // Insertion des détails dans la base de données
             $success = $this->detailsRepository->insertDetail($details);
