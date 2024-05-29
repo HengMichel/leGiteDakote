@@ -59,7 +59,7 @@ class DetailsManager
                 }
             }
             // Vérifiez si le panier est vide
-        if (!$booking_id) {
+        if (!$item) {
             // Gérer le cas où le panier est vide
             return false;
         }
@@ -67,7 +67,7 @@ class DetailsManager
 
             // Vérification si les réservations de l'utilisateur existent
             $userBookings = $this->bookingsRepository->findUserBookings($id_user);
-            // debug($userBookings);
+        debug($userBookings);
             if (!$userBookings)
             {
                 // Gère le cas où la réservation n'existe pas

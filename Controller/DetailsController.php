@@ -61,24 +61,19 @@ echo "Utilisateur identifié : $id_user"; // Point de débogage
  
        
  
-        // Créer les détails
-        $details = $this->details;$this->detailsManager->createDetail($details);
-    // debug($details);  
+        // Créer les détails a la bdd
+        $booking_id = $this->detailsManager->createDetail($this->details);
+    debug($booking_id );  
         
+           
 
-        // Vérifie si les détails ont été créés avec succès avant de les passer à la vue
-        if ($details ) 
-        {
-            // modif ici
-
-            // $details = $this->detailsRepository->findDetailByRoomId($room_id);
-            $details = $this->detailsRepository->findDetailByBookingId($rooms);
+            $this->detailsRepository->findDetailByBookingId($booking_id);
 
             // debug($details);
-            if ($details !== null) 
+            if ($booking_id !== null) 
             {
                 return $this->render("details/form_details2.php", [
-                    "details" => $details,
+                    "details" => $booking_id,
                     "h1" => "Facture"
                 ]);  
             } else {
@@ -92,13 +87,5 @@ echo "Utilisateur identifié : $id_user"; // Point de débogage
        
     }
 
-    // public function newDetail2()
-    // {
-    //     $details = $this->detailsRepository->findDetail($this->details);
-    //     return $this->render("details/form_details2.php", [
-    //         "details" => $details,
-    //         "h1" => "Facture"
-    //     ]);  
-
-    // }
-}
+  
+// }

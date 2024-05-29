@@ -47,7 +47,7 @@ class BookingsController extends BaseController
         {            
             // Ajoute la réservation à la base de données
             $id_booking = $this->bookingsRepository->addBookings($this->bookings);
-    debug($id_booking);
+    // debug($id_booking);
             if ($id_booking) 
             {
                 // Save booking ID in session for later use
