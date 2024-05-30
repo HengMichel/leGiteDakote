@@ -29,12 +29,12 @@
                 </td>
                 <td class="booking_end_date mt-2 fw-medium col-2 align-middle fs-5 text-center fw-semibold">
                 <?= date_format(date_create($details['booking_end_date']), 'd.m.Y'); 
-                // d_die($details);
+                d_die($details);
                 ?>
                 </td>
                 <td class="price border-primary border-4 mt-2 fw-bolder link-primary  col-2 align-middle fs-5 text-center fw-semibold">
                     <?= isset($_SESSION["totalPrice"]) ? number_format($_SESSION["totalPrice"], 2) : '0.00';
-                    // d_die($details);
+                    debug($details);
                     // debug($_SESSION);
                     ?>                 
                 </td>

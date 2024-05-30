@@ -77,6 +77,19 @@ class DetailsRepository extends BaseRepository
         }
     }
 
+
+    // Méthode pour convertir un tableau en objet ici pour Details
+    public function arrayToDetails(array $data): Details
+    {
+        $details = new Details();
+        $details->setId_detail($data['id_detail']);
+        $details->setRoom_id($data['room_id']);
+        $details->setBooking_id($data['booking_id']);
+        $details->setBooking_start_date($data['booking_start_date']);
+        $details->setBooking_end_date($data['booking_end_date']);
+        return $details;
+    }
+
     public function findDetailByBookingId($id)
     {
         // PROBleme ici id = room_id
@@ -84,9 +97,9 @@ class DetailsRepository extends BaseRepository
         $request = $this->dbConnection->prepare("SELECT * FROM details WHERE booking_id = :booking_id");
         $request->bindParam(':booking_id', $id , \PDO::PARAM_INT);
         $request->execute();
-// debug($request);
-        return $request->fetch(\PDO::FETCH_ASSOC);
-        
+        // debug($request);
+        $data = $request->fetch(\PDO::FETCH_ASSOC);
+        return $data ? $this->arrayToDetails($data) : null;
     }
     
     public function findDetailByRoomId($id)
@@ -96,8 +109,6 @@ class DetailsRepository extends BaseRepository
         $request->bindParam(':room_id', $id , \PDO::PARAM_INT);
         $request->execute();
         return $request->fetch(\PDO::FETCH_ASSOC);
-
-       
     }
 
     public function findDetail(Details $details)

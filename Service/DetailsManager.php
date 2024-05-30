@@ -8,7 +8,6 @@ use Model\Repository\BookingsRepository;
 
 class DetailsManager
 {
-
     private DetailsRepository $detailsRepository;
     private BookingsRepository $bookingsRepository;
 
@@ -18,7 +17,6 @@ class DetailsManager
         $this->bookingsRepository = new BookingsRepository;
     }
 
-    // public function createDetail($id_user, $booking_id)
     public function createDetail(Details $details)
     {
         // Récupération de l'identifiant de l'utilisateur à partir de la session si non fourni
@@ -30,101 +28,76 @@ class DetailsManager
             // Initialisation des variables pour les détails de la réservation
             $bookingStartDate = null;
             $bookingEndDate = null;
-            $booking_id = null;
             $room_id = null;
             $totalPrice = null;
-            // debug($_SESSION);
+        // debug($_SESSION);
 
             // Parcours des éléments de la session 'cart'
             foreach ($_SESSION['cart'] as $item) 
-            {
-                // Récupération des données nécessaires pour les détails de la réservation
-                if (isset($item['date_debut'])) 
+            {  
+                if (isset($item['date_debut'])) $bookingStartDate = $item['date_debut'];
+                if (isset($item['date_fin'])) $bookingEndDate = $item['date_fin'];
+                if (isset($item['totalPrice'])) $totalPrice = $item['totalPrice'];
+                if (isset($item['room']) && is_object($item['room']) && method_exists($item['room'], 'getId_room')) 
                 {
-                    $bookingStartDate = $item['date_debut'];
-                }
-                if (isset($item['date_fin'])) 
-                {
-                    $bookingEndDate = $item['date_fin'];
-                }
-                if (isset($item['totalPrice'])) 
-                {
-                    $totalPrice = $item['totalPrice'];
-                }
-                if (isset($item['room']) && is_object($item['room']) && method_exists($item['room'], 'getId_room')) {
                     $room_id = $item['room']->getId_room();
-                    // Sortie de la boucle dès qu'on trouve la valeur de id_room
-                    break;
- 
+                    // break;
                 }
             }
+
             // Vérifiez si le panier est vide
-        if (!$item) {
-            // Gérer le cas où le panier est vide
-            return false;
-        }
-            // debug($room_id);
+            if (!$item) 
+            {
+                // Gérer le cas où le panier est vide
+                return false;
+            }
+            // ici bonne valeurs et je dois les recuperer afin de las afficher
+        debug($item);
 
             // Vérification si les réservations de l'utilisateur existent
             $userBookings = $this->bookingsRepository->findUserBookings($id_user);
-        debug($userBookings);
-            if (!$userBookings)
+// resultat inconnu valeur ancien 
+// debug($userBookings);
+            // if (!$userBookings)
             {
                 // Gère le cas où la réservation n'existe pas
-                return false;
+                // return false;
             }
+            if ($userBookings && $userBookings->getBooking_state() != 'cancel')
+            {
+                // Si la réservation existe et n'est pas annulée, utiliser cette réservation
+                $booking_id = $userBookings->getId_booking();
+            }
+           
 
 
-
-             // Vérifiez si le détail existe déjà pour ce booking_id
-             $existingDetail = $this->detailsRepository->findDetailByBookingId($userBookings->getId_booking());
-        debug($existingDetail);
-             if ($existingDetail !== null) {
-                 // Si le détail existe déjà, retournez-le
-                 return $existingDetail;
-             }
-// ###################
-
-            
-            // Création d'un nouvel objet Detail
-            // $details = new Details();
-            if (empty($errors)) 
-            {   
+            // Vérifiez si le détail existe déjà pour ce booking_id
+            $existingDetail = $this->detailsRepository->findDetailByBookingId($userBookings->getId_booking());
+            // debug($existingDetail);
+            if ($existingDetail !== null) 
+            {
+                // Si le détail existe déjà, retournez-le
+                return $existingDetail;
+            }
+         
             // Assignation des propriétés de l'objet Detail
             $details->setBooking_id($userBookings->getId_booking());
             $details->setRoom_id($room_id);
             $details->setBooking_start_date($bookingStartDate);
             $details->setBooking_end_date($bookingEndDate);
             $details->setBooking_price($totalPrice);
-debug($details);
-            return true;
-            }
+        debug($details);
 
             // Insertion des détails dans la base de données
             $success = $this->detailsRepository->insertDetail($details);
 
             if ($success) 
             {
-                // Récupération des détails créés dans la base de données en utilisant l'identifiant de réservation
-                $createdDetails = $this->detailsRepository->findDetailByBookingId($details->getBooking_id());
-            // debug($createdDetails);
-                if ($createdDetails) 
-                {
-                    // Retourne les détails créés avec succès
-                    return $createdDetails;
-                } else 
-                {
-                    // Impossible de récupérer les détails
-                    return false;
-                }
-            } else 
-            {
-                // Gestion de l'échec de l'insertion dans la base de données
-                return false;
+                return $this->detailsRepository->findDetailByBookingId($details->getBooking_id());
             }
         } else 
         {
-            // Données de session 'cart' non trouvées ou au mauvais format
+            // Gestion de l'échec de l'insertion dans la base de données
             return false;
         }
     }

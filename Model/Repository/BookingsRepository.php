@@ -44,7 +44,8 @@ class BookingsRepository extends BaseRepository
 
     public function findUserBookings($id)
     {
-        debug($id);
+        // affiche bien la valeur de user_id
+        // debug($id);
         $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id");
         $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
         // Affiche la requête SQL pour le débogage

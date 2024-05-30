@@ -89,7 +89,6 @@ class CartManager
                 }
             }
            
-
             if (!$roomDejaDanscart) 
             {
                 $cart[] = 

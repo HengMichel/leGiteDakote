@@ -6,6 +6,7 @@ $totalPrice = 0.0;
 <!-- Affichage du contenu du detail -->
 <div class="container5 link-light fw-medium mt-3">
     <form action="<?= addLink("bookings","newBookings") ?>" method="post">
+    <!-- Champs cachés pour les données supplémentaires -->
         <input type="hidden" name="booking_state" value="in progress">
         <table class="table table-hover mt-5 container ">
             <thead>     
