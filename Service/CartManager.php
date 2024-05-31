@@ -19,7 +19,7 @@ class CartManager
     public function addCart($id)
     {
         // d_die($_SESSION);
-        // d_die($_POST);
+    // debug($_POST);
         if(isset($_POST['passerLaCommande'])) 
         {
             extract($_POST);
@@ -28,8 +28,8 @@ class CartManager
             // d_die($quantity);
             $pr = $this->roomsRepository;
             /** @var Rooms */
-            $room = $pr->findRoomsById($id);
-
+            // $room = $pr->findRoomsById($id);
+    // debug($room);
             // Vérifie si les dates sont valides
             $today = new DateTime();
             // Doit être une variable de type string contenant une date valide

@@ -23,7 +23,7 @@ $totalPrice = 0.0;
                 // Vérifie si $detail est défini et s'il contient des éléments
                 if (!empty($_SESSION['cart'])) 
                 {
-                    // debug($_SESSION['cart']);
+                    debug($_SESSION['cart']);
                     foreach($_SESSION['cart'] as $reservation)
                     {
                         // d_die($reservation);

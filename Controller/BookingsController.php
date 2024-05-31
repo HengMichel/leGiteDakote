@@ -35,9 +35,9 @@ class BookingsController extends BaseController
         // Récupère l'utilisateur connecté
         $user = Session::getConnectedUser();
     // debug($user);
-        // debug($_SESSION);
+    // debug($_SESSION);
         $user_id = $user instanceof Users ? $user->getId_user() : null;
-    debug($user_id);
+    // debug($user_id);
 
         // Gère le formulaire de réservation
         $this->form->handleForm($this->bookings, $user_id);
@@ -55,14 +55,13 @@ class BookingsController extends BaseController
                 $_SESSION['booking_id'] = $id_booking;
 
                 return redirection(addLink("details","newDetail"));
+                exit();
             } else 
             {
                 // Gestion d'une éventuelle erreur lors de l'ajout de la réservation
                 $errors = ["Une erreur s'est produite lors de l'ajout de la réservation."];
     // debug($errors); // Débogage des erreurs
-
-            }
-        
+            }  
         }
         
         // Récupère les erreurs du formulaire

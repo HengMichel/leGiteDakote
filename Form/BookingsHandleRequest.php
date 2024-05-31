@@ -25,7 +25,9 @@ class BookingsHandleRequest extends BaseHandleRequest
         // d_die($_SESSION);
         // d_die($_POST); 
         // Vérifie si le formulaire est soumis et utilise $user_id pour définir la propriété user_id de l'objet Bookings
-        if (isset($_POST['book']) && $user_id !== null) 
+        // if (isset($_POST['book']) && $user_id !== null) 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book']) && $user_id !== null) 
+
         {
             extract($_POST);
             $errors = [];

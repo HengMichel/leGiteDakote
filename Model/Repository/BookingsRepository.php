@@ -9,7 +9,7 @@ class BookingsRepository extends BaseRepository
 {
     public function addBookings(Bookings $bookings)
     {
-        // d_die($bookings);
+        // debug($bookings);
         $sql = "INSERT INTO bookings (user_id, booking_price, booking_state) VALUES ( :user_id, :booking_price, :booking_state)";
         // Utilisation d'un bloc try-catch pour gérer les exceptions PDO
         try 
@@ -54,7 +54,28 @@ class BookingsRepository extends BaseRepository
         {
             // Utilise fetchObject pour récupérer un objet de la classe Bookings
             $results = $request->fetchObject("Model\Entity\Bookings");
-            // var_dump($results);
+        // var_dump($results);
+            return $results;
+        } else 
+        {
+            return null;
+        }
+    }
+
+    // dois trouver la derniere reservation de l'utilisateur 
+    public function findUserLastBookings($id)
+    {
+        // affiche bien la valeur de user_id
+        // debug($id);
+        $request = $this->dbConnection->prepare("SELECT * FROM bookings WHERE user_id = :user_id ORDER BY id_booking DESC LIMIT 1");
+        $request->bindParam(":user_id", $id, \PDO::PARAM_INT);
+        // Affiche la requête SQL pour le débogage
+        // var_dump($request->queryString);
+        if ($request->execute()) 
+        {
+            // Utilise fetchObject pour récupérer un objet de la classe Bookings
+            $results = $request->fetchObject("Model\Entity\Bookings");
+        // var_dump($results);
             return $results;
         } else 
         {
