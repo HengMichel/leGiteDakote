@@ -4,7 +4,7 @@ namespace Service;
 
 use DateTime;
 use Model\Entity\Rooms;
-use Model\Entity\Details;
+// use Model\Entity\Details;
 use Model\Repository\RoomsRepository;
 
 class CartManager
@@ -28,7 +28,7 @@ class CartManager
             // d_die($quantity);
             $pr = $this->roomsRepository;
             /** @var Rooms */
-            // $room = $pr->findRoomsById($id);
+            $room = $pr->findRoomsById($id);
     // debug($room);
             // Vérifie si les dates sont valides
             $today = new DateTime();

@@ -102,15 +102,14 @@ class DetailsRepository extends BaseRepository
     //     return $data ? $this->arrayToDetails($data) : null;
     // }
     public function findDetailByBookingId($bookingId)
-{
-    $sql = "SELECT * FROM details WHERE booking_id = :booking_id";
-    $request = $this->dbConnection->prepare($sql);
-    $request->bindParam(":booking_id", $bookingId, \PDO::PARAM_INT);
-    $request->execute();
-    return $request->fetchObject("Model\Entity\Details");
-}
+    {
+        $sql = "SELECT * FROM details WHERE booking_id = :booking_id";
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindParam(":booking_id", $bookingId, \PDO::PARAM_INT);
+        $request->execute();
+        return $request->fetchObject("Model\Entity\Details");
+    }
 
-    
     public function findDetailByRoomId($id)
     {
         // debug($id);

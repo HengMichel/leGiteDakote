@@ -32,7 +32,7 @@ class BookingsRepository extends BaseRepository
         }
     }
 
-// préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
+    // préparation de la requête pour vérifier si la chambre est dispo entre la date de départ et la date de fin
     public function findBookings(Bookings $bookings)
     {
         $sql = "SELECT * FROM bookings WHERE id_booking = :id_booking";

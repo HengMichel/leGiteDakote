@@ -49,4 +49,12 @@
         </tbody>
     </table>
 </div>
+<?php
+// Supprimer les variables de session spécifiques à la facture
+$sessionKeysToUnset = ['totalPrice','cart','room_id'];
 
+foreach ($sessionKeysToUnset as $key) 
+{
+    unset($_SESSION[$key]);
+}
+?>
