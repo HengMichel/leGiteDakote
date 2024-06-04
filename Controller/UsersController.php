@@ -11,7 +11,6 @@ class UsersController extends BaseController
 {   
     // ##### les propriétées #####
     private $usersRepository;
-    // private $bookingsRepository;
     private $form;
     private $users;
     // ###########################

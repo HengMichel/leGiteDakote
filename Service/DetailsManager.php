@@ -19,7 +19,7 @@ class DetailsManager
 
    
 
- public function createDetail($id_user,$bookings)
+    public function createDetail($id_user,$bookings)
     {
         // d_die($id_user);
         // Vérification de l'existence de la session et initialisation des variables

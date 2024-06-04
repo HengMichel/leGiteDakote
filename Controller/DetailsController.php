@@ -25,7 +25,6 @@ class DetailsController extends BaseController
         // Récupérer l'identifiant de l'utilisateur à partir de la session ou d'où il est disponible
         $id_user = $_SESSION['users']->getId_user() ?? null;
         // debug($id_user);
-        // echo "Utilisateur identifié : $id_user"; // Point de débogage
 
         // Récupérer les réservations de l'utilisateur à partir de la session
         $bookings = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
@@ -65,31 +64,6 @@ class DetailsController extends BaseController
             ]);
         } 
     } 
-
-    public function confirmation()
-    {
-        // Récupérer l'ID de la dernière réservation depuis la session
-        $lastBookingId = $_SESSION['last_booking_id'] ?? null;
-
-        if ($lastBookingId) 
-        {
-            // Récupérer les détails de la réservation en utilisant l'ID de réservation
-            $bookingDetails = $this->detailsRepository->findDetailByBookingId($lastBookingId);
-
-            return $this->render("details/confirmation.php", [
-                "details" => $bookingDetails,
-                "h1" => "Confirmation de réservation"
-            ]);
-        } 
-        else 
-        {
-            return $this->render("details/confirmation.php", [
-                "details" => null,
-                "h1" => "Aucune réservation trouvée"
-            ]);
-        }
-    }
-
 }
 
   

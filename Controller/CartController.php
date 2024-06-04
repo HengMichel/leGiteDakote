@@ -2,25 +2,18 @@
 
 namespace Controller;
 
-use Model\Entity\Rooms;
 use Model\Entity\Details;
 use Service\CartManager;
-use Model\Repository\RoomsRepository;
 use Model\Repository\DetailsRepository;
 
 class CartController extends BaseController
 {
-    private $roomsRepository;
     private $detailsRepository;
-    // private $form;
-    private $rooms;
     private $details;
 
     public function __construct()
     {
         $this->detailsRepository = new DetailsRepository;
-        $this->roomsRepository = new RoomsRepository;
-        $this->rooms = new Rooms;
         $this->details = new Details;
     }
     /**

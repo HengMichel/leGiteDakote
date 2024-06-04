@@ -36,8 +36,6 @@ class RoomsController extends BaseController
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
-            // testpour verifier qui est le premier
-            // debug('RoomsController: Calling findRoomsById with id:', $id);
 
             // Récupère les réservations pour cette chambre
             $details = $this->detailsRepository->findDetailByBookingId($id);
