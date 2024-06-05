@@ -2,12 +2,9 @@
 namespace Form;
 
 use Model\Entity\Bookings;
-use Model\Repository\BookingsRepository;
 
 class BookingsHandleRequest extends BaseHandleRequest
 {
-    private $bookingsRepository;
-
     const START_DATE = 'booking_start_date';
     const END_DATE = 'booking_end_date';
     const USER_ID = 'user_id';
@@ -15,17 +12,12 @@ class BookingsHandleRequest extends BaseHandleRequest
     // type string
     const PRICE = 'price';
     // ####################
-    public function __construct()
-    {
-        $this->bookingsRepository = new BookingsRepository;
-    }
 
     public function handleForm(Bookings $bookings, $user_id)
     {
         // d_die($_SESSION);
         // d_die($_POST); 
         // Vérifie si le formulaire est soumis et utilise $user_id pour définir la propriété user_id de l'objet Bookings
-        // if (isset($_POST['book']) && $user_id !== null) 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book']) && $user_id !== null) 
 
         {

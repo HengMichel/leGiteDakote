@@ -127,4 +127,34 @@ class DetailsRepository extends BaseRepository
         $request->execute();
         return $request->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function findDetailByRoomAndDate($attributes = [])
+    {
+        if (!is_array($attributes)) 
+        {
+            // Retourne false si le tableau d'attributs est vide ou incorrect.
+            return false; 
+        }
+    
+        $sql = "SELECT * FROM details WHERE room_id = :room_id AND booking_start_date <= :booking_end_date AND booking_end_date >= :booking_start_date";
+
+        
+        $request = $this->dbConnection->prepare($sql);
+        $request->bindValue(":room_id", $attributes['room_id']);
+        $request->bindValue(":booking_start_date", $attributes['booking_start_date']);
+        $request->bindValue(":booking_end_date", $attributes['booking_end_date']);
+        
+        try
+        {
+            $request->execute();
+            return $request->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch (\PDOException $exception)
+        {
+            echo "Erreur de connexion : " . $exception->getMessage();
+            return false;
+        }
+    }
+    
+    
 }

@@ -14,6 +14,7 @@ class UsersController extends BaseController
     private $form;
     private $users;
     // ###########################
+
     public function __construct()
     {
         $this->usersRepository = new UsersRepository;
@@ -25,11 +26,13 @@ class UsersController extends BaseController
     {
         $users = $this->users;
         $this->form->handleForm($users);
+
         if ($this->form->isSubmitted() && $this->form->isValid()) 
         {
             $this->usersRepository->addUsers($users);
             return redirection(addLink("users","login"));
         }
+
         $errors = $this->form->getEerrorsForm();
         return $this->render("users/form_users.php", [
             "h1" => "Inscription",
@@ -66,6 +69,7 @@ class UsersController extends BaseController
             "errors" => $errors
             ]);
     }
+
     public function editUser($id)
     {
         // Récupérer les modifications du profil à partir de l'identifiant $id
@@ -77,6 +81,7 @@ class UsersController extends BaseController
             "users" => $users
         ]);
     }
+
     public function updateUser($id)
     {
         $users = $this->usersRepository->findUsersById($id);

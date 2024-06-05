@@ -64,19 +64,19 @@ class CartController extends BaseController
             $id = intval($id); 
             // d_die($id);  
             // Instancie la classe DetailsRepository pour interagir avec la base de données
-            $d = new DetailsRepository;
+            $d = $this->detailsRepository ;
             // Appele de la méthode findDetailByBookingId pour récupérer les informations de la chambre par son ID
             $id = $d->findDetailByBookingId($id);
             //  debug($id);  
             // Vérifie si la chambre existe
-            if (empty($details)) 
+            if (empty($this->details)) 
             {
                 $this->setMessage("danger",  "Le produit N° $id n'existe pas");
                 redirection(addLink("home"));
             }
             // Affiche la vue de détails de la chambre avec les informations récupérées
             $this->render("cart/form_cart.php", [
-            "detail" => $details,
+            "detail" => $this->details,
             "h1" => "Fiche de la chambre"
             ]);
         } else 

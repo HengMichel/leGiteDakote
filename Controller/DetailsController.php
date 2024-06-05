@@ -4,17 +4,14 @@ namespace Controller;
 
 use Service\DetailsManager;
 use Controller\BaseController;
-use Model\Repository\DetailsRepository;
 
 class DetailsController extends BaseController
 {
     private $detailsManager;
-    private $detailsRepository;
 
     public function __construct()
     {
         $this->detailsManager = new DetailsManager;
-        $this->detailsRepository = new DetailsRepository;
     }
 
     public function newDetail()
@@ -41,7 +38,7 @@ class DetailsController extends BaseController
        
         // Créer détails dans la bdd
         $createdDetails = $this->detailsManager->createDetail($id_user,$bookings);
-// debug($createdDetails);  
+        // debug($createdDetails);  
 
         if ($createdDetails !== null) 
         {
