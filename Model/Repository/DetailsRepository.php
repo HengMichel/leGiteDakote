@@ -136,14 +136,14 @@ class DetailsRepository extends BaseRepository
             return false; 
         }
     
-        $sql = "SELECT * FROM details WHERE room_id = :room_id AND booking_start_date <= :booking_end_date AND booking_end_date >= :booking_start_date";
-
-        
+        $sql = "SELECT * FROM details WHERE room_id = :room_id AND 
+                (booking_start_date <= :booking_end_date AND booking_end_date >= :booking_start_date)";
+    
         $request = $this->dbConnection->prepare($sql);
-        $request->bindValue(":room_id", $attributes['room_id']);
-        $request->bindValue(":booking_start_date", $attributes['booking_start_date']);
-        $request->bindValue(":booking_end_date", $attributes['booking_end_date']);
-        
+        $request->bindValue(":room_id", $attributes['room_id'], \PDO::PARAM_INT);
+        $request->bindValue(":booking_start_date", $attributes['booking_start_date'], \PDO::PARAM_STR);
+        $request->bindValue(":booking_end_date", $attributes['booking_end_date'], \PDO::PARAM_STR);
+    
         try
         {
             $request->execute();
@@ -151,10 +151,11 @@ class DetailsRepository extends BaseRepository
         }
         catch (\PDOException $exception)
         {
-            echo "Erreur de connexion : " . $exception->getMessage();
+            echo "Erreur la chambre n'est pas disponible à ces dates : " . $exception->getMessage();
             return false;
         }
     }
+
     
     
 }

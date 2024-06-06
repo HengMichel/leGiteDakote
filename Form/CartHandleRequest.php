@@ -34,75 +34,22 @@ class CartHandleRequest extends BaseHandleRequest
             $duration = strtotime($booking_end_date) - strtotime($booking_start_date);
             // Nombre de secondes dans une journée
             $nbDays = $duration / 86400; 
-        // }
+        }
         // date du jour
-        // $todayDate = time();
-        // Vérification de la validité du formulaire
-        if (empty($booking_start_date)) 
-        {
-            $errors[] = "La date de début ne peut pas être vide";
-        }
-        if (empty($booking_end_date)) 
-        {
-            $errors[] = "La date de fin ne peut pas être vide";
-        }
+        $todayDate = time();
 
-
-        // Vérifier si les dates de réservation sont dans le passé
-        $todayDate = date("Y-m-d");
-        if (strtotime($booking_start_date) < strtotime($todayDate) || strtotime($booking_end_date) < strtotime($todayDate)) 
-        {
-            $errors[] = "Votre date de début ou de fin de réservation ne peut pas être inférieure à la date d'aujourd'hui";
-        }
-
-
-
+        // Si aucune erreur, définir les propriétés de l'entité
         if (empty($errors)) 
-        {
-        // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
-        // $request = $this->detailsRepository->findByAttributes($details,
-        // [self::START_DATE => $booking_start_date,self::END_DATE => $booking_end_date,self::ROOM_ID => $_POST[self::ROOM_ID]
-        // ]);
-        $request = $this->detailsRepository->findDetailByRoomAndDate([
-            'room_id' => $_POST[self::ROOM_ID],
-            'booking_start_date' => $booking_start_date,
-            'booking_end_date' => $booking_end_date,
-        ]);
-
-        if (!empty($request)) 
-        {
-            $errors[] = "La chambre n'est pas disponible pour cette période";
+        {             
+            $details->setRoom_id($_POST[self::ROOM_ID]);
+            $details->setBooking_id($_POST[self::BOOKING_ID]);
+            $details->setBooking_start_date($booking_start_date);
+            $details->setBooking_end_date($booking_end_date);
+            // d_die($details); 
+            return true;
         }
-        }
-
-        // si $today est > a la date de début de réservation ou $today est > à la date de fin de réservation  
-        // if (strtotime($today) > strtotime($_POST[self::START_DATE]) || strtotime($today) > strtotime($_POST[self::END_DATE])) 
-        // {
-        //     if ($todayDate > $_POST[self::START_DATE] || $todayDate > $_POST[self::END_DATE]) 
-        //     {
-        //         $errors[] = "votre date de début ou de fin de réservation ne peut pas être inférieur à la date d'aujourd'hui";
-        //     } 
-            // Si aucune erreur, définir les propriétés de l'entité
-            if (empty($errors)) 
-            {             
-                $details->setRoom_id($_POST[self::ROOM_ID]);
-                $details->setBooking_id($_POST[self::BOOKING_ID]);
-                $details->setBooking_start_date($booking_start_date);
-                $details->setBooking_end_date($booking_end_date);
-                // d_die($details); 
-                return true;
-            }
-            else 
-            {
-                // Gérer les erreurs
-                $this->setEerrorsForm($errors);
-            }
-        } 
-        else 
-        {
-            // Gère les erreurs
-            $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";    
-            $this->setEerrorsForm($errors);
-        }
+        // Gère les erreurs
+        $this->setEerrorsForm($errors);
+        $errors[] = "Des données obligatoires sont manquantes dans le formulaire.";      
     }
 }

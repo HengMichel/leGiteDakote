@@ -4,16 +4,18 @@ namespace Service;
 
 use DateTime;
 use Model\Entity\Rooms;
-// use Model\Entity\Details;
 use Model\Repository\RoomsRepository;
+use Model\Repository\DetailsRepository;
 
 class CartManager
 {
     private RoomsRepository $roomsRepository;
+    private DetailsRepository $detailsRepository;
 
     public function __construct()
     {
         $this->roomsRepository = new RoomsRepository;
+        $this->detailsRepository = new DetailsRepository;
     }
 
     public function addCart($id)
@@ -45,7 +47,20 @@ class CartManager
             {
                 throw new \Exception("La date de fin de réservation ne peut pas être antérieure à la date de début de réservation.");
             }
-            
+
+            // Est-ce que room_id ,booking_start_date et booking_end_date existe déjà dans la bdd ?
+            $request = $this->detailsRepository->findDetailByRoomAndDate([
+                'room_id' => $room->getId_room(),
+                'booking_start_date' => $bookingStartDate->format('Y-m-d'),
+                'booking_end_date' => $bookingEndDate->format('Y-m-d')
+            ]);
+
+            if ($request) 
+            {
+                throw new \Exception("La chambre n'est pas disponible pour cette période");
+            }
+       
+
             // Calcule la différence de dates
             $diff = $bookingStartDate->diff($bookingEndDate);
             // d_die($diff);
@@ -58,6 +73,7 @@ class CartManager
             {
                 throw new \Exception("La date de fin de réservation ne peut pas être antérieure ou égale à la date de début de réservation.");
             }
+
             // Calcule le prix total en fonction du nombre de jours de réservation et de la quantité
             $totalPrice = $nbDays * $room->getPrice();
             // d_die($totalPrice);

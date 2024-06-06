@@ -9,7 +9,7 @@ if (session_status() == PHP_SESSION_NONE)
 }
 ?>
 <div class="bgNav container-fluid p-1">
-    <nav class="navbar-expand-lg display-6"> 
+    <nav class="navbar-expand-lg display-6 m-lg-2"> 
         <button type="button" class="btn btn-outline-light  fw-semibold">
             <a class="nav-link active" aria-current="page" href="<?= addLink("home") ?>">
                 <i class="fa fa-home me-1"></i>Accueil
