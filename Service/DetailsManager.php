@@ -17,8 +17,6 @@ class DetailsManager
         $this->bookingsRepository = new BookingsRepository;
     }
 
-   
-
     public function createDetail($id_user,$bookings)
     {
         // d_die($id_user);

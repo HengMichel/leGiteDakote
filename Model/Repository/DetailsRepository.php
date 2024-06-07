@@ -77,7 +77,6 @@ class DetailsRepository extends BaseRepository
         }
     }
 
-
     // Méthode pour convertir un tableau en objet ici pour Details
     public function arrayToDetails(array $data): Details
     {
@@ -154,8 +153,5 @@ class DetailsRepository extends BaseRepository
             echo "Erreur la chambre n'est pas disponible à ces dates : " . $exception->getMessage();
             return false;
         }
-    }
-
-    
-    
+    } 
 }

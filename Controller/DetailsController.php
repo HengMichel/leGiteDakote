@@ -52,7 +52,6 @@ class DetailsController extends BaseController
                 "h1" => "Votre facture"
             ]); 
             exit();
-
         } else 
         {
             return $this->render("details/form_details2.php", [

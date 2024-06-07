@@ -2,17 +2,9 @@
 namespace Form;
 
 use Model\Entity\Rooms;
-use Model\Repository\RoomsRepository;
 
 class RoomsHandleRequest extends BaseHandleRequest
 {
-    private $roomsRepository;
-
-    public function __construct()
-    {
-        $this->roomsRepository  = new RoomsRepository;
-    }
-
     public function RoomsHandleForm(Rooms $rooms)
     {
         // d_die($_POST);

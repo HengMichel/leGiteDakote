@@ -3,21 +3,13 @@
 namespace Form;
 
 use Model\Entity\Details;
-use Model\Repository\DetailsRepository;
 
 class CartHandleRequest extends BaseHandleRequest
 {
-    private $detailsRepository;
-
     const ROOM_ID = 'room_id';
     const BOOKING_ID = 'booking_id';
     const START_DATE = 'booking_start_date';
     const END_DATE = 'booking_end_date';
-
-    public function __construct()
-    {
-        $this->detailsRepository = new DetailsRepository;
-    }
 
     public function handleFormCart(Details $details)
     {
