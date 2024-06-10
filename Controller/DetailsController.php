@@ -46,7 +46,6 @@ class DetailsController extends BaseController
             $_SESSION['last_booking_id'] = $createdDetails->getBooking_id();
 
             // Redirection après l'insertion pour éviter les doubles soumissions
-            // return redirection(addLink("details","confirmation"));
             return $this->render("details/form_details2.php", [
                 "details" => $createdDetails,
                 "h1" => "Votre facture"

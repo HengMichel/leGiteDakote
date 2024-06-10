@@ -7,7 +7,6 @@
                 <th class="price bg-success link-light">Prénom</th>
                 <th class="persons bg-success link-light">Email</th>
                 <th class="category bg-success link-light">Mot de passe</th>
-               
                 <th class="room_state bg-success link-light">Date de naissance</th>
                 <th class="room_state bg-success link-light">Adresse</th>
                 <th class="room_state bg-success link-light">Numéro de téléphone</th>

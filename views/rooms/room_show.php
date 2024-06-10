@@ -2,7 +2,7 @@
 if (isset($_SESSION['error'])) 
 {
     echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
-    // Effacer le message d'erreur de la session après l'avoir affiché
+    // Efface le message d'erreur de la session après l'avoir affiché
     unset($_SESSION['error']); 
 }
 ?>
