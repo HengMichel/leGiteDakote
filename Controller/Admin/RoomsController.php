@@ -1,5 +1,5 @@
 <?php
-namespace Controller\Admin;
+namespace Controller\admin;
 
 use Model\Entity\Rooms;
 use Service\ImageHandler;

@@ -1,5 +1,5 @@
 <?php
-namespace Controller\Admin;
+namespace Controller\admin;
 
 use Controller\BaseController;
 use Model\Entity\Bookings;
