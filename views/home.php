@@ -18,7 +18,8 @@
     </form>
     <div class="d-flex flex-wrap justify-content-around mt-2" id="roomsContainer">
         <?php foreach($roomss as $rooms) : ?>
-        <div class="card mt-5 fa-beat-fade" style="width: 22rem;">
+            <!-- <div class="card mt-5 fa-beat-fade" style="width: 22rem;"> -->
+            <div class="card mt-5 border-0" style="width: 22rem;">
             <div class="img_room">
                 <img src="<?= UPLOAD_CHAMBRES_IMG . $rooms->getRoom_imgs(); ?>" 
                 class="card-img-top" alt="image">

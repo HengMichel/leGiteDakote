@@ -1,6 +1,7 @@
 .bgAllpage 
 {
-  background-image: url("../imgs/background_gite.webp");
+  /* background-image: url("../imgs/background_gite.webp"); */
+  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
